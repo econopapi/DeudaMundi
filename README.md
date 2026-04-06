@@ -70,9 +70,9 @@ Workflow en `.github/workflows/ci.yml` ejecuta:
 
 ## Próximo hito (Fase 0)
 
-- Conectar backend a PostgreSQL/Supabase con SQLAlchemy + Alembic
 - Implementar primer pipeline ETL (World Bank)
-- Definir contrato inicial de endpoints del MVP
+- Definir contratos iniciales de endpoints del MVP de países/rankings
+- Integrar cache Redis por endpoint y estrategia de invalidación base
 
 ---
 
