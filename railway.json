@@ -1,0 +1,4 @@
+{
+  "deprecated": true,
+  "message": "Deployment has moved to VPS/EC2 workflow. Use deploy/vps/systemd/deploy_systemd.sh"
+}

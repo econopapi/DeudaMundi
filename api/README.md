@@ -68,6 +68,113 @@ Se incorporó cache-aside con Redis para:
 - Rate limiting migrado a **Slowapi** con límite configurable por `RATE_LIMIT_REQUESTS_PER_MINUTE`.
 - Se conserva el comportamiento de respuesta `429` con `{"detail": "Rate limit exceeded"}`.
 
+## Semana 5 (iteración 2)
+
+- Configuración de despliegue backend orientada a **VPS Linux / AWS EC2**:
+	- `deploy/vps/systemd/deudamundi-api.service.template`
+	- `deploy/vps/systemd/deploy_systemd.sh`
+	- `deploy/vps/systemd/nginx.deudamundi-api.conf`
+	- Script de arranque productivo: `api/scripts/start_api.sh`
+	- Ejecuta `alembic upgrade head` al iniciar (controlado por `RUN_MIGRATIONS=true|false`).
+
+### Variables mínimas de producción
+
+- `APP_ENV=production`
+- `API_V1_PREFIX=/api/v1`
+- `SUPABASE_DATABASE_URL=<connection string>`
+- `REDIS_URL=<redis connection string>`
+- `CORS_ALLOWED_ORIGINS=<origins separados por coma>`
+- `RATE_LIMIT_REQUESTS_PER_MINUTE=<int>`
+- `SECURITY_HSTS_ENABLED=true`
+- `ADMIN_API_KEY=<secret>`
+- `RUN_MIGRATIONS=true`
+
+### Notas Supabase (producción)
+
+- La app y Alembic priorizan `SUPABASE_DATABASE_URL` sobre `DATABASE_URL`.
+- Si usas pooler de Supabase, asegúrate de usar SSL y credenciales de rol con permisos de migración para el despliegue.
+
+## Tutorial rápido: despliegue en VPS Linux (AWS EC2)
+
+### 1) Preparar servidor
+
+- Requisitos:
+	- Ubuntu 22.04+
+	- puertos abiertos: `22`, `80`, `443`
+	- Python 3.12+, `python3-venv`, Nginx, Certbot
+	- Redis local (o externo administrado)
+
+### 2) Clonar proyecto y preparar entorno
+
+Desde tu servidor:
+
+```bash
+cd /home/admin/apps
+git clone <TU_REPO_GIT> deudamundi
+cd deudamundi
+
+cp api/.env.example api/.env
+nano api/.env
+```
+
+Variables críticas a completar en `api/.env`:
+
+- `SUPABASE_DATABASE_URL`
+- `ADMIN_API_KEY`
+- `CORS_ALLOWED_ORIGINS`
+- `REDIS_URL` (ejemplo local: `redis://localhost:6379/0`)
+
+### 3) Instalar Redis (si no lo tienes)
+
+```bash
+sudo apt update
+sudo apt install -y redis-server
+sudo systemctl enable --now redis-server
+redis-cli ping
+```
+
+### 4) Instalar/actualizar servicio systemd
+
+```bash
+cd /home/admin/apps/deudamundi
+chmod +x deploy/vps/systemd/deploy_systemd.sh
+APP_DIR=/home/admin/apps/deudamundi \
+SERVICE_NAME=deudamundi-api \
+SERVICE_USER=admin \
+SERVICE_GROUP=admin \
+SERVICE_PORT=8000 \
+UVICORN_WORKERS=2 \
+./deploy/vps/systemd/deploy_systemd.sh
+```
+
+### 5) Configurar Nginx reverse proxy
+
+```bash
+sudo cp deploy/vps/systemd/nginx.deudamundi-api.conf /etc/nginx/sites-available/deudamundi-api
+sudo ln -s /etc/nginx/sites-available/deudamundi-api /etc/nginx/sites-enabled/deudamundi-api
+sudo nginx -t
+sudo systemctl reload nginx
+```
+
+Edita `server_name` en el archivo Nginx con tu dominio real (ej. `api.tudominio.com`).
+
+### 6) Habilitar HTTPS (Let's Encrypt)
+
+```bash
+sudo certbot --nginx -d api.tudominio.com
+sudo systemctl status certbot.timer
+```
+
+### 7) Verificación
+
+```bash
+curl -i https://api.tudominio.com/api/v1/health
+sudo systemctl status deudamundi-api --no-pager
+sudo journalctl -u deudamundi-api -n 100 --no-pager
+```
+
+Debe responder `200 OK`.
+
 ## Calidad Fase 1 (iteración 5)
 
 - Pruebas de integración reales para:

@@ -4,13 +4,15 @@ WORKDIR /app
 
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
+ENV PIP_NO_CACHE_DIR=1
 
-COPY pyproject.toml ./
-RUN pip install --no-cache-dir --upgrade pip && \
-    pip install --no-cache-dir -e .[dev]
+COPY pyproject.toml README.md ./
+RUN pip install --upgrade pip && \
+    pip install .
 
 COPY . .
+RUN chmod +x /app/scripts/start_api.sh
 
 EXPOSE 8000
 
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+CMD ["./scripts/start_api.sh"]

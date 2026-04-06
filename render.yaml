@@ -1,0 +1,2 @@
+# deprecated: deployment has moved to VPS/EC2 workflow.
+# use deploy/vps/systemd/deploy_systemd.sh

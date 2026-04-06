@@ -1,0 +1,29 @@
+[Unit]
+Description=DeudaMundi API Service
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=__SERVICE_USER__
+Group=__SERVICE_GROUP__
+WorkingDirectory=__APP_DIR__/api
+EnvironmentFile=__APP_DIR__/api/.env
+Environment=PORT=__SERVICE_PORT__
+
+# Ejecuta migraciones antes de levantar el servidor
+ExecStartPre=__APP_DIR__/api/.venv/bin/alembic upgrade head
+
+ExecStart=__APP_DIR__/api/.venv/bin/uvicorn app.main:app --host 127.0.0.1 --port __SERVICE_PORT__ --workers __UVICORN_WORKERS__
+
+Restart=always
+RestartSec=5
+TimeoutStopSec=30
+KillSignal=SIGTERM
+
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=deudamundi-api
+
+[Install]
+WantedBy=multi-user.target
