@@ -7,6 +7,7 @@ __pycache__/
 *.pyd
 .pytest_cache/
 .coverage
+*.egg-info/
 
 # Virtual environments
 .venv/
