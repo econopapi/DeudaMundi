@@ -1,0 +1,31 @@
+Metadata-Version: 2.4
+Name: deudamundi-api
+Version: 0.1.0
+Summary: Backend API for DeudaMundi (Global Debt Atlas).
+Requires-Python: >=3.12
+Description-Content-Type: text/markdown
+Requires-Dist: fastapi<1.0.0,>=0.115.0
+Requires-Dist: uvicorn[standard]<1.0.0,>=0.30.0
+Requires-Dist: pydantic-settings<3.0.0,>=2.6.0
+Requires-Dist: sqlalchemy<3.0.0,>=2.0.35
+Requires-Dist: psycopg[binary]<4.0.0,>=3.2.1
+Requires-Dist: redis<6.0.0,>=5.0.8
+Provides-Extra: dev
+Requires-Dist: pytest<9.0.0,>=8.3.0; extra == "dev"
+Requires-Dist: pytest-cov<6.0.0,>=5.0.0; extra == "dev"
+Requires-Dist: httpx<1.0.0,>=0.27.0; extra == "dev"
+Requires-Dist: ruff<1.0.0,>=0.6.0; extra == "dev"
+
+# API DeudaMundi
+
+Backend en FastAPI para servir datos del Atlas Global de Deuda.
+
+## Desarrollo local
+
+1. Copia `.env.example` como `.env`.
+2. Instala dependencias con `pip install -e .[dev]`.
+3. Levanta el servidor con `uvicorn app.main:app --reload`.
+
+## Endpoint inicial
+
+- `GET /api/v1/health`
