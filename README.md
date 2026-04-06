@@ -104,7 +104,8 @@ Arranca **Fase 1 — Backend MVP**:
 - Iteración 4 completada: CORS + headers de seguridad + rate limiting básico
 - Iteración 5 completada: pruebas de integración core + índices de optimización
 - Iteración 6 completada: `globe-data` + cache Redis en endpoints de lectura
-- Pendiente: Semana 5 (Slowapi, despliegue y conexión productiva completa)
+- Semana 5 (iteración 1) completada: rate limiting migrado a `Slowapi`
+- Pendiente: deploy (Railway/Render) y conexión productiva completa a Supabase
 
 ---
 
