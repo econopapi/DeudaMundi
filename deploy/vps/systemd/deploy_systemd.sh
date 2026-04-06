@@ -16,7 +16,7 @@ SERVICE_USER="${SERVICE_USER:-admin}"
 SERVICE_GROUP="${SERVICE_GROUP:-admin}"
 SERVICE_PORT="${SERVICE_PORT:-8000}"
 UVICORN_WORKERS="${UVICORN_WORKERS:-2}"
-PYTHON_BIN="${PYTHON_BIN:-python3.12}"
+PYTHON_BIN="${PYTHON_BIN:-python3}"
 
 TEMPLATE_PATH="${APP_DIR}/deploy/vps/systemd/deudamundi-api.service.template"
 RENDERED_PATH="/tmp/${SERVICE_NAME}.service"
@@ -34,7 +34,7 @@ fi
 
 if ! command -v "${PYTHON_BIN}" >/dev/null 2>&1; then
   echo "Python interpreter not found: ${PYTHON_BIN}"
-  echo "Tip: install Python 3.12 and rerun with PYTHON_BIN=python3.12"
+  echo "Tip: install Python >= 3.12 and rerun with PYTHON_BIN=python3"
   exit 1
 fi
 

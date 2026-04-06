@@ -179,19 +179,20 @@ Debe responder `200 OK`.
 
 Si aparece ese error en EC2, tu `.venv` se creó con Python 3.10. Solución:
 
+**Debian 12/13 (bookworm/trixie):**
+
 ```bash
 sudo apt update
-sudo apt install -y software-properties-common
-sudo add-apt-repository ppa:deadsnakes/ppa -y
-sudo apt update
-sudo apt install -y python3.12 python3.12-venv
+sudo apt install -y python3 python3-venv
 
 cd /home/admin/apps/deudamundi/api
 rm -rf .venv
 
 cd /home/admin/apps/deudamundi
-PYTHON_BIN=python3.12 APP_DIR=/home/admin/apps/deudamundi ./deploy/vps/systemd/deploy_systemd.sh
+PYTHON_BIN=python3 APP_DIR=/home/admin/apps/deudamundi ./deploy/vps/systemd/deploy_systemd.sh
 ```
+
+**Ubuntu 22.04 (si `python3` < 3.12):** usa `python3.12` y `python3.12-venv`.
 
 El script ahora valida automáticamente Python `>=3.12` y recrea `.venv` si detecta versión incompatible.
 
