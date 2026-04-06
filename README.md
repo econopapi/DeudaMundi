@@ -10,6 +10,8 @@ Actualmente en **Fase 0 (Fundamentos)** del roadmap:
 - Backend FastAPI con endpoint de salud
 - ETL inicial World Bank para deuda externa total
 - Trigger admin protegido + scheduler base para ETL
+- Seed inicial de gobiernos piloto (AR, US, BR, DE, GR)
+- Reporte de gaps de cobertura ETL
 - Frontend React + Vite + Tailwind con testing inicial
 - Docker Compose para entorno local (PostgreSQL + Redis + servicios)
 - CI básica con GitHub Actions
@@ -70,11 +72,34 @@ Workflow en `.github/workflows/ci.yml` ejecuta:
   - `develop`: integración
   - `feature/*`: features por fase
 
-## Próximo hito (Fase 0)
+## Cierre Fase 0 ✅
 
-- Definir contratos iniciales de endpoints del MVP de países/rankings
-- Integrar cache Redis por endpoint y estrategia de invalidación base
-- Integrar ejecución programada (scheduler) y logging persistente para ETL
+Checklist completado:
+
+- Entorno base de monorepo operativo (`api` + `web`)
+- Esquema DB versionado con Alembic (`countries`, `debt_records`, `etl_runs`, `governments`)
+- ETL World Bank ejecutable + trazabilidad en `etl_runs`
+- Trigger admin y scheduler base para ejecución ETL
+- Seed de gobiernos piloto para 5 países
+- Reporte de gaps para validar cobertura de datos
+
+### Última validación funcional (local)
+
+- Países procesados ETL: `217`
+- Registros deuda procesados: `6279`
+- Registros deuda upsertados: `5785`
+- Gobiernos seed insertados/actualizados: `22`
+- Países con datos de deuda: `121`
+- Países sin datos de deuda: `96`
+- Rango temporal de deuda: `1970–2024`
+
+## Siguiente fase
+
+Arranca **Fase 1 — Backend MVP**:
+
+- Endpoints de países, histórico, gobiernos y rankings
+- Caching por endpoint
+- endurecimiento de seguridad y pruebas de integración
 
 ---
 
