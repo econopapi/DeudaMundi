@@ -30,6 +30,9 @@ type TopologyInput = {
 
 type GlobeSceneProps = {
   points: GlobeDataPoint[];
+  selectedBand?: "all" | "low" | "mid" | "high";
+  highlightedIso3Set?: Set<string>;
+  autoRotateEnabled?: boolean;
 };
 
 type IntensityMode = "debt_pct_gdp" | "total_external_debt_usd_log";
@@ -112,13 +115,90 @@ const countryFeatures = feature(
   topology.objects.countries as Parameters<typeof feature>[1],
 ) as FeatureCollection;
 
-export function GlobeScene({ points }: GlobeSceneProps) {
+const BASE_ROTATION_SPEED = 0.45;
+const STOP_ROTATION_SPEED = 0;
+const ROTATION_EASING_MS = 320;
+
+const GLOBE_TEXTURE_URL = "https://unpkg.com/three-globe/example/img/earth-night.jpg";
+const GLOBE_BUMP_URL = "https://unpkg.com/three-globe/example/img/earth-topology.png";
+
+export function GlobeScene({ points, selectedBand = "all", highlightedIso3Set, autoRotateEnabled = true }: GlobeSceneProps) {
   const navigate = useNavigate();
   const setHoveredCountry = useGlobeStore((state) => state.setHoveredCountry);
   const globeRef = useRef<any>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
+  const animationFrameRef = useRef<number | null>(null);
+  const currentSpeedRef = useRef<number>(BASE_ROTATION_SPEED);
+  const hoveringRef = useRef(false);
+  const interactingRef = useRef(false);
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
   const [geoFeatures, setGeoFeatures] = useState<CountryFeature[]>([]);
+
+  const getControls = () => globeRef.current?.controls?.();
+
+  const cancelSpeedAnimation = () => {
+    if (animationFrameRef.current !== null) {
+      window.cancelAnimationFrame(animationFrameRef.current);
+      animationFrameRef.current = null;
+    }
+  };
+
+  const setRotateSpeedImmediate = (speed: number) => {
+    const controls = globeRef.current?.controls?.();
+    if (!controls) {
+      return;
+    }
+
+    controls.autoRotate = true;
+    controls.autoRotateSpeed = speed;
+    currentSpeedRef.current = speed;
+  };
+
+  const animateRotateSpeedTo = (targetSpeed: number, durationMs = ROTATION_EASING_MS) => {
+    const controls = getControls();
+    if (!controls) {
+      return;
+    }
+
+    cancelSpeedAnimation();
+    controls.autoRotate = true;
+
+    const startSpeed = currentSpeedRef.current;
+    const startTs = performance.now();
+
+    const tick = (now: number) => {
+      const elapsed = now - startTs;
+      const progress = Math.max(0, Math.min(1, elapsed / durationMs));
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const next = startSpeed + (targetSpeed - startSpeed) * eased;
+
+      controls.autoRotateSpeed = next;
+      currentSpeedRef.current = next;
+
+      if (progress < 1) {
+        animationFrameRef.current = window.requestAnimationFrame(tick);
+      } else {
+        animationFrameRef.current = null;
+      }
+    };
+
+    animationFrameRef.current = window.requestAnimationFrame(tick);
+  };
+
+  const syncRotationPolicy = () => {
+    const shouldRotate = autoRotateEnabled && !hoveringRef.current && !interactingRef.current;
+    animateRotateSpeedTo(shouldRotate ? BASE_ROTATION_SPEED : STOP_ROTATION_SPEED);
+  };
+
+  const handleInteractionStart = () => {
+    interactingRef.current = true;
+    syncRotationPolicy();
+  };
+
+  const handleInteractionEnd = () => {
+    interactingRef.current = false;
+    syncRotationPolicy();
+  };
 
   useEffect(() => {
     const controls = globeRef.current?.controls?.();
@@ -127,12 +207,33 @@ export function GlobeScene({ points }: GlobeSceneProps) {
     }
 
     controls.autoRotate = true;
-    controls.autoRotateSpeed = 0.5;
+    setRotateSpeedImmediate(autoRotateEnabled ? BASE_ROTATION_SPEED : STOP_ROTATION_SPEED);
     controls.enablePan = false;
     controls.minDistance = 120;
     controls.maxDistance = 380;
-    controls.rotateSpeed = 0.5;
-  }, [dimensions.height, dimensions.width]);
+    controls.rotateSpeed = 0.55;
+
+    const onStart = () => handleInteractionStart();
+    const onEnd = () => handleInteractionEnd();
+
+    controls.addEventListener("start", onStart);
+    controls.addEventListener("end", onEnd);
+
+    return () => {
+      controls.removeEventListener("start", onStart);
+      controls.removeEventListener("end", onEnd);
+    };
+  }, [dimensions.height, dimensions.width, autoRotateEnabled]);
+
+  useEffect(() => {
+    syncRotationPolicy();
+  }, [autoRotateEnabled]);
+
+  useEffect(() => {
+    return () => {
+      cancelSpeedAnimation();
+    };
+  }, []);
 
   useEffect(() => {
     if (!containerRef.current) {
@@ -229,39 +330,73 @@ export function GlobeScene({ points }: GlobeSceneProps) {
   const getPolygonColor = (feature: CountryFeature) => {
     const iso3 = feature.properties.iso3;
     if (!iso3) {
-      return "rgba(51, 65, 85, 0.55)";
+      return "rgba(58, 61, 70, 0.5)";
     }
 
     const point = pointsByIso3.get(iso3);
     if (!point) {
-      return "rgba(51, 65, 85, 0.55)";
+      return "rgba(58, 61, 70, 0.5)";
+    }
+
+    const isHighlighted = selectedBand === "all" || highlightedIso3Set?.has(iso3);
+    if (!isHighlighted) {
+      return "rgba(74, 73, 70, 0.55)";
     }
 
     const intensityValue = getIntensityValue(point, intensityMode);
     if (intensityValue === null) {
-      return "rgba(51, 65, 85, 0.55)";
+      return "rgba(74, 73, 70, 0.55)";
     }
 
     return getDebtColor(intensityValue, debtRange.min, debtRange.max);
   };
 
+  const getPolygonAltitude = (feature: CountryFeature) => {
+    const iso3 = feature.properties.iso3;
+    if (!iso3) {
+      return 0.006;
+    }
+
+    const isHighlighted = selectedBand === "all" || highlightedIso3Set?.has(iso3);
+    return isHighlighted ? 0.014 : 0.006;
+  };
+
+  const getPolygonStrokeColor = (feature: CountryFeature) => {
+    const iso3 = feature.properties.iso3;
+    const isHighlighted = iso3 ? selectedBand === "all" || highlightedIso3Set?.has(iso3) : false;
+    return isHighlighted ? "rgba(237, 233, 254, 0.45)" : "rgba(136, 134, 128, 0.22)";
+  };
+
   return (
-    <div ref={containerRef} className="h-[560px] w-full overflow-hidden rounded-2xl border border-slate-800 bg-slate-950">
+    <div
+      ref={containerRef}
+      className="h-[560px] w-full overflow-hidden rounded-2xl border border-[#2a2f3a] bg-[#05070d] shadow-[0_0_0_1px_rgba(124,106,245,0.08)]"
+      onMouseEnter={() => {
+        hoveringRef.current = true;
+        syncRotationPolicy();
+      }}
+      onMouseLeave={() => {
+        hoveringRef.current = false;
+        syncRotationPolicy();
+      }}
+    >
       {dimensions.width > 0 && dimensions.height > 0 && (
         <Globe
           ref={globeRef}
           width={dimensions.width}
           height={dimensions.height}
-          backgroundColor="#020617"
+          backgroundColor="#05070d"
+          globeImageUrl={GLOBE_TEXTURE_URL}
+          bumpImageUrl={GLOBE_BUMP_URL}
           showAtmosphere
-          atmosphereColor="#60a5fa"
-          atmosphereAltitude={0.18}
+          atmosphereColor="#7c6af5"
+          atmosphereAltitude={0.2}
           polygonsData={geoFeatures}
-          polygonAltitude={0.012}
+          polygonAltitude={(feature) => getPolygonAltitude(feature as CountryFeature)}
           polygonCapColor={(feature) => getPolygonColor(feature as CountryFeature)}
-          polygonSideColor={() => "rgba(15, 23, 42, 0.4)"}
-          polygonStrokeColor={() => "rgba(186, 230, 253, 0.55)"}
-          polygonsTransitionDuration={250}
+          polygonSideColor={() => "rgba(13, 16, 23, 0.55)"}
+          polygonStrokeColor={(feature) => getPolygonStrokeColor(feature as CountryFeature)}
+          polygonsTransitionDuration={420}
           onPolygonHover={(feature) => handlePolygonHover((feature as CountryFeature | null) ?? null)}
           onPolygonClick={(feature) => handlePolygonClick(feature as CountryFeature)}
         />

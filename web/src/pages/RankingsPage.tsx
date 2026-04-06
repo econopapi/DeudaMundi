@@ -2,17 +2,18 @@ import { useEffect, useMemo, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 
 import { AppHeader } from "../components/AppHeader";
+import { LoadingPanel } from "../components/ui/LoadingPanel";
 import { formatPercentage, formatUsdCompact } from "../lib/formatters";
-import { t } from "../lib/translations";
+import { t, trRegion } from "../lib/translations";
 import { fetchRankings } from "../services/deudamundiApi";
 import { useLocaleStore } from "../store/localeStore";
 import type { RankingItem, RankingMetric } from "../types/api";
 import { LanguageSwitcher } from "../components/LanguageSwitcher";
 
-const METRIC_OPTIONS: Array<{ value: RankingMetric; label: string }> = [
-  { value: "absolute", label: "Total external debt" },
-  { value: "pct_gdp", label: "Debt / GDP" },
-  { value: "per_capita", label: "Debt per capita" },
+const METRIC_OPTIONS: Array<{ value: RankingMetric; labelKey: "metricAbsolute" | "metricPctGdp" | "metricPerCapita" }> = [
+  { value: "absolute", labelKey: "metricAbsolute" },
+  { value: "pct_gdp", labelKey: "metricPctGdp" },
+  { value: "per_capita", labelKey: "metricPerCapita" },
 ];
 
 const REGION_OPTIONS = [
@@ -89,15 +90,15 @@ export function RankingsPage() {
 
       <div className="flex items-center justify-between text-sm">
         <LanguageSwitcher />
-        <Link to="/" className="text-sky-300 hover:text-sky-200">
+        <Link to="/" className="font-medium text-[#a594f9] hover:text-[#c4b9fa]">
           ← {t(locale, "backToGlobe")}
         </Link>
       </div>
 
-      <section className="grid gap-4 rounded-xl border border-slate-800 bg-slate-900/70 p-4 md:grid-cols-3">
+      <section className="glass-panel grid gap-4 rounded-xl p-4 md:grid-cols-3">
         <div>
-          <label htmlFor="metric-filter" className="mb-2 block text-xs font-semibold uppercase tracking-wide text-slate-300">
-            Metric
+          <label htmlFor="metric-filter" className="mono-meta mb-2 block text-xs font-semibold uppercase tracking-wide text-[#c8c7c2]">
+            {t(locale, "metricFilter")}
           </label>
           <select
             id="metric-filter"
@@ -107,19 +108,19 @@ export function RankingsPage() {
               next.set("metric", event.target.value);
               setSearchParams(next);
             }}
-            className="w-full rounded-lg border border-slate-700 bg-slate-950 px-3 py-2 text-sm text-slate-100"
+            className="w-full rounded-lg border border-[#3b4252] bg-[#0d1017] px-3 py-2 text-sm text-[#f5f4f0] focus:border-[#7c6af5] focus:outline-none"
           >
             {METRIC_OPTIONS.map((option) => (
               <option key={option.value} value={option.value}>
-                {option.label}
+                {t(locale, option.labelKey)}
               </option>
             ))}
           </select>
         </div>
 
         <div>
-          <label htmlFor="region-filter" className="mb-2 block text-xs font-semibold uppercase tracking-wide text-slate-300">
-            Region
+          <label htmlFor="region-filter" className="mono-meta mb-2 block text-xs font-semibold uppercase tracking-wide text-[#c8c7c2]">
+            {t(locale, "region")}
           </label>
           <select
             id="region-filter"
@@ -133,20 +134,20 @@ export function RankingsPage() {
               }
               setSearchParams(next);
             }}
-            className="w-full rounded-lg border border-slate-700 bg-slate-950 px-3 py-2 text-sm text-slate-100"
+            className="w-full rounded-lg border border-[#3b4252] bg-[#0d1017] px-3 py-2 text-sm text-[#f5f4f0] focus:border-[#7c6af5] focus:outline-none"
           >
-            <option value="">All regions</option>
+            <option value="">{t(locale, "allRegions")}</option>
             {REGION_OPTIONS.map((regionOption) => (
               <option key={regionOption} value={regionOption}>
-                {regionOption}
+                {trRegion(locale, regionOption)}
               </option>
             ))}
           </select>
         </div>
 
         <div>
-          <label htmlFor="country-search" className="mb-2 block text-xs font-semibold uppercase tracking-wide text-slate-300">
-            Country search
+          <label htmlFor="country-search" className="mono-meta mb-2 block text-xs font-semibold uppercase tracking-wide text-[#c8c7c2]">
+            {t(locale, "countrySearch")}
           </label>
           <input
             id="country-search"
@@ -161,8 +162,8 @@ export function RankingsPage() {
               }
               setSearchParams(next);
             }}
-            placeholder="Type country or ISO3"
-            className="w-full rounded-lg border border-slate-700 bg-slate-950 px-3 py-2 text-sm text-slate-100"
+            placeholder={t(locale, "countrySearchPlaceholder")}
+            className="w-full rounded-lg border border-[#3b4252] bg-[#0d1017] px-3 py-2 text-sm text-[#f5f4f0] focus:border-[#7c6af5] focus:outline-none"
           />
           <datalist id="countries-list">
             {items.map((item) => (
@@ -173,42 +174,42 @@ export function RankingsPage() {
       </section>
 
       {status === "loading" && (
-        <section className="rounded-xl border border-slate-800 bg-slate-900/70 p-8 text-sm text-slate-300">Loading rankings…</section>
+        <LoadingPanel message={`${t(locale, "loadingRankings")}...`} detail="/api/v1/rankings" />
       )}
 
       {status === "error" && (
         <section className="rounded-xl border border-rose-900 bg-rose-950/40 p-8 text-sm text-rose-200">
-          Could not load rankings from `GET /api/v1/rankings`.
+          {t(locale, "errorRankings")}
         </section>
       )}
 
       {status === "ready" && (
-        <section className="overflow-hidden rounded-xl border border-slate-800 bg-slate-900/70">
+        <section className="glass-panel overflow-hidden rounded-xl">
           {filteredItems.length === 0 ? (
-            <p className="p-6 text-sm text-slate-300">No countries found for the selected filters and metric.</p>
+            <p className="p-6 text-sm text-[#c8c7c2]">{t(locale, "noCountriesFilters")}</p>
           ) : (
             <table className="w-full border-collapse text-sm">
-              <thead className="bg-slate-950/60 text-left text-xs uppercase tracking-wide text-slate-400">
+              <thead className="bg-[#0d1017]/70 text-left text-xs uppercase tracking-wide text-[#888680]">
                 <tr>
-                  <th className="px-4 py-3">Rank</th>
-                  <th className="px-4 py-3">Country</th>
-                  <th className="px-4 py-3">Region</th>
-                  <th className="px-4 py-3">Value</th>
-                  <th className="px-4 py-3">Year</th>
+                  <th className="px-4 py-3">{t(locale, "rank")}</th>
+                  <th className="px-4 py-3">{t(locale, "country")}</th>
+                  <th className="px-4 py-3">{t(locale, "region")}</th>
+                  <th className="px-4 py-3">{t(locale, "value")}</th>
+                  <th className="px-4 py-3">{t(locale, "year")}</th>
                 </tr>
               </thead>
               <tbody>
                 {filteredItems.map((item) => (
-                  <tr key={`${item.iso3}-${item.rank}`} className="border-t border-slate-800 text-slate-200">
+                  <tr key={`${item.iso3}-${item.rank}`} className="border-t border-[#2a2f3a] text-[#f5f4f0]">
                     <td className="px-4 py-3 font-semibold">#{item.rank}</td>
                     <td className="px-4 py-3">
-                      <Link className="text-sky-300 hover:text-sky-200" to={`/country/${item.iso3.toLowerCase()}`}>
+                      <Link className="text-[#a594f9] hover:text-[#c4b9fa]" to={`/country/${item.iso3.toLowerCase()}`}>
                         {item.name_en} ({item.iso3})
                       </Link>
                     </td>
-                    <td className="px-4 py-3 text-slate-300">{item.region ?? "Not available"}</td>
+                    <td className="px-4 py-3 text-[#c8c7c2]">{item.region ? trRegion(locale, item.region) : t(locale, "notAvailable")}</td>
                     <td className="px-4 py-3">{formatRankingValue(metric, item.value)}</td>
-                    <td className="px-4 py-3 text-slate-300">{item.latest_year ?? "N/A"}</td>
+                    <td className="px-4 py-3 text-[#c8c7c2]">{item.latest_year ?? t(locale, "notAvailable")}</td>
                   </tr>
                 ))}
               </tbody>

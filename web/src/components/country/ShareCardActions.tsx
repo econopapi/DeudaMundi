@@ -1,20 +1,26 @@
 import { useMemo, useState } from "react";
 
 import { formatPercentage, formatUsdCompact } from "../../lib/formatters";
+import { t } from "../../lib/translations";
+import { useLocaleStore } from "../../store/localeStore";
 import type { CountryDetailResponse } from "../../types/api";
 
 type ShareCardActionsProps = {
   country: CountryDetailResponse;
 };
 
-function buildShareText(country: CountryDetailResponse): string {
+function buildShareText(country: CountryDetailResponse, locale: "en" | "es"): string {
   const debtPerCapita = formatUsdCompact(country.debt_per_capita_usd);
   const debtPct = formatPercentage(country.debt_pct_gdp);
+
+  if (locale === "es") {
+    return `${country.name_en} (${country.iso3}) · Deuda per cápita: ${debtPerCapita} · Deuda/PIB: ${debtPct}. Explora: ${window.location.href}`;
+  }
 
   return `${country.name_en} (${country.iso3}) · Debt per capita: ${debtPerCapita} · Debt/GDP: ${debtPct}. Explore: ${window.location.href}`;
 }
 
-function drawShareCard(country: CountryDetailResponse): string {
+function drawShareCard(country: CountryDetailResponse, locale: "en" | "es"): string {
   const canvas = document.createElement("canvas");
   canvas.width = 1200;
   canvas.height = 630;
@@ -31,22 +37,22 @@ function drawShareCard(country: CountryDetailResponse): string {
   context.fillRect(36, 36, canvas.width - 72, canvas.height - 72);
 
   context.fillStyle = "#7dd3fc";
-  context.font = "600 28px Inter, system-ui, sans-serif";
-  context.fillText("Global Debt Atlas", 72, 100);
+  context.font = "600 28px Outfit, Inter, system-ui, sans-serif";
+  context.fillText(locale === "es" ? "Atlas de Deuda Pública" : "Public Debt Atlas", 72, 100);
 
   context.fillStyle = "#f8fafc";
-  context.font = "700 64px Inter, system-ui, sans-serif";
+  context.font = "700 64px Epilogue, Inter, system-ui, sans-serif";
   context.fillText(country.name_en, 72, 200);
 
   context.fillStyle = "#94a3b8";
-  context.font = "500 32px Inter, system-ui, sans-serif";
-  context.fillText(`ISO3 ${country.iso3} · Latest year ${country.latest_year ?? "N/A"}`, 72, 250);
+  context.font = "500 32px Outfit, Inter, system-ui, sans-serif";
+  context.fillText(`ISO3 ${country.iso3} · ${locale === "es" ? "Último año" : "Latest year"} ${country.latest_year ?? "N/A"}`, 72, 250);
 
   context.fillStyle = "#e2e8f0";
-  context.font = "600 44px Inter, system-ui, sans-serif";
-  context.fillText(`Total external debt: ${formatUsdCompact(country.total_external_debt_usd)}`, 72, 355);
-  context.fillText(`Debt per capita: ${formatUsdCompact(country.debt_per_capita_usd)}`, 72, 425);
-  context.fillText(`Debt / GDP: ${formatPercentage(country.debt_pct_gdp)}`, 72, 495);
+  context.font = "600 42px Outfit, Inter, system-ui, sans-serif";
+  context.fillText(`${locale === "es" ? "Deuda pública externa" : "Public external debt"}: ${formatUsdCompact(country.total_external_debt_usd)}`, 72, 355);
+  context.fillText(`${locale === "es" ? "Deuda per cápita" : "Debt per capita"}: ${formatUsdCompact(country.debt_per_capita_usd)}`, 72, 425);
+  context.fillText(`${locale === "es" ? "Deuda / PIB" : "Debt / GDP"}: ${formatPercentage(country.debt_pct_gdp)}`, 72, 495);
 
   context.fillStyle = "#38bdf8";
   context.font = "500 24px Inter, system-ui, sans-serif";
@@ -56,25 +62,26 @@ function drawShareCard(country: CountryDetailResponse): string {
 }
 
 export function ShareCardActions({ country }: ShareCardActionsProps) {
+  const locale = useLocaleStore((state) => state.locale);
   const [statusMessage, setStatusMessage] = useState<string>("");
-  const shareText = useMemo(() => buildShareText(country), [country]);
+  const shareText = useMemo(() => buildShareText(country, locale), [country, locale]);
 
   const handleDownloadCard = () => {
     try {
-      const image = drawShareCard(country);
+      const image = drawShareCard(country, locale);
       const anchor = document.createElement("a");
       anchor.href = image;
       anchor.download = `deudamundi-${country.iso3.toLowerCase()}-share-card.png`;
       anchor.click();
-      setStatusMessage("Share card downloaded.");
+      setStatusMessage(t(locale, "shareCardDownloaded"));
     } catch {
-      setStatusMessage("Could not generate share card in this browser.");
+      setStatusMessage(t(locale, "shareCardError"));
     }
   };
 
   const handleShare = async () => {
     const sharePayload = {
-      title: `Debt profile · ${country.name_en}`,
+      title: `${t(locale, "shareTitlePrefix")} · ${country.name_en}`,
       text: shareText,
       url: window.location.href,
     };
@@ -82,7 +89,7 @@ export function ShareCardActions({ country }: ShareCardActionsProps) {
     if (navigator.share) {
       try {
         await navigator.share(sharePayload);
-        setStatusMessage("Shared successfully.");
+        setStatusMessage(t(locale, "shareSuccess"));
         return;
       } catch {
         // User cancellation or browser-level share errors are handled by fallback.
@@ -91,37 +98,37 @@ export function ShareCardActions({ country }: ShareCardActionsProps) {
 
     try {
       await navigator.clipboard.writeText(`${shareText}\n${window.location.href}`);
-      setStatusMessage("Share text copied to clipboard.");
+      setStatusMessage(t(locale, "shareCopied"));
     } catch {
-      setStatusMessage("Share unavailable. Copy URL manually.");
+      setStatusMessage(t(locale, "shareUnavailable"));
     }
   };
 
   return (
-    <section className="rounded-xl border border-slate-800 bg-slate-900/60 p-4">
-      <h2 className="text-sm font-semibold text-slate-200">Share</h2>
-      <p className="mt-2 text-xs text-slate-400">Generate a social card image or share this country profile link.</p>
+    <section className="glass-panel rounded-xl p-4">
+      <h2 className="text-sm font-semibold text-[#f5f4f0]">{t(locale, "shareTitle")}</h2>
+      <p className="mt-2 text-xs text-[#888680]">{t(locale, "shareSubtitle")}</p>
 
       <div className="mt-3 flex flex-wrap gap-2">
         <button
           type="button"
           onClick={handleDownloadCard}
-          className="rounded-md border border-slate-700 bg-slate-950/50 px-3 py-2 text-xs text-slate-100 hover:border-slate-500"
+          className="rounded-md border border-[#3b4252] bg-[#0d1017]/80 px-3 py-2 text-xs text-[#f5f4f0] hover:border-[#6d7280]"
         >
-          Download share card (PNG)
+          {t(locale, "downloadShareCard")}
         </button>
         <button
           type="button"
           onClick={() => {
             void handleShare();
           }}
-          className="rounded-md border border-sky-700 bg-sky-900/20 px-3 py-2 text-xs text-sky-100 hover:border-sky-500"
+          className="rounded-md border border-[#7c6af5] bg-[#7c6af5]/20 px-3 py-2 text-xs text-[#ede9fe] hover:border-[#a594f9]"
         >
-          Share country profile
+          {t(locale, "shareCountryProfile")}
         </button>
       </div>
 
-      {statusMessage && <p className="mt-2 text-xs text-slate-400">{statusMessage}</p>}
+      {statusMessage && <p className="mt-2 text-xs text-[#888680]">{statusMessage}</p>}
     </section>
   );
 }

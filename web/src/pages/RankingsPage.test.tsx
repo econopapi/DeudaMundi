@@ -62,7 +62,7 @@ describe("RankingsPage", () => {
       </MemoryRouter>,
     );
 
-    const metricSelect = await screen.findByLabelText("Metric");
+  const metricSelect = await screen.findByLabelText("Métrica");
     await user.selectOptions(metricSelect, "pct_gdp");
 
     expect(mockFetchRankings).toHaveBeenCalledWith("pct_gdp", undefined, 20);

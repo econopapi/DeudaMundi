@@ -1,3 +1,6 @@
+import { t } from "../../lib/translations";
+import { useLocaleStore } from "../../store/localeStore";
+
 type GlobeLegendProps = {
   minDebtPctGdp: number;
   maxDebtPctGdp: number;
@@ -8,11 +11,11 @@ type GlobeLegendProps = {
   totalCountries?: number;
 };
 
-const BAND_OPTIONS: Array<{ key: "all" | "low" | "mid" | "high"; label: string }> = [
-  { key: "all", label: "All" },
-  { key: "low", label: "Low" },
-  { key: "mid", label: "Medium" },
-  { key: "high", label: "High" },
+const BAND_OPTIONS: Array<{ key: "all" | "low" | "mid" | "high"; labelKey: "all" | "low" | "medium" | "high" }> = [
+  { key: "all", labelKey: "all" },
+  { key: "low", labelKey: "low" },
+  { key: "mid", labelKey: "medium" },
+  { key: "high", labelKey: "high" },
 ];
 
 export function GlobeLegend({
@@ -24,24 +27,25 @@ export function GlobeLegend({
   availableCountries,
   totalCountries,
 }: GlobeLegendProps) {
+  const locale = useLocaleStore((state) => state.locale);
   const isRatioMode = mode === "debt_pct_gdp";
   const leftLabel = isRatioMode ? `${minDebtPctGdp.toFixed(1)}%` : `${Math.pow(10, minDebtPctGdp).toExponential(1)} USD`;
   const rightLabel = isRatioMode ? `${maxDebtPctGdp.toFixed(1)}%` : `${Math.pow(10, maxDebtPctGdp).toExponential(1)} USD`;
 
   return (
-    <aside className="rounded-xl border border-slate-700 bg-slate-900/80 p-4 text-xs text-slate-300 shadow-lg backdrop-blur">
-      <p className="mb-2 font-semibold text-slate-100">
-        {isRatioMode ? "Debt % GDP intensity" : "Debt intensity (fallback: total debt)"}
+    <aside className="glass-panel rounded-xl p-4 text-xs text-[#c8c7c2] shadow-lg">
+      <p className="mb-2 font-semibold text-[#f5f4f0]">
+        {isRatioMode ? t(locale, "debtIntensityTitle") : t(locale, "debtIntensityFallbackTitle")}
       </p>
       <div className="mb-2 h-3 w-40 rounded-full bg-gradient-to-r from-emerald-400 via-amber-300 to-rose-500" />
-      <div className="flex items-center justify-between text-[11px] text-slate-400">
+      <div className="mono-meta flex items-center justify-between text-[11px] text-[#888680]">
         <span>{leftLabel}</span>
         <span>{rightLabel}</span>
       </div>
 
       {typeof availableCountries === "number" && typeof totalCountries === "number" && (
-        <p className="mt-2 text-[11px] text-slate-400">
-          Data coverage: {availableCountries}/{totalCountries} countries
+        <p className="mt-2 text-[11px] text-[#888680]">
+          {t(locale, "dataCoverage")}: {availableCountries}/{totalCountries}
         </p>
       )}
 
@@ -57,11 +61,11 @@ export function GlobeLegend({
               onClick={() => onBandChange?.(option.key)}
               className={`rounded-md border px-2 py-1 text-[11px] transition ${
                 isActive
-                  ? "border-sky-400 bg-sky-500/20 text-sky-200"
-                  : "border-slate-700 bg-slate-950/40 text-slate-300 hover:border-slate-500"
+                  ? "border-[#7c6af5] bg-[#7c6af5]/20 text-[#ede9fe]"
+                  : "border-[#3b4252] bg-[#0d1017]/70 text-[#c8c7c2] hover:border-[#6d7280]"
               }`}
             >
-              {option.label}
+              {t(locale, option.labelKey)}
             </button>
           );
         })}

@@ -7,7 +7,7 @@ describe("GlobeLegend", () => {
   it("renders min and max percentages", () => {
     render(<GlobeLegend minDebtPctGdp={5.2} maxDebtPctGdp={123.9} />);
 
-    expect(screen.getByText("Debt % GDP intensity")).toBeInTheDocument();
+    expect(screen.getByText("Intensidad de deuda pública (% PIB)")).toBeInTheDocument();
     expect(screen.getByText("5.2%")).toBeInTheDocument();
     expect(screen.getByText("123.9%")).toBeInTheDocument();
   });
@@ -20,7 +20,7 @@ describe("GlobeLegend", () => {
       <GlobeLegend minDebtPctGdp={5.2} maxDebtPctGdp={123.9} selectedBand="all" onBandChange={onBandChange} />,
     );
 
-    await user.click(screen.getByRole("button", { name: "High" }));
+    await user.click(screen.getByRole("button", { name: "Alta" }));
 
     expect(onBandChange).toHaveBeenCalledWith("high");
   });
@@ -36,7 +36,7 @@ describe("GlobeLegend", () => {
       />,
     );
 
-    expect(screen.getByText("Debt intensity (fallback: total debt)")).toBeInTheDocument();
-    expect(screen.getByText("Data coverage: 120/217 countries")).toBeInTheDocument();
+    expect(screen.getByText("Intensidad de deuda pública (fallback: deuda absoluta)")).toBeInTheDocument();
+    expect(screen.getByText("Cobertura de datos: 120/217")).toBeInTheDocument();
   });
 });

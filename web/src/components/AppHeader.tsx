@@ -5,9 +5,9 @@ type AppHeaderProps = {
 
 export function AppHeader({ title, subtitle }: AppHeaderProps) {
   return (
-    <header className="border-b border-slate-800 pb-6">
-      <h1 className="text-3xl font-bold tracking-tight text-slate-100">{title}</h1>
-      <p className="mt-2 max-w-2xl text-sm text-slate-400">{subtitle}</p>
+    <header className="border-b border-[#2a2f3a] pb-6">
+      <h1 className="display-title text-3xl font-extrabold tracking-tight text-[#f5f4f0] md:text-4xl">{title}</h1>
+      <p className="mt-2 max-w-3xl text-sm text-[#888680] md:text-base">{subtitle}</p>
     </header>
   );
 }

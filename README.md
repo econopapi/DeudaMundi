@@ -121,6 +121,15 @@ Implementado en `web/`:
 - Fallback no-WebGL y baseline i18n ES/EN
 - Cobertura de tests frontend actualizada para servicios y páginas clave
 
+Mejoras de calidad visual/UX aplicadas (abril 2026):
+
+- Frontend alineado a identidad visual de marca (dark-first, acento lila, tipografía display/body/mono)
+- Español configurado como idioma por defecto e inglés como secundario
+- Traducción ampliada y homogenizada en Home, Rankings, detalle y componentes compartidos
+- Copy de producto corregido a enfoque actual: **deuda pública externa**
+- Lógica del globo corregida para bandas (`low`, `medium`, `high`) sin ocultar países fuera de selección
+- Mejoras de realismo del globo + auto-rotación sensible a interacción (hover/drag)
+
 Pendiente post-cierre de Fase 2:
 
 - Completar revisión de calidad/cobertura de datos faltantes en API (backend)

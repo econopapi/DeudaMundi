@@ -14,7 +14,7 @@ jest.mock("../services/deudamundiApi", () => ({
 }));
 
 jest.mock("../components/country/CountryHistoryChart", () => ({
-  CountryHistoryChart: () => <div>Historical external debt (USD)</div>,
+  CountryHistoryChart: () => <div>Evolución histórica de deuda pública externa (USD)</div>,
 }));
 
 describe("CountryDetailPage", () => {
@@ -85,11 +85,11 @@ describe("CountryDetailPage", () => {
       </MemoryRouter>,
     );
 
-    expect(await screen.findByText("Country profile")).toBeInTheDocument();
+  expect(await screen.findByText("Perfil del país")).toBeInTheDocument();
     expect(screen.getByRole("heading", { level: 2, name: "Argentina" })).toBeInTheDocument();
-    expect(screen.getByText("Historical external debt (USD)")).toBeInTheDocument();
-    expect(screen.getByText("Debt metrics")).toBeInTheDocument();
-    expect(screen.getByText("Emotional equivalences")).toBeInTheDocument();
+  expect(screen.getByText("Evolución histórica de deuda pública externa (USD)")).toBeInTheDocument();
+  expect(screen.getByText("Métricas de deuda pública")).toBeInTheDocument();
+  expect(screen.getByText("Equivalencias emocionales")).toBeInTheDocument();
     expect(mockFetchCountryDetail).toHaveBeenCalledWith("arg");
     expect(mockFetchCountryHistory).toHaveBeenCalledWith("arg");
     expect(mockFetchCountryGovernments).toHaveBeenCalledWith("arg");
@@ -131,8 +131,8 @@ describe("CountryDetailPage", () => {
       </MemoryRouter>,
     );
 
-    expect(await screen.findByText("Country profile")).toBeInTheDocument();
-    expect(screen.getByText("Some ratio indicators are currently unavailable in the source dataset for the latest year.")).toBeInTheDocument();
-    expect(screen.getAllByText(/Not available from source/i).length).toBeGreaterThan(0);
+    expect(await screen.findByText("Perfil del país")).toBeInTheDocument();
+    expect(screen.getByText("Algunos indicadores de razón no están disponibles actualmente en la fuente para el último año.")).toBeInTheDocument();
+    expect(screen.getAllByText(/No disponible en la fuente/i).length).toBeGreaterThan(0);
   });
 });

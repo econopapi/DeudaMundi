@@ -8,6 +8,6 @@ type LocaleState = {
 };
 
 export const useLocaleStore = create<LocaleState>((set) => ({
-  locale: "en",
+  locale: "es",
   setLocale: (locale) => set({ locale }),
 }));

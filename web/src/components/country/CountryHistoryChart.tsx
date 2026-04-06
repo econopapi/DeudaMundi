@@ -2,6 +2,8 @@ import { extent, max, scaleLinear } from "d3";
 import { useMemo } from "react";
 
 import { formatUsdCompact } from "../../lib/formatters";
+import { t } from "../../lib/translations";
+import { useLocaleStore } from "../../store/localeStore";
 import type { CountryGovernmentItem, CountryHistoryItem } from "../../types/api";
 
 type CountryHistoryChartProps = {
@@ -15,6 +17,13 @@ type GovernmentInterval = {
   endYear: number;
 };
 
+type GovernmentLabelLayout = {
+  key: string;
+  x: number;
+  y: number;
+  text: string;
+};
+
 const CHART_WIDTH = 960;
 const CHART_HEIGHT = 340;
 const MARGIN = {
@@ -23,6 +32,73 @@ const MARGIN = {
   bottom: 34,
   left: 72,
 };
+
+const AVG_CHAR_PX = 5.8;
+const LABEL_SIDE_PADDING = 8;
+const LABEL_LANES_Y_OFFSETS = [14, 24, 34];
+const LABEL_LANE_GAP = 8;
+
+function estimateTextWidth(text: string): number {
+  return text.length * AVG_CHAR_PX;
+}
+
+function truncateTextToWidth(text: string, maxWidth: number): string {
+  if (maxWidth <= 0) {
+    return "";
+  }
+
+  if (estimateTextWidth(text) <= maxWidth) {
+    return text;
+  }
+
+  const ellipsis = "…";
+  const available = Math.max(0, maxWidth - estimateTextWidth(ellipsis));
+  const chars = Math.max(0, Math.floor(available / AVG_CHAR_PX));
+  if (chars === 0) {
+    return ellipsis;
+  }
+
+  return `${text.slice(0, chars)}${ellipsis}`;
+}
+
+function buildGovernmentLabels(
+  governmentIntervals: GovernmentInterval[],
+  xScale: (year: number) => number,
+): GovernmentLabelLayout[] {
+  const laneEnds = LABEL_LANES_Y_OFFSETS.map(() => Number.NEGATIVE_INFINITY);
+  const result: GovernmentLabelLayout[] = [];
+
+  governmentIntervals.forEach((gov, index) => {
+    const xStart = xScale(gov.startYear);
+    const xEnd = xScale(gov.endYear);
+    const bandWidth = Math.max(2, xEnd - xStart);
+    const maxLabelWidth = Math.max(0, bandWidth - LABEL_SIDE_PADDING);
+    if (maxLabelWidth < 10) {
+      return;
+    }
+
+    const text = truncateTextToWidth(gov.leaderName, maxLabelWidth);
+    if (!text) {
+      return;
+    }
+
+    const effectiveWidth = estimateTextWidth(text);
+    const laneIndex = laneEnds.findIndex((laneEnd) => laneEnd + LABEL_LANE_GAP <= xStart);
+    if (laneIndex === -1) {
+      return;
+    }
+
+    laneEnds[laneIndex] = xStart + effectiveWidth;
+    result.push({
+      key: `${gov.leaderName}-${gov.startYear}-${index}`,
+      x: xStart + 4,
+      y: MARGIN.top + LABEL_LANES_Y_OFFSETS[laneIndex],
+      text,
+    });
+  });
+
+  return result;
+}
 
 function parseGovernmentYear(date: string | null): number | null {
   if (!date) {
@@ -54,6 +130,7 @@ function buildGovernmentIntervals(
 }
 
 export function CountryHistoryChart({ historyItems, governments }: CountryHistoryChartProps) {
+  const locale = useLocaleStore((state) => state.locale);
   const sortedHistory = useMemo(() => {
     return [...historyItems].sort((a, b) => a.year - b.year);
   }, [historyItems]);
@@ -69,8 +146,8 @@ export function CountryHistoryChart({ historyItems, governments }: CountryHistor
 
   if (chartData.length === 0) {
     return (
-      <section className="rounded-xl border border-slate-700 bg-slate-950/40 p-4 text-sm text-slate-400">
-        No historical debt series available.
+      <section className="rounded-xl border border-[#3b4252] bg-[#0d1017]/70 p-4 text-sm text-[#888680]">
+        {t(locale, "noHistoricalSeries")}
       </section>
     );
   }
@@ -102,12 +179,13 @@ export function CountryHistoryChart({ historyItems, governments }: CountryHistor
   const xTickValues = x.ticks(6).map((tick) => Math.round(tick));
 
   const governmentIntervals = buildGovernmentIntervals(governments, minYear, maxYear);
+  const governmentLabels = buildGovernmentLabels(governmentIntervals, x);
 
   return (
-    <section className="rounded-xl border border-slate-700 bg-slate-950/40 p-4">
+    <section className="rounded-xl border border-[#3b4252] bg-[#0d1017]/70 p-4">
       <header className="mb-3 flex flex-col gap-1">
-        <h3 className="text-sm font-semibold text-slate-200">Historical external debt (USD)</h3>
-        <p className="text-xs text-slate-400">Line + area chart with government period overlay.</p>
+        <h3 className="text-sm font-semibold text-[#f5f4f0]">{t(locale, "historicalDebtTitle")}</h3>
+        <p className="text-xs text-[#888680]">{t(locale, "historicalDebtSubtitle")}</p>
       </header>
 
       <div className="overflow-x-auto">
@@ -128,14 +206,15 @@ export function CountryHistoryChart({ historyItems, governments }: CountryHistor
                   height={CHART_HEIGHT - MARGIN.top - MARGIN.bottom}
                   fill={index % 2 === 0 ? "rgba(14, 116, 144, 0.08)" : "rgba(37, 99, 235, 0.08)"}
                 />
-                {width > 44 && (
-                  <text x={xStart + 4} y={MARGIN.top + 14} fontSize={10} fill="#93c5fd">
-                    {gov.leaderName}
-                  </text>
-                )}
               </g>
             );
           })}
+
+          {governmentLabels.map((label) => (
+            <text key={label.key} x={label.x} y={label.y} fontSize={10} fill="#93c5fd">
+              {label.text}
+            </text>
+          ))}
 
           {yTickValues.map((tick) => (
             <g key={`y-${tick}`}>

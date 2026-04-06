@@ -5,8 +5,9 @@ import { AppHeader } from "../components/AppHeader";
 import { LanguageSwitcher } from "../components/LanguageSwitcher";
 import { CountryTooltip } from "../components/globe/CountryTooltip";
 import { GlobeLegend } from "../components/globe/GlobeLegend";
+import { LoadingPanel } from "../components/ui/LoadingPanel";
 import { formatPercentage, formatUsdCompact } from "../lib/formatters";
-import { t } from "../lib/translations";
+import { t, trRegion } from "../lib/translations";
 import { isWebGlAvailable } from "../lib/webgl";
 import { fetchGlobeData } from "../services/deudamundiApi";
 import { useGlobeStore } from "../store/globeStore";
@@ -16,14 +17,13 @@ import type { GlobeDataPoint } from "../types/api";
 const GlobeScene = lazy(async () => import("../components/globe/GlobeScene").then((mod) => ({ default: mod.GlobeScene })));
 
 const REGION_OPTIONS = [
-  { value: "", label: "All regions" },
-  { value: "East Asia & Pacific", label: "East Asia & Pacific" },
-  { value: "Europe & Central Asia", label: "Europe & Central Asia" },
-  { value: "Latin America & Caribbean", label: "Latin America & Caribbean" },
-  { value: "Middle East & North Africa", label: "Middle East & North Africa" },
-  { value: "North America", label: "North America" },
-  { value: "South Asia", label: "South Asia" },
-  { value: "Sub-Saharan Africa", label: "Sub-Saharan Africa" },
+  "East Asia & Pacific",
+  "Europe & Central Asia",
+  "Latin America & Caribbean",
+  "Middle East & North Africa",
+  "North America",
+  "South Asia",
+  "Sub-Saharan Africa",
 ];
 
 type DebtBand = "all" | "low" | "mid" | "high";
@@ -130,7 +130,7 @@ export function HomePage() {
   const webGlAvailable = useMemo(() => isWebGlAvailable(), []);
 
   const regionFromUrl = searchParams.get("region") ?? "";
-  const region = REGION_OPTIONS.some((option) => option.value === regionFromUrl) ? regionFromUrl : "";
+  const region = REGION_OPTIONS.includes(regionFromUrl) ? regionFromUrl : "";
 
   useEffect(() => {
     let cancelled = false;
@@ -162,6 +162,7 @@ export function HomePage() {
     () => filterPointsByDebtBand(points, debtBand, intensityMeta),
     [points, debtBand, intensityMeta],
   );
+  const highlightedIso3Set = useMemo(() => new Set(filteredPoints.map((point) => point.iso3)), [filteredPoints]);
 
   useEffect(() => {
     setHoveredCountry(null);
@@ -176,14 +177,14 @@ export function HomePage() {
 
       <div className="flex items-center justify-between text-sm">
         <LanguageSwitcher />
-        <Link to="/rankings" className="text-sky-300 hover:text-sky-200">
+        <Link to="/rankings" className="font-medium text-[#a594f9] hover:text-[#c4b9fa]">
           {t(locale, "viewGlobalRankings")} →
         </Link>
       </div>
 
-      <section className="rounded-xl border border-slate-800 bg-slate-900/70 p-4">
-        <label htmlFor="region-filter" className="mb-2 block text-xs font-semibold uppercase tracking-wide text-slate-300">
-          Region filter
+      <section className="glass-panel rounded-xl p-4">
+        <label htmlFor="region-filter" className="mono-meta mb-2 block text-xs font-semibold uppercase tracking-wide text-[#c8c7c2]">
+          {t(locale, "regionFilter")}
         </label>
         <select
           id="region-filter"
@@ -201,25 +202,27 @@ export function HomePage() {
 
             setSearchParams(nextParams);
           }}
-          className="w-full rounded-lg border border-slate-700 bg-slate-950 px-3 py-2 text-sm text-slate-100 focus:border-sky-500 focus:outline-none"
+          className="w-full rounded-lg border border-[#3b4252] bg-[#0d1017] px-3 py-2 text-sm text-[#f5f4f0] focus:border-[#7c6af5] focus:outline-none"
         >
-          {REGION_OPTIONS.map((option) => (
-            <option key={option.value || "all"} value={option.value}>
-              {option.label}
+          <option value="">{t(locale, "allRegions")}</option>
+          {REGION_OPTIONS.map((regionOption) => (
+            <option key={regionOption} value={regionOption}>
+              {trRegion(locale, regionOption)}
             </option>
           ))}
         </select>
       </section>
 
       {status === "loading" && (
-        <section className="rounded-xl border border-slate-800 bg-slate-900/70 p-8 text-sm text-slate-300">
-          Loading globe data from API{region ? ` for ${region}` : ""}...
-        </section>
+        <LoadingPanel
+          message={`${t(locale, "loadingGlobeData")}${region ? ` (${trRegion(locale, region)})` : ""}...`}
+          detail="/api/v1/globe-data"
+        />
       )}
 
       {status === "error" && (
-        <section className="rounded-xl border border-rose-900 bg-rose-950/40 p-8 text-sm text-rose-200">
-          Could not load data from `GET /api/v1/globe-data`. Please verify backend availability.
+        <section className="rounded-xl border border-rose-900/70 bg-rose-950/40 p-8 text-sm text-rose-200">
+          {t(locale, "errorGlobeData")}
         </section>
       )}
 
@@ -227,24 +230,24 @@ export function HomePage() {
         <section className="grid gap-4 lg:grid-cols-[1fr_auto]">
           <div className="relative">
             {!webGlAvailable ? (
-              <div className="rounded-2xl border border-slate-800 bg-slate-950 p-4">
-                <p className="text-sm font-semibold text-slate-200">{t(locale, "webglFallbackTitle")}</p>
-                <p className="mt-1 text-xs text-slate-400">{t(locale, "webglFallbackSubtitle")}</p>
+              <div className="glass-panel rounded-2xl p-4">
+                <p className="text-sm font-semibold text-[#f5f4f0]">{t(locale, "webglFallbackTitle")}</p>
+                <p className="mt-1 text-xs text-[#888680]">{t(locale, "webglFallbackSubtitle")}</p>
 
                 <div className="mt-4 overflow-auto">
                   <table className="w-full border-collapse text-xs">
-                    <thead className="text-left uppercase tracking-wide text-slate-400">
+                    <thead className="text-left uppercase tracking-wide text-[#888680]">
                       <tr>
-                        <th className="px-2 py-2">Country</th>
-                        <th className="px-2 py-2">Debt</th>
-                        <th className="px-2 py-2">Debt / GDP</th>
+                        <th className="px-2 py-2">{t(locale, "country")}</th>
+                        <th className="px-2 py-2">{t(locale, "debtLabel")}</th>
+                        <th className="px-2 py-2">{t(locale, "debtToGdpLabel")}</th>
                       </tr>
                     </thead>
                     <tbody>
-                      {filteredPoints.slice(0, 20).map((point) => (
-                        <tr key={point.iso3} className="border-t border-slate-800 text-slate-200">
+                      {points.slice(0, 20).map((point) => (
+                        <tr key={point.iso3} className="border-t border-[#2a2f3a] text-[#f5f4f0]">
                           <td className="px-2 py-2">
-                            <Link className="text-sky-300 hover:text-sky-200" to={`/country/${point.iso3.toLowerCase()}`}>
+                            <Link className="text-[#a594f9] hover:text-[#c4b9fa]" to={`/country/${point.iso3.toLowerCase()}`}>
                               {point.name_en} ({point.iso3})
                             </Link>
                           </td>
@@ -256,19 +259,21 @@ export function HomePage() {
                   </table>
                 </div>
               </div>
-            ) : filteredPoints.length === 0 ? (
-              <div className="flex h-[560px] items-center justify-center rounded-2xl border border-slate-800 bg-slate-950 px-6 text-center text-sm text-slate-300">
-                No countries match the current debt band filter.
-              </div>
             ) : (
               <Suspense
                 fallback={
-                  <div className="flex h-[560px] items-center justify-center rounded-2xl border border-slate-800 bg-slate-950 text-sm text-slate-300">
-                    Loading 3D globe module...
-                  </div>
+                  <LoadingPanel
+                    message={`${t(locale, "loadingGlobeModule")}...`}
+                    className="h-[560px]"
+                  />
                 }
               >
-                <GlobeScene points={filteredPoints} />
+                <GlobeScene
+                  points={points}
+                  selectedBand={debtBand}
+                  highlightedIso3Set={highlightedIso3Set}
+                  autoRotateEnabled={!region}
+                />
               </Suspense>
             )}
             <div className="pointer-events-none absolute left-4 top-4">
@@ -286,16 +291,20 @@ export function HomePage() {
               availableCountries={intensityMeta.availableCount}
               totalCountries={intensityMeta.totalCount}
             />
-            <div className="rounded-xl border border-slate-700 bg-slate-900/80 p-4 text-xs text-slate-300">
-              <p className="font-semibold text-slate-100">Interaction</p>
+            <div className="glass-panel rounded-xl p-4 text-xs text-[#c8c7c2]">
+              <p className="font-semibold text-[#f5f4f0]">{t(locale, "interactionTitle")}</p>
               <ul className="mt-2 list-disc space-y-1 pl-4">
-                <li>Drag to rotate the globe.</li>
-                <li>Scroll to zoom in/out.</li>
-                <li>Hover a country area to inspect debt metrics.</li>
-                <li>Click a country area to open detail.</li>
-                <li>Use legend presets to focus low, medium, or high debt bands.</li>
+                <li>{t(locale, "interactionDrag")}</li>
+                <li>{t(locale, "interactionZoom")}</li>
+                <li>{t(locale, "interactionHover")}</li>
+                <li>{t(locale, "interactionClick")}</li>
+                <li>{t(locale, "interactionBand")}</li>
               </ul>
-              <p className="mt-3 text-[11px] text-slate-400">Visible countries: {filteredPoints.length}</p>
+              <p className="mt-3 text-[11px] text-[#888680]">{t(locale, "visibleCountries")}: {points.length}</p>
+              <p className="mt-1 text-[11px] text-[#888680]">{t(locale, "highlightedCountries")}: {filteredPoints.length}</p>
+              {debtBand !== "all" && filteredPoints.length === 0 && (
+                <p className="mt-2 text-[11px] text-amber-300">{t(locale, "noCountriesBand")}</p>
+              )}
             </div>
           </div>
         </section>
