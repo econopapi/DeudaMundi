@@ -36,9 +36,21 @@ Backend en FastAPI para servir datos del Atlas Global de Deuda.
 		- `limit`: default 20, máximo 100
 	- Devuelve ranking usando último año disponible por país.
 
-### Cache base
+- `GET /api/v1/globe-data`
+	- Query params:
+		- `region`: opcional
+	- Devuelve payload liviano para visualización global (iso3 + último dato de deuda por país).
 
-Se incorporó cache-aside con Redis para `rankings` con TTL de 24h.
+### Cache Redis (lectura)
+
+Se incorporó cache-aside con Redis para:
+
+- `GET /api/v1/countries`
+- `GET /api/v1/countries/{iso3}`
+- `GET /api/v1/countries/{iso3}/history`
+- `GET /api/v1/countries/{iso3}/governments`
+- `GET /api/v1/rankings`
+- `GET /api/v1/globe-data`
 
 ## Hardening Fase 1 (iteración 4)
 
@@ -51,13 +63,18 @@ Se incorporó cache-aside con Redis para `rankings` con TTL de 24h.
 	- `Content-Security-Policy` restrictivo para API
 	- `Strict-Transport-Security` opcional (`SECURITY_HSTS_ENABLED=true`)
 
-	## Calidad Fase 1 (iteración 5)
+## Calidad Fase 1 (iteración 5)
 
-	- Pruebas de integración reales para:
-		- `GET /api/v1/countries/{iso3}/history`
-		- `GET /api/v1/countries/{iso3}/governments`
-		- `GET /api/v1/rankings`
-	- Optimización de base de datos con índices en métricas de ranking y filtros frecuentes.
+- Pruebas de integración reales para:
+	- `GET /api/v1/countries/{iso3}/history`
+	- `GET /api/v1/countries/{iso3}/governments`
+	- `GET /api/v1/rankings`
+- Optimización de base de datos con índices en métricas de ranking y filtros frecuentes.
+
+## Cierre Semana 4 (iteración 6)
+
+- Implementado `GET /api/v1/globe-data` con payload liviano para mapa.
+- Cache Redis integrada en todos los endpoints de lectura del MVP de Fase 1.
 
 ## Base de datos y migraciones
 

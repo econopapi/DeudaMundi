@@ -7,6 +7,8 @@ import redis
 from app.core.config import settings
 
 CACHE_TTL_RANKINGS_SECONDS = 60 * 60 * 24
+CACHE_TTL_COUNTRIES_SECONDS = 60 * 60 * 6
+CACHE_TTL_GLOBE_DATA_SECONDS = 60 * 60 * 24
 
 _client: redis.Redis | None = None
 

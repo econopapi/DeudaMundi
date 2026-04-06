@@ -12,6 +12,8 @@ from app.schemas.country import (
     CountryHistoryItem,
     CountryHistoryResponse,
     CountryListItem,
+    GlobeDataPoint,
+    GlobeDataResponse,
 )
 from app.services.equivalences import build_equivalences
 
@@ -159,3 +161,26 @@ def get_country_governments(db: Session, iso3: str) -> CountryGovernmentsRespons
             for row in rows
         ],
     )
+
+
+def get_globe_data(db: Session, region: str | None) -> GlobeDataResponse:
+    stmt = _base_country_with_latest_debt_query().order_by(Country.iso3)
+    if region:
+        stmt = stmt.where(func.lower(Country.region) == region.lower())
+
+    rows = db.execute(stmt).all()
+
+    items = [
+        GlobeDataPoint(
+            iso3=country.iso3,
+            name_en=country.name_en,
+            region=country.region,
+            latest_year=debt.year if debt else None,
+            total_external_debt_usd=debt.total_external_debt_usd if debt else None,
+            debt_per_capita_usd=debt.debt_per_capita_usd if debt else None,
+            debt_pct_gdp=debt.debt_pct_gdp if debt else None,
+        )
+        for country, debt in rows
+    ]
+
+    return GlobeDataResponse(item_count=len(items), items=items)

@@ -68,3 +68,18 @@ class CountryGovernmentItem(BaseModel):
 class CountryGovernmentsResponse(BaseModel):
     iso3: str
     items: list[CountryGovernmentItem]
+
+
+class GlobeDataPoint(BaseModel):
+    iso3: str
+    name_en: str
+    region: str | None
+    latest_year: int | None
+    total_external_debt_usd: float | None
+    debt_per_capita_usd: float | None
+    debt_pct_gdp: float | None
+
+
+class GlobeDataResponse(BaseModel):
+    item_count: int
+    items: list[GlobeDataPoint]
