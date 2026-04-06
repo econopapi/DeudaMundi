@@ -7,6 +7,8 @@ type CountryHeroProps = {
 };
 
 export function CountryHero({ country }: CountryHeroProps) {
+  const hasMissingCoreRatios = country.debt_pct_gdp === null || country.debt_per_capita_usd === null;
+
   return (
     <section className="rounded-2xl border border-slate-800 bg-slate-900/70 p-5 md:p-6">
       <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
@@ -19,7 +21,9 @@ export function CountryHero({ country }: CountryHeroProps) {
         <div className="flex flex-wrap gap-2 text-xs text-slate-300">
           <span className="rounded-full border border-slate-700 bg-slate-950/50 px-3 py-1">ISO3: {country.iso3}</span>
           <span className="rounded-full border border-slate-700 bg-slate-950/50 px-3 py-1">ISO2: {country.iso2}</span>
-          <span className="rounded-full border border-slate-700 bg-slate-950/50 px-3 py-1">Region: {country.region ?? "N/A"}</span>
+          <span className="rounded-full border border-slate-700 bg-slate-950/50 px-3 py-1">
+            Region: {country.region ?? "Not available"}
+          </span>
         </div>
       </div>
 
@@ -29,6 +33,12 @@ export function CountryHero({ country }: CountryHeroProps) {
         <MetricCounter label="Debt / GDP" value={country.debt_pct_gdp} formatter={formatPercentage} />
         <MetricCounter label="Latest year" value={country.latest_year} formatter={(value) => (value ? String(Math.round(value)) : "N/A")} />
       </div>
+
+      {hasMissingCoreRatios && (
+        <p className="mt-4 text-xs text-amber-300">
+          Some ratio indicators are currently unavailable in the source dataset for the latest year.
+        </p>
+      )}
     </section>
   );
 }

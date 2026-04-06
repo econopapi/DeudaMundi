@@ -24,4 +24,19 @@ describe("GlobeLegend", () => {
 
     expect(onBandChange).toHaveBeenCalledWith("high");
   });
+
+  it("renders fallback mode and coverage metadata", () => {
+    render(
+      <GlobeLegend
+        minDebtPctGdp={7}
+        maxDebtPctGdp={12}
+        mode="total_external_debt_usd_log"
+        availableCountries={120}
+        totalCountries={217}
+      />,
+    );
+
+    expect(screen.getByText("Debt intensity (fallback: total debt)")).toBeInTheDocument();
+    expect(screen.getByText("Data coverage: 120/217 countries")).toBeInTheDocument();
+  });
 });

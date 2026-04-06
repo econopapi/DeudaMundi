@@ -12,8 +12,6 @@
     "test:watch": "jest --watch"
   },
   "dependencies": {
-    "@react-three/drei": "^9.122.0",
-    "@react-three/fiber": "^8.16.8",
     "d3": "^7.9.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
@@ -22,7 +20,6 @@
     "three": "^0.170.0",
     "topojson-client": "^3.1.0",
     "world-atlas": "^2.0.2",
-    "world-countries": "^5.1.0",
     "zustand": "^4.5.5"
   },
   "devDependencies": {

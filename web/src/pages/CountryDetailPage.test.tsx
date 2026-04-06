@@ -94,4 +94,45 @@ describe("CountryDetailPage", () => {
     expect(mockFetchCountryHistory).toHaveBeenCalledWith("arg");
     expect(mockFetchCountryGovernments).toHaveBeenCalledWith("arg");
   });
+
+  it("shows source-unavailable messaging for null metrics", async () => {
+    mockFetchCountryDetail.mockResolvedValue({
+      iso3: "MEX",
+      iso2: "MX",
+      name_es: "México",
+      name_en: "Mexico",
+      region: "Latin America & Caribbean",
+      subregion: "Latin America & Caribbean (excluding high income)",
+      population: null,
+      capital: "Mexico City",
+      latest_year: 2024,
+      total_external_debt_usd: 591255026725,
+      debt_per_capita_usd: null,
+      debt_pct_gdp: null,
+      gdp_usd: null,
+      equivalences: [],
+    });
+
+    mockFetchCountryHistory.mockResolvedValue({
+      iso3: "MEX",
+      items: [],
+    });
+
+    mockFetchCountryGovernments.mockResolvedValue({
+      iso3: "MEX",
+      items: [],
+    });
+
+    render(
+      <MemoryRouter initialEntries={["/country/mex"]}>
+        <Routes>
+          <Route path="/country/:iso3" element={<CountryDetailPage />} />
+        </Routes>
+      </MemoryRouter>,
+    );
+
+    expect(await screen.findByText("Country profile")).toBeInTheDocument();
+    expect(screen.getByText("Some ratio indicators are currently unavailable in the source dataset for the latest year.")).toBeInTheDocument();
+    expect(screen.getAllByText(/Not available from source/i).length).toBeGreaterThan(0);
+  });
 });

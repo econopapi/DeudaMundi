@@ -1,9 +1,9 @@
 import type { FeatureCollection, Geometry } from "geojson";
 import Globe from "react-globe.gl";
+import { feature } from "topojson-client";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import countries110m from "world-atlas/countries-110m.json";
-import countries from "world-countries";
 
 import { useGlobeStore } from "../../store/globeStore";
 import type { GlobeDataPoint } from "../../types/api";
@@ -32,20 +32,85 @@ type GlobeSceneProps = {
   points: GlobeDataPoint[];
 };
 
+type IntensityMode = "debt_pct_gdp" | "total_external_debt_usd_log";
+
+const TOPO_NAME_TO_POINT_NAME_ALIASES: Record<string, string> = {
+  "united states of america": "united states",
+  "dominican rep": "dominican republic",
+  "dem rep congo": "congo democratic republic",
+  "central african rep": "central african republic",
+  "eq guinea": "equatorial guinea",
+  "bosnia and herzegovina": "bosnia and herzegovina",
+  "czech rep": "czech republic",
+  "solomon is": "solomon islands",
+  "trinidad and tobago": "trinidad and tobago",
+  "s sudan": "south sudan",
+  "w sahara": "western sahara",
+  "falkland is": "falkland islands",
+  "timor leste": "timor leste",
+};
+
+function normalizeCountryName(value: string): string {
+  return value
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-zA-Z0-9 ]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim()
+    .toLowerCase();
+}
+
+function getIntensityValue(point: GlobeDataPoint, mode: IntensityMode): number | null {
+  if (mode === "debt_pct_gdp") {
+    const ratio = point.debt_pct_gdp;
+    return ratio !== null && Number.isFinite(ratio) ? ratio : null;
+  }
+
+  const totalDebt = point.total_external_debt_usd;
+  if (totalDebt === null || !Number.isFinite(totalDebt) || totalDebt <= 0) {
+    return null;
+  }
+
+  return Math.log10(totalDebt);
+}
+
 function getDebtRange(points: GlobeDataPoint[]): { min: number; max: number } {
-  const values = points
+  const ratioValues = points
     .map((point) => point.debt_pct_gdp)
     .filter((value): value is number => value !== null && Number.isFinite(value));
 
-  if (values.length === 0) {
-    return { min: 0, max: 1 };
+  if (ratioValues.length > 0) {
+    return {
+      min: Math.min(...ratioValues),
+      max: Math.max(...ratioValues),
+    };
   }
 
-  return {
-    min: Math.min(...values),
-    max: Math.max(...values),
-  };
+  const debtValues = points
+    .map((point) => point.total_external_debt_usd)
+    .filter((value): value is number => value !== null && Number.isFinite(value) && value > 0)
+    .map((value) => Math.log10(value));
+
+  if (debtValues.length > 0) {
+    return {
+      min: Math.min(...debtValues),
+      max: Math.max(...debtValues),
+    };
+  }
+
+  return { min: 0, max: 1 };
 }
+
+function getIntensityMode(points: GlobeDataPoint[]): IntensityMode {
+  const hasRatio = points.some((point) => point.debt_pct_gdp !== null && Number.isFinite(point.debt_pct_gdp));
+  return hasRatio ? "debt_pct_gdp" : "total_external_debt_usd_log";
+}
+
+const topology = countries110m as TopologyInput;
+const countryFeatures = feature(
+  topology as unknown as Parameters<typeof feature>[0],
+  topology.objects.countries as Parameters<typeof feature>[1],
+) as FeatureCollection;
 
 export function GlobeScene({ points }: GlobeSceneProps) {
   const navigate = useNavigate();
@@ -94,71 +159,39 @@ export function GlobeScene({ points }: GlobeSceneProps) {
   }, []);
 
   const debtRange = useMemo(() => getDebtRange(points), [points]);
+  const intensityMode = useMemo(() => getIntensityMode(points), [points]);
   const pointsByIso3 = useMemo(() => {
     return new Map(points.map((point) => [point.iso3, point]));
   }, [points]);
 
-  const countryNameByIso3 = useMemo(() => {
-    return countries.reduce<Map<string, string>>((acc, country) => {
-      if (country.cca3 && country.name?.common) {
-        acc.set(country.cca3, country.name.common);
-      }
-
+  const iso3ByNormalizedName = useMemo(() => {
+    return points.reduce<Map<string, string>>((acc, point) => {
+      acc.set(normalizeCountryName(point.name_en), point.iso3);
       return acc;
     }, new Map());
-  }, []);
-
-  const iso3ByNumericCode = useMemo(() => {
-    return countries.reduce<Map<number, string>>((acc, country) => {
-      const ccn3 = Number(country.ccn3);
-      if (Number.isFinite(ccn3) && country.cca3) {
-        acc.set(ccn3, country.cca3);
-      }
-
-      return acc;
-    }, new Map());
-  }, []);
+  }, [points]);
 
   useEffect(() => {
-    let cancelled = false;
+    const mappedFeatures = (countryFeatures.features ?? [])
+      .map((feature) => {
+        const rawName = String((feature.properties as CountryFeatureProperties | undefined)?.name ?? "");
+        const normalizedTopoName = normalizeCountryName(rawName);
+        const aliasedName = TOPO_NAME_TO_POINT_NAME_ALIASES[normalizedTopoName] ?? normalizedTopoName;
+        const iso3 = iso3ByNormalizedName.get(aliasedName);
 
-    async function loadGeoFeatures() {
-      const topology = countries110m as TopologyInput;
-      const topojson = await import("topojson-client");
-      const featureCollection = topojson.feature(
-        topology as unknown as Parameters<typeof topojson.feature>[0],
-        topology.objects.countries as Parameters<typeof topojson.feature>[1],
-      ) as FeatureCollection;
+        return {
+          ...(feature as CountryFeature),
+          properties: {
+            ...(feature.properties as CountryFeatureProperties),
+            iso3,
+            name: rawName || iso3,
+          },
+        };
+      })
+      .filter((feature) => Boolean(feature.properties.iso3)) as CountryFeature[];
 
-      if (cancelled) {
-        return;
-      }
-
-      const mappedFeatures = (featureCollection.features ?? [])
-        .map((feature) => {
-          const numericId = Number(feature.id);
-          const iso3 = iso3ByNumericCode.get(numericId);
-
-          return {
-            ...(feature as CountryFeature),
-            properties: {
-              ...(feature.properties as CountryFeatureProperties),
-              iso3,
-              name: iso3 ? countryNameByIso3.get(iso3) : undefined,
-            },
-          };
-        })
-        .filter((feature) => Boolean(feature.properties.iso3)) as CountryFeature[];
-
-      setGeoFeatures(mappedFeatures);
-    }
-
-    void loadGeoFeatures();
-
-    return () => {
-      cancelled = true;
-    };
-  }, [countryNameByIso3, iso3ByNumericCode]);
+    setGeoFeatures(mappedFeatures);
+  }, [iso3ByNormalizedName]);
 
   const handlePolygonHover = (feature: CountryFeature | null) => {
     if (!feature) {
@@ -173,11 +206,14 @@ export function GlobeScene({ points }: GlobeSceneProps) {
     }
 
     const point = pointsByIso3.get(iso3);
+    const debtRatio = point?.debt_pct_gdp ?? null;
+    const fallbackDebt = point?.total_external_debt_usd ?? null;
+
     setHoveredCountry({
       iso3,
       name: point?.name_en ?? feature.properties.name ?? iso3,
-      debtPctGdp: point?.debt_pct_gdp ?? null,
-      debtTotalUsd: point?.total_external_debt_usd ?? null,
+      debtPctGdp: debtRatio,
+      debtTotalUsd: fallbackDebt,
     });
   };
 
@@ -197,11 +233,16 @@ export function GlobeScene({ points }: GlobeSceneProps) {
     }
 
     const point = pointsByIso3.get(iso3);
-    if (!point || point.debt_pct_gdp === null || !Number.isFinite(point.debt_pct_gdp)) {
+    if (!point) {
       return "rgba(51, 65, 85, 0.55)";
     }
 
-    return getDebtColor(point.debt_pct_gdp, debtRange.min, debtRange.max);
+    const intensityValue = getIntensityValue(point, intensityMode);
+    if (intensityValue === null) {
+      return "rgba(51, 65, 85, 0.55)";
+    }
+
+    return getDebtColor(intensityValue, debtRange.min, debtRange.max);
   };
 
   return (

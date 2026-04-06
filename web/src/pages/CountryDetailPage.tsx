@@ -11,6 +11,14 @@ import type {
   CountryHistoryItem,
 } from "../types/api";
 
+function formatMetricWithAvailability(value: number | null, formatter: (input: number | null) => string): string {
+  if (value === null || Number.isNaN(value)) {
+    return "Not available from source";
+  }
+
+  return formatter(value);
+}
+
 export function CountryDetailPage() {
   const { iso3 = "" } = useParams();
   const [country, setCountry] = useState<CountryDetailResponse | null>(null);
@@ -85,11 +93,11 @@ export function CountryDetailPage() {
             <article className="rounded-xl border border-slate-700 bg-slate-950/50 p-4">
               <h2 className="text-sm font-semibold text-slate-300">Debt metrics</h2>
               <ul className="mt-3 space-y-2 text-sm text-slate-200">
-                <li>Total debt: {formatUsdCompact(country.total_external_debt_usd)}</li>
-                <li>Debt per capita: {formatUsdCompact(country.debt_per_capita_usd)}</li>
-                <li>Debt / GDP: {formatPercentage(country.debt_pct_gdp)}</li>
-                <li>GDP: {formatUsdCompact(country.gdp_usd)}</li>
-                <li>Latest year: {country.latest_year ?? "N/A"}</li>
+                <li>Total debt: {formatMetricWithAvailability(country.total_external_debt_usd, formatUsdCompact)}</li>
+                <li>Debt per capita: {formatMetricWithAvailability(country.debt_per_capita_usd, formatUsdCompact)}</li>
+                <li>Debt / GDP: {formatMetricWithAvailability(country.debt_pct_gdp, formatPercentage)}</li>
+                <li>GDP: {formatMetricWithAvailability(country.gdp_usd, formatUsdCompact)}</li>
+                <li>Latest year: {country.latest_year ?? "Not available from source"}</li>
               </ul>
             </article>
 
@@ -99,10 +107,10 @@ export function CountryDetailPage() {
                 <li>Name (EN): {country.name_en}</li>
                 <li>Name (ES): {country.name_es}</li>
                 <li>ISO2: {country.iso2}</li>
-                <li>Region: {country.region ?? "N/A"}</li>
-                <li>Subregion: {country.subregion ?? "N/A"}</li>
-                <li>Population: {country.population?.toLocaleString("en-US") ?? "N/A"}</li>
-                <li>Capital: {country.capital ?? "N/A"}</li>
+                <li>Region: {country.region ?? "Not available from source"}</li>
+                <li>Subregion: {country.subregion ?? "Not available from source"}</li>
+                <li>Population: {country.population?.toLocaleString("en-US") ?? "Not available from source"}</li>
+                <li>Capital: {country.capital ?? "Not available from source"}</li>
               </ul>
             </article>
 

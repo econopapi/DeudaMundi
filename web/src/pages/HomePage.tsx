@@ -23,22 +23,72 @@ const REGION_OPTIONS = [
 
 type DebtBand = "all" | "low" | "mid" | "high";
 
-function getDebtRange(points: GlobeDataPoint[]): { min: number; max: number } {
-  const values = points
+type IntensityMode = "debt_pct_gdp" | "total_external_debt_usd_log";
+
+type IntensityMeta = {
+  min: number;
+  max: number;
+  mode: IntensityMode;
+  availableCount: number;
+  totalCount: number;
+};
+
+function getIntensityValue(point: GlobeDataPoint, mode: IntensityMode): number | null {
+  if (mode === "debt_pct_gdp") {
+    const ratio = point.debt_pct_gdp;
+    return ratio !== null && Number.isFinite(ratio) ? ratio : null;
+  }
+
+  const totalDebt = point.total_external_debt_usd;
+  if (totalDebt === null || !Number.isFinite(totalDebt) || totalDebt <= 0) {
+    return null;
+  }
+
+  return Math.log10(totalDebt);
+}
+
+function getIntensityMeta(points: GlobeDataPoint[]): IntensityMeta {
+  const ratioValues = points
     .map((point) => point.debt_pct_gdp)
     .filter((value): value is number => value !== null && Number.isFinite(value));
 
-  if (values.length === 0) {
-    return { min: 0, max: 100 };
+  if (ratioValues.length > 0) {
+    return {
+      min: Math.min(...ratioValues),
+      max: Math.max(...ratioValues),
+      mode: "debt_pct_gdp",
+      availableCount: ratioValues.length,
+      totalCount: points.length,
+    };
+  }
+
+  const debtValues = points
+    .map((point) => point.total_external_debt_usd)
+    .filter((value): value is number => value !== null && Number.isFinite(value) && value > 0)
+    .map((value) => Math.log10(value));
+
+  if (debtValues.length === 0) {
+    return {
+      min: 0,
+      max: 1,
+      mode: "debt_pct_gdp",
+      availableCount: 0,
+      totalCount: points.length,
+    };
   }
 
   return {
-    min: Math.min(...values),
-    max: Math.max(...values),
+    min: Math.min(...debtValues),
+    max: Math.max(...debtValues),
+    mode: "total_external_debt_usd_log",
+    availableCount: debtValues.length,
+    totalCount: points.length,
   };
 }
 
-function filterPointsByDebtBand(points: GlobeDataPoint[], debtBand: DebtBand, min: number, max: number): GlobeDataPoint[] {
+function filterPointsByDebtBand(points: GlobeDataPoint[], debtBand: DebtBand, intensityMeta: IntensityMeta): GlobeDataPoint[] {
+  const { min, max, mode } = intensityMeta;
+
   if (debtBand === "all" || max <= min) {
     return points;
   }
@@ -48,8 +98,8 @@ function filterPointsByDebtBand(points: GlobeDataPoint[], debtBand: DebtBand, mi
   const midLimit = min + oneThird * 2;
 
   return points.filter((point) => {
-    const value = point.debt_pct_gdp;
-    if (value === null || !Number.isFinite(value)) {
+    const value = getIntensityValue(point, mode);
+    if (value === null) {
       return false;
     }
 
@@ -100,10 +150,10 @@ export function HomePage() {
     };
   }, [region]);
 
-  const debtRange = useMemo(() => getDebtRange(points), [points]);
+  const intensityMeta = useMemo(() => getIntensityMeta(points), [points]);
   const filteredPoints = useMemo(
-    () => filterPointsByDebtBand(points, debtBand, debtRange.min, debtRange.max),
-    [points, debtBand, debtRange.max, debtRange.min],
+    () => filterPointsByDebtBand(points, debtBand, intensityMeta),
+    [points, debtBand, intensityMeta],
   );
 
   useEffect(() => {
@@ -184,18 +234,21 @@ export function HomePage() {
 
           <div className="flex flex-col gap-3">
             <GlobeLegend
-              minDebtPctGdp={debtRange.min}
-              maxDebtPctGdp={debtRange.max}
+              minDebtPctGdp={intensityMeta.min}
+              maxDebtPctGdp={intensityMeta.max}
               selectedBand={debtBand}
               onBandChange={setDebtBand}
+              mode={intensityMeta.mode}
+              availableCountries={intensityMeta.availableCount}
+              totalCountries={intensityMeta.totalCount}
             />
             <div className="rounded-xl border border-slate-700 bg-slate-900/80 p-4 text-xs text-slate-300">
               <p className="font-semibold text-slate-100">Interaction</p>
               <ul className="mt-2 list-disc space-y-1 pl-4">
                 <li>Drag to rotate the globe.</li>
                 <li>Scroll to zoom in/out.</li>
-                <li>Hover a marker to inspect debt metrics.</li>
-                <li>Click a marker to open country detail.</li>
+                <li>Hover a country area to inspect debt metrics.</li>
+                <li>Click a country area to open detail.</li>
                 <li>Use legend presets to focus low, medium, or high debt bands.</li>
               </ul>
               <p className="mt-3 text-[11px] text-slate-400">Visible countries: {filteredPoints.length}</p>
