@@ -49,6 +49,17 @@ El ETL descarga países + series históricas, normaliza y hace upsert en:
 Ejecución:
 
 - `deudamundi-etl-worldbank`
+- `deudamundi-seed-governments`
+- `deudamundi-report-gaps`
+
+### Flujo recomendado de cierre Fase 0
+
+1. `alembic upgrade head`
+2. `deudamundi-etl-worldbank`
+3. `deudamundi-seed-governments`
+4. `deudamundi-report-gaps`
+
+El reporte de gaps se guarda en `api/reports/etl_gap_report_*.json`.
 
 ## Trigger manual y scheduler
 
