@@ -24,6 +24,10 @@ function formatMetricWithAvailability(value: number | null, formatter: (input: n
   return formatter(value);
 }
 
+function getDebtStock(country: CountryDetailResponse): number | null {
+  return country.debt_stock_usd ?? country.total_external_debt_usd;
+}
+
 export function CountryDetailPage() {
   const { iso3 = "" } = useParams();
   const locale = useLocaleStore((state) => state.locale);
@@ -72,8 +76,9 @@ export function CountryDetailPage() {
     }
 
     const title = `${country.name_en} · ${t(locale, "shareTitlePrefix")} · DeudaMundi`;
+    const debtStock = getDebtStock(country);
     const description = `${country.name_en} (${country.iso3}) ${t(locale, "shareTitlePrefix")}: ${t(locale, "debtLabel").toLowerCase()} ${formatUsdCompact(
-      country.total_external_debt_usd,
+      debtStock,
     )}, ${t(locale, "debtPerCapitaLabel").toLowerCase()} ${formatUsdCompact(country.debt_per_capita_usd)}, ${t(locale, "debtToGdpLabel").toLowerCase()} ${formatPercentage(country.debt_pct_gdp)}.`;
 
     document.title = title;
@@ -137,7 +142,7 @@ export function CountryDetailPage() {
             <article className="rounded-xl border border-[#3b4252] bg-[#0d1017]/70 p-4">
               <h2 className="text-sm font-semibold text-[#c8c7c2]">{t(locale, "debtMetrics")}</h2>
               <ul className="mt-3 space-y-2 text-sm text-[#f5f4f0]">
-                <li>{t(locale, "debtLabel")}: {formatMetricWithAvailability(country.total_external_debt_usd, formatUsdCompact).replace("__NOT_AVAILABLE__", t(locale, "notAvailable"))}</li>
+                <li>{t(locale, "debtLabel")}: {formatMetricWithAvailability(getDebtStock(country), formatUsdCompact).replace("__NOT_AVAILABLE__", t(locale, "notAvailable"))}</li>
                 <li>{t(locale, "debtPerCapitaLabel")}: {formatMetricWithAvailability(country.debt_per_capita_usd, formatUsdCompact).replace("__NOT_AVAILABLE__", t(locale, "notAvailable"))}</li>
                 <li>{t(locale, "debtToGdpLabel")}: {formatMetricWithAvailability(country.debt_pct_gdp, formatPercentage).replace("__NOT_AVAILABLE__", t(locale, "notAvailable"))}</li>
                 <li>GDP: {formatMetricWithAvailability(country.gdp_usd, formatUsdCompact).replace("__NOT_AVAILABLE__", t(locale, "notAvailable"))}</li>

@@ -3,6 +3,7 @@ export type GlobeDataPoint = {
   name_en: string;
   region: string | null;
   latest_year: number | null;
+  debt_stock_usd?: number | null;
   total_external_debt_usd: number | null;
   debt_per_capita_usd: number | null;
   debt_pct_gdp: number | null;
@@ -29,6 +30,7 @@ export type CountryDetailResponse = {
   population: number | null;
   capital: string | null;
   latest_year: number | null;
+  debt_stock_usd?: number | null;
   total_external_debt_usd: number | null;
   debt_per_capita_usd: number | null;
   debt_pct_gdp: number | null;
@@ -38,6 +40,7 @@ export type CountryDetailResponse = {
 
 export type CountryHistoryItem = {
   year: number;
+  debt_stock_usd?: number | null;
   total_external_debt_usd: number | null;
   debt_per_capita_usd: number | null;
   debt_pct_gdp: number | null;

@@ -9,6 +9,10 @@ type ShareCardActionsProps = {
   country: CountryDetailResponse;
 };
 
+function getDebtStock(country: CountryDetailResponse): number | null {
+  return country.debt_stock_usd ?? country.total_external_debt_usd;
+}
+
 function buildShareText(country: CountryDetailResponse, locale: "en" | "es"): string {
   const debtPerCapita = formatUsdCompact(country.debt_per_capita_usd);
   const debtPct = formatPercentage(country.debt_pct_gdp);
@@ -50,7 +54,7 @@ function drawShareCard(country: CountryDetailResponse, locale: "en" | "es"): str
 
   context.fillStyle = "#e2e8f0";
   context.font = "600 42px Outfit, Inter, system-ui, sans-serif";
-  context.fillText(`${locale === "es" ? "Deuda pública externa" : "Public external debt"}: ${formatUsdCompact(country.total_external_debt_usd)}`, 72, 355);
+  context.fillText(`${locale === "es" ? "Stock de deuda pública" : "Public debt stock"}: ${formatUsdCompact(getDebtStock(country))}`, 72, 355);
   context.fillText(`${locale === "es" ? "Deuda per cápita" : "Debt per capita"}: ${formatUsdCompact(country.debt_per_capita_usd)}`, 72, 425);
   context.fillText(`${locale === "es" ? "Deuda / PIB" : "Debt / GDP"}: ${formatPercentage(country.debt_pct_gdp)}`, 72, 495);
 

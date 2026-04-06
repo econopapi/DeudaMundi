@@ -69,7 +69,7 @@ function getIntensityValue(point: GlobeDataPoint, mode: IntensityMode): number |
     return ratio !== null && Number.isFinite(ratio) ? ratio : null;
   }
 
-  const totalDebt = point.total_external_debt_usd;
+  const totalDebt = point.debt_stock_usd ?? point.total_external_debt_usd;
   if (totalDebt === null || !Number.isFinite(totalDebt) || totalDebt <= 0) {
     return null;
   }
@@ -90,7 +90,7 @@ function getDebtRange(points: GlobeDataPoint[]): { min: number; max: number } {
   }
 
   const debtValues = points
-    .map((point) => point.total_external_debt_usd)
+    .map((point) => point.debt_stock_usd ?? point.total_external_debt_usd)
     .filter((value): value is number => value !== null && Number.isFinite(value) && value > 0)
     .map((value) => Math.log10(value));
 
@@ -308,7 +308,7 @@ export function GlobeScene({ points, selectedBand = "all", highlightedIso3Set, a
 
     const point = pointsByIso3.get(iso3);
     const debtRatio = point?.debt_pct_gdp ?? null;
-    const fallbackDebt = point?.total_external_debt_usd ?? null;
+    const fallbackDebt = point?.debt_stock_usd ?? point?.total_external_debt_usd ?? null;
 
     setHoveredCountry({
       iso3,

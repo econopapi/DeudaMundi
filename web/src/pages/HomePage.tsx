@@ -44,7 +44,7 @@ function getIntensityValue(point: GlobeDataPoint, mode: IntensityMode): number |
     return ratio !== null && Number.isFinite(ratio) ? ratio : null;
   }
 
-  const totalDebt = point.total_external_debt_usd;
+  const totalDebt = point.debt_stock_usd ?? point.total_external_debt_usd;
   if (totalDebt === null || !Number.isFinite(totalDebt) || totalDebt <= 0) {
     return null;
   }
@@ -68,7 +68,7 @@ function getIntensityMeta(points: GlobeDataPoint[]): IntensityMeta {
   }
 
   const debtValues = points
-    .map((point) => point.total_external_debt_usd)
+    .map((point) => point.debt_stock_usd ?? point.total_external_debt_usd)
     .filter((value): value is number => value !== null && Number.isFinite(value) && value > 0)
     .map((value) => Math.log10(value));
 
@@ -251,7 +251,7 @@ export function HomePage() {
                               {point.name_en} ({point.iso3})
                             </Link>
                           </td>
-                          <td className="px-2 py-2">{formatUsdCompact(point.total_external_debt_usd)}</td>
+                          <td className="px-2 py-2">{formatUsdCompact(point.debt_stock_usd ?? point.total_external_debt_usd)}</td>
                           <td className="px-2 py-2">{formatPercentage(point.debt_pct_gdp)}</td>
                         </tr>
                       ))}
