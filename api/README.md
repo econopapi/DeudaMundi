@@ -40,6 +40,17 @@ Backend en FastAPI para servir datos del Atlas Global de Deuda.
 
 Se incorporó cache-aside con Redis para `rankings` con TTL de 24h.
 
+## Hardening Fase 1 (iteración 4)
+
+- CORS configurable por `CORS_ALLOWED_ORIGINS`
+- Rate limiting básico por IP (`RATE_LIMIT_REQUESTS_PER_MINUTE`)
+- Security headers:
+	- `X-Content-Type-Options: nosniff`
+	- `X-Frame-Options: DENY`
+	- `Referrer-Policy: no-referrer`
+	- `Content-Security-Policy` restrictivo para API
+	- `Strict-Transport-Security` opcional (`SECURITY_HSTS_ENABLED=true`)
+
 ## Base de datos y migraciones
 
 Este backend está preparado para PostgreSQL local y Supabase (producción).

@@ -8,6 +8,9 @@ class Settings(BaseSettings):
     database_url: str = "postgresql+psycopg://postgres:postgres@localhost:5432/deudamundi"
     supabase_database_url: str | None = None
     redis_url: str = "redis://localhost:6379/0"
+    cors_allowed_origins: str = "http://localhost:5173"
+    rate_limit_requests_per_minute: int = 100
+    security_hsts_enabled: bool = False
     admin_api_key: str | None = None
 
     etl_scheduler_enabled: bool = False
@@ -18,6 +21,10 @@ class Settings(BaseSettings):
     @property
     def effective_database_url(self) -> str:
         return self.supabase_database_url or self.database_url
+
+    @property
+    def cors_allowed_origins_list(self) -> list[str]:
+        return [origin.strip() for origin in self.cors_allowed_origins.split(",") if origin.strip()]
 
 
 settings = Settings()
