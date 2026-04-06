@@ -21,6 +21,8 @@ Mejoras iteración siguiente (Semana 8 inicial):
 - Carga diferida del módulo 3D con `React.lazy` + `Suspense`
 - Persistencia del filtro de región en URL (`?region=...`)
 - Leyenda interactiva para filtrar visualmente por banda de deuda (low/medium/high)
+- Mejora visual del globo (iluminación + atmósfera) para evitar esfera negra
+- Estado vacío cuando un filtro no devuelve países visibles
 
 ## Configuración
 

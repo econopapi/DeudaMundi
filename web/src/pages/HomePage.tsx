@@ -5,6 +5,7 @@ import { AppHeader } from "../components/AppHeader";
 import { CountryTooltip } from "../components/globe/CountryTooltip";
 import { GlobeLegend } from "../components/globe/GlobeLegend";
 import { fetchGlobeData } from "../services/deudamundiApi";
+import { useGlobeStore } from "../store/globeStore";
 import type { GlobeDataPoint } from "../types/api";
 
 const GlobeScene = lazy(async () => import("../components/globe/GlobeScene").then((mod) => ({ default: mod.GlobeScene })));
@@ -65,6 +66,7 @@ function filterPointsByDebtBand(points: GlobeDataPoint[], debtBand: DebtBand, mi
 }
 
 export function HomePage() {
+  const setHoveredCountry = useGlobeStore((state) => state.setHoveredCountry);
   const [searchParams, setSearchParams] = useSearchParams();
   const [points, setPoints] = useState<GlobeDataPoint[]>([]);
   const [debtBand, setDebtBand] = useState<DebtBand>("all");
@@ -103,6 +105,10 @@ export function HomePage() {
     () => filterPointsByDebtBand(points, debtBand, debtRange.min, debtRange.max),
     [points, debtBand, debtRange.max, debtRange.min],
   );
+
+  useEffect(() => {
+    setHoveredCountry(null);
+  }, [debtBand, region, setHoveredCountry]);
 
   return (
     <main className="mx-auto flex min-h-screen w-full max-w-6xl flex-col gap-6 px-6 py-8">
@@ -156,15 +162,21 @@ export function HomePage() {
       {status === "ready" && (
         <section className="grid gap-4 lg:grid-cols-[1fr_auto]">
           <div className="relative">
-            <Suspense
-              fallback={
-                <div className="flex h-[560px] items-center justify-center rounded-2xl border border-slate-800 bg-slate-950 text-sm text-slate-300">
-                  Loading 3D globe module...
-                </div>
-              }
-            >
-              <GlobeScene points={filteredPoints} />
-            </Suspense>
+            {filteredPoints.length === 0 ? (
+              <div className="flex h-[560px] items-center justify-center rounded-2xl border border-slate-800 bg-slate-950 px-6 text-center text-sm text-slate-300">
+                No countries match the current debt band filter.
+              </div>
+            ) : (
+              <Suspense
+                fallback={
+                  <div className="flex h-[560px] items-center justify-center rounded-2xl border border-slate-800 bg-slate-950 text-sm text-slate-300">
+                    Loading 3D globe module...
+                  </div>
+                }
+              >
+                <GlobeScene points={filteredPoints} />
+              </Suspense>
+            )}
             <div className="pointer-events-none absolute left-4 top-4">
               <CountryTooltip />
             </div>
