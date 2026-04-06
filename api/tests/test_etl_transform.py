@@ -34,16 +34,12 @@ def test_normalize_countries_filters_aggregates() -> None:
 
 
 def test_normalize_debt_records_parses_only_valid_values() -> None:
-    raw_debt = [
-        {"countryiso3code": "ARG", "date": "2023", "value": 280000000000},
-        {"countryiso3code": "ARG", "date": "2022", "value": None},
-        {"countryiso3code": "", "date": "2021", "value": 10},
-    ]
-    gdp_by_country_year = {("ARG", 2023): 560000000000.0}
+    debt_pct_gdp_by_country_year = {("ARG", 2023): 50.0}
+    gdp_by_country_year = {("ARG", 2023): 560000000000.0, ("ARG", 2022): 500000000000.0}
     population_by_country_year = {("ARG", 2023): 46000000.0}
 
     records = normalize_debt_records(
-        raw_debt,
+        debt_pct_gdp_by_country_year=debt_pct_gdp_by_country_year,
         gdp_by_country_year=gdp_by_country_year,
         population_by_country_year=population_by_country_year,
     )
@@ -55,6 +51,29 @@ def test_normalize_debt_records_parses_only_valid_values() -> None:
     assert records[0].gdp_usd == 560000000000.0
     assert round(records[0].debt_pct_gdp or 0, 2) == 50.0
     assert round(records[0].debt_per_capita_usd or 0, 2) == 6086.96
+
+
+def test_normalize_debt_records_uses_single_methodology_for_usa_like_cases() -> None:
+    gdp_by_country_year = {("USA", 2024): 29000000000000.0}
+    population_by_country_year = {("USA", 2024): 340000000.0}
+    debt_pct_gdp_by_country_year = {("USA", 2024): 118.0}
+
+    records = normalize_debt_records(
+        debt_pct_gdp_by_country_year=debt_pct_gdp_by_country_year,
+        gdp_by_country_year=gdp_by_country_year,
+        population_by_country_year=population_by_country_year,
+    )
+
+    assert len(records) == 1
+    assert records[0].iso3 == "USA"
+    assert records[0].year == 2024
+    assert round(records[0].total_external_debt_usd) == round(29000000000000.0 * 1.18)
+    assert records[0].debt_pct_gdp == 118.0
+    assert round(records[0].debt_per_capita_usd or 0, 2) == round(
+        (29000000000000.0 * 1.18) / 340000000.0,
+        2,
+    )
+    assert records[0].source == "worldbank_public_debt_pct_gdp"
 
 
 def test_normalize_indicator_rows_and_latest_population() -> None:

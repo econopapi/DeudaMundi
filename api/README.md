@@ -292,16 +292,21 @@ Se incluye un ETL base para ingestar deuda externa total usando el indicador:
 
 - `DT.DOD.DECT.CD`
 
-Desde esta iteración también se ingieren indicadores necesarios para métricas completas:
+Desde esta iteración se usa una metodología única para deuda soberana, basada en:
 
-- `NY.GDP.MKTP.CD` (GDP nominal anual en USD)
+- `GC.DOD.TOTL.GD.ZS` (deuda pública total como % del PIB)
+- `NY.GDP.MKTP.CD` (PIB nominal anual en USD)
 - `SP.POP.TOTL` (población anual)
 
 Con estos indicadores el ETL calcula y persiste:
 
 - `gdp_usd`
-- `debt_pct_gdp` = `total_external_debt_usd / gdp_usd * 100`
+- `debt_pct_gdp` (directo de fuente)
+- `total_external_debt_usd` derivado como `gdp_usd * (debt_pct_gdp / 100)`
 - `debt_per_capita_usd` = `total_external_debt_usd / population`
+
+No se aplican fallbacks de indicadores alternativos para calcular deuda.
+Solo se persisten años donde existen los 3 datos requeridos (deuda %PIB, PIB, población).
 
 El ETL descarga países + series históricas, normaliza y hace upsert en:
 

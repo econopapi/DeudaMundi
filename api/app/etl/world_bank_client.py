@@ -5,7 +5,7 @@ from typing import Any
 import httpx
 
 BASE_URL = "https://api.worldbank.org/v2"
-DEBT_INDICATOR = "DT.DOD.DECT.CD"
+DEBT_PCT_GDP_INDICATOR = "GC.DOD.TOTL.GD.ZS"
 GDP_INDICATOR = "NY.GDP.MKTP.CD"
 POPULATION_INDICATOR = "SP.POP.TOTL"
 
@@ -18,8 +18,8 @@ class WorldBankClient:
         data = self._paginate("/country", params={"format": "json", "per_page": 500})
         return [item for item in data if isinstance(item, dict)]
 
-    def fetch_external_debt(self) -> list[dict[str, Any]]:
-        data = self.fetch_indicator(DEBT_INDICATOR)
+    def fetch_debt_pct_gdp(self) -> list[dict[str, Any]]:
+        data = self.fetch_indicator(DEBT_PCT_GDP_INDICATOR)
         return [item for item in data if isinstance(item, dict)]
 
     def fetch_gdp(self) -> list[dict[str, Any]]:
