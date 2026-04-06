@@ -1,11 +1,16 @@
 import { Suspense, lazy, useEffect, useMemo, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 
 import { AppHeader } from "../components/AppHeader";
+import { LanguageSwitcher } from "../components/LanguageSwitcher";
 import { CountryTooltip } from "../components/globe/CountryTooltip";
 import { GlobeLegend } from "../components/globe/GlobeLegend";
+import { formatPercentage, formatUsdCompact } from "../lib/formatters";
+import { t } from "../lib/translations";
+import { isWebGlAvailable } from "../lib/webgl";
 import { fetchGlobeData } from "../services/deudamundiApi";
 import { useGlobeStore } from "../store/globeStore";
+import { useLocaleStore } from "../store/localeStore";
 import type { GlobeDataPoint } from "../types/api";
 
 const GlobeScene = lazy(async () => import("../components/globe/GlobeScene").then((mod) => ({ default: mod.GlobeScene })));
@@ -117,10 +122,12 @@ function filterPointsByDebtBand(points: GlobeDataPoint[], debtBand: DebtBand, in
 
 export function HomePage() {
   const setHoveredCountry = useGlobeStore((state) => state.setHoveredCountry);
+  const locale = useLocaleStore((state) => state.locale);
   const [searchParams, setSearchParams] = useSearchParams();
   const [points, setPoints] = useState<GlobeDataPoint[]>([]);
   const [debtBand, setDebtBand] = useState<DebtBand>("all");
   const [status, setStatus] = useState<"idle" | "loading" | "error" | "ready">("idle");
+  const webGlAvailable = useMemo(() => isWebGlAvailable(), []);
 
   const regionFromUrl = searchParams.get("region") ?? "";
   const region = REGION_OPTIONS.some((option) => option.value === regionFromUrl) ? regionFromUrl : "";
@@ -163,9 +170,16 @@ export function HomePage() {
   return (
     <main className="mx-auto flex min-h-screen w-full max-w-6xl flex-col gap-6 px-6 py-8">
       <AppHeader
-        title="DeudaMundi · Global Debt Atlas"
-        subtitle="Fase 2 MVP: globo 3D interactivo con intensidad por deuda/PIB y navegación por país."
+        title={t(locale, "homeTitle")}
+        subtitle={t(locale, "homeSubtitle")}
       />
+
+      <div className="flex items-center justify-between text-sm">
+        <LanguageSwitcher />
+        <Link to="/rankings" className="text-sky-300 hover:text-sky-200">
+          {t(locale, "viewGlobalRankings")} →
+        </Link>
+      </div>
 
       <section className="rounded-xl border border-slate-800 bg-slate-900/70 p-4">
         <label htmlFor="region-filter" className="mb-2 block text-xs font-semibold uppercase tracking-wide text-slate-300">
@@ -212,7 +226,37 @@ export function HomePage() {
       {status === "ready" && (
         <section className="grid gap-4 lg:grid-cols-[1fr_auto]">
           <div className="relative">
-            {filteredPoints.length === 0 ? (
+            {!webGlAvailable ? (
+              <div className="rounded-2xl border border-slate-800 bg-slate-950 p-4">
+                <p className="text-sm font-semibold text-slate-200">{t(locale, "webglFallbackTitle")}</p>
+                <p className="mt-1 text-xs text-slate-400">{t(locale, "webglFallbackSubtitle")}</p>
+
+                <div className="mt-4 overflow-auto">
+                  <table className="w-full border-collapse text-xs">
+                    <thead className="text-left uppercase tracking-wide text-slate-400">
+                      <tr>
+                        <th className="px-2 py-2">Country</th>
+                        <th className="px-2 py-2">Debt</th>
+                        <th className="px-2 py-2">Debt / GDP</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {filteredPoints.slice(0, 20).map((point) => (
+                        <tr key={point.iso3} className="border-t border-slate-800 text-slate-200">
+                          <td className="px-2 py-2">
+                            <Link className="text-sky-300 hover:text-sky-200" to={`/country/${point.iso3.toLowerCase()}`}>
+                              {point.name_en} ({point.iso3})
+                            </Link>
+                          </td>
+                          <td className="px-2 py-2">{formatUsdCompact(point.total_external_debt_usd)}</td>
+                          <td className="px-2 py-2">{formatPercentage(point.debt_pct_gdp)}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            ) : filteredPoints.length === 0 ? (
               <div className="flex h-[560px] items-center justify-center rounded-2xl border border-slate-800 bg-slate-950 px-6 text-center text-sm text-slate-300">
                 No countries match the current debt band filter.
               </div>

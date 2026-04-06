@@ -62,3 +62,21 @@ export type CountryGovernmentsResponse = {
   iso3: string;
   items: CountryGovernmentItem[];
 };
+
+export type RankingMetric = "absolute" | "pct_gdp" | "per_capita";
+
+export type RankingItem = {
+  rank: number;
+  iso3: string;
+  name_en: string;
+  region: string | null;
+  value: number | null;
+  latest_year: number | null;
+};
+
+export type RankingsResponse = {
+  metric: RankingMetric;
+  region: string | null;
+  limit: number;
+  items: RankingItem[];
+};

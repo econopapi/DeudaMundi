@@ -6,9 +6,9 @@ Frontend React + Vite + TailwindCSS para visualizar deuda soberana global.
 
 Implementado en este hito:
 
-- Globo 3D base con `@react-three/fiber` + `@react-three/drei`
+- Globo 3D interactivo con `react-globe.gl` + polígonos por país
 - Integración con `GET /api/v1/globe-data`
-- Marcadores por país (ISO3 + lat/lng) con intensidad por deuda/PIB
+- Países clicables por territorio (fronteras políticas)
 - Tooltip al hover con métricas principales
 - Navegación por click a `/country/:iso3`
 - Vista inicial de detalle de país con `GET /api/v1/countries/{iso3}`
@@ -25,6 +25,8 @@ Mejoras iteración siguiente (Semana 8 inicial):
 - Estado vacío cuando un filtro no devuelve países visibles
 - Render de países como polígonos con fronteras visibles (no solo puntos)
 - Territorio del país clicable para navegar al detalle (`/country/:iso3`)
+- Fallback automático de intensidad cuando falta `debt_pct_gdp` (usa deuda total log)
+- Cobertura de datos mostrada en leyenda (`X/Y` países)
 
 Avance Semana 9 (detalle de país):
 
@@ -33,6 +35,16 @@ Avance Semana 9 (detalle de país):
 - Gráfico de evolución histórica con D3 (line + area)
 - Overlay de gobiernos sobre la línea temporal histórica
 - Pruebas RTL para `CountryDetailPage` y `MetricCounter`
+
+Avance Semanas 10–12 (cierre Fase 2 frontend):
+
+- Nueva ruta `/rankings` con Top 20 por métrica (`absolute`, `pct_gdp`, `per_capita`)
+- Filtros por región + búsqueda/autocomplete por país/ISO3
+- Share card PNG client-side en detalle de país (download + Web Share API + clipboard fallback)
+- Metadatos sociales dinámicos en detalle (`og:*`, `twitter:*`)
+- Fallback sin WebGL en HomePage (tabla interactiva enlazada por país)
+- Baseline i18n ES/EN con selector rápido de idioma
+- Mensajería explícita para datos faltantes de fuente (`Not available from source`)
 
 ## Configuración
 

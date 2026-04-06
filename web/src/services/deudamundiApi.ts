@@ -4,6 +4,8 @@ import type {
   CountryGovernmentsResponse,
   CountryHistoryResponse,
   GlobeDataResponse,
+  RankingMetric,
+  RankingsResponse,
 } from "../types/api";
 
 type ApiError = Error & {
@@ -45,4 +47,16 @@ export async function fetchCountryHistory(iso3: string): Promise<CountryHistoryR
 
 export async function fetchCountryGovernments(iso3: string): Promise<CountryGovernmentsResponse> {
   return request<CountryGovernmentsResponse>(`/api/v1/countries/${iso3.toUpperCase()}/governments`);
+}
+
+export async function fetchRankings(metric: RankingMetric, region?: string, limit = 20): Promise<RankingsResponse> {
+  const params = new URLSearchParams();
+  params.set("metric", metric);
+  params.set("limit", String(limit));
+
+  if (region) {
+    params.set("region", region);
+  }
+
+  return request<RankingsResponse>(`/api/v1/rankings?${params.toString()}`);
 }

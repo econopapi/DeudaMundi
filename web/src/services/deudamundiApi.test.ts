@@ -1,4 +1,10 @@
-import { fetchCountryDetail, fetchCountryGovernments, fetchCountryHistory, fetchGlobeData } from "./deudamundiApi";
+import {
+  fetchCountryDetail,
+  fetchCountryGovernments,
+  fetchCountryHistory,
+  fetchGlobeData,
+  fetchRankings,
+} from "./deudamundiApi";
 
 describe("deudamundiApi", () => {
   const originalFetch = global.fetch;
@@ -97,5 +103,30 @@ describe("deudamundiApi", () => {
 
     expect(global.fetch).toHaveBeenCalledWith("https://deudamundi.dlimon.net/api/v1/countries/ARG/governments");
     expect(result.iso3).toBe("ARG");
+  });
+
+  it("calls rankings endpoint with metric and limit", async () => {
+    global.fetch = jest.fn().mockResolvedValue({
+      ok: true,
+      json: async () => ({ metric: "absolute", region: null, limit: 20, items: [] }),
+    } as Response);
+
+    const result = await fetchRankings("absolute");
+
+    expect(global.fetch).toHaveBeenCalledWith("https://deudamundi.dlimon.net/api/v1/rankings?metric=absolute&limit=20");
+    expect(result.metric).toBe("absolute");
+  });
+
+  it("calls rankings endpoint with region", async () => {
+    global.fetch = jest.fn().mockResolvedValue({
+      ok: true,
+      json: async () => ({ metric: "absolute", region: "Latin America & Caribbean", limit: 20, items: [] }),
+    } as Response);
+
+    await fetchRankings("absolute", "Latin America & Caribbean", 10);
+
+    expect(global.fetch).toHaveBeenCalledWith(
+      "https://deudamundi.dlimon.net/api/v1/rankings?metric=absolute&limit=10&region=Latin+America+%26+Caribbean",
+    );
   });
 });

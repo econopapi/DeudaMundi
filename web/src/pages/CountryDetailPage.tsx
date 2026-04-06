@@ -3,8 +3,12 @@ import { Link, useParams } from "react-router-dom";
 
 import { CountryHero } from "../components/country/CountryHero";
 import { CountryHistoryChart } from "../components/country/CountryHistoryChart";
+import { ShareCardActions } from "../components/country/ShareCardActions";
+import { LanguageSwitcher } from "../components/LanguageSwitcher";
 import { formatPercentage, formatUsdCompact } from "../lib/formatters";
+import { t } from "../lib/translations";
 import { fetchCountryDetail, fetchCountryGovernments, fetchCountryHistory } from "../services/deudamundiApi";
+import { useLocaleStore } from "../store/localeStore";
 import type {
   CountryDetailResponse,
   CountryGovernmentItem,
@@ -21,6 +25,7 @@ function formatMetricWithAvailability(value: number | null, formatter: (input: n
 
 export function CountryDetailPage() {
   const { iso3 = "" } = useParams();
+  const locale = useLocaleStore((state) => state.locale);
   const [country, setCountry] = useState<CountryDetailResponse | null>(null);
   const [historyItems, setHistoryItems] = useState<CountryHistoryItem[]>([]);
   const [governments, setGovernments] = useState<CountryGovernmentItem[]>([]);
@@ -60,16 +65,54 @@ export function CountryDetailPage() {
     };
   }, [iso3]);
 
+  useEffect(() => {
+    if (!country) {
+      return;
+    }
+
+    const title = `${country.name_en} debt profile · DeudaMundi`;
+    const description = `${country.name_en} (${country.iso3}) debt profile: total debt ${formatUsdCompact(
+      country.total_external_debt_usd,
+    )}, debt per capita ${formatUsdCompact(country.debt_per_capita_usd)}, debt/GDP ${formatPercentage(country.debt_pct_gdp)}.`;
+
+    document.title = title;
+
+    const upsertMeta = (selector: string, attributeName: "property" | "name", attributeValue: string, content: string) => {
+      let element = document.head.querySelector(selector) as HTMLMetaElement | null;
+      if (!element) {
+        element = document.createElement("meta");
+        element.setAttribute(attributeName, attributeValue);
+        document.head.appendChild(element);
+      }
+
+      element.setAttribute("content", content);
+    };
+
+    upsertMeta('meta[property="og:title"]', "property", "og:title", title);
+    upsertMeta('meta[property="og:description"]', "property", "og:description", description);
+    upsertMeta('meta[name="twitter:card"]', "name", "twitter:card", "summary_large_image");
+    upsertMeta('meta[name="twitter:title"]', "name", "twitter:title", title);
+    upsertMeta('meta[name="twitter:description"]', "name", "twitter:description", description);
+  }, [country]);
+
   return (
     <main className="mx-auto flex min-h-screen w-full max-w-5xl flex-col gap-6 px-6 py-8">
       <header className="border-b border-slate-800 pb-4">
-        <h1 className="text-2xl font-semibold text-slate-100 md:text-3xl">Country detail · {iso3.toUpperCase()}</h1>
+        <h1 className="text-2xl font-semibold text-slate-100 md:text-3xl">
+          {t(locale, "countryDetailPrefix")} · {iso3.toUpperCase()}
+        </h1>
         <p className="mt-2 text-sm text-slate-400">Vista inicial del país conectada a GET /api/v1/countries/{"{iso3}"}.</p>
       </header>
 
-      <Link to="/" className="text-sm text-sky-300 hover:text-sky-200">
-        ← Back to globe
-      </Link>
+      <div className="flex flex-wrap items-center gap-4 text-sm">
+        <LanguageSwitcher />
+        <Link to="/" className="text-sky-300 hover:text-sky-200">
+          ← {t(locale, "backToGlobe")}
+        </Link>
+        <Link to="/rankings" className="text-sky-300 hover:text-sky-200">
+          {t(locale, "viewRankings")} →
+        </Link>
+      </div>
 
       {status === "loading" && (
         <section className="rounded-xl border border-slate-800 bg-slate-900/70 p-6 text-sm text-slate-300">
@@ -86,6 +129,8 @@ export function CountryDetailPage() {
       {status === "ready" && country && (
         <>
           <CountryHero country={country} />
+
+          <ShareCardActions country={country} />
 
           <CountryHistoryChart historyItems={historyItems} governments={governments} />
 
