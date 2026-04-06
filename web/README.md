@@ -19,6 +19,8 @@ Mejoras iteración siguiente (Semana 8 inicial):
 
 - Filtro por región conectado a `GET /api/v1/globe-data?region=...`
 - Carga diferida del módulo 3D con `React.lazy` + `Suspense`
+- Persistencia del filtro de región en URL (`?region=...`)
+- Leyenda interactiva para filtrar visualmente por banda de deuda (low/medium/high)
 
 ## Configuración
 

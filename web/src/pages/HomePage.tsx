@@ -1,4 +1,5 @@
 import { Suspense, lazy, useEffect, useMemo, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 
 import { AppHeader } from "../components/AppHeader";
 import { CountryTooltip } from "../components/globe/CountryTooltip";
@@ -19,6 +20,8 @@ const REGION_OPTIONS = [
   { value: "Sub-Saharan Africa", label: "Sub-Saharan Africa" },
 ];
 
+type DebtBand = "all" | "low" | "mid" | "high";
+
 function getDebtRange(points: GlobeDataPoint[]): { min: number; max: number } {
   const values = points
     .map((point) => point.debt_pct_gdp)
@@ -34,10 +37,41 @@ function getDebtRange(points: GlobeDataPoint[]): { min: number; max: number } {
   };
 }
 
+function filterPointsByDebtBand(points: GlobeDataPoint[], debtBand: DebtBand, min: number, max: number): GlobeDataPoint[] {
+  if (debtBand === "all" || max <= min) {
+    return points;
+  }
+
+  const oneThird = (max - min) / 3;
+  const lowLimit = min + oneThird;
+  const midLimit = min + oneThird * 2;
+
+  return points.filter((point) => {
+    const value = point.debt_pct_gdp;
+    if (value === null || !Number.isFinite(value)) {
+      return false;
+    }
+
+    if (debtBand === "low") {
+      return value <= lowLimit;
+    }
+
+    if (debtBand === "mid") {
+      return value > lowLimit && value <= midLimit;
+    }
+
+    return value > midLimit;
+  });
+}
+
 export function HomePage() {
+  const [searchParams, setSearchParams] = useSearchParams();
   const [points, setPoints] = useState<GlobeDataPoint[]>([]);
-  const [region, setRegion] = useState<string>("");
+  const [debtBand, setDebtBand] = useState<DebtBand>("all");
   const [status, setStatus] = useState<"idle" | "loading" | "error" | "ready">("idle");
+
+  const regionFromUrl = searchParams.get("region") ?? "";
+  const region = REGION_OPTIONS.some((option) => option.value === regionFromUrl) ? regionFromUrl : "";
 
   useEffect(() => {
     let cancelled = false;
@@ -65,6 +99,10 @@ export function HomePage() {
   }, [region]);
 
   const debtRange = useMemo(() => getDebtRange(points), [points]);
+  const filteredPoints = useMemo(
+    () => filterPointsByDebtBand(points, debtBand, debtRange.min, debtRange.max),
+    [points, debtBand, debtRange.max, debtRange.min],
+  );
 
   return (
     <main className="mx-auto flex min-h-screen w-full max-w-6xl flex-col gap-6 px-6 py-8">
@@ -81,7 +119,18 @@ export function HomePage() {
           id="region-filter"
           name="region"
           value={region}
-          onChange={(event) => setRegion(event.target.value)}
+          onChange={(event) => {
+            const value = event.target.value;
+            const nextParams = new URLSearchParams(searchParams);
+
+            if (value) {
+              nextParams.set("region", value);
+            } else {
+              nextParams.delete("region");
+            }
+
+            setSearchParams(nextParams);
+          }}
           className="w-full rounded-lg border border-slate-700 bg-slate-950 px-3 py-2 text-sm text-slate-100 focus:border-sky-500 focus:outline-none"
         >
           {REGION_OPTIONS.map((option) => (
@@ -114,7 +163,7 @@ export function HomePage() {
                 </div>
               }
             >
-              <GlobeScene points={points} />
+              <GlobeScene points={filteredPoints} />
             </Suspense>
             <div className="pointer-events-none absolute left-4 top-4">
               <CountryTooltip />
@@ -122,7 +171,12 @@ export function HomePage() {
           </div>
 
           <div className="flex flex-col gap-3">
-            <GlobeLegend minDebtPctGdp={debtRange.min} maxDebtPctGdp={debtRange.max} />
+            <GlobeLegend
+              minDebtPctGdp={debtRange.min}
+              maxDebtPctGdp={debtRange.max}
+              selectedBand={debtBand}
+              onBandChange={setDebtBand}
+            />
             <div className="rounded-xl border border-slate-700 bg-slate-900/80 p-4 text-xs text-slate-300">
               <p className="font-semibold text-slate-100">Interaction</p>
               <ul className="mt-2 list-disc space-y-1 pl-4">
@@ -130,7 +184,9 @@ export function HomePage() {
                 <li>Scroll to zoom in/out.</li>
                 <li>Hover a marker to inspect debt metrics.</li>
                 <li>Click a marker to open country detail.</li>
+                <li>Use legend presets to focus low, medium, or high debt bands.</li>
               </ul>
+              <p className="mt-3 text-[11px] text-slate-400">Visible countries: {filteredPoints.length}</p>
             </div>
           </div>
         </section>
