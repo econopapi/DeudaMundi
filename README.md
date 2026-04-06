@@ -108,6 +108,17 @@ Arranca **Fase 1 — Backend MVP**:
 - Semana 5 (iteración 2) completada: despliegue orientado a VPS Linux/EC2 + bootstrap productivo con migraciones
 - Pendiente: ejecución real de deploy en EC2 y validación final en entorno productivo
 
+## Fase 2 — Frontend MVP (inicio)
+
+Primer hito implementado en `web/`:
+
+- Setup base de globo 3D con React + Three.js (`@react-three/fiber`, `@react-three/drei`)
+- Integración con API productiva (`/api/v1/globe-data`, `/api/v1/countries/{iso3}`)
+- Marcadores interactivos por país con color por intensidad de deuda/PIB
+- Tooltip de métricas al hover y navegación a detalle por click
+- Vista inicial de detalle de país con tarjetas de métricas y equivalencias
+- Tests frontend adicionales para servicios API y componentes de globo
+
 ## Deploy backend en VPS Linux / EC2 (Semana 5)
 
 Se agregaron artefactos para despliegue del backend:
