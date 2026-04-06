@@ -158,6 +158,12 @@ sudo systemctl reload nginx
 
 Edita `server_name` en el archivo Nginx con tu dominio real (ej. `api.tudominio.com`).
 
+Si ya usas una convención de Nginx como en otras APIs del VPS, puedes reutilizarla con:
+
+- `proxy_pass http://127.0.0.1:8000;`
+- `proxy_read_timeout 86400;`
+- `proxy_buffering off;`
+
 ### 6) Habilitar HTTPS (Let's Encrypt)
 
 ```bash
@@ -174,6 +180,8 @@ sudo journalctl -u deudamundi-api -n 100 --no-pager
 ```
 
 Debe responder `200 OK`.
+
+> Nota: `GET /` devuelve `404` por diseño. El health check correcto es `GET /api/v1/health`.
 
 ### Troubleshooting: `requires a different Python: 3.10.x not in '>=3.12'`
 
@@ -195,6 +203,52 @@ PYTHON_BIN=python3 APP_DIR=/home/admin/apps/deudamundi ./deploy/vps/systemd/depl
 **Ubuntu 22.04 (si `python3` < 3.12):** usa `python3.12` y `python3.12-venv`.
 
 El script ahora valida automáticamente Python `>=3.12` y recrea `.venv` si detecta versión incompatible.
+
+## Semana 6 — Testing y performance del despliegue
+
+### 1) Smoke tests post-deploy (manual)
+
+```bash
+curl -i https://api.tudominio.com/api/v1/health
+curl -i "https://api.tudominio.com/api/v1/countries?page=1&page_size=5"
+curl -i "https://api.tudominio.com/api/v1/rankings?metric=absolute&limit=5"
+curl -i "https://api.tudominio.com/api/v1/globe-data"
+```
+
+### 2) EXPLAIN ANALYZE en queries críticas
+
+Se agregó script utilitario:
+
+- `api/scripts/explain_analyze.py`
+
+Ejecuta:
+
+```bash
+cd /home/admin/apps/deudamundi/api
+set -a
+source .env
+set +a
+.venv/bin/python scripts/explain_analyze.py
+```
+
+### 3) Load testing básico con Locust (100 usuarios)
+
+Se agregó:
+
+- `api/locustfile.py`
+
+Instala dependencias dev y ejecuta:
+
+```bash
+cd /home/admin/apps/deudamundi/api
+.venv/bin/pip install -e .[dev]
+LOCUST_HOST=https://api.tudominio.com .venv/bin/locust -f locustfile.py --users 100 --spawn-rate 10 --run-time 5m --headless --only-summary
+```
+
+Métrica objetivo inicial:
+
+- Errores < 1%
+- p95 de endpoints clave < 500ms (ajustable por endpoint)
 
 ## Calidad Fase 1 (iteración 5)
 
