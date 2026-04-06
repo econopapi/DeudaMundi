@@ -27,6 +27,19 @@ Backend en FastAPI para servir datos del Atlas Global de Deuda.
 - `GET /api/v1/countries/{iso3}/governments`
 	- Devuelve los gobiernos cargados para el país ordenados por fecha de inicio desc.
 
+## Endpoints Fase 1 (iteración 3)
+
+- `GET /api/v1/rankings`
+	- Query params:
+		- `metric`: `absolute` | `pct_gdp` | `per_capita`
+		- `region`: opcional
+		- `limit`: default 20, máximo 100
+	- Devuelve ranking usando último año disponible por país.
+
+### Cache base
+
+Se incorporó cache-aside con Redis para `rankings` con TTL de 24h.
+
 ## Base de datos y migraciones
 
 Este backend está preparado para PostgreSQL local y Supabase (producción).
