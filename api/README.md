@@ -19,7 +19,7 @@ Este backend está preparado para PostgreSQL local y Supabase (producción).
 ### Variables de entorno relevantes
 
 - `DATABASE_URL`: conexión principal (local o VPS).
-- `SUPABASE_DATABASE_URL`: opcional; si está presente, Alembic la prioriza.
+- `SUPABASE_DATABASE_URL`: opcional; si está presente, la app y Alembic la priorizan.
 
 ### Flujo Alembic
 
@@ -34,3 +34,18 @@ Este backend está preparado para PostgreSQL local y Supabase (producción).
 
 - `countries`
 - `debt_records` (relación con `countries` y unicidad por país/año)
+
+## ETL inicial (World Bank)
+
+Se incluye un ETL base para ingestar deuda externa total usando el indicador:
+
+- `DT.DOD.DECT.CD`
+
+El ETL descarga países + series históricas, normaliza y hace upsert en:
+
+- `countries`
+- `debt_records`
+
+Ejecución:
+
+- `deudamundi-etl-worldbank`

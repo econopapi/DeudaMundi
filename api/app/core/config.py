@@ -11,5 +11,9 @@ class Settings(BaseSettings):
 
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8", extra="ignore")
 
+    @property
+    def effective_database_url(self) -> str:
+        return self.supabase_database_url or self.database_url
+
 
 settings = Settings()
