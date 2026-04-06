@@ -32,3 +32,6 @@ web/vite.config.d.ts
 
 # Docker
 *.log
+
+# Generated reports
+api/reports/
