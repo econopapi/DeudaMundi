@@ -82,7 +82,10 @@ def _seed_sample_data(session_local: sessionmaker[Session]) -> None:
                     debt_pct_gdp=60.0,
                     debt_per_capita_usd=6.0,
                     gdp_usd=500.0,
-                    source="worldbank",
+                    source="wb_ids_dt_dod_dect_cd",
+                    debt_concept="external_debt_bop",
+                    data_source="World Bank IDS DT.DOD.DECT.CD",
+                    data_vintage=date(2024, 12, 31),
                     updated_at=datetime.now(UTC),
                 ),
                 DebtRecord(
@@ -92,7 +95,10 @@ def _seed_sample_data(session_local: sessionmaker[Session]) -> None:
                     debt_pct_gdp=90.0,
                     debt_per_capita_usd=10.0,
                     gdp_usd=2000.0,
-                    source="worldbank",
+                    source="wb_ids_dt_dod_dect_cd",
+                    debt_concept="external_debt_bop",
+                    data_source="World Bank IDS DT.DOD.DECT.CD",
+                    data_vintage=date(2024, 12, 31),
                     updated_at=datetime.now(UTC),
                 ),
                 Government(
@@ -130,6 +136,20 @@ def test_country_governments_endpoint_reads_database() -> None:
     payload = response.json()
     assert payload["iso3"] == "ARG"
     assert payload["items"][0]["leader_name"] == "Demo Leader"
+
+
+def test_country_detail_endpoint_includes_methodology_metadata() -> None:
+    client, session_local = _build_test_client()
+    _seed_sample_data(session_local)
+
+    response = client.get("/api/v1/countries/ARG")
+
+    assert response.status_code == 200
+    payload = response.json()
+    assert payload["iso3"] == "ARG"
+    assert payload["debt_concept"] == "external_debt_bop"
+    assert payload["data_source"] == "World Bank IDS DT.DOD.DECT.CD"
+    assert payload["data_vintage"] == "2024-12-31"
 
 
 def test_rankings_endpoint_reads_database() -> None:

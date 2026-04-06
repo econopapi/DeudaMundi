@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from datetime import date
 
 
 @dataclass(slots=True)
@@ -22,4 +23,7 @@ class DebtRecordSeed:
     gdp_usd: float | None = None
     debt_pct_gdp: float | None = None
     debt_per_capita_usd: float | None = None
-    source: str = "worldbank"
+    source: str = "wb_ids_dt_dod_dect_cd"
+    debt_concept: str = "external_debt_bop"
+    data_source: str = "World Bank IDS DT.DOD.DECT.CD"
+    data_vintage: date | None = None

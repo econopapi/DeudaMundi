@@ -66,6 +66,9 @@ def list_countries(
             total_external_debt_usd=debt.total_external_debt_usd if debt else None,
             debt_per_capita_usd=debt.debt_per_capita_usd if debt else None,
             debt_pct_gdp=debt.debt_pct_gdp if debt else None,
+            debt_concept=debt.debt_concept if debt else None,
+            data_source=debt.data_source if debt else None,
+            data_vintage=debt.data_vintage.isoformat() if debt and debt.data_vintage else None,
         )
         for country, debt in rows
     ]
@@ -102,6 +105,9 @@ def get_country_detail(db: Session, iso3: str) -> CountryDetailResponse | None:
         debt_per_capita_usd=debt.debt_per_capita_usd if debt else None,
         debt_pct_gdp=debt.debt_pct_gdp if debt else None,
         gdp_usd=debt.gdp_usd if debt else None,
+        debt_concept=debt.debt_concept if debt else None,
+        data_source=debt.data_source if debt else None,
+        data_vintage=debt.data_vintage.isoformat() if debt and debt.data_vintage else None,
         equivalences=build_equivalences(total_external_debt_usd),
     )
 
@@ -129,6 +135,9 @@ def get_country_history(db: Session, iso3: str) -> CountryHistoryResponse | None
                 debt_pct_gdp=row.debt_pct_gdp,
                 gdp_usd=row.gdp_usd,
                 source=row.source,
+                debt_concept=row.debt_concept,
+                data_source=row.data_source,
+                data_vintage=row.data_vintage.isoformat() if row.data_vintage else None,
             )
             for row in rows
         ],
@@ -179,6 +188,9 @@ def get_globe_data(db: Session, region: str | None) -> GlobeDataResponse:
             total_external_debt_usd=debt.total_external_debt_usd if debt else None,
             debt_per_capita_usd=debt.debt_per_capita_usd if debt else None,
             debt_pct_gdp=debt.debt_pct_gdp if debt else None,
+            debt_concept=debt.debt_concept if debt else None,
+            data_source=debt.data_source if debt else None,
+            data_vintage=debt.data_vintage.isoformat() if debt and debt.data_vintage else None,
         )
         for country, debt in rows
     ]

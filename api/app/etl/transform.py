@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from datetime import date
 from typing import Any
 
 from app.etl.types import CountrySeed, DebtRecordSeed
@@ -79,40 +80,43 @@ def normalize_countries(raw_countries: list[dict[str, Any]]) -> dict[str, Countr
 
 
 def normalize_debt_records(
-    debt_pct_gdp_by_country_year: dict[tuple[str, int], float],
+    external_debt_by_country_year: dict[tuple[str, int], float],
     gdp_by_country_year: dict[tuple[str, int], float],
     population_by_country_year: dict[tuple[str, int], float],
 ) -> list[DebtRecordSeed]:
     rows: list[DebtRecordSeed] = []
 
     common_keys = (
-        set(debt_pct_gdp_by_country_year)
+        set(external_debt_by_country_year)
         & set(gdp_by_country_year)
         & set(population_by_country_year)
     )
 
     for iso3, year in sorted(common_keys):
-        debt_pct_gdp = debt_pct_gdp_by_country_year.get((iso3, year))
+        total_external_debt_usd = external_debt_by_country_year.get((iso3, year))
         gdp_usd = gdp_by_country_year.get((iso3, year))
         population = population_by_country_year.get((iso3, year))
 
-        if debt_pct_gdp is None or gdp_usd is None or population is None:
+        if total_external_debt_usd is None or gdp_usd is None or population is None:
             continue
-        if gdp_usd <= 0 or population <= 0:
+        if gdp_usd <= 0 or population <= 0 or total_external_debt_usd < 0:
             continue
 
-        debt_total_usd = gdp_usd * (debt_pct_gdp / 100)
-        debt_per_capita = debt_total_usd / population
+        debt_pct_gdp = (total_external_debt_usd / gdp_usd) * 100
+        debt_per_capita = total_external_debt_usd / population
 
         rows.append(
             DebtRecordSeed(
                 iso3=iso3,
                 year=year,
-                total_external_debt_usd=debt_total_usd,
+                total_external_debt_usd=total_external_debt_usd,
                 gdp_usd=gdp_usd,
                 debt_pct_gdp=debt_pct_gdp,
                 debt_per_capita_usd=debt_per_capita,
-                source="worldbank_public_debt_pct_gdp",
+                source="wb_ids_dt_dod_dect_cd",
+                debt_concept="external_debt_bop",
+                data_source="World Bank IDS DT.DOD.DECT.CD",
+                data_vintage=date(year, 12, 31),
             )
         )
 

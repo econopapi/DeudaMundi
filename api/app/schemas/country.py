@@ -11,6 +11,9 @@ class CountryListItem(BaseModel):
     total_external_debt_usd: float | None
     debt_per_capita_usd: float | None
     debt_pct_gdp: float | None
+    debt_concept: str | None = None
+    data_source: str | None = None
+    data_vintage: str | None = None
 
 
 class CountriesListResponse(BaseModel):
@@ -40,6 +43,9 @@ class CountryDetailResponse(BaseModel):
     debt_per_capita_usd: float | None
     debt_pct_gdp: float | None
     gdp_usd: float | None
+    debt_concept: str | None = None
+    data_source: str | None = None
+    data_vintage: str | None = None
     equivalences: list[EquivalenceItem]
 
 
@@ -50,6 +56,9 @@ class CountryHistoryItem(BaseModel):
     debt_pct_gdp: float | None
     gdp_usd: float | None
     source: str
+    debt_concept: str | None = None
+    data_source: str | None = None
+    data_vintage: str | None = None
 
 
 class CountryHistoryResponse(BaseModel):
@@ -78,6 +87,9 @@ class GlobeDataPoint(BaseModel):
     total_external_debt_usd: float | None
     debt_per_capita_usd: float | None
     debt_pct_gdp: float | None
+    debt_concept: str | None = None
+    data_source: str | None = None
+    data_vintage: str | None = None
 
 
 class GlobeDataResponse(BaseModel):

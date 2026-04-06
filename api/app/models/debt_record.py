@@ -1,6 +1,6 @@
-from datetime import datetime
+from datetime import date, datetime
 
-from sqlalchemy import DateTime, Float, ForeignKey, Integer, String, UniqueConstraint
+from sqlalchemy import Date, DateTime, Float, ForeignKey, Integer, String, UniqueConstraint
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.db.base_class import Base
@@ -22,7 +22,13 @@ class DebtRecord(Base):
     debt_per_capita_usd: Mapped[float | None] = mapped_column(Float, nullable=True)
     gdp_usd: Mapped[float | None] = mapped_column(Float, nullable=True)
 
-    source: Mapped[str] = mapped_column(String(30), default="worldbank")
+    source: Mapped[str] = mapped_column(String(30), default="wb_ids_dt_dod_dect_cd")
+    debt_concept: Mapped[str] = mapped_column(String(50), default="external_debt_bop")
+    data_source: Mapped[str] = mapped_column(
+        String(120),
+        default="World Bank IDS DT.DOD.DECT.CD",
+    )
+    data_vintage: Mapped[date | None] = mapped_column(Date, nullable=True)
     updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=datetime.utcnow)
 
     country = relationship("Country", back_populates="debt_records")

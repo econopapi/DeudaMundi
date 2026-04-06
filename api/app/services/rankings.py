@@ -38,6 +38,7 @@ def get_rankings(
             DebtRecord,
             (DebtRecord.country_id == Country.id) & (DebtRecord.year == latest_year_subquery),
         )
+        .where(DebtRecord.debt_concept == "external_debt_bop")
         .where(metric_column.is_not(None))
         .order_by(desc(metric_column))
         .limit(limit)

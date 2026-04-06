@@ -70,6 +70,9 @@ def upsert_debt_records(
             "debt_per_capita_usd": r.debt_per_capita_usd,
             "gdp_usd": r.gdp_usd,
             "source": r.source,
+            "debt_concept": r.debt_concept,
+            "data_source": r.data_source,
+            "data_vintage": r.data_vintage,
             "updated_at": now,
         }
         for r in filtered
@@ -84,6 +87,9 @@ def upsert_debt_records(
             "debt_per_capita_usd": stmt.excluded.debt_per_capita_usd,
             "gdp_usd": stmt.excluded.gdp_usd,
             "source": stmt.excluded.source,
+            "debt_concept": stmt.excluded.debt_concept,
+            "data_source": stmt.excluded.data_source,
+            "data_vintage": stmt.excluded.data_vintage,
             "updated_at": stmt.excluded.updated_at,
         },
     )

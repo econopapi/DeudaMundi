@@ -24,12 +24,12 @@ def run_world_bank_etl() -> dict[str, int]:
 
     client = WorldBankClient()
     raw_countries = client.fetch_countries()
-    raw_debt_pct_gdp = client.fetch_debt_pct_gdp()
+    raw_external_debt = client.fetch_external_debt()
     raw_gdp = client.fetch_gdp()
     raw_population = client.fetch_population()
 
     countries_by_iso3 = normalize_countries(raw_countries)
-    debt_pct_gdp_by_country_year = normalize_indicator_rows(raw_debt_pct_gdp)
+    external_debt_by_country_year = normalize_indicator_rows(raw_external_debt)
     gdp_by_country_year = normalize_indicator_rows(raw_gdp)
     population_by_country_year = normalize_indicator_rows(raw_population)
 
@@ -40,7 +40,7 @@ def run_world_bank_etl() -> dict[str, int]:
             country.population = population
 
     debt_rows = normalize_debt_records(
-        debt_pct_gdp_by_country_year=debt_pct_gdp_by_country_year,
+        external_debt_by_country_year=external_debt_by_country_year,
         gdp_by_country_year=gdp_by_country_year,
         population_by_country_year=population_by_country_year,
     )
@@ -48,7 +48,7 @@ def run_world_bank_etl() -> dict[str, int]:
     result = {
         "countries_processed": len(countries_by_iso3),
         "debt_records_processed": len(debt_rows),
-    "debt_pct_gdp_records_processed": len(debt_pct_gdp_by_country_year),
+        "external_debt_records_processed": len(external_debt_by_country_year),
         "gdp_records_processed": len(gdp_by_country_year),
         "population_records_processed": len(population_by_country_year),
         "countries_with_population": len(latest_population),
