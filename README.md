@@ -4,7 +4,7 @@ Atlas global e interactivo de deuda soberana por país, con enfoque en visualiza
 
 ## Estado del proyecto
 
-Actualmente en **Fase 0 (Fundamentos)** del roadmap:
+Actualmente con **Fase 0 y Fase 1 completadas**, y **Fase 2 frontend en cierre**:
 
 - Monorepo inicial listo (`api/` + `web/`)
 - Backend FastAPI con endpoint de salud
@@ -108,16 +108,21 @@ Arranca **Fase 1 — Backend MVP**:
 - Semana 5 (iteración 2) completada: despliegue orientado a VPS Linux/EC2 + bootstrap productivo con migraciones
 - Pendiente: ejecución real de deploy en EC2 y validación final en entorno productivo
 
-## Fase 2 — Frontend MVP (inicio)
+## Fase 2 — Frontend MVP (avance)
 
-Primer hito implementado en `web/`:
+Implementado en `web/`:
 
-- Setup base de globo 3D con React + Three.js (`@react-three/fiber`, `@react-three/drei`)
-- Integración con API productiva (`/api/v1/globe-data`, `/api/v1/countries/{iso3}`)
-- Marcadores interactivos por país con color por intensidad de deuda/PIB
-- Tooltip de métricas al hover y navegación a detalle por click
-- Vista inicial de detalle de país con tarjetas de métricas y equivalencias
-- Tests frontend adicionales para servicios API y componentes de globo
+- Globo 3D interactivo por polígonos de país (territorios clicables)
+- Intensidad visual con fallback de métrica cuando faltan ratios de fuente
+- Detalle de país con histórico, overlay de gobiernos y bloque de sharing
+- Ruta `/rankings` con filtros por región y búsqueda
+- Fallback no-WebGL y baseline i18n ES/EN
+- Cobertura de tests frontend actualizada para servicios y páginas clave
+
+Pendiente post-cierre de Fase 2:
+
+- Completar revisión de calidad/cobertura de datos faltantes en API (backend)
+- Afinar performance del chunk del globo para mobile low-end
 
 ## Deploy backend en VPS Linux / EC2 (Semana 5)
 
