@@ -10,6 +10,7 @@ Actualmente con **Fase 0 y Fase 1 completadas**, y **Fase 2 frontend en cierre**
 - Backend FastAPI con endpoint de salud
 - ETL inicial World Bank para deuda externa total
 - ETL World Bank extendido con GDP y población para métricas completas (%PIB y per cápita)
+- Corrección metodológica crítica: deuda externa calculada solo con `DT.DOD.DECT.CD` (sin fallback a deuda fiscal), con metadatos de trazabilidad por registro
 - Trigger admin protegido + scheduler base para ETL
 - Seed inicial de gobiernos piloto (AR, US, BR, DE, GR)
 - Reporte de gaps de cobertura ETL
@@ -124,6 +125,15 @@ Pendiente post-cierre de Fase 2:
 
 - Completar revisión de calidad/cobertura de datos faltantes en API (backend)
 - Afinar performance del chunk del globo para mobile low-end
+
+## Nota de rigor académico (abril 2026)
+
+Para evitar inconsistencias conceptuales entre países:
+
+- `total_external_debt_usd` se alimenta exclusivamente desde `World Bank IDS: DT.DOD.DECT.CD`.
+- `debt_pct_gdp` se deriva de deuda externa real y PIB (`NY.GDP.MKTP.CD`).
+- Se expone trazabilidad de metodología en la API mediante `debt_concept`, `data_source` y `data_vintage`.
+- No se aplica fallback silencioso a indicadores de deuda pública fiscal para completar países sin cobertura de deuda externa en IDS.
 
 ## Deploy backend en VPS Linux / EC2 (Semana 5)
 

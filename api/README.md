@@ -288,25 +288,38 @@ Este backend está preparado para PostgreSQL local y Supabase (producción).
 
 ## ETL inicial (World Bank)
 
-Se incluye un ETL base para ingestar deuda externa total usando el indicador:
+Se incluye un ETL base para ingestar deuda externa total usando el indicador de deuda externa del World Bank IDS:
 
 - `DT.DOD.DECT.CD`
 
-Desde esta iteración se usa una metodología única para deuda soberana, basada en:
+La metodología de esta iteración evita mezclar deuda pública fiscal con deuda externa (BOP). La ingesta usa:
 
-- `GC.DOD.TOTL.GD.ZS` (deuda pública total como % del PIB)
+- `DT.DOD.DECT.CD` (external debt stocks, total)
 - `NY.GDP.MKTP.CD` (PIB nominal anual en USD)
 - `SP.POP.TOTL` (población anual)
 
 Con estos indicadores el ETL calcula y persiste:
 
 - `gdp_usd`
-- `debt_pct_gdp` (directo de fuente)
-- `total_external_debt_usd` derivado como `gdp_usd * (debt_pct_gdp / 100)`
+- `total_external_debt_usd` (directo de fuente `DT.DOD.DECT.CD`)
+- `debt_pct_gdp` derivado como `(total_external_debt_usd / gdp_usd) * 100`
 - `debt_per_capita_usd` = `total_external_debt_usd / population`
+- `debt_concept` = `external_debt_bop`
+- `data_source` = `World Bank IDS DT.DOD.DECT.CD`
+- `data_vintage` = cierre anual (`YYYY-12-31`)
 
-No se aplican fallbacks de indicadores alternativos para calcular deuda.
-Solo se persisten años donde existen los 3 datos requeridos (deuda %PIB, PIB, población).
+No se aplican fallbacks de deuda pública fiscal para completar deuda externa.
+Solo se persisten años donde existen los 3 datos requeridos (deuda externa total, PIB, población).
+
+### Transparencia metodológica en la API
+
+El endpoint `GET /api/v1/countries/{iso3}` ahora devuelve metadatos explícitos:
+
+- `debt_concept`
+- `data_source`
+- `data_vintage`
+
+El endpoint `GET /api/v1/countries/{iso3}/history` también incluye estos campos por año.
 
 El ETL descarga países + series históricas, normaliza y hace upsert en:
 
