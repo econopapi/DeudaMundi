@@ -13,6 +13,20 @@ def test_security_headers_are_present() -> None:
     assert response.headers["X-Frame-Options"] == "DENY"
     assert response.headers["Referrer-Policy"] == "no-referrer"
     assert "Content-Security-Policy" in response.headers
+    assert response.headers["Content-Security-Policy"] == (
+        "default-src 'none'; frame-ancestors 'none'; base-uri 'none'"
+    )
+
+
+def test_docs_csp_allows_swagger_assets() -> None:
+    with TestClient(app) as client:
+        response = client.get("/docs")
+
+    assert response.status_code == 200
+    csp = response.headers["Content-Security-Policy"]
+    assert "https://cdn.jsdelivr.net" in csp
+    assert "script-src" in csp
+    assert "style-src" in csp
 
 
 def test_rate_limit_blocks_excess_requests() -> None:

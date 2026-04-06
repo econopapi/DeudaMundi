@@ -11,6 +11,18 @@ from slowapi.middleware import SlowAPIMiddleware
 _rate_limiter: Limiter | None = None
 _rate_limiter_limit: int | None = None
 
+_STRICT_CSP = "default-src 'none'; frame-ancestors 'none'; base-uri 'none'"
+_DOCS_CSP = (
+    "default-src 'self'; "
+    "script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com; "
+    "style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://fonts.googleapis.com; "
+    "img-src 'self' data: https://fastapi.tiangolo.com; "
+    "font-src 'self' data: https://fonts.gstatic.com https://cdn.jsdelivr.net; "
+    "connect-src 'self'; "
+    "frame-ancestors 'none'; "
+    "base-uri 'none'"
+)
+
 
 def _request_client_key(request: Request) -> str:
     forwarded_for = request.headers.get("x-forwarded-for")
@@ -41,6 +53,12 @@ def _rate_limit_exceeded_handler(_: Request, __: RateLimitExceeded) -> JSONRespo
     )
 
 
+def _content_security_policy_for_path(path: str) -> str:
+    if path.startswith("/docs") or path.startswith("/redoc") or path.startswith("/openapi.json"):
+        return _DOCS_CSP
+    return _STRICT_CSP
+
+
 def setup_security(app: FastAPI) -> None:
     limiter = get_rate_limiter(settings.rate_limit_requests_per_minute)
     app.state.limiter = limiter
@@ -62,8 +80,8 @@ def setup_security(app: FastAPI) -> None:
         response.headers["X-Content-Type-Options"] = "nosniff"
         response.headers["X-Frame-Options"] = "DENY"
         response.headers["Referrer-Policy"] = "no-referrer"
-        response.headers["Content-Security-Policy"] = (
-            "default-src 'none'; frame-ancestors 'none'; base-uri 'none'"
+        response.headers["Content-Security-Policy"] = _content_security_policy_for_path(
+            request.url.path
         )
 
         if settings.security_hsts_enabled:
