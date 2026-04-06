@@ -10,11 +10,11 @@ set -euo pipefail
 # UVICORN_WORKERS=2 \
 # ./deploy/vps/systemd/deploy_systemd.sh
 
-APP_DIR="${APP_DIR:-/home/admin/apps/deudamundi}"
+APP_DIR="${APP_DIR:-/home/admin/apps/DeudaMundi}"
 SERVICE_NAME="${SERVICE_NAME:-deudamundi-api}"
 SERVICE_USER="${SERVICE_USER:-admin}"
 SERVICE_GROUP="${SERVICE_GROUP:-admin}"
-SERVICE_PORT="${SERVICE_PORT:-8000}"
+SERVICE_PORT="${SERVICE_PORT:-8002}"
 UVICORN_WORKERS="${UVICORN_WORKERS:-2}"
 
 if [ -n "${PYTHON_BIN:-}" ]; then
