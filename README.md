@@ -97,7 +97,8 @@ Checklist completado:
 
 Arranca **Fase 1 — Backend MVP**:
 
-- Endpoints de países, histórico, gobiernos y rankings
+- Iteración 1 completada: `countries` listado + detalle y equivalencias básicas
+- Pendiente: histórico, gobiernos y rankings
 - Caching por endpoint
 - endurecimiento de seguridad y pruebas de integración
 
