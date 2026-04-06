@@ -8,6 +8,10 @@ class Settings(BaseSettings):
     database_url: str = "postgresql+psycopg://postgres:postgres@localhost:5432/deudamundi"
     supabase_database_url: str | None = None
     redis_url: str = "redis://localhost:6379/0"
+    admin_api_key: str | None = None
+
+    etl_scheduler_enabled: bool = False
+    etl_schedule_cron: str = "0 2 1 2 *"
 
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8", extra="ignore")
 

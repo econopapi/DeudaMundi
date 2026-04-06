@@ -49,3 +49,19 @@ El ETL descarga países + series históricas, normaliza y hace upsert en:
 Ejecución:
 
 - `deudamundi-etl-worldbank`
+
+## Trigger manual y scheduler
+
+### Endpoint admin
+
+- `POST /api/v1/admin/etl/world-bank/run`
+- Header requerido: `X-API-Key: <ADMIN_API_KEY>`
+
+### Scheduler
+
+Variables:
+
+- `ETL_SCHEDULER_ENABLED` (`true`/`false`)
+- `ETL_SCHEDULE_CRON` (formato crontab, UTC)
+
+Si el scheduler está habilitado, se registra en startup de FastAPI y ejecuta el ETL según cron.
