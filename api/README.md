@@ -20,6 +20,13 @@ Backend en FastAPI para servir datos del Atlas Global de Deuda.
 - `GET /api/v1/countries/{iso3}`
 	- Devuelve detalle del país con último dato de deuda y equivalencias narrativas iniciales.
 
+## Endpoints Fase 1 (iteración 2)
+
+- `GET /api/v1/countries/{iso3}/history`
+	- Devuelve la serie histórica de deuda del país ordenada por año desc.
+- `GET /api/v1/countries/{iso3}/governments`
+	- Devuelve los gobiernos cargados para el país ordenados por fecha de inicio desc.
+
 ## Base de datos y migraciones
 
 Este backend está preparado para PostgreSQL local y Supabase (producción).

@@ -3,8 +3,16 @@ from __future__ import annotations
 from sqlalchemy import Select, func, select
 from sqlalchemy.orm import Session
 
-from app.models import Country, DebtRecord
-from app.schemas.country import CountriesListResponse, CountryDetailResponse, CountryListItem
+from app.models import Country, DebtRecord, Government
+from app.schemas.country import (
+    CountriesListResponse,
+    CountryDetailResponse,
+    CountryGovernmentItem,
+    CountryGovernmentsResponse,
+    CountryHistoryItem,
+    CountryHistoryResponse,
+    CountryListItem,
+)
 from app.services.equivalences import build_equivalences
 
 
@@ -93,4 +101,61 @@ def get_country_detail(db: Session, iso3: str) -> CountryDetailResponse | None:
         debt_pct_gdp=debt.debt_pct_gdp if debt else None,
         gdp_usd=debt.gdp_usd if debt else None,
         equivalences=build_equivalences(total_external_debt_usd),
+    )
+
+
+def get_country_history(db: Session, iso3: str) -> CountryHistoryResponse | None:
+    country = db.execute(
+        select(Country).where(func.upper(Country.iso3) == iso3.upper())
+    ).scalar_one_or_none()
+    if not country:
+        return None
+
+    rows = db.execute(
+        select(DebtRecord)
+        .where(DebtRecord.country_id == country.id)
+        .order_by(DebtRecord.year.desc())
+    ).scalars().all()
+
+    return CountryHistoryResponse(
+        iso3=country.iso3,
+        items=[
+            CountryHistoryItem(
+                year=row.year,
+                total_external_debt_usd=row.total_external_debt_usd,
+                debt_per_capita_usd=row.debt_per_capita_usd,
+                debt_pct_gdp=row.debt_pct_gdp,
+                gdp_usd=row.gdp_usd,
+                source=row.source,
+            )
+            for row in rows
+        ],
+    )
+
+
+def get_country_governments(db: Session, iso3: str) -> CountryGovernmentsResponse | None:
+    country = db.execute(
+        select(Country).where(func.upper(Country.iso3) == iso3.upper())
+    ).scalar_one_or_none()
+    if not country:
+        return None
+
+    rows = db.execute(
+        select(Government)
+        .where(Government.country_id == country.id)
+        .order_by(Government.start_date.desc())
+    ).scalars().all()
+
+    return CountryGovernmentsResponse(
+        iso3=country.iso3,
+        items=[
+            CountryGovernmentItem(
+                leader_name=row.leader_name,
+                party=row.party,
+                start_date=row.start_date.isoformat(),
+                end_date=row.end_date.isoformat() if row.end_date else None,
+                political_lean=row.political_lean,
+            )
+            for row in rows
+        ],
     )
