@@ -2,17 +2,19 @@ FROM python:3.12-slim
 
 WORKDIR /app
 
-ENV PYTHONDONTWRITEBYTECODE=1
-ENV PYTHONUNBUFFERED=1
-ENV PIP_NO_CACHE_DIR=1
-
+# Copy metadata first (for caching)
 COPY pyproject.toml README.md ./
-RUN pip install --upgrade pip && \
-    pip install .
 
-COPY . .
-RUN chmod +x /app/scripts/start_api.sh
+# Install build tools
+RUN pip install --upgrade pip setuptools wheel
 
-EXPOSE 8000
+# Copy the actual source code
+COPY app ./app
+COPY scripts ./scripts
+COPY tests ./tests
 
-CMD ["./scripts/start_api.sh"]
+# Install your package
+RUN pip install .
+
+# Default command (adjust to your entrypoint)
+CMD ["python", "-m", "app"]
