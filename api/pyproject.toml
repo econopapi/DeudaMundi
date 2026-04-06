@@ -13,6 +13,7 @@ dependencies = [
   "uvicorn[standard]>=0.30.0,<1.0.0",
   "pydantic-settings>=2.6.0,<3.0.0",
   "sqlalchemy>=2.0.35,<3.0.0",
+  "alembic>=1.14.0,<2.0.0",
   "psycopg[binary]>=3.2.1,<4.0.0",
   "redis>=5.0.8,<6.0.0",
 ]
@@ -36,3 +37,6 @@ src = ["app", "tests"]
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "UP"]
+
+[tool.setuptools]
+packages = ["app"]
