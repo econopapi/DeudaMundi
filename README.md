@@ -105,7 +105,28 @@ Arranca **Fase 1 — Backend MVP**:
 - Iteración 5 completada: pruebas de integración core + índices de optimización
 - Iteración 6 completada: `globe-data` + cache Redis en endpoints de lectura
 - Semana 5 (iteración 1) completada: rate limiting migrado a `Slowapi`
-- Pendiente: deploy (Railway/Render) y conexión productiva completa a Supabase
+- Semana 5 (iteración 2) completada: despliegue orientado a VPS Linux/EC2 + bootstrap productivo con migraciones
+- Pendiente: ejecución real de deploy en EC2 y validación final en entorno productivo
+
+## Deploy backend en VPS Linux / EC2 (Semana 5)
+
+Se agregaron artefactos para despliegue del backend:
+
+- `deploy/vps/systemd/deudamundi-api.service.template`
+- `deploy/vps/systemd/deploy_systemd.sh`
+- `deploy/vps/systemd/nginx.deudamundi-api.conf`
+- `api/scripts/start_api.sh` (migraciones Alembic + arranque Uvicorn)
+
+Flujo recomendado actual: **systemd + venv + Nginx + Certbot**.
+
+Variables críticas para producción:
+
+- `SUPABASE_DATABASE_URL`
+- `REDIS_URL`
+- `CORS_ALLOWED_ORIGINS`
+- `ADMIN_API_KEY`
+- `RATE_LIMIT_REQUESTS_PER_MINUTE`
+- `SECURITY_HSTS_ENABLED=true`
 
 ---
 
