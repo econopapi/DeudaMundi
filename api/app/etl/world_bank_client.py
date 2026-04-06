@@ -6,6 +6,8 @@ import httpx
 
 BASE_URL = "https://api.worldbank.org/v2"
 DEBT_INDICATOR = "DT.DOD.DECT.CD"
+GDP_INDICATOR = "NY.GDP.MKTP.CD"
+POPULATION_INDICATOR = "SP.POP.TOTL"
 
 
 class WorldBankClient:
@@ -17,8 +19,20 @@ class WorldBankClient:
         return [item for item in data if isinstance(item, dict)]
 
     def fetch_external_debt(self) -> list[dict[str, Any]]:
+        data = self.fetch_indicator(DEBT_INDICATOR)
+        return [item for item in data if isinstance(item, dict)]
+
+    def fetch_gdp(self) -> list[dict[str, Any]]:
+        data = self.fetch_indicator(GDP_INDICATOR)
+        return [item for item in data if isinstance(item, dict)]
+
+    def fetch_population(self) -> list[dict[str, Any]]:
+        data = self.fetch_indicator(POPULATION_INDICATOR)
+        return [item for item in data if isinstance(item, dict)]
+
+    def fetch_indicator(self, indicator: str) -> list[dict[str, Any]]:
         data = self._paginate(
-            f"/country/all/indicator/{DEBT_INDICATOR}",
+            f"/country/all/indicator/{indicator}",
             params={"format": "json", "per_page": 20000},
         )
         return [item for item in data if isinstance(item, dict)]

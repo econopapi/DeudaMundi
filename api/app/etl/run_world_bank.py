@@ -3,9 +3,15 @@ from __future__ import annotations
 from datetime import UTC, datetime
 from time import perf_counter
 
+from app.core.cache import invalidate_read_caches
 from app.db.session import SessionLocal
 from app.etl.repository import upsert_countries, upsert_debt_records
-from app.etl.transform import normalize_countries, normalize_debt_records
+from app.etl.transform import (
+    latest_population_by_iso3,
+    normalize_countries,
+    normalize_debt_records,
+    normalize_indicator_rows,
+)
 from app.etl.world_bank_client import WorldBankClient
 from app.models import EtlRun
 
@@ -19,14 +25,33 @@ def run_world_bank_etl() -> dict[str, int]:
     client = WorldBankClient()
     raw_countries = client.fetch_countries()
     raw_debt = client.fetch_external_debt()
+    raw_gdp = client.fetch_gdp()
+    raw_population = client.fetch_population()
 
     countries_by_iso3 = normalize_countries(raw_countries)
-    debt_rows = normalize_debt_records(raw_debt)
+    gdp_by_country_year = normalize_indicator_rows(raw_gdp)
+    population_by_country_year = normalize_indicator_rows(raw_population)
+
+    latest_population = latest_population_by_iso3(population_by_country_year)
+    for iso3, population in latest_population.items():
+        country = countries_by_iso3.get(iso3)
+        if country:
+            country.population = population
+
+    debt_rows = normalize_debt_records(
+        raw_debt,
+        gdp_by_country_year=gdp_by_country_year,
+        population_by_country_year=population_by_country_year,
+    )
 
     result = {
         "countries_processed": len(countries_by_iso3),
         "debt_records_processed": len(debt_rows),
+        "gdp_records_processed": len(gdp_by_country_year),
+        "population_records_processed": len(population_by_country_year),
+        "countries_with_population": len(latest_population),
         "debt_records_upserted": 0,
+        "cache_keys_invalidated": 0,
     }
 
     with SessionLocal() as db:
@@ -44,8 +69,10 @@ def run_world_bank_etl() -> dict[str, int]:
         try:
             country_map = upsert_countries(db, list(countries_by_iso3.values()))
             upserted_records = upsert_debt_records(db, debt_rows, country_map)
+            invalidated_cache_keys = invalidate_read_caches()
 
             result["debt_records_upserted"] = upserted_records
+            result["cache_keys_invalidated"] = invalidated_cache_keys
 
             run.status = "success"
             run.countries_processed = result["countries_processed"]

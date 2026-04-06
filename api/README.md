@@ -292,6 +292,17 @@ Se incluye un ETL base para ingestar deuda externa total usando el indicador:
 
 - `DT.DOD.DECT.CD`
 
+Desde esta iteración también se ingieren indicadores necesarios para métricas completas:
+
+- `NY.GDP.MKTP.CD` (GDP nominal anual en USD)
+- `SP.POP.TOTL` (población anual)
+
+Con estos indicadores el ETL calcula y persiste:
+
+- `gdp_usd`
+- `debt_pct_gdp` = `total_external_debt_usd / gdp_usd * 100`
+- `debt_per_capita_usd` = `total_external_debt_usd / population`
+
 El ETL descarga países + series históricas, normaliza y hace upsert en:
 
 - `countries`
@@ -311,6 +322,65 @@ Ejecución:
 4. `deudamundi-report-gaps`
 
 El reporte de gaps se guarda en `api/reports/etl_gap_report_*.json`.
+
+El resumen ahora incluye cobertura de:
+
+- `countries_with_population`
+- `debt_records_with_gdp`
+- `debt_records_with_debt_pct_gdp`
+- `debt_records_with_debt_per_capita`
+
+## Actualización urgente de indicadores (GDP y población) en producción
+
+Cuando se despliegue este cambio, para refrescar datos inmediatamente:
+
+1) desplegar versión nueva del backend (systemd)
+2) ejecutar ETL manual admin
+3) validar endpoints de métricas
+
+### 1) Despliegue en EC2 (systemd, sin Docker)
+
+```bash
+cd /home/admin/apps/deudamundi
+git fetch --all
+git checkout main
+git pull --ff-only
+
+APP_DIR=/home/admin/apps/deudamundi \
+SERVICE_NAME=deudamundi-api \
+SERVICE_USER=admin \
+SERVICE_GROUP=admin \
+SERVICE_PORT=8000 \
+UVICORN_WORKERS=2 \
+./deploy/vps/systemd/deploy_systemd.sh
+```
+
+### 2) Ejecutar ETL en producción
+
+```bash
+curl -X POST "https://deudamundi.dlimon.net/api/v1/admin/etl/world-bank/run" \
+	-H "X-API-Key: <ADMIN_API_KEY>"
+```
+
+Respuesta esperada (ejemplo de campos):
+
+- `countries_processed`
+- `debt_records_processed`
+- `gdp_records_processed`
+- `population_records_processed`
+- `countries_with_population`
+- `debt_records_upserted`
+- `cache_keys_invalidated`
+
+El ETL invalida automáticamente cache de lectura (`countries:*`, `rankings:*`, `globe-data:*`) para que los nuevos datos queden visibles al instante.
+
+### 3) Validación post-refresh
+
+```bash
+curl -s "https://deudamundi.dlimon.net/api/v1/countries/MEX" | jq '.gdp_usd, .debt_pct_gdp, .debt_per_capita_usd'
+curl -s "https://deudamundi.dlimon.net/api/v1/rankings?metric=pct_gdp&limit=5" | jq '.items | length'
+curl -s "https://deudamundi.dlimon.net/api/v1/rankings?metric=per_capita&limit=5" | jq '.items | length'
+```
 
 ## Trigger manual y scheduler
 

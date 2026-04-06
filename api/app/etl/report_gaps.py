@@ -13,9 +13,27 @@ from app.models import Country, DebtRecord
 def build_gap_report() -> dict[str, object]:
     with SessionLocal() as db:
         total_countries = db.scalar(select(func.count()).select_from(Country)) or 0
+        countries_with_population = db.scalar(
+            select(func.count()).select_from(Country).where(Country.population.is_not(None))
+        ) or 0
 
         countries_with_debt = db.scalar(
             select(func.count(func.distinct(DebtRecord.country_id))).select_from(DebtRecord)
+        ) or 0
+
+        total_debt_rows = db.scalar(select(func.count()).select_from(DebtRecord)) or 0
+        debt_rows_with_gdp = db.scalar(
+            select(func.count()).select_from(DebtRecord).where(DebtRecord.gdp_usd.is_not(None))
+        ) or 0
+        debt_rows_with_pct_gdp = db.scalar(
+            select(func.count())
+            .select_from(DebtRecord)
+            .where(DebtRecord.debt_pct_gdp.is_not(None))
+        ) or 0
+        debt_rows_with_per_capita = db.scalar(
+            select(func.count())
+            .select_from(DebtRecord)
+            .where(DebtRecord.debt_per_capita_usd.is_not(None))
         ) or 0
 
         countries_without_debt_rows = db.execute(
@@ -42,10 +60,15 @@ def build_gap_report() -> dict[str, object]:
         "generated_at": datetime.now(tz=UTC).isoformat(),
         "summary": {
             "total_countries": int(total_countries),
+            "countries_with_population": int(countries_with_population),
             "countries_with_debt_data": int(countries_with_debt),
             "countries_without_debt_data": len(countries_without_debt),
             "min_year": year_bounds[0],
             "max_year": year_bounds[1],
+            "total_debt_records": int(total_debt_rows),
+            "debt_records_with_gdp": int(debt_rows_with_gdp),
+            "debt_records_with_debt_pct_gdp": int(debt_rows_with_pct_gdp),
+            "debt_records_with_debt_per_capita": int(debt_rows_with_per_capita),
         },
         "countries_without_debt_data": countries_without_debt,
         "top_coverage_countries": [
