@@ -23,6 +23,8 @@ Mejoras iteración siguiente (Semana 8 inicial):
 - Leyenda interactiva para filtrar visualmente por banda de deuda (low/medium/high)
 - Mejora visual del globo (iluminación + atmósfera) para evitar esfera negra
 - Estado vacío cuando un filtro no devuelve países visibles
+- Render de países como polígonos con fronteras visibles (no solo puntos)
+- Territorio del país clicable para navegar al detalle (`/country/:iso3`)
 
 ## Configuración
 
