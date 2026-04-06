@@ -15,6 +15,11 @@ Implementado en este hito:
 - Estado global liviano para hover con `zustand`
 - Tests unitarios para cliente API y leyenda del globo
 
+Mejoras iteración siguiente (Semana 8 inicial):
+
+- Filtro por región conectado a `GET /api/v1/globe-data?region=...`
+- Carga diferida del módulo 3D con `React.lazy` + `Suspense`
+
 ## Configuración
 
 Variable opcional para cambiar el backend:

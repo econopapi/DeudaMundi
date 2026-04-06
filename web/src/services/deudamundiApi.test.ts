@@ -35,6 +35,19 @@ describe("deudamundiApi", () => {
     expect(result.items).toHaveLength(1);
   });
 
+  it("calls globe-data endpoint with region query param", async () => {
+    global.fetch = jest.fn().mockResolvedValue({
+      ok: true,
+      json: async () => ({ item_count: 0, items: [] }),
+    } as Response);
+
+    await fetchGlobeData("Latin America & Caribbean");
+
+    expect(global.fetch).toHaveBeenCalledWith(
+      "https://deudamundi.dlimon.net/api/v1/globe-data?region=Latin+America+%26+Caribbean",
+    );
+  });
+
   it("calls country detail endpoint with uppercase iso3", async () => {
     global.fetch = jest.fn().mockResolvedValue({
       ok: true,

@@ -1,11 +1,23 @@
-import { useEffect, useMemo, useState } from "react";
+import { Suspense, lazy, useEffect, useMemo, useState } from "react";
 
 import { AppHeader } from "../components/AppHeader";
 import { CountryTooltip } from "../components/globe/CountryTooltip";
 import { GlobeLegend } from "../components/globe/GlobeLegend";
-import { GlobeScene } from "../components/globe/GlobeScene";
 import { fetchGlobeData } from "../services/deudamundiApi";
 import type { GlobeDataPoint } from "../types/api";
+
+const GlobeScene = lazy(async () => import("../components/globe/GlobeScene").then((mod) => ({ default: mod.GlobeScene })));
+
+const REGION_OPTIONS = [
+  { value: "", label: "All regions" },
+  { value: "East Asia & Pacific", label: "East Asia & Pacific" },
+  { value: "Europe & Central Asia", label: "Europe & Central Asia" },
+  { value: "Latin America & Caribbean", label: "Latin America & Caribbean" },
+  { value: "Middle East & North Africa", label: "Middle East & North Africa" },
+  { value: "North America", label: "North America" },
+  { value: "South Asia", label: "South Asia" },
+  { value: "Sub-Saharan Africa", label: "Sub-Saharan Africa" },
+];
 
 function getDebtRange(points: GlobeDataPoint[]): { min: number; max: number } {
   const values = points
@@ -24,6 +36,7 @@ function getDebtRange(points: GlobeDataPoint[]): { min: number; max: number } {
 
 export function HomePage() {
   const [points, setPoints] = useState<GlobeDataPoint[]>([]);
+  const [region, setRegion] = useState<string>("");
   const [status, setStatus] = useState<"idle" | "loading" | "error" | "ready">("idle");
 
   useEffect(() => {
@@ -32,7 +45,7 @@ export function HomePage() {
     async function loadData() {
       setStatus("loading");
       try {
-        const response = await fetchGlobeData();
+        const response = await fetchGlobeData(region || undefined);
         if (!cancelled) {
           setPoints(response.items);
           setStatus("ready");
@@ -49,7 +62,7 @@ export function HomePage() {
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [region]);
 
   const debtRange = useMemo(() => getDebtRange(points), [points]);
 
@@ -60,9 +73,28 @@ export function HomePage() {
         subtitle="Fase 2 MVP: globo 3D interactivo con intensidad por deuda/PIB y navegación por país."
       />
 
+      <section className="rounded-xl border border-slate-800 bg-slate-900/70 p-4">
+        <label htmlFor="region-filter" className="mb-2 block text-xs font-semibold uppercase tracking-wide text-slate-300">
+          Region filter
+        </label>
+        <select
+          id="region-filter"
+          name="region"
+          value={region}
+          onChange={(event) => setRegion(event.target.value)}
+          className="w-full rounded-lg border border-slate-700 bg-slate-950 px-3 py-2 text-sm text-slate-100 focus:border-sky-500 focus:outline-none"
+        >
+          {REGION_OPTIONS.map((option) => (
+            <option key={option.value || "all"} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+        </select>
+      </section>
+
       {status === "loading" && (
         <section className="rounded-xl border border-slate-800 bg-slate-900/70 p-8 text-sm text-slate-300">
-          Loading globe data from API...
+          Loading globe data from API{region ? ` for ${region}` : ""}...
         </section>
       )}
 
@@ -75,7 +107,15 @@ export function HomePage() {
       {status === "ready" && (
         <section className="grid gap-4 lg:grid-cols-[1fr_auto]">
           <div className="relative">
-            <GlobeScene points={points} />
+            <Suspense
+              fallback={
+                <div className="flex h-[560px] items-center justify-center rounded-2xl border border-slate-800 bg-slate-950 text-sm text-slate-300">
+                  Loading 3D globe module...
+                </div>
+              }
+            >
+              <GlobeScene points={points} />
+            </Suspense>
             <div className="pointer-events-none absolute left-4 top-4">
               <CountryTooltip />
             </div>
