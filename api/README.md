@@ -63,6 +63,11 @@ Se incorporó cache-aside con Redis para:
 	- `Content-Security-Policy` restrictivo para API
 	- `Strict-Transport-Security` opcional (`SECURITY_HSTS_ENABLED=true`)
 
+## Semana 5 (iteración 1)
+
+- Rate limiting migrado a **Slowapi** con límite configurable por `RATE_LIMIT_REQUESTS_PER_MINUTE`.
+- Se conserva el comportamiento de respuesta `429` con `{"detail": "Rate limit exceeded"}`.
+
 ## Calidad Fase 1 (iteración 5)
 
 - Pruebas de integración reales para:
