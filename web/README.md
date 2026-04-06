@@ -26,6 +26,12 @@ Mejoras iteración siguiente (Semana 8 inicial):
 - Render de países como polígonos con fronteras visibles (no solo puntos)
 - Territorio del país clicable para navegar al detalle (`/country/:iso3`)
 
+Avance Semana 9 (detalle de país):
+
+- Hero responsive del país con KPIs principales
+- Contadores animados para deuda total, deuda per cápita y deuda/PIB
+- Pruebas RTL para `CountryDetailPage` y `MetricCounter`
+
 ## Configuración
 
 Variable opcional para cambiar el backend:
