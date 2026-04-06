@@ -51,6 +51,14 @@ Se incorporó cache-aside con Redis para `rankings` con TTL de 24h.
 	- `Content-Security-Policy` restrictivo para API
 	- `Strict-Transport-Security` opcional (`SECURITY_HSTS_ENABLED=true`)
 
+	## Calidad Fase 1 (iteración 5)
+
+	- Pruebas de integración reales para:
+		- `GET /api/v1/countries/{iso3}/history`
+		- `GET /api/v1/countries/{iso3}/governments`
+		- `GET /api/v1/rankings`
+	- Optimización de base de datos con índices en métricas de ranking y filtros frecuentes.
+
 ## Base de datos y migraciones
 
 Este backend está preparado para PostgreSQL local y Supabase (producción).
