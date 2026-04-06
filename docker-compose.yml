@@ -22,9 +22,11 @@ services:
       context: ./api
     container_name: deudamundi-api
     env_file:
-      - ./api/.env.example
+      - ./api/.env
+    # Force the start script to be executed via sh so mounts without exec bit still run
+    command: sh -c "./scripts/start_api.sh"
     volumes:
-      - ./api:/app
+      - ./api:/app:z
     ports:
       - "8000:8000"
     depends_on:
