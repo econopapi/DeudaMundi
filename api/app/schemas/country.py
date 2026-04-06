@@ -8,6 +8,7 @@ class CountryListItem(BaseModel):
     name_en: str
     region: str | None
     latest_year: int | None
+    debt_stock_usd: float | None = None
     total_external_debt_usd: float | None
     debt_per_capita_usd: float | None
     debt_pct_gdp: float | None
@@ -39,6 +40,7 @@ class CountryDetailResponse(BaseModel):
     population: int | None
     capital: str | None
     latest_year: int | None
+    debt_stock_usd: float | None = None
     total_external_debt_usd: float | None
     debt_per_capita_usd: float | None
     debt_pct_gdp: float | None
@@ -51,6 +53,7 @@ class CountryDetailResponse(BaseModel):
 
 class CountryHistoryItem(BaseModel):
     year: int
+    debt_stock_usd: float | None = None
     total_external_debt_usd: float | None
     debt_per_capita_usd: float | None
     debt_pct_gdp: float | None
@@ -84,6 +87,7 @@ class GlobeDataPoint(BaseModel):
     name_en: str
     region: str | None
     latest_year: int | None
+    debt_stock_usd: float | None = None
     total_external_debt_usd: float | None
     debt_per_capita_usd: float | None
     debt_pct_gdp: float | None

@@ -63,6 +63,7 @@ def list_countries(
             name_en=country.name_en,
             region=country.region,
             latest_year=debt.year if debt else None,
+            debt_stock_usd=debt.total_external_debt_usd if debt else None,
             total_external_debt_usd=debt.total_external_debt_usd if debt else None,
             debt_per_capita_usd=debt.debt_per_capita_usd if debt else None,
             debt_pct_gdp=debt.debt_pct_gdp if debt else None,
@@ -101,6 +102,7 @@ def get_country_detail(db: Session, iso3: str) -> CountryDetailResponse | None:
         population=country.population,
         capital=country.capital,
         latest_year=debt.year if debt else None,
+        debt_stock_usd=total_external_debt_usd,
         total_external_debt_usd=total_external_debt_usd,
         debt_per_capita_usd=debt.debt_per_capita_usd if debt else None,
         debt_pct_gdp=debt.debt_pct_gdp if debt else None,
@@ -130,6 +132,7 @@ def get_country_history(db: Session, iso3: str) -> CountryHistoryResponse | None
         items=[
             CountryHistoryItem(
                 year=row.year,
+                debt_stock_usd=row.total_external_debt_usd,
                 total_external_debt_usd=row.total_external_debt_usd,
                 debt_per_capita_usd=row.debt_per_capita_usd,
                 debt_pct_gdp=row.debt_pct_gdp,
@@ -185,6 +188,7 @@ def get_globe_data(db: Session, region: str | None) -> GlobeDataResponse:
             name_en=country.name_en,
             region=country.region,
             latest_year=debt.year if debt else None,
+            debt_stock_usd=debt.total_external_debt_usd if debt else None,
             total_external_debt_usd=debt.total_external_debt_usd if debt else None,
             debt_per_capita_usd=debt.debt_per_capita_usd if debt else None,
             debt_pct_gdp=debt.debt_pct_gdp if debt else None,

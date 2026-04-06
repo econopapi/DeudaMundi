@@ -27,3 +27,4 @@ class DebtRecordSeed:
     debt_concept: str = "external_debt_bop"
     data_source: str = "World Bank IDS DT.DOD.DECT.CD"
     data_vintage: date | None = None
+    source_priority: int = 100

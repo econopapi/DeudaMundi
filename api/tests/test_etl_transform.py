@@ -1,7 +1,9 @@
 from app.etl.transform import (
     latest_population_by_iso3,
+    merge_debt_records_by_priority,
     normalize_countries,
     normalize_debt_records,
+    normalize_imf_debt_records,
     normalize_indicator_rows,
 )
 
@@ -84,3 +86,60 @@ def test_normalize_indicator_rows_and_latest_population() -> None:
     assert indicator[("ARG", 2024)] == 46000000.0
     assert latest_population["ARG"] == 46000000
     assert latest_population["USA"] == 341000000
+
+
+def test_normalize_imf_debt_records_builds_stock_from_ratio_and_gdp() -> None:
+    debt_pct_gdp_by_country_year = {("USA", 2024): 120.0}
+    gdp_by_country_year = {("USA", 2024): 28000000000000.0}
+    population_by_country_year = {("USA", 2024): 340000000.0}
+
+    records = normalize_imf_debt_records(
+        debt_pct_gdp_by_country_year=debt_pct_gdp_by_country_year,
+        gdp_by_country_year=gdp_by_country_year,
+        population_by_country_year=population_by_country_year,
+    )
+
+    assert len(records) == 1
+    assert records[0].iso3 == "USA"
+    assert records[0].year == 2024
+    assert records[0].total_external_debt_usd == 33600000000000.0
+    assert records[0].gdp_usd == 28000000000000.0
+    assert records[0].debt_pct_gdp == 120.0
+    assert records[0].debt_concept == "public_debt_proxy"
+    assert records[0].source == "imf_dm_proxy_ggxwdg"
+
+
+def test_normalize_imf_debt_records_uses_latest_population_fallback() -> None:
+    debt_pct_gdp_by_country_year = {("USA", 2026): 100.0}
+    gdp_by_country_year = {("USA", 2026): 30000000000000.0}
+    population_by_country_year = {("USA", 2024): 340000000.0}
+
+    records = normalize_imf_debt_records(
+        debt_pct_gdp_by_country_year=debt_pct_gdp_by_country_year,
+        gdp_by_country_year=gdp_by_country_year,
+        population_by_country_year=population_by_country_year,
+    )
+
+    assert len(records) == 1
+    assert records[0].debt_per_capita_usd is not None
+    assert round(records[0].debt_per_capita_usd or 0, 2) == 88235.29
+
+
+def test_merge_debt_records_by_priority_prefers_world_bank_over_imf() -> None:
+    wb_record = normalize_debt_records(
+        external_debt_by_country_year={("ARG", 2024): 300000000000.0},
+        gdp_by_country_year={("ARG", 2024): 600000000000.0},
+        population_by_country_year={("ARG", 2024): 46000000.0},
+    )[0]
+
+    imf_record = normalize_imf_debt_records(
+        debt_pct_gdp_by_country_year={("ARG", 2024): 100.0},
+        gdp_by_country_year={("ARG", 2024): 700000000000.0},
+        population_by_country_year={("ARG", 2024): 46000000.0},
+    )[0]
+
+    merged = merge_debt_records_by_priority([imf_record, wb_record])
+
+    assert len(merged) == 1
+    assert merged[0].source == "wb_ids_dt_dod_dect_cd"
+    assert merged[0].debt_concept == "external_debt_bop"

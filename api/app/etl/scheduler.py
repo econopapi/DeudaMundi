@@ -13,7 +13,7 @@ def start_etl_scheduler() -> BackgroundScheduler | None:
     scheduler.add_job(
         func=run_world_bank_etl,
         trigger=CronTrigger.from_crontab(settings.etl_schedule_cron),
-        id="world_bank_external_debt",
+        id="global_debt_multisource",
         replace_existing=True,
     )
     scheduler.start()

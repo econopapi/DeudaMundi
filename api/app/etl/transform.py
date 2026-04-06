@@ -117,7 +117,74 @@ def normalize_debt_records(
                 debt_concept="external_debt_bop",
                 data_source="World Bank IDS DT.DOD.DECT.CD",
                 data_vintage=date(year, 12, 31),
+                source_priority=10,
             )
         )
 
     return rows
+
+
+def normalize_imf_debt_records(
+    debt_pct_gdp_by_country_year: dict[tuple[str, int], float],
+    gdp_by_country_year: dict[tuple[str, int], float],
+    population_by_country_year: dict[tuple[str, int], float],
+) -> list[DebtRecordSeed]:
+    rows: list[DebtRecordSeed] = []
+    latest_population = latest_population_by_iso3(population_by_country_year)
+
+    common_keys = set(debt_pct_gdp_by_country_year) & set(gdp_by_country_year)
+
+    for iso3, year in sorted(common_keys):
+        debt_pct_gdp = debt_pct_gdp_by_country_year.get((iso3, year))
+        gdp_usd = gdp_by_country_year.get((iso3, year))
+
+        if debt_pct_gdp is None or gdp_usd is None:
+            continue
+        if debt_pct_gdp < 0 or gdp_usd <= 0:
+            continue
+
+        debt_stock_usd = (debt_pct_gdp / 100.0) * gdp_usd
+        if debt_stock_usd < 0:
+            continue
+
+        population = population_by_country_year.get((iso3, year))
+        if population is None:
+            population = latest_population.get(iso3)
+        debt_per_capita = None
+        if population is not None and population > 0:
+            debt_per_capita = debt_stock_usd / population
+
+        rows.append(
+            DebtRecordSeed(
+                iso3=iso3,
+                year=year,
+                total_external_debt_usd=debt_stock_usd,
+                gdp_usd=gdp_usd,
+                debt_pct_gdp=debt_pct_gdp,
+                debt_per_capita_usd=debt_per_capita,
+                source="imf_dm_proxy_ggxwdg",
+                debt_concept="public_debt_proxy",
+                data_source="IMF DataMapper proxy (GGXWDG_NGDP + NGDPD)",
+                data_vintage=date(year, 12, 31),
+                source_priority=20,
+            )
+        )
+
+    return rows
+
+
+def merge_debt_records_by_priority(rows: list[DebtRecordSeed]) -> list[DebtRecordSeed]:
+    best_by_key: dict[tuple[str, int], DebtRecordSeed] = {}
+
+    for row in rows:
+        key = (row.iso3, row.year)
+        current = best_by_key.get(key)
+
+        if current is None:
+            best_by_key[key] = row
+            continue
+
+        if row.source_priority < current.source_priority:
+            best_by_key[key] = row
+
+    return [best_by_key[key] for key in sorted(best_by_key)]

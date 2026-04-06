@@ -286,30 +286,43 @@ Este backend está preparado para PostgreSQL local y Supabase (producción).
 - `countries`
 - `debt_records` (relación con `countries` y unicidad por país/año)
 
-## ETL inicial (World Bank)
+## ETL de deuda (multifuente)
 
-Se incluye un ETL base para ingestar deuda externa total usando el indicador de deuda externa del World Bank IDS:
+El ETL integra fuentes abiertas y sin API key para mejorar cobertura global:
 
-- `DT.DOD.DECT.CD`
+- World Bank IDS: `DT.DOD.DECT.CD` (external debt stocks, total)
 
-La metodología de esta iteración evita mezclar deuda pública fiscal con deuda externa (BOP). La ingesta usa:
+Fallback opcional (mezcla conceptual, desactivado por defecto):
+
+- IMF DataMapper: `GGXWDG_NGDP` (general government gross debt, % GDP)
+- IMF DataMapper: `NGDPD` (nominal GDP, USD billions)
+
+Configuración recomendada para rigor metodológico:
+
+- `ETL_ALLOW_PROXY_DEBT_FALLBACK=false` (default): solo deuda externa comparable.
+- `ETL_ALLOW_PROXY_DEBT_FALLBACK=true`: rellena huecos con proxy de deuda pública FMI.
+
+La normalización mantiene explícito el concepto de deuda (`debt_concept`) y su fuente (`source`, `data_source`) para no mezclar semánticas de forma opaca.
+Cuando existe colisión país/año, se prioriza World Bank external debt; el proxy IMF solo entra cuando se habilita explícitamente el fallback.
+
+La ingesta usa:
 
 - `DT.DOD.DECT.CD` (external debt stocks, total)
-- `NY.GDP.MKTP.CD` (PIB nominal anual en USD)
+- `NY.GDP.MKTP.CD` y/o `NGDPD` (PIB nominal anual en USD)
 - `SP.POP.TOTL` (población anual)
 
 Con estos indicadores el ETL calcula y persiste:
 
 - `gdp_usd`
-- `total_external_debt_usd` (directo de fuente `DT.DOD.DECT.CD`)
+- `total_external_debt_usd` (campo legacy para compatibilidad)
+- `debt_stock_usd` (alias semántico recomendado en payload)
 - `debt_pct_gdp` derivado como `(total_external_debt_usd / gdp_usd) * 100`
 - `debt_per_capita_usd` = `total_external_debt_usd / population`
-- `debt_concept` = `external_debt_bop`
-- `data_source` = `World Bank IDS DT.DOD.DECT.CD`
+- `debt_concept` (ej. `external_debt_bop`, `public_debt_proxy`)
+- `data_source` (fuente exacta de cada registro)
 - `data_vintage` = cierre anual (`YYYY-12-31`)
 
-No se aplican fallbacks de deuda pública fiscal para completar deuda externa.
-Solo se persisten años donde existen los 3 datos requeridos (deuda externa total, PIB, población).
+Solo se persisten años con deuda + PIB válidos. `debt_per_capita_usd` se completa cuando hay población.
 
 ### Transparencia metodológica en la API
 
@@ -329,13 +342,14 @@ El ETL descarga países + series históricas, normaliza y hace upsert en:
 Ejecución:
 
 - `deudamundi-etl-worldbank`
+- `deudamundi-etl-global`
 - `deudamundi-seed-governments`
 - `deudamundi-report-gaps`
 
 ### Flujo recomendado de cierre Fase 0
 
 1. `alembic upgrade head`
-2. `deudamundi-etl-worldbank`
+2. `deudamundi-etl-global`
 3. `deudamundi-seed-governments`
 4. `deudamundi-report-gaps`
 
@@ -376,7 +390,7 @@ UVICORN_WORKERS=2 \
 ### 2) Ejecutar ETL en producción
 
 ```bash
-curl -X POST "https://deudamundi.dlimon.net/api/v1/admin/etl/world-bank/run" \
+curl -X POST "https://deudamundi.dlimon.net/api/v1/admin/etl/run" \
 	-H "X-API-Key: <ADMIN_API_KEY>"
 ```
 

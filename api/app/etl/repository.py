@@ -10,6 +10,11 @@ from app.etl.types import CountrySeed, DebtRecordSeed
 from app.models import Country, DebtRecord
 
 
+PG_MAX_BIND_PARAMS = 65_535
+DEBT_RECORD_INSERT_COLUMNS = 11
+DEBT_UPSERT_BATCH_SIZE = max(1, PG_MAX_BIND_PARAMS // DEBT_RECORD_INSERT_COLUMNS)
+
+
 def upsert_countries(db: Session, countries: list[CountrySeed]) -> dict[str, int]:
     if not countries:
         return {}
@@ -78,21 +83,23 @@ def upsert_debt_records(
         for r in filtered
     ]
 
-    stmt = insert(DebtRecord).values(payload)
-    stmt = stmt.on_conflict_do_update(
-        constraint="uq_debt_country_year",
-        set_={
-            "total_external_debt_usd": stmt.excluded.total_external_debt_usd,
-            "debt_pct_gdp": stmt.excluded.debt_pct_gdp,
-            "debt_per_capita_usd": stmt.excluded.debt_per_capita_usd,
-            "gdp_usd": stmt.excluded.gdp_usd,
-            "source": stmt.excluded.source,
-            "debt_concept": stmt.excluded.debt_concept,
-            "data_source": stmt.excluded.data_source,
-            "data_vintage": stmt.excluded.data_vintage,
-            "updated_at": stmt.excluded.updated_at,
-        },
-    )
+    for start in range(0, len(payload), DEBT_UPSERT_BATCH_SIZE):
+        batch = payload[start : start + DEBT_UPSERT_BATCH_SIZE]
+        stmt = insert(DebtRecord).values(batch)
+        stmt = stmt.on_conflict_do_update(
+            constraint="uq_debt_country_year",
+            set_={
+                "total_external_debt_usd": stmt.excluded.total_external_debt_usd,
+                "debt_pct_gdp": stmt.excluded.debt_pct_gdp,
+                "debt_per_capita_usd": stmt.excluded.debt_per_capita_usd,
+                "gdp_usd": stmt.excluded.gdp_usd,
+                "source": stmt.excluded.source,
+                "debt_concept": stmt.excluded.debt_concept,
+                "data_source": stmt.excluded.data_source,
+                "data_vintage": stmt.excluded.data_vintage,
+                "updated_at": stmt.excluded.updated_at,
+            },
+        )
 
-    db.execute(stmt)
+        db.execute(stmt)
     return len(payload)

@@ -56,6 +56,18 @@ def build_gap_report() -> dict[str, object]:
             .limit(10)
         ).all()
 
+        concept_rows = db.execute(
+            select(DebtRecord.debt_concept, func.count(DebtRecord.id))
+            .group_by(DebtRecord.debt_concept)
+            .order_by(func.count(DebtRecord.id).desc())
+        ).all()
+
+        source_rows = db.execute(
+            select(DebtRecord.source, func.count(DebtRecord.id))
+            .group_by(DebtRecord.source)
+            .order_by(func.count(DebtRecord.id).desc())
+        ).all()
+
     return {
         "generated_at": datetime.now(tz=UTC).isoformat(),
         "summary": {
@@ -73,6 +85,13 @@ def build_gap_report() -> dict[str, object]:
         "countries_without_debt_data": countries_without_debt,
         "top_coverage_countries": [
             {"iso3": iso3, "records": int(records)} for iso3, records in top_country_rows
+        ],
+        "coverage_by_debt_concept": [
+            {"debt_concept": debt_concept, "records": int(records)}
+            for debt_concept, records in concept_rows
+        ],
+        "coverage_by_source": [
+            {"source": source, "records": int(records)} for source, records in source_rows
         ],
     }
 

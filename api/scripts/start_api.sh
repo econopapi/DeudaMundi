@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+export PYTHONPATH="/app:${PYTHONPATH:-}"
+
 if [ "${RUN_MIGRATIONS:-true}" = "true" ]; then
   echo "[deudamundi-api] Running Alembic migrations..."
   alembic upgrade head

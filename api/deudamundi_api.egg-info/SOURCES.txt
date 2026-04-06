@@ -15,9 +15,11 @@ deudamundi_api.egg-info/entry_points.txt
 deudamundi_api.egg-info/requires.txt
 deudamundi_api.egg-info/top_level.txt
 tests/test_admin_etl.py
+tests/test_config_database_url.py
 tests/test_countries_endpoints.py
 tests/test_countries_integration.py
 tests/test_equivalences.py
+tests/test_etl_imf_client.py
 tests/test_etl_transform.py
 tests/test_globe_data_endpoint.py
 tests/test_health.py

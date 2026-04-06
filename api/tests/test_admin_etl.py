@@ -36,5 +36,12 @@ def test_admin_etl_runs_when_key_is_valid(monkeypatch) -> None:  # type: ignore[
         )
         assert response.status_code == 200
         assert response.json()["debt_records_upserted"] == 8
+
+        global_response = client.post(
+            "/api/v1/admin/etl/run",
+            headers={"X-API-Key": "test-secret"},
+        )
+        assert global_response.status_code == 200
+        assert global_response.json()["debt_records_upserted"] == 8
     finally:
         settings.admin_api_key = original_key
