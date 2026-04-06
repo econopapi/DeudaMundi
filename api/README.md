@@ -175,6 +175,26 @@ sudo journalctl -u deudamundi-api -n 100 --no-pager
 
 Debe responder `200 OK`.
 
+### Troubleshooting: `requires a different Python: 3.10.x not in '>=3.12'`
+
+Si aparece ese error en EC2, tu `.venv` se creó con Python 3.10. Solución:
+
+```bash
+sudo apt update
+sudo apt install -y software-properties-common
+sudo add-apt-repository ppa:deadsnakes/ppa -y
+sudo apt update
+sudo apt install -y python3.12 python3.12-venv
+
+cd /home/admin/apps/deudamundi/api
+rm -rf .venv
+
+cd /home/admin/apps/deudamundi
+PYTHON_BIN=python3.12 APP_DIR=/home/admin/apps/deudamundi ./deploy/vps/systemd/deploy_systemd.sh
+```
+
+El script ahora valida automáticamente Python `>=3.12` y recrea `.venv` si detecta versión incompatible.
+
 ## Calidad Fase 1 (iteración 5)
 
 - Pruebas de integración reales para:
