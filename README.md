@@ -8,6 +8,7 @@ Actualmente en **Fase 0 (Fundamentos)** del roadmap:
 
 - Monorepo inicial listo (`api/` + `web/`)
 - Backend FastAPI con endpoint de salud
+- ETL inicial World Bank para deuda externa total
 - Frontend React + Vite + Tailwind con testing inicial
 - Docker Compose para entorno local (PostgreSQL + Redis + servicios)
 - CI básica con GitHub Actions
@@ -70,9 +71,9 @@ Workflow en `.github/workflows/ci.yml` ejecuta:
 
 ## Próximo hito (Fase 0)
 
-- Implementar primer pipeline ETL (World Bank)
 - Definir contratos iniciales de endpoints del MVP de países/rankings
 - Integrar cache Redis por endpoint y estrategia de invalidación base
+- Integrar ejecución programada (scheduler) y logging persistente para ETL
 
 ---
 
