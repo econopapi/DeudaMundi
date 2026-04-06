@@ -16,7 +16,21 @@ SERVICE_USER="${SERVICE_USER:-admin}"
 SERVICE_GROUP="${SERVICE_GROUP:-admin}"
 SERVICE_PORT="${SERVICE_PORT:-8000}"
 UVICORN_WORKERS="${UVICORN_WORKERS:-2}"
-PYTHON_BIN="${PYTHON_BIN:-python3}"
+
+if [ -n "${PYTHON_BIN:-}" ]; then
+  SELECTED_PYTHON_BIN="${PYTHON_BIN}"
+else
+  SELECTED_PYTHON_BIN=""
+  for candidate in python3.13 python3.12 python3; do
+    if command -v "${candidate}" >/dev/null 2>&1; then
+      CANDIDATE_OK="$(${candidate} -c 'import sys; print(int(sys.version_info >= (3, 12)))' 2>/dev/null || echo 0)"
+      if [ "${CANDIDATE_OK}" = "1" ]; then
+        SELECTED_PYTHON_BIN="${candidate}"
+        break
+      fi
+    fi
+  done
+fi
 
 TEMPLATE_PATH="${APP_DIR}/deploy/vps/systemd/deudamundi-api.service.template"
 RENDERED_PATH="/tmp/${SERVICE_NAME}.service"
@@ -32,18 +46,20 @@ if [ ! -d "${APP_DIR}/api" ]; then
   exit 1
 fi
 
-if ! command -v "${PYTHON_BIN}" >/dev/null 2>&1; then
-  echo "Python interpreter not found: ${PYTHON_BIN}"
-  echo "Tip: install Python >= 3.12 and rerun with PYTHON_BIN=python3"
+if [ -z "${SELECTED_PYTHON_BIN}" ]; then
+  echo "No compatible Python interpreter found (requires >=3.12)."
+  echo "Tip: install Python >= 3.12 and rerun with PYTHON_BIN=<path-or-binary>"
   exit 1
 fi
 
-PY_OK="$(${PYTHON_BIN} -c 'import sys; print(int(sys.version_info >= (3, 12)))')"
+PY_OK="$(${SELECTED_PYTHON_BIN} -c 'import sys; print(int(sys.version_info >= (3, 12)))')"
 if [ "${PY_OK}" != "1" ]; then
-  echo "${PYTHON_BIN} must be Python >= 3.12"
-  "${PYTHON_BIN}" -V || true
+  echo "${SELECTED_PYTHON_BIN} must be Python >= 3.12"
+  "${SELECTED_PYTHON_BIN}" -V || true
   exit 1
 fi
+
+echo "[deploy-systemd] Using Python interpreter: ${SELECTED_PYTHON_BIN}"
 
 echo "[deploy-systemd] Ensuring Python venv and dependencies..."
 cd "${APP_DIR}/api"
@@ -56,7 +72,7 @@ if [ -d ".venv" ]; then
 fi
 
 if [ ! -d ".venv" ]; then
-  "${PYTHON_BIN}" -m venv .venv
+  "${SELECTED_PYTHON_BIN}" -m venv .venv
 fi
 
 .venv/bin/pip install --upgrade pip
