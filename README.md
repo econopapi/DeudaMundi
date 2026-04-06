@@ -99,8 +99,8 @@ Arranca **Fase 1 — Backend MVP**:
 
 - Iteración 1 completada: `countries` listado + detalle y equivalencias básicas
 - Iteración 2 completada: `history` y `governments` por país
-- Pendiente: rankings
-- Caching por endpoint
+- Iteración 3 completada: `rankings` (absoluto, %PIB, per cápita)
+- Cache base por endpoint iniciada en `rankings` (Redis)
 - endurecimiento de seguridad y pruebas de integración
 
 ---
