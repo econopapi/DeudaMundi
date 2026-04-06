@@ -9,6 +9,7 @@ Actualmente con **Fase 0 y Fase 1 completadas**, y **Fase 2 frontend en cierre**
 - Monorepo inicial listo (`api/` + `web/`)
 - Backend FastAPI con endpoint de salud
 - ETL inicial World Bank para deuda externa total
+- ETL World Bank extendido con GDP y población para métricas completas (%PIB y per cápita)
 - Trigger admin protegido + scheduler base para ETL
 - Seed inicial de gobiernos piloto (AR, US, BR, DE, GR)
 - Reporte de gaps de cobertura ETL
