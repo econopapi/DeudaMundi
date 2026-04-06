@@ -1,5 +1,10 @@
 import { getApiBaseUrl } from "../lib/env";
-import type { CountryDetailResponse, GlobeDataResponse } from "../types/api";
+import type {
+  CountryDetailResponse,
+  CountryGovernmentsResponse,
+  CountryHistoryResponse,
+  GlobeDataResponse,
+} from "../types/api";
 
 type ApiError = Error & {
   status?: number;
@@ -32,4 +37,12 @@ export async function fetchGlobeData(region?: string): Promise<GlobeDataResponse
 
 export async function fetchCountryDetail(iso3: string): Promise<CountryDetailResponse> {
   return request<CountryDetailResponse>(`/api/v1/countries/${iso3.toUpperCase()}`);
+}
+
+export async function fetchCountryHistory(iso3: string): Promise<CountryHistoryResponse> {
+  return request<CountryHistoryResponse>(`/api/v1/countries/${iso3.toUpperCase()}/history`);
+}
+
+export async function fetchCountryGovernments(iso3: string): Promise<CountryGovernmentsResponse> {
+  return request<CountryGovernmentsResponse>(`/api/v1/countries/${iso3.toUpperCase()}/governments`);
 }

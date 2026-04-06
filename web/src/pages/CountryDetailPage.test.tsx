@@ -4,14 +4,24 @@ import { MemoryRouter, Route, Routes } from "react-router-dom";
 import { CountryDetailPage } from "./CountryDetailPage";
 
 const mockFetchCountryDetail = jest.fn();
+const mockFetchCountryHistory = jest.fn();
+const mockFetchCountryGovernments = jest.fn();
 
 jest.mock("../services/deudamundiApi", () => ({
   fetchCountryDetail: (iso3: string) => mockFetchCountryDetail(iso3),
+  fetchCountryHistory: (iso3: string) => mockFetchCountryHistory(iso3),
+  fetchCountryGovernments: (iso3: string) => mockFetchCountryGovernments(iso3),
+}));
+
+jest.mock("../components/country/CountryHistoryChart", () => ({
+  CountryHistoryChart: () => <div>Historical external debt (USD)</div>,
 }));
 
 describe("CountryDetailPage", () => {
   beforeEach(() => {
     mockFetchCountryDetail.mockReset();
+    mockFetchCountryHistory.mockReset();
+    mockFetchCountryGovernments.mockReset();
   });
 
   it("renders country hero and core sections", async () => {
@@ -32,6 +42,41 @@ describe("CountryDetailPage", () => {
       equivalences: [],
     });
 
+    mockFetchCountryHistory.mockResolvedValue({
+      iso3: "ARG",
+      items: [
+        {
+          year: 2022,
+          total_external_debt_usd: 900000000,
+          debt_per_capita_usd: 18000,
+          debt_pct_gdp: 39.2,
+          gdp_usd: 2400000000,
+          source: "worldbank",
+        },
+        {
+          year: 2023,
+          total_external_debt_usd: 1000000000,
+          debt_per_capita_usd: 20000,
+          debt_pct_gdp: 40.3,
+          gdp_usd: 2500000000,
+          source: "worldbank",
+        },
+      ],
+    });
+
+    mockFetchCountryGovernments.mockResolvedValue({
+      iso3: "ARG",
+      items: [
+        {
+          leader_name: "Leader Test",
+          party: null,
+          start_date: "2020-01-01",
+          end_date: null,
+          political_lean: null,
+        },
+      ],
+    });
+
     render(
       <MemoryRouter initialEntries={["/country/arg"]}>
         <Routes>
@@ -42,8 +87,11 @@ describe("CountryDetailPage", () => {
 
     expect(await screen.findByText("Country profile")).toBeInTheDocument();
     expect(screen.getByRole("heading", { level: 2, name: "Argentina" })).toBeInTheDocument();
+    expect(screen.getByText("Historical external debt (USD)")).toBeInTheDocument();
     expect(screen.getByText("Debt metrics")).toBeInTheDocument();
     expect(screen.getByText("Emotional equivalences")).toBeInTheDocument();
     expect(mockFetchCountryDetail).toHaveBeenCalledWith("arg");
+    expect(mockFetchCountryHistory).toHaveBeenCalledWith("arg");
+    expect(mockFetchCountryGovernments).toHaveBeenCalledWith("arg");
   });
 });

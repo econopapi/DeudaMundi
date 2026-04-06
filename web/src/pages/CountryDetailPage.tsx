@@ -2,13 +2,20 @@ import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 
 import { CountryHero } from "../components/country/CountryHero";
+import { CountryHistoryChart } from "../components/country/CountryHistoryChart";
 import { formatPercentage, formatUsdCompact } from "../lib/formatters";
-import { fetchCountryDetail } from "../services/deudamundiApi";
-import type { CountryDetailResponse } from "../types/api";
+import { fetchCountryDetail, fetchCountryGovernments, fetchCountryHistory } from "../services/deudamundiApi";
+import type {
+  CountryDetailResponse,
+  CountryGovernmentItem,
+  CountryHistoryItem,
+} from "../types/api";
 
 export function CountryDetailPage() {
   const { iso3 = "" } = useParams();
   const [country, setCountry] = useState<CountryDetailResponse | null>(null);
+  const [historyItems, setHistoryItems] = useState<CountryHistoryItem[]>([]);
+  const [governments, setGovernments] = useState<CountryGovernmentItem[]>([]);
   const [status, setStatus] = useState<"loading" | "error" | "ready">("loading");
 
   useEffect(() => {
@@ -17,9 +24,16 @@ export function CountryDetailPage() {
     async function loadCountry() {
       setStatus("loading");
       try {
-        const response = await fetchCountryDetail(iso3);
+        const [detail, history, governmentsResponse] = await Promise.all([
+          fetchCountryDetail(iso3),
+          fetchCountryHistory(iso3),
+          fetchCountryGovernments(iso3),
+        ]);
+
         if (!cancelled) {
-          setCountry(response);
+          setCountry(detail);
+          setHistoryItems(history.items);
+          setGovernments(governmentsResponse.items);
           setStatus("ready");
         }
       } catch {
@@ -64,6 +78,8 @@ export function CountryDetailPage() {
       {status === "ready" && country && (
         <>
           <CountryHero country={country} />
+
+          <CountryHistoryChart historyItems={historyItems} governments={governments} />
 
           <section className="grid gap-4 rounded-2xl border border-slate-800 bg-slate-900/70 p-6 md:grid-cols-2">
             <article className="rounded-xl border border-slate-700 bg-slate-950/50 p-4">

@@ -30,6 +30,8 @@ Avance Semana 9 (detalle de país):
 
 - Hero responsive del país con KPIs principales
 - Contadores animados para deuda total, deuda per cápita y deuda/PIB
+- Gráfico de evolución histórica con D3 (line + area)
+- Overlay de gobiernos sobre la línea temporal histórica
 - Pruebas RTL para `CountryDetailPage` y `MetricCounter`
 
 ## Configuración

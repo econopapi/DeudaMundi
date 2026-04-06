@@ -1,4 +1,4 @@
-import { fetchCountryDetail, fetchGlobeData } from "./deudamundiApi";
+import { fetchCountryDetail, fetchCountryGovernments, fetchCountryHistory, fetchGlobeData } from "./deudamundiApi";
 
 describe("deudamundiApi", () => {
   const originalFetch = global.fetch;
@@ -72,6 +72,30 @@ describe("deudamundiApi", () => {
     const result = await fetchCountryDetail("arg");
 
     expect(global.fetch).toHaveBeenCalledWith("https://deudamundi.dlimon.net/api/v1/countries/ARG");
+    expect(result.iso3).toBe("ARG");
+  });
+
+  it("calls country history endpoint", async () => {
+    global.fetch = jest.fn().mockResolvedValue({
+      ok: true,
+      json: async () => ({ iso3: "ARG", items: [] }),
+    } as Response);
+
+    const result = await fetchCountryHistory("arg");
+
+    expect(global.fetch).toHaveBeenCalledWith("https://deudamundi.dlimon.net/api/v1/countries/ARG/history");
+    expect(result.iso3).toBe("ARG");
+  });
+
+  it("calls country governments endpoint", async () => {
+    global.fetch = jest.fn().mockResolvedValue({
+      ok: true,
+      json: async () => ({ iso3: "ARG", items: [] }),
+    } as Response);
+
+    const result = await fetchCountryGovernments("arg");
+
+    expect(global.fetch).toHaveBeenCalledWith("https://deudamundi.dlimon.net/api/v1/countries/ARG/governments");
     expect(result.iso3).toBe("ARG");
   });
 });

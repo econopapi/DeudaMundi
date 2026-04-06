@@ -35,3 +35,30 @@ export type CountryDetailResponse = {
   gdp_usd: number | null;
   equivalences: EquivalenceItem[];
 };
+
+export type CountryHistoryItem = {
+  year: number;
+  total_external_debt_usd: number | null;
+  debt_per_capita_usd: number | null;
+  debt_pct_gdp: number | null;
+  gdp_usd: number | null;
+  source: string;
+};
+
+export type CountryHistoryResponse = {
+  iso3: string;
+  items: CountryHistoryItem[];
+};
+
+export type CountryGovernmentItem = {
+  leader_name: string;
+  party: string | null;
+  start_date: string;
+  end_date: string | null;
+  political_lean: string | null;
+};
+
+export type CountryGovernmentsResponse = {
+  iso3: string;
+  items: CountryGovernmentItem[];
+};
