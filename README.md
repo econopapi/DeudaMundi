@@ -9,6 +9,7 @@ Actualmente en **Fase 0 (Fundamentos)** del roadmap:
 - Monorepo inicial listo (`api/` + `web/`)
 - Backend FastAPI con endpoint de salud
 - ETL inicial World Bank para deuda externa total
+- Trigger admin protegido + scheduler base para ETL
 - Frontend React + Vite + Tailwind con testing inicial
 - Docker Compose para entorno local (PostgreSQL + Redis + servicios)
 - CI básica con GitHub Actions
