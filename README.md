@@ -101,7 +101,8 @@ Arranca **Fase 1 — Backend MVP**:
 - Iteración 2 completada: `history` y `governments` por país
 - Iteración 3 completada: `rankings` (absoluto, %PIB, per cápita)
 - Cache base por endpoint iniciada en `rankings` (Redis)
-- endurecimiento de seguridad y pruebas de integración
+- Iteración 4 completada: CORS + headers de seguridad + rate limiting básico
+- Pendiente: pruebas de integración más profundas y optimización de seguridad para prod
 
 ---
 
