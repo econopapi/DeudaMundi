@@ -8,6 +8,7 @@ import { LanguageSwitcher } from "../components/LanguageSwitcher";
 import {
   buildCountryHistoryExportRows,
   buildCountryLatestExportRows,
+  downloadCountryPdfReport,
   downloadCsvFile,
   downloadXlsxFile,
 } from "../lib/dataExports";
@@ -107,7 +108,7 @@ export function CountryDetailPage() {
     upsertMeta('meta[name="twitter:description"]', "name", "twitter:description", description);
   }, [country, locale]);
 
-  const handleExport = (format: "csv" | "xlsx") => {
+  const handleExport = async (format: "csv" | "xlsx" | "pdf") => {
     if (!country) {
       return;
     }
@@ -118,6 +119,11 @@ export function CountryDetailPage() {
 
     if (format === "csv") {
       downloadCsvFile(`${baseFilename}-history.csv`, historyRows);
+      return;
+    }
+
+    if (format === "pdf") {
+      await downloadCountryPdfReport(`${baseFilename}-report.pdf`, country, historyItems, locale);
       return;
     }
 
@@ -172,7 +178,7 @@ export function CountryDetailPage() {
               <button
                 type="button"
                 onClick={() => {
-                  handleExport("csv");
+                  void handleExport("csv");
                 }}
                 className="rounded-md border border-[#3b4252] bg-[#0d1017]/80 px-3 py-2 text-xs text-[#f5f4f0] hover:border-[#6d7280]"
               >
@@ -181,11 +187,20 @@ export function CountryDetailPage() {
               <button
                 type="button"
                 onClick={() => {
-                  handleExport("xlsx");
+                  void handleExport("xlsx");
                 }}
                 className="rounded-md border border-[#3b4252] bg-[#0d1017]/80 px-3 py-2 text-xs text-[#f5f4f0] hover:border-[#6d7280]"
               >
                 {t(locale, "exportXlsx")}
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  void handleExport("pdf");
+                }}
+                className="rounded-md border border-[#7c6af5] bg-[#7c6af5]/20 px-3 py-2 text-xs text-[#ede9fe] hover:border-[#a594f9]"
+              >
+                {t(locale, "exportPdf")}
               </button>
             </div>
           </section>
