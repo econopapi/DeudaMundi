@@ -46,6 +46,16 @@ Avance Semanas 10–12 (cierre Fase 2 frontend):
 - Baseline i18n ES/EN con selector rápido de idioma
 - Mensajería explícita para datos faltantes de fuente (`Not available from source`)
 
+Avance incremental de comparación (abril 2026):
+
+- Nueva ruta `/compare` para comparar 2+ países en una vista dedicada
+- Selector multi-país con chips y búsqueda por nombre/ISO3
+- Integración con `GET /api/v1/countries/compare?iso3=...`
+- Gráfico comparativo con doble eje vertical:
+	- Eje izquierdo: stock de deuda externa (USD)
+	- Eje derecho: deuda externa / PIB (%)
+- Gráfico histórico del detalle de país actualizado para mostrar también la serie `% PIB` en eje derecho
+
 Actualización UX/UI profesional (abril 2026):
 
 - Idioma por defecto en español (`es`), con inglés como secundario

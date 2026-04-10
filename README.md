@@ -17,6 +17,7 @@ Actualmente con **Fase 0 y Fase 1 completadas**, y **Fase 2 frontend en cierre**
 - Frontend React + Vite + Tailwind con testing inicial
 - Docker Compose para entorno local (PostgreSQL + Redis + servicios)
 - CI básica con GitHub Actions
+- Comparación multi-país (2+) con gráfico histórico de doble eje (USD y %PIB)
 
 ## Estructura del monorepo
 
@@ -127,6 +128,7 @@ Implementado en `web/`:
 - Intensidad visual con fallback de métrica cuando faltan ratios de fuente
 - Detalle de país con histórico, overlay de gobiernos y bloque de sharing
 - Ruta `/rankings` con filtros por región y búsqueda
+- Ruta `/compare` para comparar múltiples países con series históricas superpuestas
 - Fallback no-WebGL y baseline i18n ES/EN
 - Cobertura de tests frontend actualizada para servicios y páginas clave
 

@@ -1,7 +1,7 @@
 import { extent, max, scaleLinear } from "d3";
 import { useMemo } from "react";
 
-import { formatUsdCompact } from "../../lib/formatters";
+import { formatPercentage, formatUsdCompact } from "../../lib/formatters";
 import { t } from "../../lib/translations";
 import { useLocaleStore } from "../../store/localeStore";
 import type { CountryGovernmentItem, CountryHistoryItem } from "../../types/api";
@@ -129,6 +129,31 @@ function buildGovernmentIntervals(
     .sort((a, b) => a.startYear - b.startYear);
 }
 
+function isFiniteNumber(value: number | null | undefined): value is number {
+  return typeof value === "number" && Number.isFinite(value);
+}
+
+function buildLinePath(
+  points: Array<{ year: number; debtPctGdp: number | null }>,
+  xScale: (year: number) => number,
+  yScale: (value: number) => number,
+): string {
+  let path = "";
+  let started = false;
+
+  points.forEach((point) => {
+    if (!isFiniteNumber(point.debtPctGdp)) {
+      started = false;
+      return;
+    }
+
+    path += `${started ? "L" : "M"}${xScale(point.year)},${yScale(point.debtPctGdp)} `;
+    started = true;
+  });
+
+  return path.trim();
+}
+
 export function CountryHistoryChart({ historyItems, governments }: CountryHistoryChartProps) {
   const locale = useLocaleStore((state) => state.locale);
   const sortedHistory = useMemo(() => {
@@ -141,6 +166,7 @@ export function CountryHistoryChart({ historyItems, governments }: CountryHistor
       .map((item) => ({
         year: item.year,
         debtUsd: item.total_external_debt_usd ?? 0,
+        debtPctGdp: item.debt_pct_gdp,
       }));
   }, [sortedHistory]);
 
@@ -154,6 +180,8 @@ export function CountryHistoryChart({ historyItems, governments }: CountryHistor
 
   const [minYear, maxYear] = extent(chartData, (d) => d.year) as [number, number];
   const maxDebtUsd = max(chartData, (d) => d.debtUsd) ?? 0;
+  const pctValues = chartData.map((point) => point.debtPctGdp).filter(isFiniteNumber);
+  const hasPctSeries = pctValues.length > 0;
 
   const x = scaleLinear()
     .domain([minYear, maxYear])
@@ -164,9 +192,18 @@ export function CountryHistoryChart({ historyItems, governments }: CountryHistor
     .nice()
     .range([CHART_HEIGHT - MARGIN.bottom, MARGIN.top]);
 
+  const pctMin = hasPctSeries ? Math.min(...pctValues) : 0;
+  const pctMax = hasPctSeries ? Math.max(...pctValues) : 1;
+  const safePctMax = pctMin === pctMax ? pctMax + 1 : pctMax;
+  const yPct = scaleLinear()
+    .domain([pctMin, safePctMax])
+    .nice()
+    .range([CHART_HEIGHT - MARGIN.bottom, MARGIN.top]);
+
   const linePath = chartData
     .map((point, index) => `${index === 0 ? "M" : "L"}${x(point.year)},${y(point.debtUsd)}`)
     .join(" ");
+  const pctPath = hasPctSeries ? buildLinePath(chartData, x, yPct) : "";
 
   const areaPath = [
     `M${x(chartData[0].year)},${y(0)}`,
@@ -176,6 +213,7 @@ export function CountryHistoryChart({ historyItems, governments }: CountryHistor
   ].join(" ");
 
   const yTickValues = y.ticks(4);
+  const yPctTickValues = hasPctSeries ? yPct.ticks(4) : [];
   const xTickValues = x.ticks(6).map((tick) => Math.round(tick));
 
   const governmentIntervals = buildGovernmentIntervals(governments, minYear, maxYear);
@@ -186,6 +224,16 @@ export function CountryHistoryChart({ historyItems, governments }: CountryHistor
       <header className="mb-3 flex flex-col gap-1">
         <h3 className="text-sm font-semibold text-[#f5f4f0]">{t(locale, "historicalDebtTitle")}</h3>
         <p className="text-xs text-[#888680]">{t(locale, "historicalDebtSubtitle")}</p>
+        <div className="mt-1 flex flex-wrap gap-4 text-[11px] text-[#94a3b8]">
+          <span className="inline-flex items-center gap-2">
+            <span className="h-0.5 w-6 bg-[#22d3ee]" />
+            {t(locale, "debtLabel")}
+          </span>
+          <span className="inline-flex items-center gap-2">
+            <span className="h-0.5 w-6 border-t border-dashed border-[#f59e0b]" />
+            {t(locale, "debtToGdpLabel")}
+          </span>
+        </div>
       </header>
 
       <div className="overflow-x-auto">
@@ -232,6 +280,12 @@ export function CountryHistoryChart({ historyItems, governments }: CountryHistor
             </g>
           ))}
 
+          {yPctTickValues.map((tick) => (
+            <text key={`y-right-${tick}`} x={CHART_WIDTH - MARGIN.right + 8} y={yPct(tick) + 4} textAnchor="start" fontSize={11} fill="#94a3b8">
+              {formatPercentage(tick)}
+            </text>
+          ))}
+
           {xTickValues.map((tick) => (
             <g key={`x-${tick}`}>
               <line
@@ -249,6 +303,7 @@ export function CountryHistoryChart({ historyItems, governments }: CountryHistor
 
           <path d={areaPath} fill="rgba(56, 189, 248, 0.16)" />
           <path d={linePath} fill="none" stroke="#22d3ee" strokeWidth={2.5} />
+          {pctPath && <path d={pctPath} fill="none" stroke="#f59e0b" strokeWidth={1.8} strokeDasharray="6 4" />}
 
           {chartData.map((point) => (
             <circle key={`pt-${point.year}`} cx={x(point.year)} cy={y(point.debtUsd)} r={2.5} fill="#67e8f9" />
@@ -265,6 +320,13 @@ export function CountryHistoryChart({ historyItems, governments }: CountryHistor
             x1={MARGIN.left}
             y1={MARGIN.top}
             x2={MARGIN.left}
+            y2={CHART_HEIGHT - MARGIN.bottom}
+            stroke="rgba(148, 163, 184, 0.6)"
+          />
+          <line
+            x1={CHART_WIDTH - MARGIN.right}
+            y1={MARGIN.top}
+            x2={CHART_WIDTH - MARGIN.right}
             y2={CHART_HEIGHT - MARGIN.bottom}
             stroke="rgba(148, 163, 184, 0.6)"
           />

@@ -1,5 +1,6 @@
 import { getApiBaseUrl } from "../lib/env";
 import type {
+  CountriesCompareResponse,
   CountryDetailResponse,
   CountryGovernmentsResponse,
   CountryHistoryResponse,
@@ -47,6 +48,15 @@ export async function fetchCountryHistory(iso3: string): Promise<CountryHistoryR
 
 export async function fetchCountryGovernments(iso3: string): Promise<CountryGovernmentsResponse> {
   return request<CountryGovernmentsResponse>(`/api/v1/countries/${iso3.toUpperCase()}/governments`);
+}
+
+export async function fetchCountriesCompare(iso3: string[]): Promise<CountriesCompareResponse> {
+  const params = new URLSearchParams();
+  iso3.forEach((value) => {
+    params.append("iso3", value.toUpperCase());
+  });
+
+  return request<CountriesCompareResponse>(`/api/v1/countries/compare?${params.toString()}`);
 }
 
 export async function fetchRankings(metric: RankingMetric, region?: string, limit = 20): Promise<RankingsResponse> {

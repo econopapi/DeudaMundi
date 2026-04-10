@@ -152,6 +152,22 @@ def test_country_detail_endpoint_includes_methodology_metadata() -> None:
     assert payload["data_vintage"] == "2024-12-31"
 
 
+def test_compare_countries_endpoint_reads_database() -> None:
+    client, session_local = _build_test_client()
+    _seed_sample_data(session_local)
+
+    response = client.get("/api/v1/countries/compare?iso3=ARG&iso3=USA")
+
+    assert response.status_code == 200
+    payload = response.json()
+    assert payload["item_count"] == 2
+    assert payload["requested_iso3"] == ["ARG", "USA"]
+    assert payload["items"][0]["detail"]["iso3"] == "ARG"
+    assert payload["items"][0]["history"][0]["year"] == 2024
+    assert payload["items"][1]["detail"]["iso3"] == "USA"
+    assert payload["items"][1]["history"][0]["year"] == 2024
+
+
 def test_rankings_endpoint_reads_database() -> None:
     client, session_local = _build_test_client()
     _seed_sample_data(session_local)

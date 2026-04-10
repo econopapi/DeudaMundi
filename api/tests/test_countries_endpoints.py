@@ -164,6 +164,134 @@ def test_country_detail_endpoint_returns_404(monkeypatch) -> None:  # type: igno
     assert response.status_code == 404
 
 
+def test_compare_countries_endpoint_returns_payload(monkeypatch) -> None:  # type: ignore[no-untyped-def]
+    monkeypatch.setattr(
+        "app.api.v1.endpoints.countries.get_countries_compare",
+        lambda **kwargs: {
+            "requested_iso3": ["ARG", "USA"],
+            "missing_iso3": [],
+            "item_count": 2,
+            "items": [
+                {
+                    "detail": {
+                        "iso3": "ARG",
+                        "iso2": "AR",
+                        "name_es": "Argentina",
+                        "name_en": "Argentina",
+                        "region": "Latin America & Caribbean",
+                        "subregion": "South America",
+                        "population": 46000000,
+                        "capital": "Buenos Aires",
+                        "latest_year": 2024,
+                        "total_external_debt_usd": 123.0,
+                        "debt_per_capita_usd": 3.0,
+                        "debt_pct_gdp": 40.0,
+                        "gdp_usd": 500.0,
+                        "equivalences": [],
+                    },
+                    "history": [],
+                },
+                {
+                    "detail": {
+                        "iso3": "USA",
+                        "iso2": "US",
+                        "name_es": "Estados Unidos",
+                        "name_en": "United States",
+                        "region": "North America",
+                        "subregion": "North America",
+                        "population": 340000000,
+                        "capital": "Washington, D.C.",
+                        "latest_year": 2024,
+                        "total_external_debt_usd": 999.0,
+                        "debt_per_capita_usd": 10.0,
+                        "debt_pct_gdp": 90.0,
+                        "gdp_usd": 2000.0,
+                        "equivalences": [],
+                    },
+                    "history": [],
+                },
+            ],
+        },
+    )
+
+    response = client.get("/api/v1/countries/compare?iso3=arg&iso3=usa")
+
+    assert response.status_code == 200
+    payload = response.json()
+    assert payload["item_count"] == 2
+    assert payload["items"][0]["detail"]["iso3"] == "ARG"
+
+
+def test_compare_countries_endpoint_uses_cache_when_available(monkeypatch) -> None:  # type: ignore[no-untyped-def]
+    monkeypatch.setattr(
+        "app.api.v1.endpoints.countries.get_cache_json",
+        lambda key: {
+            "requested_iso3": ["ARG", "USA"],
+            "missing_iso3": [],
+            "item_count": 2,
+            "items": [
+                {
+                    "detail": {
+                        "iso3": "ARG",
+                        "iso2": "AR",
+                        "name_es": "Argentina",
+                        "name_en": "Argentina",
+                        "region": "Latin America & Caribbean",
+                        "subregion": "South America",
+                        "population": 46000000,
+                        "capital": "Buenos Aires",
+                        "latest_year": 2024,
+                        "total_external_debt_usd": 123.0,
+                        "debt_per_capita_usd": 3.0,
+                        "debt_pct_gdp": 40.0,
+                        "gdp_usd": 500.0,
+                        "equivalences": [],
+                    },
+                    "history": [],
+                },
+                {
+                    "detail": {
+                        "iso3": "USA",
+                        "iso2": "US",
+                        "name_es": "Estados Unidos",
+                        "name_en": "United States",
+                        "region": "North America",
+                        "subregion": "North America",
+                        "population": 340000000,
+                        "capital": "Washington, D.C.",
+                        "latest_year": 2024,
+                        "total_external_debt_usd": 999.0,
+                        "debt_per_capita_usd": 10.0,
+                        "debt_pct_gdp": 90.0,
+                        "gdp_usd": 2000.0,
+                        "equivalences": [],
+                    },
+                    "history": [],
+                },
+            ],
+        },
+    )
+
+    def fail_if_called(**kwargs):  # type: ignore[no-untyped-def]
+        raise AssertionError("service should not run when cache hit exists")
+
+    monkeypatch.setattr(
+        "app.api.v1.endpoints.countries.get_countries_compare",
+        fail_if_called,
+    )
+
+    response = client.get("/api/v1/countries/compare?iso3=arg&iso3=usa")
+
+    assert response.status_code == 200
+    assert response.json()["item_count"] == 2
+
+
+def test_compare_countries_endpoint_requires_two_iso3() -> None:
+    response = client.get("/api/v1/countries/compare?iso3=arg")
+
+    assert response.status_code == 422
+
+
 def test_country_history_endpoint_returns_payload(monkeypatch) -> None:  # type: ignore[no-untyped-def]
     def fake_get_country_history(*, db, iso3: str):  # type: ignore[no-untyped-def]
         return {

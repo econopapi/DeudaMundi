@@ -60,6 +60,17 @@ Accesos esperados:
 - `GET /api/v1/countries/{iso3}/governments`
 	- Devuelve los gobiernos cargados para el país ordenados por fecha de inicio desc.
 
+## Endpoints Fase 1 (iteración 2.1 · comparación)
+
+- `GET /api/v1/countries/compare`
+	- Query params: `iso3` repetible (ejemplo: `?iso3=ARG&iso3=USA`)
+	- Requiere al menos 2 códigos ISO3 válidos.
+	- Devuelve para cada país seleccionado:
+		- `detail` (snapshot de último año)
+		- `history` (serie histórica anual)
+	- Incluye `missing_iso3` para códigos no encontrados y `requested_iso3` normalizados.
+	- Endpoint cacheado en Redis con TTL de endpoints de países.
+
 ## Endpoints Fase 1 (iteración 3)
 
 - `GET /api/v1/rankings`
