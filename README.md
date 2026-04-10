@@ -46,8 +46,17 @@ Actualmente con **Fase 0 y Fase 1 completadas**, y **Fase 2 frontend en cierre**
 	- API FastAPI (8000)
 	- Web Vite (5173)
 
+	Comando recomendado:
+
+	```bash
+	docker compose up --build
+	```
+
 2. Endpoint inicial disponible:
 	- `GET http://localhost:8000/api/v1/health`
+
+3. Prueba desde iPhone (misma red WiFi):
+	- `http://<tu-ip-local>:5173`
 
 ### Opción por servicio
 
@@ -130,6 +139,7 @@ Mejoras de calidad visual/UX aplicadas (abril 2026):
 - Lógica del globo corregida para bandas (`low`, `medium`, `high`) sin ocultar países fuera de selección
 - Mejoras de realismo del globo + auto-rotación sensible a interacción (hover/drag)
 - Enfoque regional del globo + consistencia de filtros entre Home/Rankings y ajustes responsive mobile/desktop
+- Flujo de red local mejorado: frontend en IP LAN resuelve API local automáticamente y backend acepta CORS LAN en desarrollo
 
 Pendiente post-cierre de Fase 2:
 
