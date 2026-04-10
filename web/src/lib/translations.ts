@@ -3,7 +3,7 @@ import type { Locale } from "../store/localeStore";
 const dictionary = {
   en: {
     homeTitle: "DeudaMundi · External Debt Atlas",
-    homeSubtitle: "Explore external debt by country on an interactive globe with professional visual analytics.",
+    homeSubtitle: "Explore external debt by country on an interactive globe with visual analytics.",
     rankingsTitle: "Global external debt rankings",
     rankingsSubtitle: "Top 20 countries by external debt stock, external debt/GDP, and external debt per capita.",
     countryDetailPrefix: "Country detail",
@@ -82,7 +82,7 @@ const dictionary = {
   },
   es: {
     homeTitle: "DeudaMundi · Atlas de Deuda Externa",
-    homeSubtitle: "Explora la deuda externa por país en un globo interactivo con analítica visual profesional.",
+    homeSubtitle: "Explora la deuda externa por país en un globo interactivo con analítica visual.",
     rankingsTitle: "Rankings globales de deuda externa",
     rankingsSubtitle: "Top 20 de países por stock de deuda externa, deuda externa/PIB y deuda externa per cápita.",
     countryDetailPrefix: "Detalle de país",
