@@ -69,6 +69,18 @@ class CountryHistoryResponse(BaseModel):
     items: list[CountryHistoryItem]
 
 
+class CountryCompareItem(BaseModel):
+    detail: CountryDetailResponse
+    history: list[CountryHistoryItem]
+
+
+class CountriesCompareResponse(BaseModel):
+    requested_iso3: list[str]
+    missing_iso3: list[str]
+    item_count: int
+    items: list[CountryCompareItem]
+
+
 class CountryGovernmentItem(BaseModel):
     leader_name: str
     party: str | None

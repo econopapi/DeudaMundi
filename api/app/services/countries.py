@@ -5,7 +5,9 @@ from sqlalchemy.orm import Session
 
 from app.models import Country, DebtRecord, Government
 from app.schemas.country import (
+    CountriesCompareResponse,
     CountriesListResponse,
+    CountryCompareItem,
     CountryDetailResponse,
     CountryGovernmentItem,
     CountryGovernmentsResponse,
@@ -82,16 +84,8 @@ def list_countries(
     )
 
 
-def get_country_detail(db: Session, iso3: str) -> CountryDetailResponse | None:
-    stmt = _base_country_with_latest_debt_query().where(func.upper(Country.iso3) == iso3.upper())
-    row = db.execute(stmt).first()
-
-    if not row:
-        return None
-
-    country, debt = row
+def _build_country_detail(country: Country, debt: DebtRecord | None) -> CountryDetailResponse:
     total_external_debt_usd = debt.total_external_debt_usd if debt else None
-
     return CountryDetailResponse(
         iso3=country.iso3,
         iso2=country.iso2,
@@ -111,6 +105,98 @@ def get_country_detail(db: Session, iso3: str) -> CountryDetailResponse | None:
         data_source=debt.data_source if debt else None,
         data_vintage=debt.data_vintage.isoformat() if debt and debt.data_vintage else None,
         equivalences=build_equivalences(total_external_debt_usd),
+    )
+
+
+def get_country_detail(db: Session, iso3: str) -> CountryDetailResponse | None:
+    stmt = _base_country_with_latest_debt_query().where(func.upper(Country.iso3) == iso3.upper())
+    row = db.execute(stmt).first()
+
+    if not row:
+        return None
+
+    country, debt = row
+    return _build_country_detail(country, debt)
+
+
+def get_countries_compare(db: Session, iso3: list[str]) -> CountriesCompareResponse:
+    normalized_iso3: list[str] = []
+    seen: set[str] = set()
+    for raw in iso3:
+        current = raw.upper()
+        if current in seen:
+            continue
+        seen.add(current)
+        normalized_iso3.append(current)
+
+    if not normalized_iso3:
+        return CountriesCompareResponse(
+            requested_iso3=[],
+            missing_iso3=[],
+            item_count=0,
+            items=[],
+        )
+
+    detail_rows = db.execute(
+        _base_country_with_latest_debt_query().where(Country.iso3.in_(normalized_iso3))
+    ).all()
+
+    detail_by_iso3 = {
+        country.iso3: _build_country_detail(country, debt)
+        for country, debt in detail_rows
+    }
+    country_id_by_iso3 = {
+        country.iso3: country.id
+        for country, _ in detail_rows
+    }
+
+    history_by_country_id: dict[int, list[CountryHistoryItem]] = {
+        country_id: [] for country_id in country_id_by_iso3.values()
+    }
+    if history_by_country_id:
+        history_rows = db.execute(
+            select(DebtRecord)
+            .where(DebtRecord.country_id.in_(history_by_country_id.keys()))
+            .order_by(DebtRecord.country_id, DebtRecord.year.desc())
+        ).scalars().all()
+
+        for row in history_rows:
+            history_by_country_id[row.country_id].append(
+                CountryHistoryItem(
+                    year=row.year,
+                    debt_stock_usd=row.total_external_debt_usd,
+                    total_external_debt_usd=row.total_external_debt_usd,
+                    debt_per_capita_usd=row.debt_per_capita_usd,
+                    debt_pct_gdp=row.debt_pct_gdp,
+                    gdp_usd=row.gdp_usd,
+                    source=row.source,
+                    debt_concept=row.debt_concept,
+                    data_source=row.data_source,
+                    data_vintage=row.data_vintage.isoformat() if row.data_vintage else None,
+                )
+            )
+
+    items: list[CountryCompareItem] = []
+    missing_iso3: list[str] = []
+    for requested_iso3 in normalized_iso3:
+        detail = detail_by_iso3.get(requested_iso3)
+        country_id = country_id_by_iso3.get(requested_iso3)
+        if not detail or not country_id:
+            missing_iso3.append(requested_iso3)
+            continue
+
+        items.append(
+            CountryCompareItem(
+                detail=detail,
+                history=history_by_country_id.get(country_id, []),
+            )
+        )
+
+    return CountriesCompareResponse(
+        requested_iso3=normalized_iso3,
+        missing_iso3=missing_iso3,
+        item_count=len(items),
+        items=items,
     )
 
 
