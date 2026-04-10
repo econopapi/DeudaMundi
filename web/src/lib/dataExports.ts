@@ -480,6 +480,9 @@ async function downloadCountriesPdfReport(
   doc.setFont("helvetica", "normal");
   doc.setFontSize(8);
   doc.text(copy.sourceText, chartContainerX + 14, chartContainerY + chartContainerHeight + 15);
+  doc.setTextColor(136, 134, 128);
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(10);
   doc.text(PROJECT_URL, pageWidth - 32, chartContainerY + chartContainerHeight + 15, {
     align: "right",
   });
