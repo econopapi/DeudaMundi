@@ -20,15 +20,6 @@ function App() {
       <AppFooter />
       <Analytics />
     </div>
-    <>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/country/:iso3" element={<CountryDetailPage />} />
-        <Route path="/rankings" element={<RankingsPage />} />
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
-      <Analytics />
-    </>
   );
 }
 
