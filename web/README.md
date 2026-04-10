@@ -57,6 +57,10 @@ Actualización UX/UI profesional (abril 2026):
 - Más realismo del globo (textura, bump map, atmósfera y contornos refinados)
 - Auto-rotación inteligente: se frena drásticamente en hover y se detiene en drag, con reanudación suave
 - Enfoque geográfico consistente: al elegir región, la cámara del globo se centra automáticamente en esa zona
+- Opciones de región centralizadas para evitar inconsistencias entre Home y Rankings
+- Ajustes responsive mobile/desktop: altura del globo por breakpoint y tabla de rankings con scroll horizontal seguro
+- Etiquetas del detalle de país 100% localizadas (sin copy hardcodeado)
+- Tests del cliente API desacoplados de base URL hardcodeada, alineados al entorno real
 
 ## Configuración
 

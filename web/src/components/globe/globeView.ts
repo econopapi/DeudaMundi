@@ -11,6 +11,7 @@ const REGION_GLOBE_VIEWS: Record<string, GlobeView> = {
   "Europe & Central Asia": { lat: 49, lng: 56, altitude: 1.58 },
   "Latin America & Caribbean": DEFAULT_GLOBE_VIEW,
   "Middle East & North Africa": { lat: 27, lng: 34, altitude: 1.56 },
+  "Middle East, North Africa, Afghanistan & Pakistan": { lat: 27, lng: 34, altitude: 1.56 },
   "North America": { lat: 46, lng: -102, altitude: 1.5 },
   "South Asia": { lat: 22, lng: 79, altitude: 1.56 },
   "Sub-Saharan Africa": { lat: 1, lng: 21, altitude: 1.58 },

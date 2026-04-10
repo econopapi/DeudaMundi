@@ -400,7 +400,7 @@ export function GlobeScene({
   return (
     <div
       ref={containerRef}
-      className="h-[560px] w-full overflow-hidden rounded-2xl border border-[#2a2f3a] bg-[#05070d] shadow-[0_0_0_1px_rgba(124,106,245,0.08)]"
+      className="h-[380px] w-full overflow-hidden rounded-2xl border border-[#2a2f3a] bg-[#05070d] shadow-[0_0_0_1px_rgba(124,106,245,0.08)] sm:h-[460px] md:h-[520px] lg:h-[560px]"
       onMouseEnter={() => {
         hoveringRef.current = true;
         syncRotationPolicy();

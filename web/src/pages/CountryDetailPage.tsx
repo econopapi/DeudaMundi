@@ -102,7 +102,7 @@ export function CountryDetailPage() {
   }, [country, locale]);
 
   return (
-    <main className="mx-auto flex min-h-screen w-full max-w-5xl flex-col gap-6 px-6 py-8">
+    <main className="mx-auto flex min-h-screen w-full max-w-5xl flex-col gap-6 px-4 py-8 sm:px-6">
       <header className="border-b border-[#2a2f3a] pb-4">
         <h1 className="display-title text-2xl font-semibold text-[#f5f4f0] md:text-3xl">
           {t(locale, "countryDetailPrefix")} · {iso3.toUpperCase()}
@@ -145,7 +145,7 @@ export function CountryDetailPage() {
                 <li>{t(locale, "debtLabel")}: {formatMetricWithAvailability(getDebtStock(country), formatUsdCompact).replace("__NOT_AVAILABLE__", t(locale, "notAvailable"))}</li>
                 <li>{t(locale, "debtPerCapitaLabel")}: {formatMetricWithAvailability(country.debt_per_capita_usd, formatUsdCompact).replace("__NOT_AVAILABLE__", t(locale, "notAvailable"))}</li>
                 <li>{t(locale, "debtToGdpLabel")}: {formatMetricWithAvailability(country.debt_pct_gdp, formatPercentage).replace("__NOT_AVAILABLE__", t(locale, "notAvailable"))}</li>
-                <li>GDP: {formatMetricWithAvailability(country.gdp_usd, formatUsdCompact).replace("__NOT_AVAILABLE__", t(locale, "notAvailable"))}</li>
+                <li>{t(locale, "gdpLabel")}: {formatMetricWithAvailability(country.gdp_usd, formatUsdCompact).replace("__NOT_AVAILABLE__", t(locale, "notAvailable"))}</li>
                 <li>{t(locale, "latestYear")}: {country.latest_year ?? t(locale, "notAvailable")}</li>
               </ul>
             </article>
@@ -153,13 +153,13 @@ export function CountryDetailPage() {
             <article className="rounded-xl border border-[#3b4252] bg-[#0d1017]/70 p-4">
               <h2 className="text-sm font-semibold text-[#c8c7c2]">{t(locale, "countryInfo")}</h2>
               <ul className="mt-3 space-y-2 text-sm text-[#f5f4f0]">
-                <li>Name (EN): {country.name_en}</li>
-                <li>Name (ES): {country.name_es}</li>
-                <li>ISO2: {country.iso2}</li>
+                <li>{t(locale, "countryNameEnglish")}: {country.name_en}</li>
+                <li>{t(locale, "countryNameSpanish")}: {country.name_es}</li>
+                <li>{t(locale, "iso2Label")}: {country.iso2}</li>
                 <li>{t(locale, "region")}: {country.region ? trRegion(locale, country.region) : t(locale, "notAvailable")}</li>
-                <li>Subregion: {country.subregion ?? t(locale, "notAvailable")}</li>
-                <li>Population: {country.population?.toLocaleString(locale === "es" ? "es-MX" : "en-US") ?? t(locale, "notAvailable")}</li>
-                <li>Capital: {country.capital ?? t(locale, "notAvailable")}</li>
+                <li>{t(locale, "subregion")}: {country.subregion ?? t(locale, "notAvailable")}</li>
+                <li>{t(locale, "populationLabel")}: {country.population?.toLocaleString(locale === "es" ? "es-MX" : "en-US") ?? t(locale, "notAvailable")}</li>
+                <li>{t(locale, "capitalLabel")}: {country.capital ?? t(locale, "notAvailable")}</li>
               </ul>
             </article>
 

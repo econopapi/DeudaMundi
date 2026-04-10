@@ -5,9 +5,11 @@ import {
   fetchGlobeData,
   fetchRankings,
 } from "./deudamundiApi";
+import { getApiBaseUrl } from "../lib/env";
 
 describe("deudamundiApi", () => {
   const originalFetch = global.fetch;
+  const apiBaseUrl = getApiBaseUrl();
 
   afterEach(() => {
     global.fetch = originalFetch;
@@ -37,7 +39,7 @@ describe("deudamundiApi", () => {
 
     const result = await fetchGlobeData();
 
-    expect(global.fetch).toHaveBeenCalledWith("https://deudamundi.dlimon.net/api/v1/globe-data");
+    expect(global.fetch).toHaveBeenCalledWith(`${apiBaseUrl}/api/v1/globe-data`);
     expect(result.items).toHaveLength(1);
   });
 
@@ -50,7 +52,7 @@ describe("deudamundiApi", () => {
     await fetchGlobeData("Latin America & Caribbean");
 
     expect(global.fetch).toHaveBeenCalledWith(
-      "https://deudamundi.dlimon.net/api/v1/globe-data?region=Latin+America+%26+Caribbean",
+      `${apiBaseUrl}/api/v1/globe-data?region=Latin+America+%26+Caribbean`,
     );
   });
 
@@ -77,7 +79,7 @@ describe("deudamundiApi", () => {
 
     const result = await fetchCountryDetail("arg");
 
-    expect(global.fetch).toHaveBeenCalledWith("https://deudamundi.dlimon.net/api/v1/countries/ARG");
+    expect(global.fetch).toHaveBeenCalledWith(`${apiBaseUrl}/api/v1/countries/ARG`);
     expect(result.iso3).toBe("ARG");
   });
 
@@ -89,7 +91,7 @@ describe("deudamundiApi", () => {
 
     const result = await fetchCountryHistory("arg");
 
-    expect(global.fetch).toHaveBeenCalledWith("https://deudamundi.dlimon.net/api/v1/countries/ARG/history");
+    expect(global.fetch).toHaveBeenCalledWith(`${apiBaseUrl}/api/v1/countries/ARG/history`);
     expect(result.iso3).toBe("ARG");
   });
 
@@ -101,7 +103,7 @@ describe("deudamundiApi", () => {
 
     const result = await fetchCountryGovernments("arg");
 
-    expect(global.fetch).toHaveBeenCalledWith("https://deudamundi.dlimon.net/api/v1/countries/ARG/governments");
+    expect(global.fetch).toHaveBeenCalledWith(`${apiBaseUrl}/api/v1/countries/ARG/governments`);
     expect(result.iso3).toBe("ARG");
   });
 
@@ -113,7 +115,7 @@ describe("deudamundiApi", () => {
 
     const result = await fetchRankings("absolute");
 
-    expect(global.fetch).toHaveBeenCalledWith("https://deudamundi.dlimon.net/api/v1/rankings?metric=absolute&limit=20");
+    expect(global.fetch).toHaveBeenCalledWith(`${apiBaseUrl}/api/v1/rankings?metric=absolute&limit=20`);
     expect(result.metric).toBe("absolute");
   });
 
@@ -126,7 +128,7 @@ describe("deudamundiApi", () => {
     await fetchRankings("absolute", "Latin America & Caribbean", 10);
 
     expect(global.fetch).toHaveBeenCalledWith(
-      "https://deudamundi.dlimon.net/api/v1/rankings?metric=absolute&limit=10&region=Latin+America+%26+Caribbean",
+      `${apiBaseUrl}/api/v1/rankings?metric=absolute&limit=10&region=Latin+America+%26+Caribbean`,
     );
   });
 });
