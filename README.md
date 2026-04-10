@@ -140,6 +140,7 @@ Mejoras de calidad visual/UX aplicadas (abril 2026):
 - Español configurado como idioma por defecto e inglés como secundario
 - Traducción ampliada y homogenizada en Home, Rankings, detalle y componentes compartidos
 - Copy de producto corregido a enfoque actual: **deuda externa**
+- Equivalencias emocionales del detalle de país con presentación más legible, iconografía y copy localizado
 - Lógica del globo corregida para bandas (`low`, `medium`, `high`) sin ocultar países fuera de selección
 - Mejoras de realismo del globo + auto-rotación sensible a interacción (hover/drag)
 - Enfoque regional del globo + consistencia de filtros entre Home/Rankings y ajustes responsive mobile/desktop
