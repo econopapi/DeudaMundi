@@ -53,6 +53,7 @@ Avance incremental de comparación (abril 2026):
 - Sugerencias rápidas en Home priorizan pares latinoamericanos e incluyen México cuando está disponible
 - Selector multi-país con chips y búsqueda por nombre/ISO3
 - Integración con `GET /api/v1/countries/compare?iso3=...`
+- Exportación tabular client-side en detalle y comparación (`CSV` y `XLSX`)
 - Gráfico comparativo con doble eje vertical:
 	- Eje izquierdo: stock de deuda externa (USD)
 	- Eje derecho: deuda externa / PIB (%)

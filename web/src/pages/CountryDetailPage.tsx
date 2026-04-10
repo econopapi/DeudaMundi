@@ -5,6 +5,12 @@ import { CountryHero } from "../components/country/CountryHero";
 import { CountryHistoryChart } from "../components/country/CountryHistoryChart";
 import { ShareCardActions } from "../components/country/ShareCardActions";
 import { LanguageSwitcher } from "../components/LanguageSwitcher";
+import {
+  buildCountryHistoryExportRows,
+  buildCountryLatestExportRows,
+  downloadCsvFile,
+  downloadXlsxFile,
+} from "../lib/dataExports";
 import { LoadingPanel } from "../components/ui/LoadingPanel";
 import { formatPercentage, formatUsdCompact } from "../lib/formatters";
 import { t, trRegion } from "../lib/translations";
@@ -101,6 +107,26 @@ export function CountryDetailPage() {
     upsertMeta('meta[name="twitter:description"]', "name", "twitter:description", description);
   }, [country, locale]);
 
+  const handleExport = (format: "csv" | "xlsx") => {
+    if (!country) {
+      return;
+    }
+
+    const latestRows = buildCountryLatestExportRows(country);
+    const historyRows = buildCountryHistoryExportRows(country, historyItems);
+    const baseFilename = `deudamundi-${country.iso3.toLowerCase()}-external-debt`;
+
+    if (format === "csv") {
+      downloadCsvFile(`${baseFilename}-history.csv`, historyRows);
+      return;
+    }
+
+    downloadXlsxFile(`${baseFilename}.xlsx`, [
+      { name: "latest", rows: latestRows },
+      { name: "history", rows: historyRows },
+    ]);
+  };
+
   return (
     <main className="mx-auto flex min-h-screen w-full max-w-5xl flex-col gap-6 px-4 py-8 sm:px-6">
       <header className="border-b border-[#2a2f3a] pb-4">
@@ -138,6 +164,31 @@ export function CountryDetailPage() {
           <CountryHero country={country} />
 
           <ShareCardActions country={country} />
+
+          <section className="glass-panel rounded-xl p-4">
+            <h2 className="text-sm font-semibold text-[#f5f4f0]">{t(locale, "exportDataTitle")}</h2>
+            <p className="mt-1 text-xs text-[#888680]">{t(locale, "exportCountrySubtitle")}</p>
+            <div className="mt-3 flex flex-wrap gap-2">
+              <button
+                type="button"
+                onClick={() => {
+                  handleExport("csv");
+                }}
+                className="rounded-md border border-[#3b4252] bg-[#0d1017]/80 px-3 py-2 text-xs text-[#f5f4f0] hover:border-[#6d7280]"
+              >
+                {t(locale, "exportCsv")}
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  handleExport("xlsx");
+                }}
+                className="rounded-md border border-[#3b4252] bg-[#0d1017]/80 px-3 py-2 text-xs text-[#f5f4f0] hover:border-[#6d7280]"
+              >
+                {t(locale, "exportXlsx")}
+              </button>
+            </div>
+          </section>
 
           <CountryHistoryChart historyItems={historyItems} governments={governments} />
 

@@ -4,6 +4,12 @@ import { Link, useSearchParams } from "react-router-dom";
 import { AppHeader } from "../components/AppHeader";
 import { CountryComparisonChart } from "../components/country/CountryComparisonChart";
 import { LanguageSwitcher } from "../components/LanguageSwitcher";
+import {
+  buildCompareHistoryExportRows,
+  buildCompareLatestExportRows,
+  downloadCsvFile,
+  downloadXlsxFile,
+} from "../lib/dataExports";
 import { LoadingPanel } from "../components/ui/LoadingPanel";
 import { formatPercentage, formatUsdCompact } from "../lib/formatters";
 import { t, trRegion } from "../lib/translations";
@@ -155,6 +161,27 @@ export function CompareCountriesPage() {
     setSearchParams(next);
   };
 
+  const handleExport = (format: "csv" | "xlsx") => {
+    if (!comparePayload || comparePayload.items.length === 0) {
+      return;
+    }
+
+    const latestRows = buildCompareLatestExportRows(comparePayload.items);
+    const historyRows = buildCompareHistoryExportRows(comparePayload.items);
+    const fileTag = comparePayload.items.map((item) => item.detail.iso3.toLowerCase()).join("-");
+    const baseFilename = `deudamundi-compare-${fileTag || "countries"}`;
+
+    if (format === "csv") {
+      downloadCsvFile(`${baseFilename}-history.csv`, historyRows);
+      return;
+    }
+
+    downloadXlsxFile(`${baseFilename}.xlsx`, [
+      { name: "latest", rows: latestRows },
+      { name: "history", rows: historyRows },
+    ]);
+  };
+
   return (
     <main className="mx-auto flex min-h-screen w-full max-w-6xl flex-col gap-6 px-4 py-8 sm:px-6">
       <AppHeader title={t(locale, "compareTitle")} subtitle={t(locale, "compareSubtitle")} />
@@ -227,6 +254,30 @@ export function CompareCountriesPage() {
               {t(locale, "compareReset")}
             </button>
           </div>
+        </div>
+
+        <div className="mt-3 flex flex-wrap items-center gap-2">
+          <span className="text-[11px] text-[#888680]">{t(locale, "exportCompareSubtitle")}</span>
+          <button
+            type="button"
+            onClick={() => {
+              handleExport("csv");
+            }}
+            disabled={!comparePayload || comparePayload.items.length === 0}
+            className="rounded-md border border-[#3b4252] bg-[#0d1017]/80 px-3 py-1.5 text-xs text-[#f5f4f0] disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            {t(locale, "exportCsv")}
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              handleExport("xlsx");
+            }}
+            disabled={!comparePayload || comparePayload.items.length === 0}
+            className="rounded-md border border-[#3b4252] bg-[#0d1017]/80 px-3 py-1.5 text-xs text-[#f5f4f0] disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            {t(locale, "exportXlsx")}
+          </button>
         </div>
 
         {!canCompare && (
