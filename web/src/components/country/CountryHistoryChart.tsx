@@ -3,6 +3,11 @@ import { useMemo, useRef } from "react";
 
 import { useMobileChartScrollToLatest } from "../../lib/chartScroll";
 import { formatPercentage, formatUsdCompact } from "../../lib/formatters";
+import {
+  GOVERNMENT_LABEL_MAX_WIDTH,
+  buildLeaderLabel,
+  estimateTextWidth,
+} from "../../lib/governmentLabels";
 import { t } from "../../lib/translations";
 import { useLocaleStore } from "../../store/localeStore";
 import type { CountryGovernmentItem, CountryHistoryItem } from "../../types/api";
@@ -22,79 +27,75 @@ type GovernmentLabelLayout = {
   key: string;
   x: number;
   y: number;
+  width: number;
   text: string;
+  fullText: string;
 };
 
 const CHART_WIDTH = 960;
-const CHART_HEIGHT = 340;
+const CHART_HEIGHT = 360;
 const MARGIN = {
-  top: 24,
+  top: 74,
   right: 24,
   bottom: 34,
   left: 72,
 };
 
-const AVG_CHAR_PX = 5.8;
-const LABEL_SIDE_PADDING = 8;
-const LABEL_LANES_Y_OFFSETS = [14, 24, 34];
-const LABEL_LANE_GAP = 8;
-
-function estimateTextWidth(text: string): number {
-  return text.length * AVG_CHAR_PX;
-}
-
-function truncateTextToWidth(text: string, maxWidth: number): string {
-  if (maxWidth <= 0) {
-    return "";
-  }
-
-  if (estimateTextWidth(text) <= maxWidth) {
-    return text;
-  }
-
-  const ellipsis = "…";
-  const available = Math.max(0, maxWidth - estimateTextWidth(ellipsis));
-  const chars = Math.max(0, Math.floor(available / AVG_CHAR_PX));
-  if (chars === 0) {
-    return ellipsis;
-  }
-
-  return `${text.slice(0, chars)}${ellipsis}`;
-}
+const LABEL_SIDE_PADDING = 6;
+const LABEL_LANES_Y_OFFSETS = [8, 24, 40, 56];
+const LABEL_LANE_GAP = 10;
+const LABEL_MIN_WIDTH = 48;
+const LABEL_BOX_HEIGHT = 12;
+const LABEL_MAX_WIDTH_BY_LOCALE = {
+  en: GOVERNMENT_LABEL_MAX_WIDTH,
+  es: 150,
+} as const;
 
 function buildGovernmentLabels(
   governmentIntervals: GovernmentInterval[],
   xScale: (year: number) => number,
+  minYear: number,
+  maxYear: number,
+  locale: "en" | "es",
 ): GovernmentLabelLayout[] {
   const laneEnds = LABEL_LANES_Y_OFFSETS.map(() => Number.NEGATIVE_INFINITY);
   const result: GovernmentLabelLayout[] = [];
 
   governmentIntervals.forEach((gov, index) => {
-    const xStart = xScale(gov.startYear);
-    const xEnd = xScale(gov.endYear);
-    const bandWidth = Math.max(2, xEnd - xStart);
-    const maxLabelWidth = Math.max(0, bandWidth - LABEL_SIDE_PADDING);
-    if (maxLabelWidth < 10) {
-      return;
-    }
+    const xStart = xScale(Math.max(gov.startYear, minYear));
+    const xEnd = xScale(Math.min(gov.endYear, maxYear));
+    const anchorX = xStart + Math.max(1, (xEnd - xStart) / 2);
 
-    const text = truncateTextToWidth(gov.leaderName, maxLabelWidth);
+    const labelMaxWidth = LABEL_MAX_WIDTH_BY_LOCALE[locale];
+    const text = buildLeaderLabel(gov.leaderName, labelMaxWidth - LABEL_SIDE_PADDING * 2, {
+      locale,
+    });
     if (!text) {
       return;
     }
 
-    const effectiveWidth = estimateTextWidth(text);
-    const laneIndex = laneEnds.findIndex((laneEnd) => laneEnd + LABEL_LANE_GAP <= xStart);
+    const effectiveWidth = Math.max(
+      LABEL_MIN_WIDTH,
+      Math.min(labelMaxWidth, estimateTextWidth(text) + LABEL_SIDE_PADDING * 2),
+    );
+    const boundedXStart = Math.max(
+      MARGIN.left + 2,
+      Math.min(anchorX - effectiveWidth / 2, CHART_WIDTH - MARGIN.right - effectiveWidth - 2),
+    );
+
+    const laneIndex = laneEnds.findIndex((laneEnd) => laneEnd + LABEL_LANE_GAP <= boundedXStart);
     if (laneIndex === -1) {
       return;
     }
 
-    laneEnds[laneIndex] = xStart + effectiveWidth;
+    laneEnds[laneIndex] = boundedXStart + effectiveWidth;
     result.push({
       key: `${gov.leaderName}-${gov.startYear}-${index}`,
-      x: xStart + 4,
-      y: MARGIN.top + LABEL_LANES_Y_OFFSETS[laneIndex],
+      x: boundedXStart,
+      y: LABEL_LANES_Y_OFFSETS[laneIndex],
+      width: effectiveWidth,
       text,
+      fullText: gov.leaderName,
     });
   });
 
@@ -219,7 +220,7 @@ export function CountryHistoryChart({ historyItems, governments }: CountryHistor
   const xTickValues = x.ticks(6).map((tick) => Math.round(tick));
 
   const governmentIntervals = buildGovernmentIntervals(governments, minYear, maxYear);
-  const governmentLabels = buildGovernmentLabels(governmentIntervals, x);
+  const governmentLabels = buildGovernmentLabels(governmentIntervals, x, minYear, maxYear, locale);
   const showScrollHint = useMobileChartScrollToLatest(
     scrollContainerRef,
     `${chartData.length}-${minYear}-${maxYear}`,
@@ -260,14 +261,28 @@ export function CountryHistoryChart({ historyItems, governments }: CountryHistor
                   height={CHART_HEIGHT - MARGIN.top - MARGIN.bottom}
                   fill={index % 2 === 0 ? "rgba(14, 116, 144, 0.08)" : "rgba(37, 99, 235, 0.08)"}
                 />
+                <title>{`${gov.leaderName} (${gov.startYear}-${gov.endYear})`}</title>
               </g>
             );
           })}
 
           {governmentLabels.map((label) => (
-            <text key={label.key} x={label.x} y={label.y} fontSize={10} fill="#93c5fd">
-              {label.text}
-            </text>
+            <g key={label.key}>
+              <rect
+                x={label.x}
+                y={label.y}
+                width={label.width}
+                height={LABEL_BOX_HEIGHT}
+                rx={4}
+                fill="rgba(15, 23, 42, 0.9)"
+                stroke="rgba(147, 197, 253, 0.55)"
+                strokeWidth={0.8}
+              />
+              <text x={label.x + LABEL_SIDE_PADDING} y={label.y + 8.9} fontSize={9} fill="#bfdbfe">
+                {label.text}
+              </text>
+              <title>{label.fullText}</title>
+            </g>
           ))}
 
           {yTickValues.map((tick) => (

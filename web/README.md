@@ -75,6 +75,9 @@ Actualización UX/UI profesional (abril 2026):
 - Ajustes responsive mobile/desktop: altura del globo por breakpoint y tabla de rankings con scroll horizontal seguro
 - Etiquetas del detalle de país 100% localizadas (sin copy hardcodeado)
 - Sección de equivalencias emocionales mejorada con iconografía semántica y copy más claro por idioma (ES/EN)
+- Overlay de periodos de gobierno en gráfico histórico con mejor coherencia gracias a seed ETL híbrido (Wikidata + fallback)
+- Legibilidad de líderes en el overlay histórico mejorada con etiquetas escalonadas y nombre compacto (first + last) para periodos densos como Italia
+- En idioma español, el overlay prioriza nombre completo; si no cabe, usa fallback tipo nombre + dos apellidos finales (ej. López Obrador / de Kirchner)
 - Tests del cliente API desacoplados de base URL hardcodeada, alineados al entorno real
 - Creditos del autor visibles en cabecera principal y footer global
 - Logo del autor incorporado en la card de informacion del autor
