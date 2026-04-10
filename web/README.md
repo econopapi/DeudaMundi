@@ -78,6 +78,8 @@ Actualización UX/UI profesional (abril 2026):
 - Overlay de periodos de gobierno en gráfico histórico con mejor coherencia gracias a seed ETL híbrido (Wikidata + fallback)
 - Legibilidad de líderes en el overlay histórico mejorada con etiquetas escalonadas y nombre compacto (first + last) para periodos densos como Italia
 - En idioma español, el overlay prioriza nombre completo; si no cabe, usa fallback tipo nombre + dos apellidos finales (ej. López Obrador / de Kirchner)
+- Exportación PDF de país ahora incluye resumen de gobiernos recientes con la misma lógica de nombres locale-aware del gráfico
+- Render del gráfico en PDF alineado más fielmente al gráfico web (eje USD base cero, ticks más precisos y mayor detalle visual de serie)
 - Tests del cliente API desacoplados de base URL hardcodeada, alineados al entorno real
 - Creditos del autor visibles en cabecera principal y footer global
 - Logo del autor incorporado en la card de informacion del autor

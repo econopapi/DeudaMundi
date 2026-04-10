@@ -3,11 +3,12 @@ import {
   buildCompareHistoryExportRows,
   buildCompareLatestExportRows,
   buildCountryPdfReportData,
+  buildPdfRecentGovernmentsSummary,
   buildCountryHistoryExportRows,
   buildCountryLatestExportRows,
   rowsToCsv,
 } from "./dataExports";
-import type { CountryCompareItem, CountryDetailResponse, CountryHistoryItem } from "../types/api";
+import type { CountryCompareItem, CountryDetailResponse, CountryGovernmentItem, CountryHistoryItem } from "../types/api";
 
 const sampleCountry: CountryDetailResponse = {
   iso3: "ARG",
@@ -123,5 +124,44 @@ describe("dataExports", () => {
     expect(report.years).toEqual([2022, 2024]);
     expect(report.stockSeries).toEqual([850, 1000]);
     expect(report.pctSeries).toEqual([43, 45]);
+  });
+
+  it("builds PDF government summary with Spanish-friendly names", () => {
+    const governments: CountryGovernmentItem[] = [
+      {
+        leader_name: "Andrés Manuel López Obrador",
+        party: null,
+        start_date: "2018-12-01",
+        end_date: null,
+        political_lean: null,
+      },
+      {
+        leader_name: "Enrique Peña Nieto",
+        party: null,
+        start_date: "2012-12-01",
+        end_date: "2018-11-30",
+        political_lean: null,
+      },
+      {
+        leader_name: "Cristina Fernández de Kirchner",
+        party: null,
+        start_date: "2007-12-10",
+        end_date: "2015-12-10",
+        political_lean: null,
+      },
+      {
+        leader_name: "Q5771800",
+        party: null,
+        start_date: "2000-01-01",
+        end_date: "2004-01-01",
+        political_lean: null,
+      },
+    ];
+
+    const summary = buildPdfRecentGovernmentsSummary(governments, "es");
+    expect(summary).toContain("Andrés López Obrador");
+    expect(summary).toContain("Enrique Peña Nieto");
+    expect(summary).toContain("Cristina de Kirchner");
+    expect(summary).not.toContain("Q5771800");
   });
 });

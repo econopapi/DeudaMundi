@@ -1,6 +1,12 @@
 import { utils, write } from "xlsx";
 
-import type { CountryCompareItem, CountryDetailResponse, CountryHistoryItem } from "../types/api";
+import { buildLeaderLabel } from "./governmentLabels";
+import type {
+  CountryCompareItem,
+  CountryDetailResponse,
+  CountryGovernmentItem,
+  CountryHistoryItem,
+} from "../types/api";
 
 type ExportValue = string | number | null;
 export type ExportRow = Record<string, ExportValue>;
@@ -209,6 +215,19 @@ function formatUsdCompactByLocale(value: number | null, locale: "en" | "es"): st
   }).format(value);
 }
 
+function formatUsdCompactChartLikeWeb(value: number | null): string {
+  if (value === null || Number.isNaN(value)) {
+    return "N/A";
+  }
+
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    notation: "compact",
+    maximumFractionDigits: 2,
+  }).format(value);
+}
+
 function formatPercentageByLocale(value: number | null, locale: "en" | "es"): string {
   if (value === null || Number.isNaN(value)) {
     return locale === "es" ? "N/D" : "N/A";
@@ -217,6 +236,37 @@ function formatPercentageByLocale(value: number | null, locale: "en" | "es"): st
   return `${new Intl.NumberFormat(locale === "es" ? "es-MX" : "en-US", {
     maximumFractionDigits: 2,
   }).format(value)}%`;
+}
+
+function buildLinearTicks(minValue: number, maxValue: number, count: number): number[] {
+  if (count <= 1) {
+    return [minValue];
+  }
+
+  const range = maxValue - minValue;
+  if (!Number.isFinite(range) || range <= 0) {
+    return Array.from({ length: count }, () => minValue);
+  }
+
+  return Array.from({ length: count }, (_, index) => minValue + (range * index) / (count - 1));
+}
+
+function buildTickIndices(totalPoints: number, maxTicks: number): number[] {
+  if (totalPoints <= 0) {
+    return [];
+  }
+  if (totalPoints === 1) {
+    return [0];
+  }
+
+  const tickCount = Math.min(maxTicks, totalPoints);
+  const indices = new Set<number>();
+  for (let i = 0; i < tickCount; i += 1) {
+    const rawIndex = Math.round((i * (totalPoints - 1)) / (tickCount - 1));
+    indices.add(rawIndex);
+  }
+
+  return Array.from(indices).sort((a, b) => a - b);
 }
 
 export function buildComparePdfReportData(items: CountryCompareItem[]): ComparePdfReportData {
@@ -274,6 +324,7 @@ async function downloadCountriesPdfReport(
   items: CountryCompareItem[],
   locale: "en" | "es",
   copy: PdfReportCopy,
+  governmentsByIso3?: Record<string, CountryGovernmentItem[]>,
 ): Promise<void> {
   if (items.length === 0) {
     return;
@@ -361,8 +412,27 @@ async function downloadCountriesPdfReport(
     );
   });
 
+  const singleCountryIso3 = report.countries.length === 1 ? report.countries[0].iso3 : null;
+  const recentGovernments = singleCountryIso3
+    ? buildPdfRecentGovernmentsSummary(governmentsByIso3?.[singleCountryIso3] ?? [], locale)
+    : "";
+  const recentGovernmentsBlockHeight = recentGovernments ? 22 : 0;
+
+  if (recentGovernments) {
+    const governmentsY = cardsStartY + rowCount * (cardHeight + cardGap) + 22;
+    doc.setTextColor(148, 163, 184);
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(9);
+    doc.text(locale === "es" ? "Gobiernos recientes:" : "Recent governments:", cardsStartX, governmentsY);
+
+    doc.setTextColor(226, 232, 240);
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(9);
+    doc.text(recentGovernments, cardsStartX + 86, governmentsY);
+  }
+
   const chartContainerX = 32;
-  const chartContainerY = cardsStartY + rowCount * (cardHeight + cardGap) + 12;
+  const chartContainerY = cardsStartY + rowCount * (cardHeight + cardGap) + 12 + recentGovernmentsBlockHeight;
   const chartContainerWidth = pageWidth - 64;
   const chartContainerHeight = pageHeight - chartContainerY - 38;
   doc.setFillColor(9, 14, 26);
@@ -394,9 +464,9 @@ async function downloadCountriesPdfReport(
     return;
   }
 
-  const minStock = Math.min(...allStockValues);
+  const minStock = 0;
   const maxStock = Math.max(...allStockValues);
-  const stockRange = maxStock - minStock || Math.max(maxStock, 1);
+  const stockRange = Math.max(maxStock - minStock, 1);
 
   const minPct = allPctValues.length > 0 ? Math.min(...allPctValues) : 0;
   const maxPct = allPctValues.length > 0 ? Math.max(...allPctValues) : 1;
@@ -407,12 +477,22 @@ async function downloadCountriesPdfReport(
   const yForStock = (value: number) => plotY + (1 - (value - minStock) / stockRange) * plotHeight;
   const yForPct = (value: number) => plotY + (1 - (value - minPct) / pctRange) * plotHeight;
 
+  const stockTicks = buildLinearTicks(minStock, maxStock, 4);
+  const pctTicks = allPctValues.length > 0 ? buildLinearTicks(minPct, maxPct, 4) : [];
+  const xTickIndices = buildTickIndices(report.years.length, 6);
+
   doc.setDrawColor(71, 85, 105);
   doc.setLineWidth(0.7);
-  for (let grid = 0; grid <= 3; grid += 1) {
-    const y = plotY + (plotHeight / 3) * grid;
+  stockTicks.forEach((tick) => {
+    const y = yForStock(tick);
     doc.line(plotX, y, plotX + plotWidth, y);
-  }
+  });
+
+  doc.setDrawColor(148, 163, 184);
+  doc.setLineWidth(0.9);
+  doc.line(plotX, plotY, plotX, plotY + plotHeight);
+  doc.line(plotX + plotWidth, plotY, plotX + plotWidth, plotY + plotHeight);
+  doc.line(plotX, plotY + plotHeight, plotX + plotWidth, plotY + plotHeight);
 
   report.countries.forEach((country, index) => {
     const [r, g, b] = hexToRgb(REPORT_COLORS[index % REPORT_COLORS.length]);
@@ -434,6 +514,9 @@ async function downloadCountriesPdfReport(
           doc.line(xFor(prevStockIndex), yForStock(prevValue), xFor(seriesIndex), yForStock(value));
         }
       }
+
+      doc.setFillColor(r, g, b);
+      doc.circle(xFor(seriesIndex), yForStock(value), 1.4, "F");
       prevStockIndex = seriesIndex;
     });
 
@@ -457,24 +540,28 @@ async function downloadCountriesPdfReport(
     doc.setLineDashPattern([], 0);
   });
 
-  const firstYear = report.years[0];
-  const lastYear = report.years[report.years.length - 1];
-
   doc.setTextColor(148, 163, 184);
   doc.setFont("helvetica", "normal");
-  doc.setFontSize(9);
-  doc.text(String(firstYear), plotX, plotY + plotHeight + 14);
-  doc.text(String(lastYear), plotX + plotWidth - 20, plotY + plotHeight + 14);
+  doc.setFontSize(8.5);
 
-  doc.setTextColor(125, 211, 252);
-  doc.text(formatUsdCompactByLocale(maxStock, locale), plotX, plotY - 4);
-  doc.text(formatUsdCompactByLocale(minStock, locale), plotX, plotY + plotHeight - 2);
+  stockTicks.forEach((tick) => {
+    doc.setTextColor(125, 211, 252);
+    doc.text(formatUsdCompactChartLikeWeb(tick), plotX, yForStock(tick) - 4);
+  });
 
   if (allPctValues.length > 0) {
-    doc.setTextColor(196, 181, 253);
-    doc.text(formatPercentageByLocale(maxPct, locale), plotX + plotWidth - 52, plotY - 4);
-    doc.text(formatPercentageByLocale(minPct, locale), plotX + plotWidth - 52, plotY + plotHeight - 2);
+    pctTicks.forEach((tick) => {
+      doc.setTextColor(196, 181, 253);
+      doc.text(formatPercentageByLocale(tick, locale), plotX + plotWidth - 44, yForPct(tick) - 4);
+    });
   }
+
+  doc.setTextColor(148, 163, 184);
+  xTickIndices.forEach((tickIndex) => {
+    const tickX = xFor(tickIndex);
+    doc.line(tickX, plotY + plotHeight, tickX, plotY + plotHeight + 4);
+    doc.text(String(report.years[tickIndex]), tickX - 8, plotY + plotHeight + 14);
+  });
 
   doc.setTextColor(136, 134, 128);
   doc.setFont("helvetica", "normal");
@@ -488,6 +575,59 @@ async function downloadCountriesPdfReport(
   });
 
   doc.save(filename);
+}
+
+function parseYearFromDate(value: string | null): number {
+  if (!value) {
+    return 0;
+  }
+
+  const year = Number.parseInt(value.slice(0, 4), 10);
+  return Number.isFinite(year) ? year : 0;
+}
+
+function truncateTextByLength(value: string, maxLength: number): string {
+  if (value.length <= maxLength) {
+    return value;
+  }
+
+  return `${value.slice(0, Math.max(0, maxLength - 1))}…`;
+}
+
+export function buildPdfRecentGovernmentsSummary(
+  governments: CountryGovernmentItem[],
+  locale: "en" | "es",
+): string {
+  if (governments.length === 0) {
+    return "";
+  }
+
+  const seen = new Set<string>();
+  const names = governments
+    .slice()
+    .sort((a, b) => parseYearFromDate(b.start_date) - parseYearFromDate(a.start_date))
+    .map((gov) =>
+      buildLeaderLabel(gov.leader_name, locale === "es" ? 150 : 120, {
+        locale,
+      }),
+    )
+    .filter((label) => {
+      if (!label || seen.has(label)) {
+        return false;
+      }
+      seen.add(label);
+      return true;
+    });
+
+  if (names.length === 0) {
+    return "";
+  }
+
+  const maxItems = 4;
+  const selected = names.slice(0, maxItems);
+  const remaining = names.length - selected.length;
+  const suffix = remaining > 0 ? ` +${remaining}` : "";
+  return truncateTextByLength(`${selected.join(" · ")}${suffix}`, 120);
 }
 
 export async function downloadComparePdfReport(
@@ -512,6 +652,7 @@ export async function downloadCountryPdfReport(
   filename: string,
   country: CountryDetailResponse,
   historyItems: CountryHistoryItem[],
+  governments: CountryGovernmentItem[],
   locale: "en" | "es",
 ): Promise<void> {
   const compareItems: CountryCompareItem[] = [
@@ -531,5 +672,7 @@ export async function downloadCountryPdfReport(
       locale === "es"
         ? `Fuente: DeudaMundi API · GET /api/v1/countries/${country.iso3.toLowerCase()}`
         : `Source: DeudaMundi API · GET /api/v1/countries/${country.iso3.toLowerCase()}`,
+  }, {
+    [country.iso3]: governments,
   });
 }
