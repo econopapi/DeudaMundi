@@ -1,6 +1,6 @@
 # Web DeudaMundi
 
-Frontend React + Vite + TailwindCSS para visualizar deuda soberana global.
+Frontend React + Vite + TailwindCSS para visualizar deuda externa global.
 
 ## Estado actual (Fase 2 · MVP frontend)
 
@@ -50,7 +50,7 @@ Actualización UX/UI profesional (abril 2026):
 
 - Idioma por defecto en español (`es`), con inglés como secundario
 - Traducciones expandidas para Home, Rankings, detalle de país, leyenda y componentes de sharing
-- Ajuste de narrativa de producto a **deuda pública externa** (copy y etiquetas)
+- Ajuste de narrativa de producto a **deuda externa** (copy y etiquetas)
 - Rediseño visual con paleta de marca (`#0D1017`, `#F5F4F0`, `#7C6AF5`), tipografías y panels tipo glass
 - Estados de carga mejorados con skeleton/shimmer y transiciones suaves
 - Corrección de filtro de bandas en globo: los países no seleccionados siguen visibles (atenuados), evitando “huecos” visuales

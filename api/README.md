@@ -305,6 +305,13 @@ Configuración recomendada para rigor metodológico:
 La normalización mantiene explícito el concepto de deuda (`debt_concept`) y su fuente (`source`, `data_source`) para no mezclar semánticas de forma opaca.
 Cuando existe colisión país/año, se prioriza World Bank external debt; el proxy IMF solo entra cuando se habilita explícitamente el fallback.
 
+Comportamiento actual del fallback FMI (abril 2026):
+
+- Se excluyen valores FMI del año actual y futuros para mantener la serie histórica.
+- El proxy FMI solo se conserva para países sin cobertura de deuda externa en World Bank IDS.
+- En cada corrida ETL se purgan filas proxy FMI obsoletas (año actual/futuro y países con cobertura WB) para no sesgar el `latest_year`.
+- El resumen de ETL expone contadores de control: `imf_debt_rows_dropped_due_to_wb_coverage`, `merged_world_bank_rows`, `merged_imf_proxy_rows`, `imf_proxy_rows_removed_current_or_future` e `imf_proxy_rows_removed_wb_covered_countries`.
+
 La ingesta usa:
 
 - `DT.DOD.DECT.CD` (external debt stocks, total)
