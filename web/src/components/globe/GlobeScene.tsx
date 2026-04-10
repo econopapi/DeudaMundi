@@ -8,6 +8,7 @@ import countries110m from "world-atlas/countries-110m.json";
 import { useGlobeStore } from "../../store/globeStore";
 import type { GlobeDataPoint } from "../../types/api";
 import { getDebtColor } from "./globeColors";
+import { getGlobeViewForRegion } from "./globeView";
 
 type CountryFeatureProperties = {
   iso3?: string;
@@ -32,6 +33,7 @@ type GlobeSceneProps = {
   points: GlobeDataPoint[];
   selectedBand?: "all" | "low" | "mid" | "high";
   highlightedIso3Set?: Set<string>;
+  selectedRegion?: string;
   autoRotateEnabled?: boolean;
 };
 
@@ -118,12 +120,18 @@ const countryFeatures = feature(
 const BASE_ROTATION_SPEED = -0.45;
 const STOP_ROTATION_SPEED = 0;
 const ROTATION_EASING_MS = 320;
-const INITIAL_VIEW = { lat: +5, lng: -99, altitude: 1.50 };
+const REGION_FOCUS_TRANSITION_MS = 900;
 
 const GLOBE_TEXTURE_URL = "https://unpkg.com/three-globe/example/img/earth-night.jpg";
 const GLOBE_BUMP_URL = "https://unpkg.com/three-globe/example/img/earth-topology.png";
 
-export function GlobeScene({ points, selectedBand = "all", highlightedIso3Set, autoRotateEnabled = true }: GlobeSceneProps) {
+export function GlobeScene({
+  points,
+  selectedBand = "all",
+  highlightedIso3Set,
+  selectedRegion,
+  autoRotateEnabled = true,
+}: GlobeSceneProps) {
   const navigate = useNavigate();
   const setHoveredCountry = useGlobeStore((state) => state.setHoveredCountry);
   const globeRef = useRef<any>(null);
@@ -235,9 +243,17 @@ export function GlobeScene({ points, selectedBand = "all", highlightedIso3Set, a
       return;
     }
 
-    globeRef.current.pointOfView(INITIAL_VIEW, 0);
+    globeRef.current.pointOfView(getGlobeViewForRegion(selectedRegion), 0);
     hasInitializedViewRef.current = true;
-  }, [dimensions.width, dimensions.height]);
+  }, [dimensions.width, dimensions.height, selectedRegion]);
+
+  useEffect(() => {
+    if (!hasInitializedViewRef.current || !globeRef.current) {
+      return;
+    }
+
+    globeRef.current.pointOfView(getGlobeViewForRegion(selectedRegion), REGION_FOCUS_TRANSITION_MS);
+  }, [selectedRegion]);
 
   useEffect(() => {
     syncRotationPolicy();

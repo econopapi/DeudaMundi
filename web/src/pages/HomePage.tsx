@@ -234,6 +234,7 @@ export function HomePage() {
                   points={points}
                   selectedBand={debtBand}
                   highlightedIso3Set={highlightedIso3Set}
+                  selectedRegion={region || undefined}
                   autoRotateEnabled={!region}
                 />
               </Suspense>

@@ -56,6 +56,7 @@ Actualización UX/UI profesional (abril 2026):
 - Corrección de filtro de bandas en globo: los países no seleccionados siguen visibles (atenuados), evitando “huecos” visuales
 - Más realismo del globo (textura, bump map, atmósfera y contornos refinados)
 - Auto-rotación inteligente: se frena drásticamente en hover y se detiene en drag, con reanudación suave
+- Enfoque geográfico consistente: al elegir región, la cámara del globo se centra automáticamente en esa zona
 
 ## Configuración
 
