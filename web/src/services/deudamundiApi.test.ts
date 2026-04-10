@@ -1,4 +1,5 @@
 import {
+  fetchCountriesCompare,
   fetchCountryDetail,
   fetchCountryGovernments,
   fetchCountryHistory,
@@ -105,6 +106,18 @@ describe("deudamundiApi", () => {
 
     expect(global.fetch).toHaveBeenCalledWith(`${apiBaseUrl}/api/v1/countries/ARG/governments`);
     expect(result.iso3).toBe("ARG");
+  });
+
+  it("calls countries compare endpoint with repeated iso3 query params", async () => {
+    global.fetch = jest.fn().mockResolvedValue({
+      ok: true,
+      json: async () => ({ requested_iso3: ["ARG", "USA"], missing_iso3: [], item_count: 2, items: [] }),
+    } as Response);
+
+    const result = await fetchCountriesCompare(["arg", "usa"]);
+
+    expect(global.fetch).toHaveBeenCalledWith(`${apiBaseUrl}/api/v1/countries/compare?iso3=ARG&iso3=USA`);
+    expect(result.item_count).toBe(2);
   });
 
   it("calls rankings endpoint with metric and limit", async () => {

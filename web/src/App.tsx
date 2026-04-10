@@ -1,6 +1,7 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import { Analytics } from "@vercel/analytics/react";
 
+import { CompareCountriesPage } from "./pages/CompareCountriesPage";
 import { AppFooter } from "./components/AppFooter";
 import { CountryDetailPage } from "./pages/CountryDetailPage";
 import { HomePage } from "./pages/HomePage";
@@ -13,6 +14,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/country/:iso3" element={<CountryDetailPage />} />
+          <Route path="/compare" element={<CompareCountriesPage />} />
           <Route path="/rankings" element={<RankingsPage />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>

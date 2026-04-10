@@ -118,6 +118,9 @@ export function CountryDetailPage() {
         <Link to="/rankings" className="font-medium text-[#a594f9] hover:text-[#c4b9fa]">
           {t(locale, "viewRankings")} →
         </Link>
+        <Link to={`/compare?countries=${iso3.toUpperCase()}`} className="font-medium text-[#a594f9] hover:text-[#c4b9fa]">
+          {t(locale, "compareCta")}
+        </Link>
       </div>
 
       {status === "loading" && (

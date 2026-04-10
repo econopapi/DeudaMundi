@@ -66,6 +66,18 @@ export type CountryGovernmentsResponse = {
   items: CountryGovernmentItem[];
 };
 
+export type CountryCompareItem = {
+  detail: CountryDetailResponse;
+  history: CountryHistoryItem[];
+};
+
+export type CountriesCompareResponse = {
+  requested_iso3: string[];
+  missing_iso3: string[];
+  item_count: number;
+  items: CountryCompareItem[];
+};
+
 export type RankingMetric = "absolute" | "pct_gdp" | "per_capita";
 
 export type RankingItem = {
