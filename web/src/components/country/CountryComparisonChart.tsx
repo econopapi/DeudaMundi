@@ -1,6 +1,7 @@
 import { extent, max, min, scaleLinear } from "d3";
-import { useMemo } from "react";
+import { useMemo, useRef } from "react";
 
+import { useMobileChartScrollToLatest } from "../../lib/chartScroll";
 import { formatPercentage, formatUsdCompact } from "../../lib/formatters";
 import { t } from "../../lib/translations";
 import { useLocaleStore } from "../../store/localeStore";
@@ -64,6 +65,7 @@ function buildLinePath(
 
 export function CountryComparisonChart({ countries }: CountryComparisonChartProps) {
   const locale = useLocaleStore((state) => state.locale);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   const series = useMemo<CountrySeries[]>(() => {
     return countries.map((country, index) => {
@@ -119,6 +121,10 @@ export function CountryComparisonChart({ countries }: CountryComparisonChartProp
   const yDebtTicks = yDebt.ticks(4);
   const yPctTicks = hasPctSeries ? yPct.ticks(4) : [];
   const xTicks = x.ticks(7).map((tick) => Math.round(tick));
+  const showScrollHint = useMobileChartScrollToLatest(
+    scrollContainerRef,
+    `${countries.length}-${yearDomain[0]}-${yearDomain[1]}-${allPoints.length}`,
+  );
 
   return (
     <section className="rounded-xl border border-[#3b4252] bg-[#0d1017]/70 p-4">
@@ -147,7 +153,7 @@ export function CountryComparisonChart({ countries }: CountryComparisonChartProp
         </span>
       </div>
 
-      <div className="overflow-x-auto">
+      <div ref={scrollContainerRef} className="overflow-x-auto">
         <svg viewBox={`0 0 ${CHART_WIDTH} ${CHART_HEIGHT}`} className="min-w-[860px]" role="img" aria-label="Countries comparison chart">
           {yDebtTicks.map((tick) => (
             <g key={`y-debt-${tick}`}>
@@ -232,6 +238,9 @@ export function CountryComparisonChart({ countries }: CountryComparisonChartProp
           />
         </svg>
       </div>
+      {showScrollHint && (
+        <p className="mt-2 text-right text-[11px] text-[#9ca3af] sm:hidden">↔ {t(locale, "chartHorizontalScrollHint")}</p>
+      )}
     </section>
   );
 }

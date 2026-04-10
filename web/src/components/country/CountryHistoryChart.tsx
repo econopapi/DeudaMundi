@@ -1,6 +1,7 @@
 import { extent, max, scaleLinear } from "d3";
-import { useMemo } from "react";
+import { useMemo, useRef } from "react";
 
+import { useMobileChartScrollToLatest } from "../../lib/chartScroll";
 import { formatPercentage, formatUsdCompact } from "../../lib/formatters";
 import { t } from "../../lib/translations";
 import { useLocaleStore } from "../../store/localeStore";
@@ -156,6 +157,7 @@ function buildLinePath(
 
 export function CountryHistoryChart({ historyItems, governments }: CountryHistoryChartProps) {
   const locale = useLocaleStore((state) => state.locale);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
   const sortedHistory = useMemo(() => {
     return [...historyItems].sort((a, b) => a.year - b.year);
   }, [historyItems]);
@@ -218,6 +220,10 @@ export function CountryHistoryChart({ historyItems, governments }: CountryHistor
 
   const governmentIntervals = buildGovernmentIntervals(governments, minYear, maxYear);
   const governmentLabels = buildGovernmentLabels(governmentIntervals, x);
+  const showScrollHint = useMobileChartScrollToLatest(
+    scrollContainerRef,
+    `${chartData.length}-${minYear}-${maxYear}`,
+  );
 
   return (
     <section className="rounded-xl border border-[#3b4252] bg-[#0d1017]/70 p-4">
@@ -236,7 +242,7 @@ export function CountryHistoryChart({ historyItems, governments }: CountryHistor
         </div>
       </header>
 
-      <div className="overflow-x-auto">
+      <div ref={scrollContainerRef} className="overflow-x-auto">
         <svg viewBox={`0 0 ${CHART_WIDTH} ${CHART_HEIGHT}`} className="min-w-[760px]" role="img" aria-label="Country debt history chart">
           <rect x={0} y={0} width={CHART_WIDTH} height={CHART_HEIGHT} fill="transparent" />
 
@@ -332,6 +338,9 @@ export function CountryHistoryChart({ historyItems, governments }: CountryHistor
           />
         </svg>
       </div>
+      {showScrollHint && (
+        <p className="mt-2 text-right text-[11px] text-[#9ca3af] sm:hidden">↔ {t(locale, "chartHorizontalScrollHint")}</p>
+      )}
     </section>
   );
 }
