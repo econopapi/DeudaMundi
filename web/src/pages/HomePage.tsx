@@ -29,6 +29,21 @@ type IntensityMeta = {
   totalCount: number;
 };
 
+const LATAM_REGION = "Latin America & Caribbean";
+const MAX_COMPARE_SUGGESTIONS = 5;
+const PREFERRED_COMPARE_PAIRS: ReadonlyArray<readonly [string, string]> = [
+  ["MEX", "BRA"],
+  ["BRA", "ARG"],
+  ["URY", "ARG"],
+  ["USA", "JPN"],
+  ["USA", "GBR"],
+];
+
+type CompareSuggestion = {
+  href: string;
+  label: string;
+};
+
 function getIntensityValue(point: GlobeDataPoint, mode: IntensityMode): number | null {
   if (mode === "debt_pct_gdp") {
     const ratio = point.debt_pct_gdp;
@@ -111,6 +126,80 @@ function filterPointsByDebtBand(points: GlobeDataPoint[], debtBand: DebtBand, in
   });
 }
 
+export function buildSuggestedComparePairs(points: GlobeDataPoint[]): CompareSuggestion[] {
+  const debtPoints = points
+    .map((point) => ({
+      ...point,
+      debtValue: point.debt_stock_usd ?? point.total_external_debt_usd,
+    }))
+    .filter(
+      (point): point is GlobeDataPoint & { debtValue: number } =>
+        point.debtValue !== null && Number.isFinite(point.debtValue) && point.debtValue > 0,
+    );
+
+  if (debtPoints.length < 2) {
+    return [];
+  }
+
+  const byIso3 = new Map(debtPoints.map((point) => [point.iso3, point]));
+  const suggestions: CompareSuggestion[] = [];
+  const seenPairs = new Set<string>();
+
+  const addPair = (leftIso3: string, rightIso3: string) => {
+    if (leftIso3 === rightIso3 || suggestions.length >= MAX_COMPARE_SUGGESTIONS) {
+      return;
+    }
+
+    const left = byIso3.get(leftIso3);
+    const right = byIso3.get(rightIso3);
+    if (!left || !right) {
+      return;
+    }
+
+    const dedupeKey = [left.iso3, right.iso3].sort().join("-");
+    if (seenPairs.has(dedupeKey)) {
+      return;
+    }
+
+    seenPairs.add(dedupeKey);
+    const params = new URLSearchParams({ countries: `${left.iso3},${right.iso3}` });
+    suggestions.push({
+      href: `/compare?${params.toString()}`,
+      label: `${left.name_en} vs ${right.name_en}`,
+    });
+  };
+
+  for (const [leftIso3, rightIso3] of PREFERRED_COMPARE_PAIRS) {
+    addPair(leftIso3, rightIso3);
+  }
+
+  const latamPoints = debtPoints
+    .filter((point) => point.region === LATAM_REGION)
+    .sort((a, b) => b.debtValue - a.debtValue);
+
+  for (let i = 0; i < latamPoints.length; i += 1) {
+    for (let j = i + 1; j < latamPoints.length; j += 1) {
+      addPair(latamPoints[i].iso3, latamPoints[j].iso3);
+      if (suggestions.length >= MAX_COMPARE_SUGGESTIONS) {
+        break;
+      }
+    }
+    if (suggestions.length >= MAX_COMPARE_SUGGESTIONS) {
+      break;
+    }
+  }
+
+  const globalPoints = [...debtPoints].sort((a, b) => b.debtValue - a.debtValue);
+  for (let i = 1; i < globalPoints.length; i += 1) {
+    addPair(globalPoints[0].iso3, globalPoints[i].iso3);
+    if (suggestions.length >= MAX_COMPARE_SUGGESTIONS) {
+      break;
+    }
+  }
+
+  return suggestions;
+}
+
 export function HomePage() {
   const setHoveredCountry = useGlobeStore((state) => state.setHoveredCountry);
   const locale = useLocaleStore((state) => state.locale);
@@ -153,6 +242,7 @@ export function HomePage() {
     () => filterPointsByDebtBand(points, debtBand, intensityMeta),
     [points, debtBand, intensityMeta],
   );
+  const topDebtPairs = useMemo(() => buildSuggestedComparePairs(points), [points]);
   const highlightedIso3Set = useMemo(() => new Set(filteredPoints.map((point) => point.iso3)), [filteredPoints]);
 
   useEffect(() => {
@@ -180,8 +270,8 @@ export function HomePage() {
       )}
 
       {status === "ready" && (
-        <section className="grid gap-4 lg:grid-cols-[1fr_auto]">
-          <div className="relative">
+        <section className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_420px]">
+          <div className="relative min-w-0">
             {!webGlAvailable ? (
               <div className="glass-panel rounded-2xl p-4">
                 <p className="text-sm font-semibold text-[#f5f4f0]">{t(locale, "webglFallbackTitle")}</p>
@@ -235,7 +325,7 @@ export function HomePage() {
             </div>
           </div>
 
-          <div className="flex flex-col gap-3">
+          <div className="flex w-full flex-col gap-3 lg:w-[420px]">
             <section className="glass-panel rounded-xl p-4">
               <div className="mb-4 flex items-center justify-between gap-3 text-sm">
                 <LanguageSwitcher />
@@ -275,6 +365,36 @@ export function HomePage() {
                   </option>
                 ))}
               </select>
+            </section>
+
+            <section className="relative overflow-hidden rounded-xl border border-[#4f46e5]/40 bg-gradient-to-br from-[#1a103d] via-[#151b3b] to-[#0d1017] p-4 shadow-[0_18px_50px_-30px_rgba(124,106,245,0.8)]">
+              <div className="pointer-events-none absolute -right-8 -top-8 h-24 w-24 rounded-full bg-[#7c6af5]/20 blur-2xl" />
+              <div className="pointer-events-none absolute -bottom-10 -left-8 h-28 w-28 rounded-full bg-[#22d3ee]/15 blur-2xl" />
+
+              <p className="relative mono-meta text-[11px] uppercase tracking-[0.2em] text-[#c4b9fa]">{t(locale, "compareCta")}</p>
+              <h3 className="relative mt-1 text-base font-semibold text-[#f5f4f0]">{t(locale, "compareTitle")}</h3>
+              <p className="relative mt-1 text-xs leading-relaxed text-[#c8c7c2]">{t(locale, "compareSubtitle")}</p>
+
+              <Link
+                to="/compare"
+                className="relative mt-3 inline-flex w-full items-center justify-center rounded-lg border border-[#7c6af5] bg-[#7c6af5]/25 px-3 py-2 text-sm font-medium text-[#f5f4f0] transition hover:bg-[#7c6af5]/35"
+              >
+                {t(locale, "compareRun")} →
+              </Link>
+
+              {topDebtPairs.length > 0 && (
+                <div className="relative mt-3 flex flex-wrap gap-2">
+                  {topDebtPairs.map((pair) => (
+                    <Link
+                      key={pair.href}
+                      to={pair.href}
+                      className="whitespace-nowrap rounded-full border border-[#3b4252] bg-[#0b0f1c]/75 px-3 py-1 text-[11px] text-[#e5e7eb] hover:border-[#7c6af5]"
+                    >
+                      {pair.label}
+                    </Link>
+                  ))}
+                </div>
+              )}
             </section>
 
             <GlobeLegend

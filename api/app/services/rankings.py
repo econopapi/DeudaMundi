@@ -26,17 +26,21 @@ def get_rankings(
     metric_column = METRIC_TO_COLUMN[metric]
 
     latest_year_subquery = (
-        select(func.max(DebtRecord.year))
-        .where(DebtRecord.country_id == Country.id)
-        .correlate(Country)
-        .scalar_subquery()
+        select(
+            DebtRecord.country_id.label("country_id"),
+            func.max(DebtRecord.year).label("latest_year"),
+        )
+        .group_by(DebtRecord.country_id)
+        .subquery()
     )
 
     stmt = (
         select(Country, DebtRecord)
+        .join(latest_year_subquery, latest_year_subquery.c.country_id == Country.id)
         .join(
             DebtRecord,
-            (DebtRecord.country_id == Country.id) & (DebtRecord.year == latest_year_subquery),
+            (DebtRecord.country_id == Country.id)
+            & (DebtRecord.year == latest_year_subquery.c.latest_year),
         )
         .where(metric_column.is_not(None))
         .order_by(desc(metric_column))

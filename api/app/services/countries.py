@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from sqlalchemy import Select, func, select
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, aliased
 
 from app.models import Country, DebtRecord, Government
 from app.schemas.country import (
@@ -22,17 +22,25 @@ from app.services.equivalences import build_equivalences
 
 def _base_country_with_latest_debt_query() -> Select[tuple[Country, DebtRecord | None]]:
     latest_year_subquery = (
-        select(func.max(DebtRecord.year))
-        .where(DebtRecord.country_id == Country.id)
-        .correlate(Country)
-        .scalar_subquery()
+        select(
+            DebtRecord.country_id.label("country_id"),
+            func.max(DebtRecord.year).label("latest_year"),
+        )
+        .group_by(DebtRecord.country_id)
+        .subquery()
     )
+    latest_debt = aliased(DebtRecord)
 
     return (
-        select(Country, DebtRecord)
+        select(Country, latest_debt)
         .outerjoin(
-            DebtRecord,
-            (DebtRecord.country_id == Country.id) & (DebtRecord.year == latest_year_subquery),
+            latest_year_subquery,
+            latest_year_subquery.c.country_id == Country.id,
+        )
+        .outerjoin(
+            latest_debt,
+            (latest_debt.country_id == Country.id)
+            & (latest_debt.year == latest_year_subquery.c.latest_year),
         )
         .order_by(Country.name_en)
     )

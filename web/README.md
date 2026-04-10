@@ -49,6 +49,8 @@ Avance Semanas 10–12 (cierre Fase 2 frontend):
 Avance incremental de comparación (abril 2026):
 
 - Nueva ruta `/compare` para comparar 2+ países en una vista dedicada
+- HomePage con bloque visual destacado (spotlight) para descubrir y lanzar comparaciones
+- Sugerencias rápidas en Home priorizan pares latinoamericanos e incluyen México cuando está disponible
 - Selector multi-país con chips y búsqueda por nombre/ISO3
 - Integración con `GET /api/v1/countries/compare?iso3=...`
 - Gráfico comparativo con doble eje vertical:
