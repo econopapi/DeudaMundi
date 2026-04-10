@@ -129,6 +129,7 @@ Mejoras de calidad visual/UX aplicadas (abril 2026):
 - Copy de producto corregido a enfoque actual: **deuda externa**
 - Lógica del globo corregida para bandas (`low`, `medium`, `high`) sin ocultar países fuera de selección
 - Mejoras de realismo del globo + auto-rotación sensible a interacción (hover/drag)
+- Enfoque regional del globo + consistencia de filtros entre Home/Rankings y ajustes responsive mobile/desktop
 
 Pendiente post-cierre de Fase 2:
 
