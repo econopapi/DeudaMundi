@@ -115,9 +115,10 @@ const countryFeatures = feature(
   topology.objects.countries as Parameters<typeof feature>[1],
 ) as FeatureCollection;
 
-const BASE_ROTATION_SPEED = 0.45;
+const BASE_ROTATION_SPEED = -0.45;
 const STOP_ROTATION_SPEED = 0;
 const ROTATION_EASING_MS = 320;
+const INITIAL_VIEW = { lat: +5, lng: -99, altitude: 1.50 };
 
 const GLOBE_TEXTURE_URL = "https://unpkg.com/three-globe/example/img/earth-night.jpg";
 const GLOBE_BUMP_URL = "https://unpkg.com/three-globe/example/img/earth-topology.png";
@@ -128,6 +129,7 @@ export function GlobeScene({ points, selectedBand = "all", highlightedIso3Set, a
   const globeRef = useRef<any>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
   const animationFrameRef = useRef<number | null>(null);
+  const hasInitializedViewRef = useRef(false);
   const currentSpeedRef = useRef<number>(BASE_ROTATION_SPEED);
   const hoveringRef = useRef(false);
   const interactingRef = useRef(false);
@@ -224,6 +226,18 @@ export function GlobeScene({ points, selectedBand = "all", highlightedIso3Set, a
       controls.removeEventListener("end", onEnd);
     };
   }, [dimensions.height, dimensions.width, autoRotateEnabled]);
+
+  useEffect(() => {
+    if (hasInitializedViewRef.current) {
+      return;
+    }
+    if (dimensions.width <= 0 || dimensions.height <= 0 || !globeRef.current) {
+      return;
+    }
+
+    globeRef.current.pointOfView(INITIAL_VIEW, 0);
+    hasInitializedViewRef.current = true;
+  }, [dimensions.width, dimensions.height]);
 
   useEffect(() => {
     syncRotationPolicy();
