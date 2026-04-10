@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from datetime import UTC, datetime
 
-from sqlalchemy import select
+from sqlalchemy import delete, select
 from sqlalchemy.dialects.postgresql import insert
 from sqlalchemy.orm import Session
 
@@ -13,6 +13,7 @@ from app.models import Country, DebtRecord
 PG_MAX_BIND_PARAMS = 65_535
 DEBT_RECORD_INSERT_COLUMNS = 11
 DEBT_UPSERT_BATCH_SIZE = max(1, PG_MAX_BIND_PARAMS // DEBT_RECORD_INSERT_COLUMNS)
+IMF_PROXY_SOURCE = "imf_dm_proxy_ggxwdg"
 
 
 def upsert_countries(db: Session, countries: list[CountrySeed]) -> dict[str, int]:
@@ -54,6 +55,24 @@ def upsert_countries(db: Session, countries: list[CountrySeed]) -> dict[str, int
 
     rows = db.execute(select(Country.iso3, Country.id)).all()
     return {iso3: country_id for iso3, country_id in rows}
+
+
+def delete_imf_proxy_rows(
+    db: Session,
+    *,
+    country_ids: list[int] | None = None,
+    min_year_inclusive: int | None = None,
+) -> int:
+    conditions = [DebtRecord.source == IMF_PROXY_SOURCE]
+
+    if country_ids:
+        conditions.append(DebtRecord.country_id.in_(country_ids))
+    if min_year_inclusive is not None:
+        conditions.append(DebtRecord.year >= min_year_inclusive)
+
+    stmt = delete(DebtRecord).where(*conditions)
+    result = db.execute(stmt)
+    return int(result.rowcount or 0)
 
 
 def upsert_debt_records(
