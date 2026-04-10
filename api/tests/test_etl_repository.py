@@ -21,3 +21,27 @@ def test_upsert_debt_records_chunks_large_payload(monkeypatch) -> None:  # type:
 
     assert upserted == 5
     assert db.execute.call_count == 3
+
+
+def test_delete_imf_proxy_rows_without_filters() -> None:
+    db = Mock()
+    db.execute.return_value.rowcount = 7
+
+    deleted = repository.delete_imf_proxy_rows(db)
+
+    assert deleted == 7
+    db.execute.assert_called_once()
+
+
+def test_delete_imf_proxy_rows_with_filters() -> None:
+    db = Mock()
+    db.execute.return_value.rowcount = 3
+
+    deleted = repository.delete_imf_proxy_rows(
+        db,
+        country_ids=[1, 2],
+        min_year_inclusive=2026,
+    )
+
+    assert deleted == 3
+    db.execute.assert_called_once()

@@ -7,8 +7,9 @@ from app.core.cache import invalidate_read_caches
 from app.core.config import settings
 from app.db.session import SessionLocal
 from app.etl.imf_client import ImfDataMapperClient
-from app.etl.repository import upsert_countries, upsert_debt_records
+from app.etl.repository import delete_imf_proxy_rows, upsert_countries, upsert_debt_records
 from app.etl.transform import (
+    keep_imf_proxy_for_uncovered_countries,
     latest_population_by_iso3,
     merge_debt_records_by_priority,
     normalize_countries,
@@ -48,10 +49,12 @@ def run_world_bank_etl() -> dict[str, int]:
     }
 
     latest_population = latest_population_by_iso3(population_by_country_year)
+    countries_with_population = 0
     for iso3, population in latest_population.items():
         country = countries_by_iso3.get(iso3)
         if country:
             country.population = population
+            countries_with_population += 1
 
     world_bank_debt_rows = normalize_debt_records(
         external_debt_by_country_year=external_debt_by_country_year,
@@ -59,13 +62,23 @@ def run_world_bank_etl() -> dict[str, int]:
         population_by_country_year=population_by_country_year,
     )
     imf_debt_rows = []
+    imf_debt_rows_dropped_due_to_wb_coverage = 0
     if settings.etl_allow_proxy_debt_fallback:
-        imf_debt_rows = normalize_imf_debt_records(
+        raw_imf_debt_rows = normalize_imf_debt_records(
             debt_pct_gdp_by_country_year=imf_debt_pct_gdp,
             gdp_by_country_year={**imf_nominal_gdp_usd, **gdp_by_country_year},
             population_by_country_year=population_by_country_year,
         )
+        imf_debt_rows, imf_debt_rows_dropped_due_to_wb_coverage = (
+            keep_imf_proxy_for_uncovered_countries(
+                world_bank_rows=world_bank_debt_rows,
+                imf_rows=raw_imf_debt_rows,
+            )
+        )
     debt_rows = merge_debt_records_by_priority(world_bank_debt_rows + imf_debt_rows)
+
+    merged_world_bank_rows = sum(1 for row in debt_rows if row.source == "wb_ids_dt_dod_dect_cd")
+    merged_imf_proxy_rows = sum(1 for row in debt_rows if row.source == "imf_dm_proxy_ggxwdg")
 
     result = {
         "countries_processed": len(countries_by_iso3),
@@ -78,7 +91,13 @@ def run_world_bank_etl() -> dict[str, int]:
         "imf_nominal_gdp_records_processed": len(imf_nominal_gdp_usd),
         "world_bank_debt_rows_normalized": len(world_bank_debt_rows),
         "imf_debt_rows_normalized": len(imf_debt_rows),
-        "countries_with_population": len(latest_population),
+        "imf_debt_rows_dropped_due_to_wb_coverage": imf_debt_rows_dropped_due_to_wb_coverage,
+        "merged_world_bank_rows": merged_world_bank_rows,
+        "merged_imf_proxy_rows": merged_imf_proxy_rows,
+        "countries_with_population": countries_with_population,
+        "imf_proxy_rows_removed_current_or_future": 0,
+        "imf_proxy_rows_removed_wb_covered_countries": 0,
+        "imf_proxy_rows_removed_when_fallback_disabled": 0,
         "debt_records_upserted": 0,
         "cache_keys_invalidated": 0,
     }
@@ -97,6 +116,24 @@ def run_world_bank_etl() -> dict[str, int]:
 
         try:
             country_map = upsert_countries(db, list(countries_by_iso3.values()))
+
+            if settings.etl_allow_proxy_debt_fallback:
+                wb_country_ids = [
+                    country_map[iso3]
+                    for iso3 in {row.iso3 for row in world_bank_debt_rows}
+                    if iso3 in country_map
+                ]
+                result["imf_proxy_rows_removed_current_or_future"] = delete_imf_proxy_rows(
+                    db,
+                    min_year_inclusive=started_at.year,
+                )
+                result["imf_proxy_rows_removed_wb_covered_countries"] = delete_imf_proxy_rows(
+                    db,
+                    country_ids=wb_country_ids,
+                )
+            else:
+                result["imf_proxy_rows_removed_when_fallback_disabled"] = delete_imf_proxy_rows(db)
+
             upserted_records = upsert_debt_records(db, debt_rows, country_map)
             invalidated_cache_keys = invalidate_read_caches()
 

@@ -10,7 +10,7 @@ Actualmente con **Fase 0 y Fase 1 completadas**, y **Fase 2 frontend en cierre**
 - Backend FastAPI con endpoint de salud
 - ETL inicial World Bank para deuda externa total
 - ETL World Bank extendido con GDP y población para métricas completas (%PIB y per cápita)
-- Corrección metodológica crítica: deuda externa calculada solo con `DT.DOD.DECT.CD` (sin fallback a deuda fiscal), con metadatos de trazabilidad por registro
+- Corrección metodológica crítica: prioridad a deuda externa de `DT.DOD.DECT.CD` y fallback FMI opcional/etiquetado solo para países sin cobertura WB, con metadatos de trazabilidad por registro
 - Trigger admin protegido + scheduler base para ETL
 - Seed inicial de gobiernos piloto (AR, US, BR, DE, GR)
 - Reporte de gaps de cobertura ETL
@@ -46,8 +46,17 @@ Actualmente con **Fase 0 y Fase 1 completadas**, y **Fase 2 frontend en cierre**
 	- API FastAPI (8000)
 	- Web Vite (5173)
 
+	Comando recomendado:
+
+	```bash
+	docker compose up --build
+	```
+
 2. Endpoint inicial disponible:
 	- `GET http://localhost:8000/api/v1/health`
+
+3. Prueba desde iPhone (misma red WiFi):
+	- `http://<tu-ip-local>:5173`
 
 ### Opción por servicio
 
@@ -126,9 +135,13 @@ Mejoras de calidad visual/UX aplicadas (abril 2026):
 - Frontend alineado a identidad visual de marca (dark-first, acento lila, tipografía display/body/mono)
 - Español configurado como idioma por defecto e inglés como secundario
 - Traducción ampliada y homogenizada en Home, Rankings, detalle y componentes compartidos
-- Copy de producto corregido a enfoque actual: **deuda pública externa**
+- Copy de producto corregido a enfoque actual: **deuda externa**
 - Lógica del globo corregida para bandas (`low`, `medium`, `high`) sin ocultar países fuera de selección
 - Mejoras de realismo del globo + auto-rotación sensible a interacción (hover/drag)
+- Enfoque regional del globo + consistencia de filtros entre Home/Rankings y ajustes responsive mobile/desktop
+- Flujo de red local mejorado: frontend en IP LAN resuelve API local automáticamente y backend acepta CORS LAN en desarrollo
+- Creditos de autor integrados en cabecera y footer global del frontend
+- Logo de autor agregado en la card de creditos del header
 
 Pendiente post-cierre de Fase 2:
 
@@ -142,7 +155,8 @@ Para evitar inconsistencias conceptuales entre países:
 - `total_external_debt_usd` se alimenta exclusivamente desde `World Bank IDS: DT.DOD.DECT.CD`.
 - `debt_pct_gdp` se deriva de deuda externa real y PIB (`NY.GDP.MKTP.CD`).
 - Se expone trazabilidad de metodología en la API mediante `debt_concept`, `data_source` y `data_vintage`.
-- No se aplica fallback silencioso a indicadores de deuda pública fiscal para completar países sin cobertura de deuda externa en IDS.
+- Si se activa `ETL_ALLOW_PROXY_DEBT_FALLBACK=true`, el proxy FMI se usa solo para países sin cobertura WB externa y queda explícitamente etiquetado como `public_debt_proxy`.
+- El ETL excluye años FMI actuales/futuros y limpia proxies obsoletos para evitar que distorsionen el `latest_year` por país.
 
 ## Deploy backend en VPS Linux / EC2 (Semana 5)
 

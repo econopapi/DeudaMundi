@@ -6,7 +6,40 @@ Backend en FastAPI para servir datos del Atlas Global de Deuda.
 
 1. Copia `.env.example` como `.env`.
 2. Instala dependencias con `pip install -e .[dev]`.
-3. Levanta el servidor con `uvicorn app.main:app --reload`.
+3. Levanta el servidor con `uvicorn app.main:app --reload --host 0.0.0.0 --port 8000`.
+
+Nota importante de `DATABASE_URL` en desarrollo:
+
+- En Docker Compose, el host correcto es `postgres`.
+- Si corres API fuera de Docker y tu `.env` tiene `@postgres`, el backend ahora aplica fallback automático a `@localhost` en `APP_ENV=development`.
+
+### Probar desde iPhone / red local
+
+Si accedes al frontend desde otro dispositivo en tu LAN (por ejemplo `http://192.168.x.x:5173`), el backend debe estar escuchando en `0.0.0.0:8000` y CORS debe permitir ese origen.
+
+- En `development`, la API permite automáticamente orígenes de red local (`localhost`, `*.local`, `192.168.x.x`, `10.x.x.x`, `172.16-31.x.x`) vía regex.
+- Si necesitas control explícito, usa:
+	- `CORS_ALLOWED_ORIGINS`: lista separada por comas de orígenes concretos.
+	- `CORS_ALLOW_ORIGIN_REGEX`: regex opcional para orígenes dinámicos.
+
+Ejemplo para LAN:
+
+```bash
+CORS_ALLOWED_ORIGINS=http://localhost:5173,http://192.168.x.x:5173
+```
+
+### Flujo recomendado (sin terminales separadas): Docker Compose
+
+Desde la raiz del repo, levanta stack completo (Postgres + Redis + API + Web):
+
+```bash
+docker compose up --build
+```
+
+Accesos esperados:
+
+- Frontend LAN: `http://192.168.x.x:5173`
+- API health LAN: `http://192.168.x.x:8000/api/v1/health`
 
 ## Endpoint inicial
 
@@ -84,6 +117,7 @@ Se incorporó cache-aside con Redis para:
 - `SUPABASE_DATABASE_URL=<connection string>`
 - `REDIS_URL=<redis connection string>`
 - `CORS_ALLOWED_ORIGINS=<origins separados por coma>`
+- `CORS_ALLOW_ORIGIN_REGEX=<regex opcional para orígenes permitidos>`
 - `RATE_LIMIT_REQUESTS_PER_MINUTE=<int>`
 - `SECURITY_HSTS_ENABLED=true`
 - `ADMIN_API_KEY=<secret>`
@@ -304,6 +338,13 @@ Configuración recomendada para rigor metodológico:
 
 La normalización mantiene explícito el concepto de deuda (`debt_concept`) y su fuente (`source`, `data_source`) para no mezclar semánticas de forma opaca.
 Cuando existe colisión país/año, se prioriza World Bank external debt; el proxy IMF solo entra cuando se habilita explícitamente el fallback.
+
+Comportamiento actual del fallback FMI (abril 2026):
+
+- Se excluyen valores FMI del año actual y futuros para mantener la serie histórica.
+- El proxy FMI solo se conserva para países sin cobertura de deuda externa en World Bank IDS.
+- En cada corrida ETL se purgan filas proxy FMI obsoletas (año actual/futuro y países con cobertura WB) para no sesgar el `latest_year`.
+- El resumen de ETL expone contadores de control: `imf_debt_rows_dropped_due_to_wb_coverage`, `merged_world_bank_rows`, `merged_imf_proxy_rows`, `imf_proxy_rows_removed_current_or_future` e `imf_proxy_rows_removed_wb_covered_countries`.
 
 La ingesta usa:
 

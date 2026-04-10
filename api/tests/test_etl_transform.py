@@ -1,4 +1,5 @@
 from app.etl.transform import (
+    keep_imf_proxy_for_uncovered_countries,
     latest_population_by_iso3,
     merge_debt_records_by_priority,
     normalize_countries,
@@ -143,3 +144,35 @@ def test_merge_debt_records_by_priority_prefers_world_bank_over_imf() -> None:
     assert len(merged) == 1
     assert merged[0].source == "wb_ids_dt_dod_dect_cd"
     assert merged[0].debt_concept == "external_debt_bop"
+
+
+def test_keep_imf_proxy_for_uncovered_countries_filters_wb_covered_iso3() -> None:
+    world_bank_rows = normalize_debt_records(
+        external_debt_by_country_year={("ARG", 2024): 300000000000.0},
+        gdp_by_country_year={("ARG", 2024): 600000000000.0},
+        population_by_country_year={("ARG", 2024): 46000000.0},
+    )
+
+    imf_rows = normalize_imf_debt_records(
+        debt_pct_gdp_by_country_year={
+            ("ARG", 2024): 110.0,
+            ("USA", 2024): 120.0,
+        },
+        gdp_by_country_year={
+            ("ARG", 2024): 700000000000.0,
+            ("USA", 2024): 28000000000000.0,
+        },
+        population_by_country_year={
+            ("ARG", 2024): 46000000.0,
+            ("USA", 2024): 340000000.0,
+        },
+    )
+
+    filtered_imf_rows, dropped = keep_imf_proxy_for_uncovered_countries(
+        world_bank_rows=world_bank_rows,
+        imf_rows=imf_rows,
+    )
+
+    assert dropped == 1
+    assert len(filtered_imf_rows) == 1
+    assert filtered_imf_rows[0].iso3 == "USA"

@@ -1,6 +1,6 @@
 # Web DeudaMundi
 
-Frontend React + Vite + TailwindCSS para visualizar deuda soberana global.
+Frontend React + Vite + TailwindCSS para visualizar deuda externa global.
 
 ## Estado actual (Fase 2 · MVP frontend)
 
@@ -50,12 +50,19 @@ Actualización UX/UI profesional (abril 2026):
 
 - Idioma por defecto en español (`es`), con inglés como secundario
 - Traducciones expandidas para Home, Rankings, detalle de país, leyenda y componentes de sharing
-- Ajuste de narrativa de producto a **deuda pública externa** (copy y etiquetas)
+- Ajuste de narrativa de producto a **deuda externa** (copy y etiquetas)
 - Rediseño visual con paleta de marca (`#0D1017`, `#F5F4F0`, `#7C6AF5`), tipografías y panels tipo glass
 - Estados de carga mejorados con skeleton/shimmer y transiciones suaves
 - Corrección de filtro de bandas en globo: los países no seleccionados siguen visibles (atenuados), evitando “huecos” visuales
 - Más realismo del globo (textura, bump map, atmósfera y contornos refinados)
 - Auto-rotación inteligente: se frena drásticamente en hover y se detiene en drag, con reanudación suave
+- Enfoque geográfico consistente: al elegir región, la cámara del globo se centra automáticamente en esa zona
+- Opciones de región centralizadas para evitar inconsistencias entre Home y Rankings
+- Ajustes responsive mobile/desktop: altura del globo por breakpoint y tabla de rankings con scroll horizontal seguro
+- Etiquetas del detalle de país 100% localizadas (sin copy hardcodeado)
+- Tests del cliente API desacoplados de base URL hardcodeada, alineados al entorno real
+- Creditos del autor visibles en cabecera principal y footer global
+- Logo del autor incorporado en la card de informacion del autor
 
 ## Configuración
 
@@ -63,10 +70,16 @@ Variable opcional para cambiar el backend:
 
 - `VITE_API_BASE_URL` (default: `https://deudamundi.dlimon.net`)
 
+Comportamiento local (desarrollo):
+
+- Si abres el frontend desde `localhost` o red local (`192.168.x.x`, `10.x.x.x`, `172.16-31.x.x`, `*.local`), el cliente intenta usar automáticamente `http://<host>:8000` como API base.
+- Esto permite probar en iPhone/Android entrando a `http://<tu-ip-local>:5173`.
+- Si prefieres forzar un backend específico, define `VITE_API_BASE_URL`.
+
 Ejemplo de archivo `.env.local`:
 
 ```bash
-VITE_API_BASE_URL=https://deudamundi.dlimon.net
+VITE_API_BASE_URL=http://192.168.3.109:8000
 ```
 
 ## Scripts

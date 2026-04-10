@@ -37,7 +37,7 @@ export function GlobeLegend({
       <p className="mb-2 font-semibold text-[#f5f4f0]">
         {isRatioMode ? t(locale, "debtIntensityTitle") : t(locale, "debtIntensityFallbackTitle")}
       </p>
-      <div className="mb-2 h-3 w-40 rounded-full bg-gradient-to-r from-emerald-400 via-amber-300 to-rose-500" />
+      <div className="mb-2 h-3 w-full rounded-full bg-gradient-to-r from-emerald-400 via-amber-300 to-rose-500" />
       <div className="mono-meta flex items-center justify-between text-[11px] text-[#888680]">
         <span>{leftLabel}</span>
         <span>{rightLabel}</span>

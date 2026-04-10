@@ -14,7 +14,7 @@ jest.mock("../services/deudamundiApi", () => ({
 }));
 
 jest.mock("../components/country/CountryHistoryChart", () => ({
-  CountryHistoryChart: () => <div>Evolución histórica de deuda pública externa (USD)</div>,
+  CountryHistoryChart: () => <div>Evolución histórica del stock de deuda externa (USD)</div>,
 }));
 
 describe("CountryDetailPage", () => {
@@ -87,8 +87,8 @@ describe("CountryDetailPage", () => {
 
   expect(await screen.findByText("Perfil del país")).toBeInTheDocument();
     expect(screen.getByRole("heading", { level: 2, name: "Argentina" })).toBeInTheDocument();
-  expect(screen.getByText("Evolución histórica de deuda pública externa (USD)")).toBeInTheDocument();
-  expect(screen.getByText("Métricas de deuda pública")).toBeInTheDocument();
+  expect(screen.getByText("Evolución histórica del stock de deuda externa (USD)")).toBeInTheDocument();
+  expect(screen.getByText("Métricas de deuda externa")).toBeInTheDocument();
   expect(screen.getByText("Equivalencias emocionales")).toBeInTheDocument();
     expect(mockFetchCountryDetail).toHaveBeenCalledWith("arg");
     expect(mockFetchCountryHistory).toHaveBeenCalledWith("arg");

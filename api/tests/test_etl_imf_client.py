@@ -50,11 +50,17 @@ def test_imf_client_parses_indicator_payload(monkeypatch) -> None:  # type: igno
 
 
 def test_imf_client_skips_future_years(monkeypatch) -> None:  # type: ignore[no-untyped-def]
+    current_year = datetime.now(tz=UTC).year
+    previous_year = current_year - 1
     next_year = datetime.now(tz=UTC).year + 1
     payload = {
         "values": {
             "NGDPD": {
-                "JPN": {str(next_year): 5.0, "2024": 4.5},
+                "JPN": {
+                    str(next_year): 5.0,
+                    str(current_year): 4.7,
+                    str(previous_year): 4.5,
+                },
             }
         }
     }
@@ -67,5 +73,6 @@ def test_imf_client_skips_future_years(monkeypatch) -> None:  # type: ignore[no-
     client = ImfDataMapperClient()
     result = client.fetch_nominal_gdp_usd_billions()
 
+    assert ("JPN", current_year) not in result
     assert ("JPN", next_year) not in result
-    assert result[("JPN", 2024)] == 4.5
+    assert result[("JPN", previous_year)] == 4.5

@@ -45,8 +45,8 @@ class ImfDataMapperClient:
                 except (TypeError, ValueError):
                     continue
 
-                if year > current_year:
-                    # Skip IMF projections to keep the API strictly historical.
+                if year >= current_year:
+                    # Skip IMF current-year nowcasts/projections to keep the API historical.
                     continue
 
                 normalized[(iso3_normalized, year)] = value

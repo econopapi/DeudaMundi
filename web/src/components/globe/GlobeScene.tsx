@@ -8,6 +8,7 @@ import countries110m from "world-atlas/countries-110m.json";
 import { useGlobeStore } from "../../store/globeStore";
 import type { GlobeDataPoint } from "../../types/api";
 import { getDebtColor } from "./globeColors";
+import { getGlobeViewForRegion } from "./globeView";
 
 type CountryFeatureProperties = {
   iso3?: string;
@@ -32,6 +33,7 @@ type GlobeSceneProps = {
   points: GlobeDataPoint[];
   selectedBand?: "all" | "low" | "mid" | "high";
   highlightedIso3Set?: Set<string>;
+  selectedRegion?: string;
   autoRotateEnabled?: boolean;
 };
 
@@ -115,19 +117,27 @@ const countryFeatures = feature(
   topology.objects.countries as Parameters<typeof feature>[1],
 ) as FeatureCollection;
 
-const BASE_ROTATION_SPEED = 0.45;
+const BASE_ROTATION_SPEED = -0.45;
 const STOP_ROTATION_SPEED = 0;
 const ROTATION_EASING_MS = 320;
+const REGION_FOCUS_TRANSITION_MS = 900;
 
 const GLOBE_TEXTURE_URL = "https://unpkg.com/three-globe/example/img/earth-night.jpg";
 const GLOBE_BUMP_URL = "https://unpkg.com/three-globe/example/img/earth-topology.png";
 
-export function GlobeScene({ points, selectedBand = "all", highlightedIso3Set, autoRotateEnabled = true }: GlobeSceneProps) {
+export function GlobeScene({
+  points,
+  selectedBand = "all",
+  highlightedIso3Set,
+  selectedRegion,
+  autoRotateEnabled = true,
+}: GlobeSceneProps) {
   const navigate = useNavigate();
   const setHoveredCountry = useGlobeStore((state) => state.setHoveredCountry);
   const globeRef = useRef<any>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
   const animationFrameRef = useRef<number | null>(null);
+  const hasInitializedViewRef = useRef(false);
   const currentSpeedRef = useRef<number>(BASE_ROTATION_SPEED);
   const hoveringRef = useRef(false);
   const interactingRef = useRef(false);
@@ -224,6 +234,26 @@ export function GlobeScene({ points, selectedBand = "all", highlightedIso3Set, a
       controls.removeEventListener("end", onEnd);
     };
   }, [dimensions.height, dimensions.width, autoRotateEnabled]);
+
+  useEffect(() => {
+    if (hasInitializedViewRef.current) {
+      return;
+    }
+    if (dimensions.width <= 0 || dimensions.height <= 0 || !globeRef.current) {
+      return;
+    }
+
+    globeRef.current.pointOfView(getGlobeViewForRegion(selectedRegion), 0);
+    hasInitializedViewRef.current = true;
+  }, [dimensions.width, dimensions.height, selectedRegion]);
+
+  useEffect(() => {
+    if (!hasInitializedViewRef.current || !globeRef.current) {
+      return;
+    }
+
+    globeRef.current.pointOfView(getGlobeViewForRegion(selectedRegion), REGION_FOCUS_TRANSITION_MS);
+  }, [selectedRegion]);
 
   useEffect(() => {
     syncRotationPolicy();
@@ -370,7 +400,7 @@ export function GlobeScene({ points, selectedBand = "all", highlightedIso3Set, a
   return (
     <div
       ref={containerRef}
-      className="h-[560px] w-full overflow-hidden rounded-2xl border border-[#2a2f3a] bg-[#05070d] shadow-[0_0_0_1px_rgba(124,106,245,0.08)]"
+      className="h-[380px] w-full overflow-hidden rounded-2xl border border-[#2a2f3a] bg-[#05070d] shadow-[0_0_0_1px_rgba(124,106,245,0.08)] sm:h-[460px] md:h-[520px] lg:h-[560px]"
       onMouseEnter={() => {
         hoveringRef.current = true;
         syncRotationPolicy();

@@ -7,6 +7,7 @@ import { CountryTooltip } from "../components/globe/CountryTooltip";
 import { GlobeLegend } from "../components/globe/GlobeLegend";
 import { LoadingPanel } from "../components/ui/LoadingPanel";
 import { formatPercentage, formatUsdCompact } from "../lib/formatters";
+import { HOME_REGION_OPTIONS, isHomeRegion } from "../lib/regions";
 import { t, trRegion } from "../lib/translations";
 import { isWebGlAvailable } from "../lib/webgl";
 import { fetchGlobeData } from "../services/deudamundiApi";
@@ -15,16 +16,6 @@ import { useLocaleStore } from "../store/localeStore";
 import type { GlobeDataPoint } from "../types/api";
 
 const GlobeScene = lazy(async () => import("../components/globe/GlobeScene").then((mod) => ({ default: mod.GlobeScene })));
-
-const REGION_OPTIONS = [
-  "East Asia & Pacific",
-  "Europe & Central Asia",
-  "Latin America & Caribbean",
-  "Middle East & North Africa",
-  "North America",
-  "South Asia",
-  "Sub-Saharan Africa",
-];
 
 type DebtBand = "all" | "low" | "mid" | "high";
 
@@ -130,7 +121,7 @@ export function HomePage() {
   const webGlAvailable = useMemo(() => isWebGlAvailable(), []);
 
   const regionFromUrl = searchParams.get("region") ?? "";
-  const region = REGION_OPTIONS.includes(regionFromUrl) ? regionFromUrl : "";
+  const region = isHomeRegion(regionFromUrl) ? regionFromUrl : "";
 
   useEffect(() => {
     let cancelled = false;
@@ -169,49 +160,11 @@ export function HomePage() {
   }, [debtBand, region, setHoveredCountry]);
 
   return (
-    <main className="mx-auto flex min-h-screen w-full max-w-6xl flex-col gap-6 px-6 py-8">
+    <main className="mx-auto flex min-h-screen w-full max-w-6xl flex-col gap-6 px-4 py-8 sm:px-6">
       <AppHeader
         title={t(locale, "homeTitle")}
         subtitle={t(locale, "homeSubtitle")}
       />
-
-      <div className="flex items-center justify-between text-sm">
-        <LanguageSwitcher />
-        <Link to="/rankings" className="font-medium text-[#a594f9] hover:text-[#c4b9fa]">
-          {t(locale, "viewGlobalRankings")} →
-        </Link>
-      </div>
-
-      <section className="glass-panel rounded-xl p-4">
-        <label htmlFor="region-filter" className="mono-meta mb-2 block text-xs font-semibold uppercase tracking-wide text-[#c8c7c2]">
-          {t(locale, "regionFilter")}
-        </label>
-        <select
-          id="region-filter"
-          name="region"
-          value={region}
-          onChange={(event) => {
-            const value = event.target.value;
-            const nextParams = new URLSearchParams(searchParams);
-
-            if (value) {
-              nextParams.set("region", value);
-            } else {
-              nextParams.delete("region");
-            }
-
-            setSearchParams(nextParams);
-          }}
-          className="w-full rounded-lg border border-[#3b4252] bg-[#0d1017] px-3 py-2 text-sm text-[#f5f4f0] focus:border-[#7c6af5] focus:outline-none"
-        >
-          <option value="">{t(locale, "allRegions")}</option>
-          {REGION_OPTIONS.map((regionOption) => (
-            <option key={regionOption} value={regionOption}>
-              {trRegion(locale, regionOption)}
-            </option>
-          ))}
-        </select>
-      </section>
 
       {status === "loading" && (
         <LoadingPanel
@@ -264,7 +217,7 @@ export function HomePage() {
                 fallback={
                   <LoadingPanel
                     message={`${t(locale, "loadingGlobeModule")}...`}
-                    className="h-[560px]"
+                    className="h-[380px] sm:h-[460px] md:h-[520px] lg:h-[560px]"
                   />
                 }
               >
@@ -272,6 +225,7 @@ export function HomePage() {
                   points={points}
                   selectedBand={debtBand}
                   highlightedIso3Set={highlightedIso3Set}
+                  selectedRegion={region || undefined}
                   autoRotateEnabled={!region}
                 />
               </Suspense>
@@ -282,6 +236,47 @@ export function HomePage() {
           </div>
 
           <div className="flex flex-col gap-3">
+            <section className="glass-panel rounded-xl p-4">
+              <div className="mb-4 flex items-center justify-between gap-3 text-sm">
+                <LanguageSwitcher />
+                <Link to="/rankings" className="font-medium text-[#a594f9] hover:text-[#c4b9fa]">
+                  {t(locale, "viewGlobalRankings")} →
+                </Link>
+              </div>
+
+              <label
+                htmlFor="region-filter"
+                className="mono-meta mb-2 block text-xs font-semibold uppercase tracking-wide text-[#c8c7c2]"
+              >
+                {t(locale, "regionFilter")}
+              </label>
+              <select
+                id="region-filter"
+                name="region"
+                value={region}
+                onChange={(event) => {
+                  const value = event.target.value;
+                  const nextParams = new URLSearchParams(searchParams);
+
+                  if (value) {
+                    nextParams.set("region", value);
+                  } else {
+                    nextParams.delete("region");
+                  }
+
+                  setSearchParams(nextParams);
+                }}
+                className="w-full rounded-lg border border-[#3b4252] bg-[#0d1017] px-3 py-2 text-sm text-[#f5f4f0] focus:border-[#7c6af5] focus:outline-none"
+              >
+                <option value="">{t(locale, "allRegions")}</option>
+                {HOME_REGION_OPTIONS.map((regionOption) => (
+                  <option key={regionOption} value={regionOption}>
+                    {trRegion(locale, regionOption)}
+                  </option>
+                ))}
+              </select>
+            </section>
+
             <GlobeLegend
               minDebtPctGdp={intensityMeta.min}
               maxDebtPctGdp={intensityMeta.max}

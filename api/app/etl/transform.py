@@ -188,3 +188,13 @@ def merge_debt_records_by_priority(rows: list[DebtRecordSeed]) -> list[DebtRecor
             best_by_key[key] = row
 
     return [best_by_key[key] for key in sorted(best_by_key)]
+
+
+def keep_imf_proxy_for_uncovered_countries(
+    world_bank_rows: list[DebtRecordSeed],
+    imf_rows: list[DebtRecordSeed],
+) -> tuple[list[DebtRecordSeed], int]:
+    wb_countries = {row.iso3 for row in world_bank_rows}
+    filtered_imf_rows = [row for row in imf_rows if row.iso3 not in wb_countries]
+    dropped_count = len(imf_rows) - len(filtered_imf_rows)
+    return filtered_imf_rows, dropped_count

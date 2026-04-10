@@ -42,7 +42,7 @@ function drawShareCard(country: CountryDetailResponse, locale: "en" | "es"): str
 
   context.fillStyle = "#7dd3fc";
   context.font = "600 28px Outfit, Inter, system-ui, sans-serif";
-  context.fillText(locale === "es" ? "Atlas de Deuda Pública" : "Public Debt Atlas", 72, 100);
+  context.fillText(t(locale, "shareAtlasTitle"), 72, 100);
 
   context.fillStyle = "#f8fafc";
   context.font = "700 64px Epilogue, Inter, system-ui, sans-serif";
@@ -54,9 +54,9 @@ function drawShareCard(country: CountryDetailResponse, locale: "en" | "es"): str
 
   context.fillStyle = "#e2e8f0";
   context.font = "600 42px Outfit, Inter, system-ui, sans-serif";
-  context.fillText(`${locale === "es" ? "Stock de deuda pública" : "Public debt stock"}: ${formatUsdCompact(getDebtStock(country))}`, 72, 355);
-  context.fillText(`${locale === "es" ? "Deuda per cápita" : "Debt per capita"}: ${formatUsdCompact(country.debt_per_capita_usd)}`, 72, 425);
-  context.fillText(`${locale === "es" ? "Deuda / PIB" : "Debt / GDP"}: ${formatPercentage(country.debt_pct_gdp)}`, 72, 495);
+  context.fillText(`${t(locale, "debtLabel")}: ${formatUsdCompact(getDebtStock(country))}`, 72, 355);
+  context.fillText(`${t(locale, "debtPerCapitaLabel")}: ${formatUsdCompact(country.debt_per_capita_usd)}`, 72, 425);
+  context.fillText(`${t(locale, "debtToGdpLabel")}: ${formatPercentage(country.debt_pct_gdp)}`, 72, 495);
 
   context.fillStyle = "#38bdf8";
   context.font = "500 24px Inter, system-ui, sans-serif";
