@@ -55,6 +55,12 @@ class Settings(BaseSettings):
     etl_scheduler_enabled: bool = False
     etl_schedule_cron: str = "0 2 1 2 *"
     etl_allow_proxy_debt_fallback: bool = False
+    etl_seed_governments_enabled: bool = True
+    etl_governments_source: str = "hybrid"
+    etl_governments_min_start_year: int = 1990
+    etl_governments_timeout_seconds: float = 30.0
+    etl_governments_chunk_size: int = 25
+    etl_governments_max_duration_seconds: float = 180.0
 
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8", extra="ignore")
 

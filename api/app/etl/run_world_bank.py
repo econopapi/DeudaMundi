@@ -8,6 +8,7 @@ from app.core.config import settings
 from app.db.session import SessionLocal
 from app.etl.imf_client import ImfDataMapperClient
 from app.etl.repository import delete_imf_proxy_rows, upsert_countries, upsert_debt_records
+from app.etl.seed_governments import seed_governments
 from app.etl.transform import (
     keep_imf_proxy_for_uncovered_countries,
     latest_population_by_iso3,
@@ -23,7 +24,7 @@ from app.models import EtlRun
 PIPELINE_NAME = "global_debt_multisource"
 
 
-def run_world_bank_etl() -> dict[str, int]:
+def run_world_bank_etl() -> dict[str, int | str]:
     started_at = datetime.now(tz=UTC)
     perf_start = perf_counter()
 
@@ -100,6 +101,8 @@ def run_world_bank_etl() -> dict[str, int]:
         "imf_proxy_rows_removed_when_fallback_disabled": 0,
         "debt_records_upserted": 0,
         "cache_keys_invalidated": 0,
+        "governments_seeded": 0,
+        "governments_seed_source": "disabled",
     }
 
     with SessionLocal() as db:
@@ -135,6 +138,13 @@ def run_world_bank_etl() -> dict[str, int]:
                 result["imf_proxy_rows_removed_when_fallback_disabled"] = delete_imf_proxy_rows(db)
 
             upserted_records = upsert_debt_records(db, debt_rows, country_map)
+            governments_seed_result: dict[str, int | str] = {}
+            if settings.etl_seed_governments_enabled:
+                governments_seed_result = seed_governments(db=db)
+                result["governments_seeded"] = int(governments_seed_result.get("rows_prepared", 0))
+                result["governments_seed_source"] = str(
+                    governments_seed_result.get("seed_source", "unknown")
+                )
             invalidated_cache_keys = invalidate_read_caches()
 
             result["debt_records_upserted"] = upserted_records
