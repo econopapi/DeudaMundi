@@ -74,6 +74,7 @@ Actualización UX/UI profesional (abril 2026):
 - Opciones de región centralizadas para evitar inconsistencias entre Home y Rankings
 - Ajustes responsive mobile/desktop: altura del globo por breakpoint y tabla de rankings con scroll horizontal seguro
 - Etiquetas del detalle de país 100% localizadas (sin copy hardcodeado)
+- Sección de equivalencias emocionales mejorada con iconografía semántica y copy más claro por idioma (ES/EN)
 - Tests del cliente API desacoplados de base URL hardcodeada, alineados al entorno real
 - Creditos del autor visibles en cabecera principal y footer global
 - Logo del autor incorporado en la card de informacion del autor

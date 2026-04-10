@@ -39,7 +39,13 @@ describe("CountryDetailPage", () => {
       debt_per_capita_usd: 20000,
       debt_pct_gdp: 40.3,
       gdp_usd: 2500000000,
-      equivalences: [],
+      equivalences: [
+        {
+          label: "hospitales_publicos",
+          value: 18.75,
+          description: "unused backend copy",
+        },
+      ],
     });
 
     mockFetchCountryHistory.mockResolvedValue({
@@ -90,6 +96,7 @@ describe("CountryDetailPage", () => {
   expect(screen.getByText("Evolución histórica del stock de deuda externa (USD)")).toBeInTheDocument();
   expect(screen.getByText("Métricas de deuda externa")).toBeInTheDocument();
   expect(screen.getByText("Equivalencias emocionales")).toBeInTheDocument();
+  expect(screen.getByText("Hospitales públicos potenciales")).toBeInTheDocument();
     expect(mockFetchCountryDetail).toHaveBeenCalledWith("arg");
     expect(mockFetchCountryHistory).toHaveBeenCalledWith("arg");
     expect(mockFetchCountryGovernments).toHaveBeenCalledWith("arg");
