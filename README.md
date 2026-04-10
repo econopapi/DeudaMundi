@@ -144,6 +144,7 @@ Mejoras de calidad visual/UX aplicadas (abril 2026):
 - Lógica del globo corregida para bandas (`low`, `medium`, `high`) sin ocultar países fuera de selección
 - Mejoras de realismo del globo + auto-rotación sensible a interacción (hover/drag)
 - Enfoque regional del globo + consistencia de filtros entre Home/Rankings y ajustes responsive mobile/desktop
+- ETL de gobiernos reforzado con fuente escalable (Wikidata + fallback híbrido) para periodos de gobierno más coherentes en el gráfico histórico
 - Flujo de red local mejorado: frontend en IP LAN resuelve API local automáticamente y backend acepta CORS LAN en desarrollo
 - Creditos de autor integrados en cabecera y footer global del frontend
 - Logo de autor agregado en la card de creditos del header
