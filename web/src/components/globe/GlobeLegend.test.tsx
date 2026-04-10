@@ -7,7 +7,7 @@ describe("GlobeLegend", () => {
   it("renders min and max percentages", () => {
     render(<GlobeLegend minDebtPctGdp={5.2} maxDebtPctGdp={123.9} />);
 
-    expect(screen.getByText("Intensidad de deuda pública (% PIB)")).toBeInTheDocument();
+    expect(screen.getByText("Intensidad de deuda externa (% PIB)")).toBeInTheDocument();
     expect(screen.getByText("5.2%")).toBeInTheDocument();
     expect(screen.getByText("123.9%")).toBeInTheDocument();
   });
@@ -36,7 +36,7 @@ describe("GlobeLegend", () => {
       />,
     );
 
-    expect(screen.getByText("Intensidad de deuda pública (fallback: deuda absoluta)")).toBeInTheDocument();
+    expect(screen.getByText("Intensidad de deuda externa (fallback: deuda externa absoluta)")).toBeInTheDocument();
     expect(screen.getByText("Cobertura de datos: 120/217")).toBeInTheDocument();
   });
 });
