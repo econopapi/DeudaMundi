@@ -68,6 +68,7 @@ def setup_security(app: FastAPI) -> None:
     app.add_middleware(
         CORSMiddleware,
         allow_origins=settings.cors_allowed_origins_list,
+        allow_origin_regex=settings.cors_allow_origin_regex_effective,
         allow_credentials=False,
         allow_methods=["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
         allow_headers=["*"],

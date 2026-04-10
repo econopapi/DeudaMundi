@@ -68,10 +68,16 @@ Variable opcional para cambiar el backend:
 
 - `VITE_API_BASE_URL` (default: `https://deudamundi.dlimon.net`)
 
+Comportamiento local (desarrollo):
+
+- Si abres el frontend desde `localhost` o red local (`192.168.x.x`, `10.x.x.x`, `172.16-31.x.x`, `*.local`), el cliente intenta usar automáticamente `http://<host>:8000` como API base.
+- Esto permite probar en iPhone/Android entrando a `http://<tu-ip-local>:5173`.
+- Si prefieres forzar un backend específico, define `VITE_API_BASE_URL`.
+
 Ejemplo de archivo `.env.local`:
 
 ```bash
-VITE_API_BASE_URL=https://deudamundi.dlimon.net
+VITE_API_BASE_URL=http://192.168.3.109:8000
 ```
 
 ## Scripts
