@@ -36,12 +36,18 @@ def test_select_preferred_role_periods_falls_back_to_p35_when_p6_is_sparse() -> 
 
 def test_build_query_and_parse_payload() -> None:
     client = WikidataGovernmentsClient(timeout_seconds=5.0, chunk_size=2)
-    query = client._build_query(["ARG", "USA"], min_start_year=1990)
+    query_p6 = client._build_query(["ARG", "USA"], min_start_year=1990, role="p6")
+    query_p35 = client._build_query(["ARG", "USA"], min_start_year=1990, role="p35")
 
-    assert "VALUES ?iso3 { \"ARG\" \"USA\" }" in query
-    assert "?country p:P6 ?statement" in query
-    assert "?country p:P35 ?statement" in query
-    assert "FILTER(YEAR(?start) >= 1990)" in query
+    assert "VALUES ?iso3 { \"ARG\" \"USA\" }" in query_p6
+    assert "?country p:P6 ?statement" in query_p6
+    assert "BIND(\"p6\" AS ?role)" in query_p6
+    assert "FILTER(YEAR(?start) >= 1990)" in query_p6
+
+    assert "VALUES ?iso3 { \"ARG\" \"USA\" }" in query_p35
+    assert "?country p:P35 ?statement" in query_p35
+    assert "BIND(\"p35\" AS ?role)" in query_p35
+    assert "FILTER(YEAR(?start) >= 1990)" in query_p35
 
     payload = {
         "results": {
@@ -99,8 +105,15 @@ def test_fetch_periods_respects_max_duration(monkeypatch) -> None:  # type: igno
         def get(self, *args, **kwargs):  # type: ignore[no-untyped-def]
             return FakeResponse()
 
-    elapsed_points = iter([0.0, 11.0])
-    monkeypatch.setattr("app.etl.governments_wikidata_client.perf_counter", lambda: next(elapsed_points))
+    perf_calls = {"count": 0}
+
+    def fake_perf_counter() -> float:
+        perf_calls["count"] += 1
+        if perf_calls["count"] == 1:
+            return 0.0
+        return 11.0
+
+    monkeypatch.setattr("app.etl.governments_wikidata_client.perf_counter", fake_perf_counter)
     monkeypatch.setattr("app.etl.governments_wikidata_client.httpx.Client", FakeHttpClient)
 
     try:

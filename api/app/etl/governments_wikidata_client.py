@@ -3,7 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from datetime import date
 import logging
-from time import perf_counter
+from time import perf_counter, sleep
 
 import httpx
 
@@ -117,21 +117,17 @@ class WikidataGovernmentsClient:
                     len(chunk),
                     elapsed,
                 )
-                query = self._build_query(chunk, min_start_year=min_start_year)
-                try:
-                    response = client.get(
-                        WIKIDATA_SPARQL_URL,
-                        params={"query": query, "format": "json"},
-                        headers={"Accept": "application/sparql-results+json"},
-                    )
-                except httpx.TimeoutException as exc:
-                    raise TimeoutError(
-                        f"Wikidata chunk timed out after {self.timeout_seconds:.0f}s"
-                    ) from exc
 
-                response.raise_for_status()
-                payload = response.json()
-                parsed_rows = self._parse_payload(payload)
+                parsed_rows: list[WikidataGovernmentPeriod] = []
+                for role in ("p6", "p35"):
+                    role_rows = self._fetch_role_rows(
+                        client=client,
+                        chunk=chunk,
+                        role=role,
+                        min_start_year=min_start_year,
+                    )
+                    parsed_rows.extend(role_rows)
+
                 rows.extend(parsed_rows)
                 logger.info(
                     "Wikidata governments chunk %s/%s completed (rows=%s, total_rows=%s)",
@@ -151,25 +147,84 @@ class WikidataGovernmentsClient:
         )
         return selected_rows
 
-    def _build_query(self, iso3_codes: list[str], min_start_year: int) -> str:
+    def _fetch_role_rows(
+        self,
+        *,
+        client: httpx.Client,
+        chunk: list[str],
+        role: str,
+        min_start_year: int,
+    ) -> list[WikidataGovernmentPeriod]:
+        query = self._build_query(chunk, min_start_year=min_start_year, role=role)
+        retries = 3
+        retryable_status_codes = {429, 500, 502, 503, 504}
+
+        for attempt in range(1, retries + 1):
+            try:
+                response = client.get(
+                    WIKIDATA_SPARQL_URL,
+                    params={"query": query, "format": "json"},
+                    headers={"Accept": "application/sparql-results+json"},
+                )
+            except httpx.TimeoutException as exc:
+                if attempt == retries:
+                    raise TimeoutError(
+                        f"Wikidata chunk timed out after {self.timeout_seconds:.0f}s"
+                    ) from exc
+
+                delay_seconds = float(attempt)
+                logger.warning(
+                    "Wikidata timeout for role=%s attempt=%s/%s; retrying in %.1fs",
+                    role,
+                    attempt,
+                    retries,
+                    delay_seconds,
+                )
+                sleep(delay_seconds)
+                continue
+
+            if response.status_code in retryable_status_codes:
+                if attempt == retries:
+                    response.raise_for_status()
+
+                retry_after_header = response.headers.get("Retry-After")
+                try:
+                    delay_seconds = float(retry_after_header) if retry_after_header else float(attempt)
+                except ValueError:
+                    delay_seconds = float(attempt)
+
+                logger.warning(
+                    "Wikidata transient status=%s for role=%s attempt=%s/%s; retrying in %.1fs",
+                    response.status_code,
+                    role,
+                    attempt,
+                    retries,
+                    delay_seconds,
+                )
+                sleep(delay_seconds)
+                continue
+
+            response.raise_for_status()
+            payload = response.json()
+            return self._parse_payload(payload)
+
+        return []
+
+    def _build_query(self, iso3_codes: list[str], min_start_year: int, role: str) -> str:
+        role_map = {"p6": "P6", "p35": "P35"}
+        property_code = role_map.get(role)
+        if property_code is None:
+            raise ValueError("role must be p6 or p35")
+
         values_clause = " ".join(f'"{iso3}"' for iso3 in iso3_codes)
 
         return f"""
 SELECT ?iso3 ?leaderLabel ?start ?end ?role WHERE {{
   VALUES ?iso3 {{ {values_clause} }}
   ?country wdt:P298 ?iso3 .
-
-  {{
-    ?country p:P6 ?statement .
-    ?statement ps:P6 ?leader .
-    BIND("p6" AS ?role)
-  }}
-  UNION
-  {{
-    ?country p:P35 ?statement .
-    ?statement ps:P35 ?leader .
-    BIND("p35" AS ?role)
-  }}
+  ?country p:{property_code} ?statement .
+  ?statement ps:{property_code} ?leader .
+  BIND("{role}" AS ?role)
 
   ?statement pq:P580 ?start .
   OPTIONAL {{ ?statement pq:P582 ?end . }}
