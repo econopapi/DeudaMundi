@@ -100,7 +100,7 @@ describe("CompareCountriesPage", () => {
       </MemoryRouter>,
     );
 
-    expect(await screen.findByText("Espacio de comparación entre países")).toBeInTheDocument();
+    expect(await screen.findByText("Comparación entre países")).toBeInTheDocument();
     expect(await screen.findByText("Historical comparison: debt stock and debt/GDP")).toBeInTheDocument();
     expect(await screen.findByText("Argentina (ARG)")).toBeInTheDocument();
     expect(mockFetchCountriesCompare).toHaveBeenCalledWith(["ARG", "USA"]);

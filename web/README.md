@@ -57,6 +57,7 @@ Avance incremental de comparación (abril 2026):
 	- Eje izquierdo: stock de deuda externa (USD)
 	- Eje derecho: deuda externa / PIB (%)
 - Gráfico histórico del detalle de país actualizado para mostrar también la serie `% PIB` en eje derecho
+- UX mobile en gráficos cartesianos: autoscroll inicial al extremo derecho (años más recientes) + hint visible para desplazamiento horizontal
 
 Actualización UX/UI profesional (abril 2026):
 
