@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 
 import { CountryHero } from "../components/country/CountryHero";
@@ -12,6 +12,7 @@ import {
   downloadCsvFile,
   downloadXlsxFile,
 } from "../lib/dataExports";
+import { presentEquivalences } from "../lib/equivalences";
 import { LoadingPanel } from "../components/ui/LoadingPanel";
 import { formatPercentage, formatUsdCompact } from "../lib/formatters";
 import { t, trRegion } from "../lib/translations";
@@ -42,6 +43,14 @@ export function CountryDetailPage() {
   const [historyItems, setHistoryItems] = useState<CountryHistoryItem[]>([]);
   const [governments, setGovernments] = useState<CountryGovernmentItem[]>([]);
   const [status, setStatus] = useState<"loading" | "error" | "ready">("loading");
+
+  const presentedEquivalences = useMemo(() => {
+    if (!country) {
+      return [];
+    }
+
+    return presentEquivalences(country.equivalences, locale);
+  }, [country, locale]);
 
   useEffect(() => {
     let cancelled = false;
@@ -169,43 +178,74 @@ export function CountryDetailPage() {
         <>
           <CountryHero country={country} />
 
-          <ShareCardActions country={country} historyItems={historyItems} />
+          <CountryHistoryChart historyItems={historyItems} governments={governments} />
 
           <section className="glass-panel rounded-xl p-4">
-            <h2 className="text-sm font-semibold text-[#f5f4f0]">{t(locale, "exportDataTitle")}</h2>
-            <p className="mt-1 text-xs text-[#888680]">{t(locale, "exportCountrySubtitle")}</p>
-            <div className="mt-3 flex flex-wrap gap-2">
-              <button
-                type="button"
-                onClick={() => {
-                  void handleExport("csv");
-                }}
-                className="rounded-md border border-[#3b4252] bg-[#0d1017]/80 px-3 py-2 text-xs text-[#f5f4f0] hover:border-[#6d7280]"
-              >
-                {t(locale, "exportCsv")}
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  void handleExport("xlsx");
-                }}
-                className="rounded-md border border-[#3b4252] bg-[#0d1017]/80 px-3 py-2 text-xs text-[#f5f4f0] hover:border-[#6d7280]"
-              >
-                {t(locale, "exportXlsx")}
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  void handleExport("pdf");
-                }}
-                className="rounded-md border border-[#7c6af5] bg-[#7c6af5]/20 px-3 py-2 text-xs text-[#ede9fe] hover:border-[#a594f9]"
-              >
-                {t(locale, "exportPdf")}
-              </button>
-            </div>
+            <h2 className="text-sm font-semibold text-[#c8c7c2]">{t(locale, "emotionalEquivalences")}</h2>
+            {presentedEquivalences.length === 0 ? (
+              <p className="mt-3 text-sm text-[#888680]">{t(locale, "noEquivalences")}</p>
+            ) : (
+              <ul className="mt-3 grid gap-3 md:grid-cols-2">
+                {presentedEquivalences.map((equivalence) => (
+                  <li
+                    key={equivalence.label}
+                    className={`rounded-lg border bg-gradient-to-b p-3 text-sm ${equivalence.accentClassName}`}
+                  >
+                    <div className="flex items-start gap-3">
+                      <span className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-[#2a2f3a] bg-[#0d1017]/70 text-base">
+                        {equivalence.icon}
+                      </span>
+                      <div className="min-w-0 flex-1">
+                        <p className="font-medium text-[#f5f4f0]">{equivalence.title}</p>
+                        <p className="mt-0.5 text-xs text-[#888680]">{equivalence.description}</p>
+                      </div>
+                    </div>
+                    <p className="mt-3 font-mono text-base text-[#e2e8f0]">
+                      {equivalence.value.toLocaleString(locale === "es" ? "es-MX" : "en-US")}
+                    </p>
+                  </li>
+                ))}
+              </ul>
+            )}
           </section>
 
-          <CountryHistoryChart historyItems={historyItems} governments={governments} />
+          <section className="grid gap-4 md:grid-cols-2">
+            <ShareCardActions country={country} historyItems={historyItems} />
+
+            <section className="glass-panel rounded-xl p-4">
+              <h2 className="text-sm font-semibold text-[#f5f4f0]">{t(locale, "exportDataTitle")}</h2>
+              <p className="mt-1 text-xs text-[#888680]">{t(locale, "exportCountrySubtitle")}</p>
+              <div className="mt-3 flex flex-wrap gap-2">
+                <button
+                  type="button"
+                  onClick={() => {
+                    void handleExport("csv");
+                  }}
+                  className="rounded-md border border-[#3b4252] bg-[#0d1017]/80 px-3 py-2 text-xs text-[#f5f4f0] hover:border-[#6d7280]"
+                >
+                  {t(locale, "exportCsv")}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    void handleExport("xlsx");
+                  }}
+                  className="rounded-md border border-[#3b4252] bg-[#0d1017]/80 px-3 py-2 text-xs text-[#f5f4f0] hover:border-[#6d7280]"
+                >
+                  {t(locale, "exportXlsx")}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    void handleExport("pdf");
+                  }}
+                  className="rounded-md border border-[#7c6af5] bg-[#7c6af5]/20 px-3 py-2 text-xs text-[#ede9fe] hover:border-[#a594f9]"
+                >
+                  {t(locale, "exportPdf")}
+                </button>
+              </div>
+            </section>
+          </section>
 
           <section className="glass-panel grid gap-4 rounded-2xl p-6 md:grid-cols-2">
             <article className="rounded-xl border border-[#3b4252] bg-[#0d1017]/70 p-4">
@@ -230,23 +270,6 @@ export function CountryDetailPage() {
                 <li>{t(locale, "populationLabel")}: {country.population?.toLocaleString(locale === "es" ? "es-MX" : "en-US") ?? t(locale, "notAvailable")}</li>
                 <li>{t(locale, "capitalLabel")}: {country.capital ?? t(locale, "notAvailable")}</li>
               </ul>
-            </article>
-
-            <article className="rounded-xl border border-[#3b4252] bg-[#0d1017]/70 p-4 md:col-span-2">
-              <h2 className="text-sm font-semibold text-[#c8c7c2]">{t(locale, "emotionalEquivalences")}</h2>
-              {country.equivalences.length === 0 ? (
-                <p className="mt-3 text-sm text-[#888680]">{t(locale, "noEquivalences")}</p>
-              ) : (
-                <ul className="mt-3 grid gap-3 md:grid-cols-2">
-                  {country.equivalences.map((equivalence) => (
-                    <li key={equivalence.label} className="rounded-lg border border-[#3b4252] p-3 text-sm">
-                      <p className="font-medium text-[#f5f4f0]">{equivalence.label}</p>
-                      <p className="text-[#c8c7c2]">{equivalence.value.toLocaleString(locale === "es" ? "es-MX" : "en-US")}</p>
-                      <p className="mt-1 text-xs text-[#888680]">{equivalence.description}</p>
-                    </li>
-                  ))}
-                </ul>
-              )}
             </article>
           </section>
         </>
