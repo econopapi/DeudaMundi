@@ -127,8 +127,10 @@ Implementado en `web/`:
 - Globo 3D interactivo por polígonos de país (territorios clicables)
 - Intensidad visual con fallback de métrica cuando faltan ratios de fuente
 - Detalle de país con histórico, overlay de gobiernos y bloque de sharing
+- Tarjeta social de sharing mejorada a formato infografía con mini gráfico histórico real de doble eje (USD y %PIB)
 - Ruta `/rankings` con filtros por región y búsqueda
 - Ruta `/compare` para comparar múltiples países con series históricas superpuestas
+- Exportación en frontend para detalle/comparación (`CSV`, `XLSX`) y reportes visuales en `PDF` (comparación y país individual)
 - Fallback no-WebGL y baseline i18n ES/EN
 - Cobertura de tests frontend actualizada para servicios y páginas clave
 

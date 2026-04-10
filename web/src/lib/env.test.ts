@@ -14,6 +14,6 @@ describe("getApiBaseUrlForHost", () => {
   });
 
   it("keeps production API base for public hosts", () => {
-    expect(getApiBaseUrlForHost("deudamundi.dlimon.net")).toBe("https://deudamundi.dlimon.net");
+    expect(getApiBaseUrlForHost("deudamundi.econopapi.com")).toBe("https://deudamundi.econopapi.com");
   });
 });
