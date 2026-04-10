@@ -40,7 +40,7 @@ Avance Semanas 10–12 (cierre Fase 2 frontend):
 
 - Nueva ruta `/rankings` con Top 20 por métrica (`absolute`, `pct_gdp`, `per_capita`)
 - Filtros por región + búsqueda/autocomplete por país/ISO3
-- Share card PNG client-side en detalle de país (download + Web Share API + clipboard fallback)
+- Share card PNG infográfica client-side en detalle de país, con mini gráfico histórico real de doble eje (USD y %PIB) (download + Web Share API + clipboard fallback)
 - Metadatos sociales dinámicos en detalle (`og:*`, `twitter:*`)
 - Fallback sin WebGL en HomePage (tabla interactiva enlazada por país)
 - Baseline i18n ES/EN con selector rápido de idioma

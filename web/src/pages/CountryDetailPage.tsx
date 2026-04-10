@@ -163,7 +163,7 @@ export function CountryDetailPage() {
         <>
           <CountryHero country={country} />
 
-          <ShareCardActions country={country} />
+          <ShareCardActions country={country} historyItems={historyItems} />
 
           <section className="glass-panel rounded-xl p-4">
             <h2 className="text-sm font-semibold text-[#f5f4f0]">{t(locale, "exportDataTitle")}</h2>

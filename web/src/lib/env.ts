@@ -1,5 +1,5 @@
 
-const DEFAULT_API_BASE_URL = "https://deudamundi.dlimon.net";
+const DEFAULT_API_BASE_URL = "https://deudamundi.econopapi.com";
 const LOCAL_API_BASE_URL = "http://localhost:8000";
 const LOCAL_API_PORT = "8000";
 
