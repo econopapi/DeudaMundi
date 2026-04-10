@@ -129,6 +129,7 @@ Implementado en `web/`:
 - Detalle de país con histórico, overlay de gobiernos y bloque de sharing
 - Ruta `/rankings` con filtros por región y búsqueda
 - Ruta `/compare` para comparar múltiples países con series históricas superpuestas
+- Exportación tabular en frontend para detalle/comparación (`CSV` y `XLSX`)
 - Fallback no-WebGL y baseline i18n ES/EN
 - Cobertura de tests frontend actualizada para servicios y páginas clave
 
