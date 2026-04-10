@@ -61,6 +61,8 @@ Actualización UX/UI profesional (abril 2026):
 - Ajustes responsive mobile/desktop: altura del globo por breakpoint y tabla de rankings con scroll horizontal seguro
 - Etiquetas del detalle de país 100% localizadas (sin copy hardcodeado)
 - Tests del cliente API desacoplados de base URL hardcodeada, alineados al entorno real
+- Creditos del autor visibles en cabecera principal y footer global
+- Logo del autor incorporado en la card de informacion del autor
 
 ## Configuración
 
