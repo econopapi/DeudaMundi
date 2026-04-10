@@ -140,6 +140,8 @@ Mejoras de calidad visual/UX aplicadas (abril 2026):
 - Mejoras de realismo del globo + auto-rotación sensible a interacción (hover/drag)
 - Enfoque regional del globo + consistencia de filtros entre Home/Rankings y ajustes responsive mobile/desktop
 - Flujo de red local mejorado: frontend en IP LAN resuelve API local automáticamente y backend acepta CORS LAN en desarrollo
+- Creditos de autor integrados en cabecera y footer global del frontend
+- Logo de autor agregado en la card de creditos del header
 
 Pendiente post-cierre de Fase 2:
 
