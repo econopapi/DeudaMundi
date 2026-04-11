@@ -45,3 +45,33 @@ def test_admin_etl_runs_when_key_is_valid(monkeypatch) -> None:  # type: ignore[
         assert global_response.json()["debt_records_upserted"] == 8
     finally:
         settings.admin_api_key = original_key
+
+
+def test_admin_governments_etl_runs_with_source_override(monkeypatch) -> None:  # type: ignore[no-untyped-def]
+    original_key = settings.admin_api_key
+    settings.admin_api_key = "test-secret"
+
+    calls: list[str | None] = []
+
+    def fake_seed_governments(source: str | None = None) -> dict[str, int | str]:
+        calls.append(source)
+        return {
+            "seed_source": source or "hybrid",
+            "rows_prepared": 3,
+            "rows_seed_input": 4,
+            "missing_countries": 0,
+            "countries_requested": 2,
+        }
+
+    monkeypatch.setattr("app.api.v1.endpoints.admin.seed_governments", fake_seed_governments)
+
+    try:
+        response = client.post(
+            "/api/v1/admin/etl/governments/run?source=pilot",
+            headers={"X-API-Key": "test-secret"},
+        )
+        assert response.status_code == 200
+        assert response.json()["seed_source"] == "pilot"
+        assert calls == ["pilot"]
+    finally:
+        settings.admin_api_key = original_key

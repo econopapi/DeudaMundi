@@ -347,6 +347,20 @@ Configuración recomendada para rigor metodológico:
 - `ETL_ALLOW_PROXY_DEBT_FALLBACK=false` (default): solo deuda externa comparable.
 - `ETL_ALLOW_PROXY_DEBT_FALLBACK=true`: rellena huecos con proxy de deuda pública FMI.
 
+ETL de periodos de gobierno (para overlay en gráfico histórico):
+
+- Fuente principal: Wikidata (histórico por país usando propiedades `P6` y fallback `P35` cuando `P6` no tiene profundidad suficiente).
+- Modo recomendado: `ETL_GOVERNMENTS_SOURCE=hybrid` (combina Wikidata + semillas piloto para enriquecer metadata opcional).
+- Ejecución:
+	- CLI: `deudamundi-seed-governments`
+	- Admin endpoint: `POST /api/v1/admin/etl/governments/run`
+- Variables de entorno:
+	- `ETL_SEED_GOVERNMENTS_ENABLED` (`true|false`) para correr seed de gobiernos dentro de `deudamundi-etl-global`.
+	- `ETL_GOVERNMENTS_SOURCE` (`pilot|wikidata|hybrid`).
+	- `ETL_GOVERNMENTS_MIN_START_YEAR` (ej. `1990`).
+	- `ETL_GOVERNMENTS_TIMEOUT_SECONDS`.
+	- `ETL_GOVERNMENTS_CHUNK_SIZE`.
+
 La normalización mantiene explícito el concepto de deuda (`debt_concept`) y su fuente (`source`, `data_source`) para no mezclar semánticas de forma opaca.
 Cuando existe colisión país/año, se prioriza World Bank external debt; el proxy IMF solo entra cuando se habilita explícitamente el fallback.
 

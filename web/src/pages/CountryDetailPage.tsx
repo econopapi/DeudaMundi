@@ -132,7 +132,7 @@ export function CountryDetailPage() {
     }
 
     if (format === "pdf") {
-      await downloadCountryPdfReport(`${baseFilename}-report.pdf`, country, historyItems, locale);
+      await downloadCountryPdfReport(`${baseFilename}-report.pdf`, country, historyItems, governments, locale);
       return;
     }
 
