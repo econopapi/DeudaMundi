@@ -95,7 +95,7 @@ describe("CountryDetailPage", () => {
     expect(screen.getByRole("heading", { level: 2, name: "Argentina" })).toBeInTheDocument();
   expect(screen.getByText("Evolución histórica del stock de deuda externa (USD)")).toBeInTheDocument();
   expect(screen.getByText("Métricas de deuda externa")).toBeInTheDocument();
-  expect(screen.getByText("Equivalencias emocionales")).toBeInTheDocument();
+  expect(screen.getByText("La deuda en cifras cotidianas")).toBeInTheDocument();
   expect(screen.getByText("Hospitales públicos potenciales")).toBeInTheDocument();
     expect(mockFetchCountryDetail).toHaveBeenCalledWith("arg");
     expect(mockFetchCountryHistory).toHaveBeenCalledWith("arg");
