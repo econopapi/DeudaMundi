@@ -1,188 +1,637 @@
 # API DeudaMundi
 
-Backend en FastAPI para servir datos del Atlas Global de Deuda.
+Backend REST en **FastAPI** para el Atlas Global de Deuda Externa Soberana.
 
-## Desarrollo local
+Sirve datos históricos de deuda externa por país, rankings comparativos, periodos de gobierno y un pipeline ETL multifuente con trazabilidad metodológica.
 
-1. Copia `.env.example` como `.env`.
-2. Instala dependencias con `pip install -e .[dev]`.
-3. Levanta el servidor con `uvicorn app.main:app --reload --host 0.0.0.0 --port 8000`.
+---
 
-Nota importante de `DATABASE_URL` en desarrollo:
+## Tabla de contenidos
 
-- En Docker Compose, el host correcto es `postgres`.
-- Si corres API fuera de Docker y tu `.env` tiene `@postgres`, el backend ahora aplica fallback automático a `@localhost` en `APP_ENV=development`.
+1. [Arquitectura interna](#1-arquitectura-interna)
+2. [Modelo de datos](#2-modelo-de-datos)
+3. [Pipeline ETL](#3-pipeline-etl)
+4. [Referencia de API REST](#4-referencia-de-api-rest)
+5. [Cache y rendimiento](#5-cache-y-rendimiento)
+6. [Seguridad](#6-seguridad)
+7. [Configuración](#7-configuración)
+8. [Desarrollo local](#8-desarrollo-local)
+9. [Testing](#9-testing)
+10. [Base de datos y migraciones](#10-base-de-datos-y-migraciones)
+11. [Despliegue en producción](#11-despliegue-en-producción)
+12. [Troubleshooting](#12-troubleshooting)
 
-### Probar desde iPhone / red local
+---
 
-Si accedes al frontend desde otro dispositivo en tu LAN (por ejemplo `http://192.168.x.x:5173`), el backend debe estar escuchando en `0.0.0.0:8000` y CORS debe permitir ese origen.
+## 1. Arquitectura interna
 
-- En `development`, la API permite automáticamente orígenes de red local (`localhost`, `*.local`, `192.168.x.x`, `10.x.x.x`, `172.16-31.x.x`) vía regex.
-- Si necesitas control explícito, usa:
-	- `CORS_ALLOWED_ORIGINS`: lista separada por comas de orígenes concretos.
-	- `CORS_ALLOW_ORIGIN_REGEX`: regex opcional para orígenes dinámicos.
-
-Ejemplo para LAN:
-
-```bash
-CORS_ALLOWED_ORIGINS=http://localhost:5173,http://192.168.x.x:5173
+```text
+app/
+├── api/
+│   ├── dependencies.py          # Dependency injection (admin API key guard)
+│   └── v1/
+│       ├── router.py            # Agrupa todos los sub-routers
+│       └── endpoints/
+│           ├── health.py        # GET /health
+│           ├── countries.py     # GET /countries, /countries/{iso3}, /history, /governments, /compare
+│           ├── rankings.py      # GET /rankings
+│           ├── globe_data.py    # GET /globe-data
+│           └── admin.py         # POST /admin/etl/*
+├── core/
+│   ├── config.py                # Pydantic Settings (env vars, defaults, normalización de DB URL)
+│   ├── cache.py                 # Redis cache-aside (get/set/invalidate)
+│   └── security.py              # CORS, rate limiting (Slowapi), security headers
+├── db/
+│   ├── base_class.py            # Base declarativa SQLAlchemy
+│   └── session.py               # SessionLocal factory + engine
+├── etl/
+│   ├── world_bank_client.py     # Cliente HTTP World Bank API v2 (httpx, paginado)
+│   ├── imf_client.py            # Cliente HTTP IMF DataMapper (proxy opcional)
+│   ├── governments_wikidata_client.py  # Cliente SPARQL Wikidata (chunked, con fallback P6/P35)
+│   ├── transform.py             # Normalización, cálculo de métricas derivadas, merge por prioridad
+│   ├── types.py                 # Dataclasses: CountrySeed, DebtRecordSeed
+│   ├── repository.py            # Upserts PostgreSQL (ON CONFLICT), delete proxy rows
+│   ├── run_world_bank.py        # Orquestador principal del ETL global
+│   ├── seed_governments.py      # Orquestador ETL de gobiernos
+│   ├── report_gaps.py           # Generador de reportes de cobertura
+│   └── scheduler.py             # APScheduler cron (BackgroundScheduler)
+├── models/
+│   ├── country.py               # ORM: Country
+│   ├── debt_record.py           # ORM: DebtRecord
+│   ├── government.py            # ORM: Government
+│   └── etl_run.py               # ORM: EtlRun
+├── schemas/
+│   ├── country.py               # Pydantic: request/response para countries, history, governments, globe, compare
+│   └── ranking.py               # Pydantic: request/response para rankings
+├── services/
+│   ├── countries.py             # Lógica de negocio: listado, detalle, historia, comparación, globe data
+│   ├── rankings.py              # Lógica de negocio: rankings por métrica
+│   └── equivalences.py          # Equivalencias emocionales (hospitales, salarios)
+└── main.py                      # App factory: FastAPI + lifespan (scheduler) + security + router
 ```
 
-### Flujo recomendado (sin terminales separadas): Docker Compose
+### Capas y responsabilidades
 
-Desde la raiz del repo, levanta stack completo (Postgres + Redis + API + Web):
+| Capa | Responsabilidad | Archivos clave |
+|---|---|---|
+| **Endpoints** | Validación HTTP, serialización, cache lookup/store | `api/v1/endpoints/*` |
+| **Services** | Queries SQLAlchemy, lógica de negocio, construcción de DTOs | `services/*` |
+| **Models** | Definición ORM, relaciones, constraints | `models/*` |
+| **Schemas** | Contratos Pydantic de entrada/salida | `schemas/*` |
+| **ETL** | Extracción, transformación, carga, reportes | `etl/*` |
+| **Core** | Configuración, cache, seguridad | `core/*` |
+
+---
+
+## 2. Modelo de datos
+
+### 2.1 Diagrama entidad-relación
+
+```text
+┌─────────────────┐        ┌─────────────────────┐
+│   countries      │───1:N──│   debt_records        │
+│                 │        │                     │
+│ id         PK   │        │ id            PK    │
+│ iso2       UQ   │        │ country_id    FK    │
+│ iso3       UQ   │        │ year                │
+│ name_es         │        │ total_ext_debt_usd  │
+│ name_en         │        │ debt_pct_gdp        │
+│ region     IDX  │        │ debt_per_capita_usd │
+│ subregion       │        │ gdp_usd             │
+│ population      │        │ source              │
+│ capital         │        │ debt_concept        │
+│ flag_url        │        │ data_source         │
+│                 │        │ data_vintage        │
+│                 │        │ updated_at          │
+│                 │        │ UQ(country_id,year) │
+└────────┬────────┘        └─────────────────────┘
+         │
+         ├───1:N──┌─────────────────────────────────┐
+         │        │   governments                    │
+         │        │                                 │
+         │        │ id            PK                │
+         │        │ country_id    FK                │
+         │        │ leader_name                     │
+         │        │ party                           │
+         │        │ start_date                      │
+         │        │ end_date                        │
+         │        │ political_lean                  │
+         │        │ UQ(country_id,leader_name,start)│
+         │        └─────────────────────────────────┘
+         │
+                   ┌──────────────────┐
+                   │   etl_runs       │
+                   │                  │
+                   │ id          PK   │
+                   │ pipeline_name    │
+                   │ status           │
+                   │ started_at       │
+                   │ finished_at      │
+                   │ countries_proc   │
+                   │ debt_recs_proc   │
+                   │ debt_recs_ups    │
+                   │ duration_ms      │
+                   │ error_message    │
+                   └──────────────────┘
+```
+
+### 2.2 Tablas en detalle
+
+#### `countries`
+
+Catálogo de países normalizado desde World Bank API. Solo se incluyen entidades con región definida (excluye agregados como "World", "Euro Area").
+
+| Columna | Tipo | Constraints | Descripción |
+|---|---|---|---|
+| `id` | `INTEGER` | PK, auto | ID interno |
+| `iso2` | `VARCHAR(2)` | UNIQUE, INDEX | ISO 3166-1 alpha-2 |
+| `iso3` | `VARCHAR(3)` | UNIQUE, INDEX | ISO 3166-1 alpha-3 — clave de negocio |
+| `name_es` | `VARCHAR(150)` | NOT NULL | Nombre localizado (español) |
+| `name_en` | `VARCHAR(150)` | NOT NULL | Nombre localizado (inglés) |
+| `region` | `VARCHAR(100)` | INDEX | Región World Bank |
+| `subregion` | `VARCHAR(100)` | nullable | Subregión administrativa |
+| `population` | `INTEGER` | nullable | Última población conocida (ETL) |
+| `capital` | `VARCHAR(120)` | nullable | Capital |
+| `flag_url` | `VARCHAR(255)` | nullable | URL de bandera (reservado) |
+
+#### `debt_records`
+
+Serie temporal de deuda y métricas derivadas. Un registro por país por año. Cada registro porta metadatos de trazabilidad metodológica.
+
+| Columna | Tipo | Constraints | Descripción |
+|---|---|---|---|
+| `id` | `INTEGER` | PK, auto | ID interno |
+| `country_id` | `INTEGER` | FK(`countries.id`), INDEX, CASCADE | Relación al país |
+| `year` | `INTEGER` | INDEX | Año de la observación |
+| `total_external_debt_usd` | `FLOAT` | nullable, INDEX | Stock de deuda externa (USD corrientes) |
+| `debt_pct_gdp` | `FLOAT` | nullable, INDEX | Deuda / PIB × 100 |
+| `debt_per_capita_usd` | `FLOAT` | nullable, INDEX | Deuda / población |
+| `gdp_usd` | `FLOAT` | nullable | PIB nominal (USD corrientes) |
+| `source` | `VARCHAR(30)` | NOT NULL | Clave corta: `wb_ids_dt_dod_dect_cd` o `imf_dm_proxy_ggxwdg` |
+| `debt_concept` | `VARCHAR(50)` | NOT NULL | `external_debt_bop` o `public_debt_proxy` |
+| `data_source` | `VARCHAR(120)` | NOT NULL | Descripción legible de la fuente |
+| `data_vintage` | `DATE` | nullable | Fecha de referencia (`YYYY-12-31`) |
+| `updated_at` | `TIMESTAMPTZ` | NOT NULL | Última escritura |
+| | | `UNIQUE(country_id, year)` | Un registro por país-año |
+
+**Valores de `debt_concept`:**
+
+| Valor | Significado | Fuente |
+|---|---|---|
+| `external_debt_bop` | Deuda externa total en sentido de balanza de pagos | World Bank IDS `DT.DOD.DECT.CD` |
+| `public_debt_proxy` | Proxy: deuda bruta del gobierno general (no estrictamente externa) | IMF DataMapper `GGXWDG_NGDP` + `NGDPD` |
+
+#### `governments`
+
+Periodos de gobierno por país para overlay en gráficos históricos.
+
+| Columna | Tipo | Constraints | Descripción |
+|---|---|---|---|
+| `id` | `INTEGER` | PK, auto | ID interno |
+| `country_id` | `INTEGER` | FK(`countries.id`), INDEX, CASCADE | Relación al país |
+| `leader_name` | `VARCHAR(150)` | NOT NULL | Jefe de gobierno/estado |
+| `party` | `VARCHAR(150)` | nullable | Partido político |
+| `start_date` | `DATE` | NOT NULL | Inicio del mandato |
+| `end_date` | `DATE` | nullable | Fin (`NULL` = en funciones) |
+| `political_lean` | `VARCHAR(50)` | nullable | Orientación política (reservado) |
+| | | `UNIQUE(country_id, leader_name, start_date)` | Unicidad compuesta |
+
+**Índice compuesto:** `ix_governments_country_id_start_date`.
+
+#### `etl_runs`
+
+Auditoría de ejecuciones del pipeline ETL.
+
+| Columna | Tipo | Constraints | Descripción |
+|---|---|---|---|
+| `id` | `INTEGER` | PK, auto | ID interno |
+| `pipeline_name` | `VARCHAR(100)` | INDEX | Nombre del pipeline |
+| `status` | `VARCHAR(20)` | INDEX | `running`, `success`, `error` |
+| `started_at` | `TIMESTAMPTZ` | NOT NULL | Inicio |
+| `finished_at` | `TIMESTAMPTZ` | nullable | Fin |
+| `countries_processed` | `INTEGER` | default 0 | Países procesados |
+| `debt_records_processed` | `INTEGER` | default 0 | Registros procesados |
+| `debt_records_upserted` | `INTEGER` | default 0 | Registros upserted |
+| `duration_ms` | `INTEGER` | nullable | Duración en ms |
+| `error_message` | `TEXT` | nullable | Error si aplica |
+
+### 2.3 Migraciones Alembic
+
+| Revisión | Descripción |
+|---|---|
+| `20260405_0001` | Schema inicial: `countries` + `debt_records` |
+| `20260405_0002` | Tabla `etl_runs` |
+| `20260405_0003` | Tabla `governments` |
+| `20260405_0004` | Índices de rendimiento (métricas ranking, región, gobierno) |
+| `20260406_0005` | Columnas de trazabilidad metodológica: `debt_concept`, `data_source`, `data_vintage` |
+
+---
+
+## 3. Pipeline ETL
+
+### 3.1 Fuentes y conceptos
+
+| Fuente | Indicador(es) | Concepto | Prioridad | Activación |
+|---|---|---|---|---|
+| **World Bank IDS** | `DT.DOD.DECT.CD`, `NY.GDP.MKTP.CD`, `SP.POP.TOTL` | `external_debt_bop` | 10 (alta) | Siempre |
+| **IMF DataMapper** | `GGXWDG_NGDP`, `NGDPD` | `public_debt_proxy` | 20 (baja) | `ETL_ALLOW_PROXY_DEBT_FALLBACK=true` |
+| **Wikidata SPARQL** | Propiedades `P6`, `P35` | Periodos de gobierno | — | `ETL_SEED_GOVERNMENTS_ENABLED=true` |
+
+### 3.2 Flujo del pipeline global
+
+```text
+1. Fetch countries (WB API v2, paginado)
+2. Fetch external debt series (DT.DOD.DECT.CD)
+3. Fetch GDP series (NY.GDP.MKTP.CD)
+4. Fetch population series (SP.POP.TOTL)
+5. Normalize countries → dict[iso3, CountrySeed]
+6. Normalize indicator rows → dict[(iso3, year), float]
+7. Build DebtRecordSeed rows (only where debt + GDP valid)
+   - Calculate debt_pct_gdp, debt_per_capita_usd
+8. [Optional] Fetch IMF proxy if enabled
+   - Normalize IMF records
+   - Filter: keep only countries NOT covered by WB
+   - Merge by source_priority
+9. Upsert countries (ON CONFLICT iso3)
+10. Delete stale IMF proxy rows (current/future years, WB-covered countries)
+11. Upsert debt_records (batched, ON CONFLICT country_id+year)
+12. Update country population from latest year
+13. [Optional] Seed governments (Wikidata + pilot)
+14. Invalidate Redis read caches
+15. Record EtlRun with stats
+```
+
+### 3.3 Contadores de control del ETL
+
+El resumen de cada corrida expone:
+
+- `countries_processed`, `debt_records_processed`, `debt_records_upserted`
+- `gdp_records_processed`, `population_records_processed`
+- `countries_with_population`
+- `merged_world_bank_rows`, `merged_imf_proxy_rows`
+- `imf_debt_rows_dropped_due_to_wb_coverage`
+- `imf_proxy_rows_removed_current_or_future`
+- `imf_proxy_rows_removed_wb_covered_countries`
+- `cache_keys_invalidated`
+
+### 3.4 CLI entry points
+
+Definidos en `pyproject.toml` → `[project.scripts]`:
+
+```bash
+deudamundi-etl-global          # ETL completo (WB + IMF opt-in + gobiernos opt-in)
+deudamundi-etl-worldbank       # Alias de etl-global
+deudamundi-seed-governments    # Solo gobiernos
+deudamundi-report-gaps         # Reporte de cobertura → api/reports/
+```
+
+### 3.5 Flujo recomendado post-deploy
+
+```bash
+alembic upgrade head
+deudamundi-etl-global
+deudamundi-seed-governments
+deudamundi-report-gaps
+```
+
+---
+
+## 4. Referencia de API REST
+
+Prefijo base: `/api/v1` (configurable via `API_V1_PREFIX`).
+
+### 4.1 Endpoints públicos
+
+#### `GET /health`
+
+Health check. Respuesta `200 OK`.
+
+#### `GET /globe-data`
+
+Payload liviano para visualización de globo 3D.
+
+| Param | Tipo | Default | Descripción |
+|---|---|---|---|
+| `region` | string | — | Filtro opcional por región |
+
+Respuesta: `GlobeDataResponse` con `item_count` + array de `GlobeDataPoint` (iso3, name_en, region, latest_year, métricas de deuda, trazabilidad).
+
+#### `GET /countries`
+
+Listado paginado de países con último dato de deuda.
+
+| Param | Tipo | Default | Descripción |
+|---|---|---|---|
+| `page` | int | 1 | Página |
+| `page_size` | int | 20 | Tamaño de página |
+| `region` | string | — | Filtro por región |
+
+Respuesta: `CountriesListResponse` con `page`, `page_size`, `total`, `items[]`.
+
+#### `GET /countries/{iso3}`
+
+Detalle de un país con último dato de deuda, metadatos de trazabilidad y equivalencias emocionales.
+
+Respuesta: `CountryDetailResponse` con datos del país + `equivalences[]` (hospitales, salarios docentes, salarios mínimos).
+
+#### `GET /countries/{iso3}/history`
+
+Serie histórica completa de deuda del país, ordenada por año descendente.
+
+Respuesta: `CountryHistoryResponse` con `iso3` + `items[]` (año, métricas, source, trazabilidad).
+
+#### `GET /countries/{iso3}/governments`
+
+Periodos de gobierno del país, ordenados por fecha de inicio descendente.
+
+Respuesta: `CountryGovernmentsResponse` con `iso3` + `items[]` (leader_name, party, start_date, end_date, political_lean).
+
+#### `GET /countries/compare`
+
+Comparación multi-país (mínimo 2 ISO3 válidos).
+
+| Param | Tipo | Descripción |
+|---|---|---|
+| `iso3` | string (repetible) | Códigos ISO3 a comparar (ej. `?iso3=ARG&iso3=USA&iso3=MEX`) |
+
+Respuesta: `CountriesCompareResponse` con `requested_iso3`, `missing_iso3`, `item_count`, `items[]` (cada uno con `detail` + `history`).
+
+Error `422` si se proporcionan menos de 2 ISO3 válidos.
+
+#### `GET /rankings`
+
+Ranking de países por métrica.
+
+| Param | Tipo | Default | Descripción |
+|---|---|---|---|
+| `metric` | string | — | `absolute`, `pct_gdp` o `per_capita` |
+| `region` | string | — | Filtro opcional |
+| `limit` | int | 20 | Máximo 100 |
+
+Respuesta: `RankingsResponse` con `metric`, `region`, `limit`, `items[]` (rank, iso3, name_en, region, value, latest_year).
+
+### 4.2 Endpoints administrativos
+
+Requieren header `X-API-Key` con valor de `ADMIN_API_KEY`.
+
+#### `POST /admin/etl/run`
+
+Ejecuta ETL global. Devuelve resumen con contadores.
+
+#### `POST /admin/etl/world-bank/run`
+
+Ejecuta ETL World Bank (alias del global).
+
+#### `POST /admin/etl/governments/run`
+
+| Param | Tipo | Default | Descripción |
+|---|---|---|---|
+| `source` | string | config default | `pilot`, `wikidata` o `hybrid` |
+
+Ejecuta seed de gobiernos.
+
+### 4.3 Códigos de error
+
+| Código | Cuándo |
+|---|---|
+| `401` | Falta `X-API-Key` en endpoints admin |
+| `404` | País no encontrado |
+| `422` | Parámetros inválidos |
+| `429` | Rate limit excedido |
+| `500` | Error interno (ETL, DB) |
+
+---
+
+## 5. Cache y rendimiento
+
+### 5.1 Estrategia de cache
+
+Cache-aside con Redis. Cada endpoint de lectura:
+1. Busca en Redis por clave (`{prefix}:{params}`).
+2. Si hay hit, retorna directamente (sin tocar PostgreSQL).
+3. Si hay miss, ejecuta query, almacena resultado en Redis con TTL, retorna.
+
+### 5.2 TTLs por prefijo
+
+| Prefijo | TTL | Endpoints |
+|---|---|---|
+| `countries:*` | 6 horas | countries list, detail, history, governments, compare |
+| `rankings:*` | 24 horas | rankings |
+| `globe-data:*` | 24 horas | globe-data |
+
+### 5.3 Invalidación
+
+Post-ETL se invoca `invalidate_read_caches()` que borra todas las claves bajo los tres prefijos via `SCAN + DELETE`.
+
+### 5.4 Índices de base de datos
+
+| Índice | Columna(s) | Propósito |
+|---|---|---|
+| `ix_debt_records_total_external_debt_usd` | `total_external_debt_usd` | Ranking absoluto |
+| `ix_debt_records_debt_pct_gdp` | `debt_pct_gdp` | Ranking % PIB |
+| `ix_debt_records_debt_per_capita_usd` | `debt_per_capita_usd` | Ranking per cápita |
+| `ix_countries_region` | `region` | Filtro por región |
+| `ix_governments_country_id_start_date` | `(country_id, start_date)` | Overlay temporal |
+
+### 5.5 Performance testing
+
+- **EXPLAIN ANALYZE:** `api/scripts/explain_analyze.py` para queries críticas.
+- **Locust:** `api/locustfile.py` para load testing (100 usuarios, p95 < 500 ms objetivo).
+
+---
+
+## 6. Seguridad
+
+### 6.1 CORS
+
+- `CORS_ALLOWED_ORIGINS`: lista separada por comas.
+- `CORS_ALLOW_ORIGIN_REGEX`: regex opcional.
+- En `development`, se auto-habilita regex para orígenes de red local (`localhost`, `192.168.*`, `10.*`, `172.16-31.*`, `*.local`).
+
+### 6.2 Rate limiting
+
+Slowapi con límite por IP configurable (`RATE_LIMIT_REQUESTS_PER_MINUTE`, default 100). Respuesta `429` con body `{"detail": "Rate limit exceeded"}`.
+
+### 6.3 Security headers
+
+Aplicados vía middleware en cada respuesta:
+
+| Header | Valor |
+|---|---|
+| `X-Content-Type-Options` | `nosniff` |
+| `X-Frame-Options` | `DENY` |
+| `Referrer-Policy` | `no-referrer` |
+| `Content-Security-Policy` | Estricto para API; permisivo para `/docs` y `/redoc` |
+| `Strict-Transport-Security` | Condicional (`SECURITY_HSTS_ENABLED=true`) |
+
+### 6.4 Admin authentication
+
+Header `X-API-Key` validado contra `ADMIN_API_KEY` en endpoints bajo `/admin/*`.
+
+---
+
+## 7. Configuración
+
+Toda la configuración se lee desde variables de entorno (o archivo `.env`), usando Pydantic Settings.
+
+### 7.1 Variables principales
+
+| Variable | Default | Descripción |
+|---|---|---|
+| `APP_ENV` | `development` | Entorno: `development` o `production` |
+| `API_V1_PREFIX` | `/api/v1` | Prefijo de la API |
+| `DATABASE_URL` | `postgresql+psycopg://postgres:postgres@localhost:5432/deudamundi` | Conexión PostgreSQL |
+| `SUPABASE_DATABASE_URL` | — | Si presente, prioriza sobre `DATABASE_URL` |
+| `REDIS_URL` | `redis://localhost:6379/0` | Conexión Redis |
+| `CORS_ALLOWED_ORIGINS` | `http://localhost:5173` | Orígenes CORS |
+| `CORS_ALLOW_ORIGIN_REGEX` | — | Regex opcional para orígenes dinámicos |
+| `RATE_LIMIT_REQUESTS_PER_MINUTE` | `100` | Rate limit por IP |
+| `SECURITY_HSTS_ENABLED` | `false` | HSTS header |
+| `ADMIN_API_KEY` | — | API key para endpoints admin |
+
+### 7.2 Variables ETL
+
+| Variable | Default | Descripción |
+|---|---|---|
+| `ETL_SCHEDULER_ENABLED` | `false` | Activar scheduler cron |
+| `ETL_SCHEDULE_CRON` | `0 2 1 2 *` | Expresión crontab (UTC) |
+| `ETL_ALLOW_PROXY_DEBT_FALLBACK` | `false` | Habilitar proxy FMI |
+| `ETL_SEED_GOVERNMENTS_ENABLED` | `true` | Seed de gobiernos en ETL global |
+| `ETL_GOVERNMENTS_SOURCE` | `hybrid` | `pilot`, `wikidata`, `hybrid` |
+| `ETL_GOVERNMENTS_MIN_START_YEAR` | `1990` | Año mínimo para gobiernos |
+| `ETL_GOVERNMENTS_TIMEOUT_SECONDS` | `30.0` | Timeout SPARQL |
+| `ETL_GOVERNMENTS_CHUNK_SIZE` | `25` | Chunk size SPARQL |
+| `ETL_GOVERNMENTS_MAX_DURATION_SECONDS` | `180.0` | Duración máxima seed |
+
+### 7.3 Normalización automática de DATABASE_URL
+
+- `postgres://` → `postgresql+psycopg://` (compatibilidad Heroku/Supabase).
+- `postgresql://` → `postgresql+psycopg://` (driver explícito).
+- En `development` fuera de Docker, `@postgres` → `@localhost` (fallback automático).
+
+---
+
+## 8. Desarrollo local
+
+### 8.1 Opción recomendada: Docker Compose (stack completo)
+
+Desde la raíz del repo:
 
 ```bash
 docker compose up --build
 ```
 
-Accesos esperados:
+Servicios:
+- API: `http://localhost:8000`
+- Health: `http://localhost:8000/api/v1/health`
+- Docs: `http://localhost:8000/docs`
+- PostgreSQL: `localhost:5432`
+- Redis: `localhost:6379`
 
-- Frontend LAN: `http://192.168.x.x:5173`
-- API health LAN: `http://192.168.x.x:8000/api/v1/health`
-
-## Endpoint inicial
-
-- `GET /api/v1/health`
-
-## Endpoints Fase 1 (iteración 1)
-
-- `GET /api/v1/countries`
-	- Query params: `page`, `page_size`, `region`
-	- Devuelve listado paginado con último dato de deuda disponible por país.
-- `GET /api/v1/countries/{iso3}`
-	- Devuelve detalle del país con último dato de deuda y equivalencias narrativas iniciales.
-
-## Endpoints Fase 1 (iteración 2)
-
-- `GET /api/v1/countries/{iso3}/history`
-	- Devuelve la serie histórica de deuda del país ordenada por año desc.
-- `GET /api/v1/countries/{iso3}/governments`
-	- Devuelve los gobiernos cargados para el país ordenados por fecha de inicio desc.
-
-## Endpoints Fase 1 (iteración 2.1 · comparación)
-
-- `GET /api/v1/countries/compare`
-	- Query params: `iso3` repetible (ejemplo: `?iso3=ARG&iso3=USA`)
-	- Requiere al menos 2 códigos ISO3 válidos.
-	- Devuelve para cada país seleccionado:
-		- `detail` (snapshot de último año)
-		- `history` (serie histórica anual)
-	- Incluye `missing_iso3` para códigos no encontrados y `requested_iso3` normalizados.
-	- Endpoint cacheado en Redis con TTL de endpoints de países.
-
-## Endpoints Fase 1 (iteración 3)
-
-- `GET /api/v1/rankings`
-	- Query params:
-		- `metric`: `absolute` | `pct_gdp` | `per_capita`
-		- `region`: opcional
-		- `limit`: default 20, máximo 100
-	- Devuelve ranking usando último año disponible por país.
-
-- `GET /api/v1/globe-data`
-	- Query params:
-		- `region`: opcional
-	- Devuelve payload liviano para visualización global (iso3 + último dato de deuda por país).
-
-### Cache Redis (lectura)
-
-Se incorporó cache-aside con Redis para:
-
-- `GET /api/v1/countries`
-- `GET /api/v1/countries/{iso3}`
-- `GET /api/v1/countries/{iso3}/history`
-- `GET /api/v1/countries/{iso3}/governments`
-- `GET /api/v1/rankings`
-- `GET /api/v1/globe-data`
-
-## Hardening Fase 1 (iteración 4)
-
-- CORS configurable por `CORS_ALLOWED_ORIGINS`
-- Rate limiting básico por IP (`RATE_LIMIT_REQUESTS_PER_MINUTE`)
-- Security headers:
-	- `X-Content-Type-Options: nosniff`
-	- `X-Frame-Options: DENY`
-	- `Referrer-Policy: no-referrer`
-	- `Content-Security-Policy` restrictivo para API
-	- `Strict-Transport-Security` opcional (`SECURITY_HSTS_ENABLED=true`)
-
-## Semana 5 (iteración 1)
-
-- Rate limiting migrado a **Slowapi** con límite configurable por `RATE_LIMIT_REQUESTS_PER_MINUTE`.
-- Se conserva el comportamiento de respuesta `429` con `{"detail": "Rate limit exceeded"}`.
-
-## Semana 5 (iteración 2)
-
-- Configuración de despliegue backend orientada a **VPS Linux / AWS EC2**:
-	- `deploy/vps/systemd/deudamundi-api.service.template`
-	- `deploy/vps/systemd/deploy_systemd.sh`
-	- `deploy/vps/systemd/nginx.deudamundi-api.conf`
-	- Script de arranque productivo: `api/scripts/start_api.sh`
-	- Ejecuta `alembic upgrade head` al iniciar (controlado por `RUN_MIGRATIONS=true|false`).
-
-### Variables mínimas de producción
-
-- `APP_ENV=production`
-- `API_V1_PREFIX=/api/v1`
-- `SUPABASE_DATABASE_URL=<connection string>`
-- `REDIS_URL=<redis connection string>`
-- `CORS_ALLOWED_ORIGINS=<origins separados por coma>`
-- `CORS_ALLOW_ORIGIN_REGEX=<regex opcional para orígenes permitidos>`
-- `RATE_LIMIT_REQUESTS_PER_MINUTE=<int>`
-- `SECURITY_HSTS_ENABLED=true`
-- `ADMIN_API_KEY=<secret>`
-- `RUN_MIGRATIONS=true`
-
-### Notas Supabase (producción)
-
-- La app y Alembic priorizan `SUPABASE_DATABASE_URL` sobre `DATABASE_URL`.
-- Si usas pooler de Supabase, asegúrate de usar SSL y credenciales de rol con permisos de migración para el despliegue.
-
-## Tutorial rápido: despliegue en VPS Linux (AWS EC2)
-
-### 1) Preparar servidor
-
-- Requisitos:
-	- Ubuntu 22.04+
-	- puertos abiertos: `22`, `80`, `443`
-	- Python 3.12+, `python3-venv`, Nginx, Certbot
-	- Redis local (o externo administrado)
-
-### 2) Clonar proyecto y preparar entorno
-
-Desde tu servidor:
+### 8.2 Opción standalone
 
 ```bash
+cd api
+cp .env.example .env           # Ajustar variables
+pip install -e .[dev]
+alembic upgrade head
+uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+```
+
+### 8.3 Probar desde red local (iPhone/Android)
+
+El backend escucha en `0.0.0.0:8000` y en `development` permite automáticamente orígenes de red local vía regex.
+
+Si necesitas control explícito:
+
+```bash
+CORS_ALLOWED_ORIGINS=http://localhost:5173,http://192.168.x.x:5173
+```
+
+---
+
+## 9. Testing
+
+### 9.1 Ejecutar tests
+
+```bash
+cd api
+pip install -e .[dev]
+ruff check app tests    # Lint
+pytest                   # Tests
+```
+
+### 9.2 Cobertura de tests
+
+| Archivo de test | Alcance |
+|---|---|
+| `test_health.py` | Health check endpoint |
+| `test_countries_endpoints.py` | CRUD de países, detalle, historia |
+| `test_countries_integration.py` | Integración real de endpoints de países |
+| `test_rankings_endpoint.py` | Rankings por métrica y región |
+| `test_globe_data_endpoint.py` | Globe data payload |
+| `test_admin_etl.py` | Endpoints admin ETL |
+| `test_security_middleware.py` | CORS, rate limiting, security headers |
+| `test_etl_transform.py` | Normalización, merge por prioridad, filtrado IMF |
+| `test_etl_repository.py` | Upserts PostgreSQL |
+| `test_etl_imf_client.py` | Cliente IMF DataMapper |
+| `test_governments_wikidata_client.py` | Cliente SPARQL Wikidata |
+| `test_seed_governments.py` | Seed de gobiernos |
+| `test_equivalences.py` | Equivalencias emocionales |
+| `test_config_database_url.py` | Normalización de DATABASE_URL |
+
+---
+
+## 10. Base de datos y migraciones
+
+### 10.1 Driver y conexión
+
+- Driver: `psycopg` 3.x (binary).
+- La app prioriza `SUPABASE_DATABASE_URL` sobre `DATABASE_URL`.
+- Normalización automática de esquema de URL (ver sección 7.3).
+
+### 10.2 Comandos Alembic
+
+```bash
+alembic upgrade head         # Aplicar todas las migraciones
+alembic downgrade -1         # Revertir última migración
+alembic revision -m "desc"   # Crear nueva migración
+alembic history              # Ver historial
+```
+
+### 10.3 Historial de migraciones
+
+| Revisión | Fecha | Descripción |
+|---|---|---|
+| `20260405_0001` | 2026-04-05 | Schema inicial (countries + debt_records) |
+| `20260405_0002` | 2026-04-05 | Tabla etl_runs |
+| `20260405_0003` | 2026-04-05 | Tabla governments |
+| `20260405_0004` | 2026-04-05 | Índices de rendimiento |
+| `20260406_0005` | 2026-04-06 | Columnas de trazabilidad metodológica |
+
+---
+
+## 11. Despliegue en producción
+
+### 11.1 Requisitos del servidor
+
+- Ubuntu 22.04+ / Debian 12+
+- Python 3.12+, `python3-venv`
+- Nginx, Certbot
+- Redis (local o administrado)
+- Puertos: 22, 80, 443
+
+### 11.2 Flujo de despliegue (systemd)
+
+```bash
+# 1. Clonar y configurar
 cd /home/admin/apps
-git clone <TU_REPO_GIT> deudamundi
+git clone <REPO_URL> deudamundi
 cd deudamundi
-
 cp api/.env.example api/.env
-nano api/.env
-```
+nano api/.env  # Completar variables de producción
 
-Variables críticas a completar en `api/.env`:
-
-- `SUPABASE_DATABASE_URL`
-- `ADMIN_API_KEY`
-- `CORS_ALLOWED_ORIGINS`
-- `REDIS_URL` (ejemplo local: `redis://localhost:6379/0`)
-
-### 3) Instalar Redis (si no lo tienes)
-
-```bash
-sudo apt update
-sudo apt install -y redis-server
-sudo systemctl enable --now redis-server
-redis-cli ping
-```
-
-### 4) Instalar/actualizar servicio systemd
-
-```bash
-cd /home/admin/apps/deudamundi
-chmod +x deploy/vps/systemd/deploy_systemd.sh
+# 2. Instalar/actualizar servicio
 APP_DIR=/home/admin/apps/deudamundi \
 SERVICE_NAME=deudamundi-api \
 SERVICE_USER=admin \
@@ -190,308 +639,74 @@ SERVICE_GROUP=admin \
 SERVICE_PORT=8000 \
 UVICORN_WORKERS=2 \
 ./deploy/vps/systemd/deploy_systemd.sh
-```
 
-### 5) Configurar Nginx reverse proxy
-
-```bash
+# 3. Configurar Nginx
 sudo cp deploy/vps/systemd/nginx.deudamundi-api.conf /etc/nginx/sites-available/deudamundi-api
-sudo ln -s /etc/nginx/sites-available/deudamundi-api /etc/nginx/sites-enabled/deudamundi-api
-sudo nginx -t
-sudo systemctl reload nginx
-```
+sudo ln -s /etc/nginx/sites-available/deudamundi-api /etc/nginx/sites-enabled/
+sudo nginx -t && sudo systemctl reload nginx
 
-Edita `server_name` en el archivo Nginx con tu dominio real (ej. `api.tudominio.com`).
-
-Si ya usas una convención de Nginx como en otras APIs del VPS, puedes reutilizarla con:
-
-- `proxy_pass http://127.0.0.1:8000;`
-- `proxy_read_timeout 86400;`
-- `proxy_buffering off;`
-
-### 6) Habilitar HTTPS (Let's Encrypt)
-
-```bash
+# 4. HTTPS
 sudo certbot --nginx -d api.tudominio.com
-sudo systemctl status certbot.timer
-```
 
-### 7) Verificación
-
-```bash
+# 5. Verificar
 curl -i https://api.tudominio.com/api/v1/health
-sudo systemctl status deudamundi-api --no-pager
-sudo journalctl -u deudamundi-api -n 100 --no-pager
 ```
 
-Debe responder `200 OK`.
+### 11.3 Variables de producción
 
-> Nota: `GET /` devuelve `404` por diseño. El health check correcto es `GET /api/v1/health`.
+| Variable | Valor |
+|---|---|
+| `APP_ENV` | `production` |
+| `SUPABASE_DATABASE_URL` | `<connection string>` |
+| `REDIS_URL` | `redis://localhost:6379/0` |
+| `CORS_ALLOWED_ORIGINS` | `https://deudamundi.econopapi.com` |
+| `ADMIN_API_KEY` | `<secret>` |
+| `RATE_LIMIT_REQUESTS_PER_MINUTE` | `100` |
+| `SECURITY_HSTS_ENABLED` | `true` |
+| `RUN_MIGRATIONS` | `true` |
 
-### Troubleshooting: `requires a different Python: 3.10.x not in '>=3.12'`
-
-Si aparece ese error en EC2, tu `.venv` se creó con Python 3.10. Solución:
-
-**Debian 12/13 (bookworm/trixie):**
+### 11.4 ETL en producción
 
 ```bash
-sudo apt update
-sudo apt install -y python3 python3-venv
-
-cd /home/admin/apps/deudamundi/api
-rm -rf .venv
-
-cd /home/admin/apps/deudamundi
-PYTHON_BIN=python3 APP_DIR=/home/admin/apps/deudamundi ./deploy/vps/systemd/deploy_systemd.sh
+curl -X POST "https://api.tudominio.com/api/v1/admin/etl/run" \
+  -H "X-API-Key: <ADMIN_API_KEY>"
 ```
 
-**Ubuntu 22.04 (si `python3` < 3.12):** usa `python3.12` y `python3.12-venv`.
-
-El script ahora valida automáticamente Python `>=3.12` y recrea `.venv` si detecta versión incompatible.
-
-## Semana 6 — Testing y performance del despliegue
-
-### 1) Smoke tests post-deploy (manual)
+### 11.5 Smoke tests post-deploy
 
 ```bash
 curl -i https://api.tudominio.com/api/v1/health
 curl -i "https://api.tudominio.com/api/v1/countries?page=1&page_size=5"
 curl -i "https://api.tudominio.com/api/v1/rankings?metric=absolute&limit=5"
 curl -i "https://api.tudominio.com/api/v1/globe-data"
+curl -s "https://api.tudominio.com/api/v1/countries/MEX" | jq '.gdp_usd, .debt_pct_gdp, .debt_per_capita_usd'
 ```
 
-### 2) EXPLAIN ANALYZE en queries críticas
+---
 
-Se agregó script utilitario:
+## 12. Troubleshooting
 
-- `api/scripts/explain_analyze.py`
+### `requires a different Python: 3.10.x not in '>=3.12'`
 
-Ejecuta:
+El `.venv` se creó con Python < 3.12. Solución:
 
 ```bash
+# Debian 12/13
+sudo apt update && sudo apt install -y python3 python3-venv
 cd /home/admin/apps/deudamundi/api
-set -a
-source .env
-set +a
-.venv/bin/python scripts/explain_analyze.py
-```
-
-### 3) Load testing básico con Locust (100 usuarios)
-
-Se agregó:
-
-- `api/locustfile.py`
-
-Instala dependencias dev y ejecuta:
-
-```bash
-cd /home/admin/apps/deudamundi/api
-.venv/bin/pip install -e .[dev]
-LOCUST_HOST=https://api.tudominio.com .venv/bin/locust -f locustfile.py --users 100 --spawn-rate 10 --run-time 5m --headless --only-summary
-```
-
-Métrica objetivo inicial:
-
-- Errores < 1%
-- p95 de endpoints clave < 500ms (ajustable por endpoint)
-
-## Calidad Fase 1 (iteración 5)
-
-- Pruebas de integración reales para:
-	- `GET /api/v1/countries/{iso3}/history`
-	- `GET /api/v1/countries/{iso3}/governments`
-	- `GET /api/v1/rankings`
-- Optimización de base de datos con índices en métricas de ranking y filtros frecuentes.
-
-## Cierre Semana 4 (iteración 6)
-
-- Implementado `GET /api/v1/globe-data` con payload liviano para mapa.
-- Cache Redis integrada en todos los endpoints de lectura del MVP de Fase 1.
-
-## Base de datos y migraciones
-
-Este backend está preparado para PostgreSQL local y Supabase (producción).
-
-### Variables de entorno relevantes
-
-- `DATABASE_URL`: conexión principal (local o VPS).
-- `SUPABASE_DATABASE_URL`: opcional; si está presente, la app y Alembic la priorizan.
-
-### Flujo Alembic
-
-1. Crear migración nueva:
-	- `alembic revision -m "descripcion"`
-2. Aplicar migraciones:
-	- `alembic upgrade head`
-3. Revertir última migración:
-	- `alembic downgrade -1`
-
-### Esquema inicial implementado
-
-- `countries`
-- `debt_records` (relación con `countries` y unicidad por país/año)
-
-## ETL de deuda (multifuente)
-
-El ETL integra fuentes abiertas y sin API key para mejorar cobertura global:
-
-- World Bank IDS: `DT.DOD.DECT.CD` (external debt stocks, total)
-
-Fallback opcional (mezcla conceptual, desactivado por defecto):
-
-- IMF DataMapper: `GGXWDG_NGDP` (general government gross debt, % GDP)
-- IMF DataMapper: `NGDPD` (nominal GDP, USD billions)
-
-Configuración recomendada para rigor metodológico:
-
-- `ETL_ALLOW_PROXY_DEBT_FALLBACK=false` (default): solo deuda externa comparable.
-- `ETL_ALLOW_PROXY_DEBT_FALLBACK=true`: rellena huecos con proxy de deuda pública FMI.
-
-ETL de periodos de gobierno (para overlay en gráfico histórico):
-
-- Fuente principal: Wikidata (histórico por país usando propiedades `P6` y fallback `P35` cuando `P6` no tiene profundidad suficiente).
-- Modo recomendado: `ETL_GOVERNMENTS_SOURCE=hybrid` (combina Wikidata + semillas piloto para enriquecer metadata opcional).
-- Ejecución:
-	- CLI: `deudamundi-seed-governments`
-	- Admin endpoint: `POST /api/v1/admin/etl/governments/run`
-- Variables de entorno:
-	- `ETL_SEED_GOVERNMENTS_ENABLED` (`true|false`) para correr seed de gobiernos dentro de `deudamundi-etl-global`.
-	- `ETL_GOVERNMENTS_SOURCE` (`pilot|wikidata|hybrid`).
-	- `ETL_GOVERNMENTS_MIN_START_YEAR` (ej. `1990`).
-	- `ETL_GOVERNMENTS_TIMEOUT_SECONDS`.
-	- `ETL_GOVERNMENTS_CHUNK_SIZE`.
-
-La normalización mantiene explícito el concepto de deuda (`debt_concept`) y su fuente (`source`, `data_source`) para no mezclar semánticas de forma opaca.
-Cuando existe colisión país/año, se prioriza World Bank external debt; el proxy IMF solo entra cuando se habilita explícitamente el fallback.
-
-Comportamiento actual del fallback FMI (abril 2026):
-
-- Se excluyen valores FMI del año actual y futuros para mantener la serie histórica.
-- El proxy FMI solo se conserva para países sin cobertura de deuda externa en World Bank IDS.
-- En cada corrida ETL se purgan filas proxy FMI obsoletas (año actual/futuro y países con cobertura WB) para no sesgar el `latest_year`.
-- El resumen de ETL expone contadores de control: `imf_debt_rows_dropped_due_to_wb_coverage`, `merged_world_bank_rows`, `merged_imf_proxy_rows`, `imf_proxy_rows_removed_current_or_future` e `imf_proxy_rows_removed_wb_covered_countries`.
-
-La ingesta usa:
-
-- `DT.DOD.DECT.CD` (external debt stocks, total)
-- `NY.GDP.MKTP.CD` y/o `NGDPD` (PIB nominal anual en USD)
-- `SP.POP.TOTL` (población anual)
-
-Con estos indicadores el ETL calcula y persiste:
-
-- `gdp_usd`
-- `total_external_debt_usd` (campo legacy para compatibilidad)
-- `debt_stock_usd` (alias semántico recomendado en payload)
-- `debt_pct_gdp` derivado como `(total_external_debt_usd / gdp_usd) * 100`
-- `debt_per_capita_usd` = `total_external_debt_usd / population`
-- `debt_concept` (ej. `external_debt_bop`, `public_debt_proxy`)
-- `data_source` (fuente exacta de cada registro)
-- `data_vintage` = cierre anual (`YYYY-12-31`)
-
-Solo se persisten años con deuda + PIB válidos. `debt_per_capita_usd` se completa cuando hay población.
-
-### Transparencia metodológica en la API
-
-El endpoint `GET /api/v1/countries/{iso3}` ahora devuelve metadatos explícitos:
-
-- `debt_concept`
-- `data_source`
-- `data_vintage`
-
-El endpoint `GET /api/v1/countries/{iso3}/history` también incluye estos campos por año.
-
-El ETL descarga países + series históricas, normaliza y hace upsert en:
-
-- `countries`
-- `debt_records`
-
-Ejecución:
-
-- `deudamundi-etl-worldbank`
-- `deudamundi-etl-global`
-- `deudamundi-seed-governments`
-- `deudamundi-report-gaps`
-
-### Flujo recomendado de cierre Fase 0
-
-1. `alembic upgrade head`
-2. `deudamundi-etl-global`
-3. `deudamundi-seed-governments`
-4. `deudamundi-report-gaps`
-
-El reporte de gaps se guarda en `api/reports/etl_gap_report_*.json`.
-
-El resumen ahora incluye cobertura de:
-
-- `countries_with_population`
-- `debt_records_with_gdp`
-- `debt_records_with_debt_pct_gdp`
-- `debt_records_with_debt_per_capita`
-
-## Actualización urgente de indicadores (GDP y población) en producción
-
-Cuando se despliegue este cambio, para refrescar datos inmediatamente:
-
-1) desplegar versión nueva del backend (systemd)
-2) ejecutar ETL manual admin
-3) validar endpoints de métricas
-
-### 1) Despliegue en EC2 (systemd, sin Docker)
-
-```bash
+rm -rf .venv
 cd /home/admin/apps/deudamundi
-git fetch --all
-git checkout main
-git pull --ff-only
-
-APP_DIR=/home/admin/apps/deudamundi \
-SERVICE_NAME=deudamundi-api \
-SERVICE_USER=admin \
-SERVICE_GROUP=admin \
-SERVICE_PORT=8000 \
-UVICORN_WORKERS=2 \
-./deploy/vps/systemd/deploy_systemd.sh
+PYTHON_BIN=python3 APP_DIR=/home/admin/apps/deudamundi ./deploy/vps/systemd/deploy_systemd.sh
 ```
 
-### 2) Ejecutar ETL en producción
+Para Ubuntu 22.04 con Python < 3.12: usar `python3.12` y `python3.12-venv`.
 
-```bash
-curl -X POST "https://deudamundi.dlimon.net/api/v1/admin/etl/run" \
-	-H "X-API-Key: <ADMIN_API_KEY>"
-```
+El script de deploy valida automáticamente Python ≥ 3.12 y recrea `.venv` si detecta versión incompatible.
 
-Respuesta esperada (ejemplo de campos):
+### `GET /` devuelve 404
 
-- `countries_processed`
-- `debt_records_processed`
-- `gdp_records_processed`
-- `population_records_processed`
-- `countries_with_population`
-- `debt_records_upserted`
-- `cache_keys_invalidated`
+Por diseño. El health check es `GET /api/v1/health`.
 
-El ETL invalida automáticamente cache de lectura (`countries:*`, `rankings:*`, `globe-data:*`) para que los nuevos datos queden visibles al instante.
+### Conexión a Postgres falla fuera de Docker
 
-### 3) Validación post-refresh
-
-```bash
-curl -s "https://deudamundi.dlimon.net/api/v1/countries/MEX" | jq '.gdp_usd, .debt_pct_gdp, .debt_per_capita_usd'
-curl -s "https://deudamundi.dlimon.net/api/v1/rankings?metric=pct_gdp&limit=5" | jq '.items | length'
-curl -s "https://deudamundi.dlimon.net/api/v1/rankings?metric=per_capita&limit=5" | jq '.items | length'
-```
-
-## Trigger manual y scheduler
-
-### Endpoint admin
-
-- `POST /api/v1/admin/etl/world-bank/run`
-- Header requerido: `X-API-Key: <ADMIN_API_KEY>`
-
-### Scheduler
-
-Variables:
-
-- `ETL_SCHEDULER_ENABLED` (`true`/`false`)
-- `ETL_SCHEDULE_CRON` (formato crontab, UTC)
-
-Si el scheduler está habilitado, se registra en startup de FastAPI y ejecuta el ETL según cron.
+En `development`, el backend aplica fallback automático de `@postgres` a `@localhost` cuando no detecta `/.dockerenv`.
