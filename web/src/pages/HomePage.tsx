@@ -14,6 +14,7 @@ import { fetchGlobeData } from "../services/deudamundiApi";
 import { useGlobeStore } from "../store/globeStore";
 import { useLocaleStore } from "../store/localeStore";
 import type { GlobeDataPoint } from "../types/api";
+import { percentile, COLOR_SCALE_CAP_PERCENTILE } from "../components/globe/globeColors";
 
 const GlobeScene = lazy(async () => import("../components/globe/GlobeScene").then((mod) => ({ default: mod.GlobeScene })));
 
@@ -66,7 +67,7 @@ function getIntensityMeta(points: GlobeDataPoint[]): IntensityMeta {
   if (ratioValues.length > 0) {
     return {
       min: Math.min(...ratioValues),
-      max: Math.max(...ratioValues),
+      max: percentile(ratioValues, COLOR_SCALE_CAP_PERCENTILE),
       mode: "debt_pct_gdp",
       availableCount: ratioValues.length,
       totalCount: points.length,

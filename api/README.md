@@ -45,8 +45,8 @@ app/
 │   ├── base_class.py            # Base declarativa SQLAlchemy
 │   └── session.py               # SessionLocal factory + engine
 ├── etl/
-│   ├── world_bank_client.py     # Cliente HTTP World Bank API v2 (httpx, paginado)
-│   ├── imf_client.py            # Cliente HTTP IMF DataMapper (proxy opcional)
+│   ├── world_bank_client.py     # Cliente HTTP World Bank API v2 (IDS + QEDS SDDS, httpx, paginado)
+│   ├── imf_client.py            # Cliente HTTP IMF DataMapper (proxy opcional, último recurso)
 │   ├── governments_wikidata_client.py  # Cliente SPARQL Wikidata (chunked, con fallback P6/P35)
 │   ├── transform.py             # Normalización, cálculo de métricas derivadas, merge por prioridad
 │   ├── types.py                 # Dataclasses: CountrySeed, DebtRecordSeed
@@ -167,8 +167,8 @@ Serie temporal de deuda y métricas derivadas. Un registro por país por año. C
 | `debt_pct_gdp` | `FLOAT` | nullable, INDEX | Deuda / PIB × 100 |
 | `debt_per_capita_usd` | `FLOAT` | nullable, INDEX | Deuda / población |
 | `gdp_usd` | `FLOAT` | nullable | PIB nominal (USD corrientes) |
-| `source` | `VARCHAR(30)` | NOT NULL | Clave corta: `wb_ids_dt_dod_dect_cd` o `imf_dm_proxy_ggxwdg` |
-| `debt_concept` | `VARCHAR(50)` | NOT NULL | `external_debt_bop` o `public_debt_proxy` |
+| `source` | `VARCHAR(30)` | NOT NULL | Clave corta: `wb_ids_dt_dod_dect_cd`, `wb_qeds_dt_dod_dect_cd_ar_us` o `imf_dm_proxy_ggxwdg` |
+| `debt_concept` | `VARCHAR(50)` | NOT NULL | `external_debt_bop`, `external_debt_qeds` o `public_debt_proxy` |
 | `data_source` | `VARCHAR(120)` | NOT NULL | Descripción legible de la fuente |
 | `data_vintage` | `DATE` | nullable | Fecha de referencia (`YYYY-12-31`) |
 | `updated_at` | `TIMESTAMPTZ` | NOT NULL | Última escritura |
@@ -176,10 +176,11 @@ Serie temporal de deuda y métricas derivadas. Un registro por país por año. C
 
 **Valores de `debt_concept`:**
 
-| Valor | Significado | Fuente |
-|---|---|---|
-| `external_debt_bop` | Deuda externa total en sentido de balanza de pagos | World Bank IDS `DT.DOD.DECT.CD` |
-| `public_debt_proxy` | Proxy: deuda bruta del gobierno general (no estrictamente externa) | IMF DataMapper `GGXWDG_NGDP` + `NGDPD` |
+| Valor | Significado | Fuente | Prioridad |
+|---|---|---|---|
+| `external_debt_bop` | Deuda externa total en sentido de balanza de pagos | World Bank IDS `DT.DOD.DECT.CD` | 10 |
+| `external_debt_qeds` | Posición de deuda externa bruta, todos los sectores e instrumentos | World Bank QEDS SDDS `DT.DOD.DECT.CD.AR.US` (source 22) | 15 |
+| `public_debt_proxy` | Proxy: deuda bruta del gobierno general (no estrictamente externa) | IMF DataMapper `GGXWDG_NGDP` + `NGDPD` | 20 |
 
 #### `governments`
 
@@ -234,8 +235,13 @@ Auditoría de ejecuciones del pipeline ETL.
 | Fuente | Indicador(es) | Concepto | Prioridad | Activación |
 |---|---|---|---|---|
 | **World Bank IDS** | `DT.DOD.DECT.CD`, `NY.GDP.MKTP.CD`, `SP.POP.TOTL` | `external_debt_bop` | 10 (alta) | Siempre |
+| **World Bank QEDS SDDS** | `DT.DOD.DECT.CD.AR.US` (source 22) | `external_debt_qeds` | 15 (media) | `ETL_ENABLE_QEDS_EXTERNAL_DEBT=true` (por defecto) |
 | **IMF DataMapper** | `GGXWDG_NGDP`, `NGDPD` | `public_debt_proxy` | 20 (baja) | `ETL_ALLOW_PROXY_DEBT_FALLBACK=true` |
 | **Wikidata SPARQL** | Propiedades `P6`, `P35` | Periodos de gobierno | — | `ETL_SEED_GOVERNMENTS_ENABLED=true` |
+
+> **Cascada de prioridad**: cuando un país-año tiene datos en múltiples fuentes, `merge_debt_records_by_priority` conserva el registro con menor valor de `source_priority`. Esto garantiza que IDS (deuda externa BOP, 10) prevalece sobre QEDS (posición de deuda externa bruta, 15), y ambos sobre el proxy IMF (deuda pública bruta, 20).
+>
+> **QEDS SDDS** (*Quarterly External Debt Statistics – Special Data Dissemination Standard*) proporciona datos trimestrales reales de posición de deuda externa bruta para ~118 países, incluyendo economías avanzadas (USA, JPN, GBR, DEU, FRA) que no reportan a IDS. El ETL selecciona el mejor trimestre por año (prefiere Q4, luego el más reciente) y convierte a registros anuales.
 
 ### 3.2 Flujo del pipeline global
 
@@ -248,17 +254,21 @@ Auditoría de ejecuciones del pipeline ETL.
 6. Normalize indicator rows → dict[(iso3, year), float]
 7. Build DebtRecordSeed rows (only where debt + GDP valid)
    - Calculate debt_pct_gdp, debt_per_capita_usd
-8. [Optional] Fetch IMF proxy if enabled
+8. [Default on] Fetch QEDS SDDS external debt (source=22)
+   - Normalize quarterly → annual (prefer Q4, then latest)
+   - Build DebtRecordSeed rows (debt_concept="external_debt_qeds", priority=15)
+9. [Optional] Fetch IMF proxy if enabled
    - Normalize IMF records
-   - Filter: keep only countries NOT covered by WB
-   - Merge by source_priority
-9. Upsert countries (ON CONFLICT iso3)
-10. Delete stale IMF proxy rows (current/future years, WB-covered countries)
-11. Upsert debt_records (batched, ON CONFLICT country_id+year)
-12. Update country population from latest year
-13. [Optional] Seed governments (Wikidata + pilot)
-14. Invalidate Redis read caches
-15. Record EtlRun with stats
+   - Filter: keep only countries NOT covered by WB IDS or QEDS
+   - Merge all sources by source_priority
+10. Upsert countries (ON CONFLICT iso3)
+11. Delete stale IMF proxy rows (current/future years, WB/QEDS-covered countries)
+12. Delete stale QEDS rows (if QEDS disabled, or IDS-covered countries)
+13. Upsert debt_records (batched, ON CONFLICT country_id+year)
+14. Update country population from latest year
+15. [Optional] Seed governments (Wikidata + pilot)
+16. Invalidate Redis read caches
+17. Record EtlRun with stats
 ```
 
 ### 3.3 Contadores de control del ETL
@@ -268,7 +278,9 @@ El resumen de cada corrida expone:
 - `countries_processed`, `debt_records_processed`, `debt_records_upserted`
 - `gdp_records_processed`, `population_records_processed`
 - `countries_with_population`
-- `merged_world_bank_rows`, `merged_imf_proxy_rows`
+- `merged_world_bank_rows`, `merged_qeds_rows`, `merged_imf_proxy_rows`
+- `qeds_raw_quarterly_records`, `qeds_debt_rows_normalized`
+- `qeds_rows_removed_when_disabled`
 - `imf_debt_rows_dropped_due_to_wb_coverage`
 - `imf_proxy_rows_removed_current_or_future`
 - `imf_proxy_rows_removed_wb_covered_countries`
@@ -495,7 +507,8 @@ Toda la configuración se lee desde variables de entorno (o archivo `.env`), usa
 |---|---|---|
 | `ETL_SCHEDULER_ENABLED` | `false` | Activar scheduler cron |
 | `ETL_SCHEDULE_CRON` | `0 2 1 2 *` | Expresión crontab (UTC) |
-| `ETL_ALLOW_PROXY_DEBT_FALLBACK` | `false` | Habilitar proxy FMI |
+| `ETL_ENABLE_QEDS_EXTERNAL_DEBT` | `true` | Habilitar QEDS SDDS (deuda externa real, ~118 países) |
+| `ETL_ALLOW_PROXY_DEBT_FALLBACK` | `false` | Habilitar proxy FMI (deuda pública, último recurso) |
 | `ETL_SEED_GOVERNMENTS_ENABLED` | `true` | Seed de gobiernos en ETL global |
 | `ETL_GOVERNMENTS_SOURCE` | `hybrid` | `pilot`, `wikidata`, `hybrid` |
 | `ETL_GOVERNMENTS_MIN_START_YEAR` | `1990` | Año mínimo para gobiernos |
@@ -572,7 +585,7 @@ pytest                   # Tests
 | `test_globe_data_endpoint.py` | Globe data payload |
 | `test_admin_etl.py` | Endpoints admin ETL |
 | `test_security_middleware.py` | CORS, rate limiting, security headers |
-| `test_etl_transform.py` | Normalización, merge por prioridad, filtrado IMF |
+| `test_etl_transform.py` | Normalización, merge por prioridad, filtrado IMF, QEDS quarterly→annual |
 | `test_etl_repository.py` | Upserts PostgreSQL |
 | `test_etl_imf_client.py` | Cliente IMF DataMapper |
 | `test_governments_wikidata_client.py` | Cliente SPARQL Wikidata |

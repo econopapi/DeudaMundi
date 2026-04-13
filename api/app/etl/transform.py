@@ -1,9 +1,12 @@
 from __future__ import annotations
 
+import re
 from datetime import date
 from typing import Any
 
 from app.etl.types import CountrySeed, DebtRecordSeed
+
+_QUARTER_RE = re.compile(r"^(\d{4})Q([1-4])$")
 
 
 def normalize_indicator_rows(raw_rows: list[dict[str, Any]]) -> dict[tuple[str, int], float]:
@@ -118,6 +121,93 @@ def normalize_debt_records(
                 data_source="World Bank IDS DT.DOD.DECT.CD",
                 data_vintage=date(year, 12, 31),
                 source_priority=10,
+            )
+        )
+
+    return rows
+
+
+def normalize_qeds_indicator_rows(raw_rows: list[dict[str, Any]]) -> dict[tuple[str, int], float]:
+    """Parse QEDS quarterly rows and annualise by keeping the latest quarter per year.
+
+    QEDS dates arrive as ``"2024Q4"``, ``"2024Q3"`` etc.
+    For each (iso3, year) we keep the value of the **highest** quarter
+    available (ideally Q4, but Q3 is acceptable when Q4 has not been
+    released yet).
+    """
+    best: dict[tuple[str, int], tuple[int, float]] = {}  # key → (quarter, value)
+
+    for item in raw_rows:
+        iso3 = str(item.get("country", {}).get("id") or "").strip().upper()
+        date_str = str(item.get("date") or "")
+        value_raw = item.get("value")
+
+        if len(iso3) != 3 or value_raw is None:
+            continue
+
+        m = _QUARTER_RE.match(date_str)
+        if not m:
+            continue
+
+        try:
+            year = int(m.group(1))
+            quarter = int(m.group(2))
+            value = float(value_raw)
+        except (TypeError, ValueError):
+            continue
+
+        key = (iso3, year)
+        current = best.get(key)
+        if current is None or quarter > current[0]:
+            best[key] = (quarter, value)
+
+    return {key: val for key, (_, val) in best.items()}
+
+
+def normalize_qeds_debt_records(
+    qeds_external_debt_by_country_year: dict[tuple[str, int], float],
+    gdp_by_country_year: dict[tuple[str, int], float],
+    population_by_country_year: dict[tuple[str, int], float],
+) -> list[DebtRecordSeed]:
+    """Build DebtRecordSeed rows from QEDS SDDS external-debt data.
+
+    Conceptually identical to ``normalize_debt_records`` but tagged with
+    ``debt_concept='external_debt_qeds'`` and ``source_priority=15``
+    (between IDS=10 and IMF proxy=20).
+    """
+    rows: list[DebtRecordSeed] = []
+    latest_pop = latest_population_by_iso3(population_by_country_year)
+
+    for (iso3, year), total_external_debt_usd in sorted(qeds_external_debt_by_country_year.items()):
+        if total_external_debt_usd < 0:
+            continue
+
+        gdp_usd = gdp_by_country_year.get((iso3, year))
+        if gdp_usd is None or gdp_usd <= 0:
+            continue
+
+        debt_pct_gdp = (total_external_debt_usd / gdp_usd) * 100
+
+        population = population_by_country_year.get((iso3, year))
+        if population is None:
+            population = latest_pop.get(iso3)
+        debt_per_capita: float | None = None
+        if population is not None and population > 0:
+            debt_per_capita = total_external_debt_usd / population
+
+        rows.append(
+            DebtRecordSeed(
+                iso3=iso3,
+                year=year,
+                total_external_debt_usd=total_external_debt_usd,
+                gdp_usd=gdp_usd,
+                debt_pct_gdp=debt_pct_gdp,
+                debt_per_capita_usd=debt_per_capita,
+                source="wb_qeds_dt_dod_dect_cd_ar_us",
+                debt_concept="external_debt_qeds",
+                data_source="World Bank QEDS SDDS DT.DOD.DECT.CD.AR.US",
+                data_vintage=date(year, 12, 31),
+                source_priority=15,
             )
         )
 

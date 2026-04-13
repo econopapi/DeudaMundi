@@ -7,7 +7,12 @@ from app.core.cache import invalidate_read_caches
 from app.core.config import settings
 from app.db.session import SessionLocal
 from app.etl.imf_client import ImfDataMapperClient
-from app.etl.repository import delete_imf_proxy_rows, upsert_countries, upsert_debt_records
+from app.etl.repository import (
+    delete_imf_proxy_rows,
+    delete_qeds_rows,
+    upsert_countries,
+    upsert_debt_records,
+)
 from app.etl.seed_governments import seed_governments
 from app.etl.transform import (
     keep_imf_proxy_for_uncovered_countries,
@@ -17,6 +22,8 @@ from app.etl.transform import (
     normalize_debt_records,
     normalize_imf_debt_records,
     normalize_indicator_rows,
+    normalize_qeds_debt_records,
+    normalize_qeds_indicator_rows,
 )
 from app.etl.world_bank_client import WorldBankClient
 from app.models import EtlRun
@@ -34,6 +41,12 @@ def run_world_bank_etl() -> dict[str, int | str]:
     raw_gdp = client.fetch_gdp()
     raw_population = client.fetch_population()
 
+    # --- QEDS SDDS (real external debt for SDDS countries) ---
+    raw_qeds_external_debt: list[dict] = []
+    if settings.etl_enable_qeds_external_debt:
+        raw_qeds_external_debt = client.fetch_qeds_external_debt()
+
+    # --- IMF proxy (public debt fallback — last resort) ---
     imf_debt_pct_gdp: dict[tuple[str, int], float] = {}
     imf_nominal_gdp_usd_billions: dict[tuple[str, int], float] = {}
     if settings.etl_allow_proxy_debt_fallback:
@@ -62,7 +75,20 @@ def run_world_bank_etl() -> dict[str, int | str]:
         gdp_by_country_year=gdp_by_country_year,
         population_by_country_year=population_by_country_year,
     )
-    imf_debt_rows = []
+
+    # --- QEDS debt rows (priority 15, between IDS=10 and IMF proxy=20) ---
+    qeds_debt_rows: list = []
+    qeds_external_debt_by_country_year: dict[tuple[str, int], float] = {}
+    if settings.etl_enable_qeds_external_debt and raw_qeds_external_debt:
+        qeds_external_debt_by_country_year = normalize_qeds_indicator_rows(raw_qeds_external_debt)
+        qeds_debt_rows = normalize_qeds_debt_records(
+            qeds_external_debt_by_country_year=qeds_external_debt_by_country_year,
+            gdp_by_country_year=gdp_by_country_year,
+            population_by_country_year=population_by_country_year,
+        )
+
+    # --- IMF proxy rows (priority 20, only for countries not in IDS or QEDS) ---
+    imf_debt_rows: list = []
     imf_debt_rows_dropped_due_to_wb_coverage = 0
     if settings.etl_allow_proxy_debt_fallback:
         raw_imf_debt_rows = normalize_imf_debt_records(
@@ -70,15 +96,18 @@ def run_world_bank_etl() -> dict[str, int | str]:
             gdp_by_country_year={**imf_nominal_gdp_usd, **gdp_by_country_year},
             population_by_country_year=population_by_country_year,
         )
+        higher_priority_rows = world_bank_debt_rows + qeds_debt_rows
         imf_debt_rows, imf_debt_rows_dropped_due_to_wb_coverage = (
             keep_imf_proxy_for_uncovered_countries(
-                world_bank_rows=world_bank_debt_rows,
+                world_bank_rows=higher_priority_rows,
                 imf_rows=raw_imf_debt_rows,
             )
         )
-    debt_rows = merge_debt_records_by_priority(world_bank_debt_rows + imf_debt_rows)
+    all_rows = world_bank_debt_rows + qeds_debt_rows + imf_debt_rows
+    debt_rows = merge_debt_records_by_priority(all_rows)
 
     merged_world_bank_rows = sum(1 for row in debt_rows if row.source == "wb_ids_dt_dod_dect_cd")
+    merged_qeds_rows = sum(1 for row in debt_rows if row.source == "wb_qeds_dt_dod_dect_cd_ar_us")
     merged_imf_proxy_rows = sum(1 for row in debt_rows if row.source == "imf_dm_proxy_ggxwdg")
 
     result = {
@@ -87,6 +116,9 @@ def run_world_bank_etl() -> dict[str, int | str]:
         "world_bank_external_debt_records_processed": len(external_debt_by_country_year),
         "world_bank_gdp_records_processed": len(gdp_by_country_year),
         "world_bank_population_records_processed": len(population_by_country_year),
+        "qeds_enabled": int(settings.etl_enable_qeds_external_debt),
+        "qeds_raw_quarterly_records": len(qeds_external_debt_by_country_year),
+        "qeds_debt_rows_normalized": len(qeds_debt_rows),
         "proxy_debt_fallback_enabled": int(settings.etl_allow_proxy_debt_fallback),
         "imf_debt_pct_gdp_records_processed": len(imf_debt_pct_gdp),
         "imf_nominal_gdp_records_processed": len(imf_nominal_gdp_usd),
@@ -94,8 +126,10 @@ def run_world_bank_etl() -> dict[str, int | str]:
         "imf_debt_rows_normalized": len(imf_debt_rows),
         "imf_debt_rows_dropped_due_to_wb_coverage": imf_debt_rows_dropped_due_to_wb_coverage,
         "merged_world_bank_rows": merged_world_bank_rows,
+        "merged_qeds_rows": merged_qeds_rows,
         "merged_imf_proxy_rows": merged_imf_proxy_rows,
         "countries_with_population": countries_with_population,
+        "qeds_rows_removed_when_disabled": 0,
         "imf_proxy_rows_removed_current_or_future": 0,
         "imf_proxy_rows_removed_wb_covered_countries": 0,
         "imf_proxy_rows_removed_when_fallback_disabled": 0,
@@ -120,10 +154,16 @@ def run_world_bank_etl() -> dict[str, int | str]:
         try:
             country_map = upsert_countries(db, list(countries_by_iso3.values()))
 
+            # Clean up QEDS rows when source is disabled.
+            if not settings.etl_enable_qeds_external_debt:
+                result["qeds_rows_removed_when_disabled"] = delete_qeds_rows(db)
+
+            # Clean up IMF proxy rows.
             if settings.etl_allow_proxy_debt_fallback:
-                wb_country_ids = [
+                higher_prio_countries = {row.iso3 for row in world_bank_debt_rows + qeds_debt_rows}
+                higher_prio_country_ids = [
                     country_map[iso3]
-                    for iso3 in {row.iso3 for row in world_bank_debt_rows}
+                    for iso3 in higher_prio_countries
                     if iso3 in country_map
                 ]
                 result["imf_proxy_rows_removed_current_or_future"] = delete_imf_proxy_rows(
@@ -132,7 +172,7 @@ def run_world_bank_etl() -> dict[str, int | str]:
                 )
                 result["imf_proxy_rows_removed_wb_covered_countries"] = delete_imf_proxy_rows(
                     db,
-                    country_ids=wb_country_ids,
+                    country_ids=higher_prio_country_ids,
                 )
             else:
                 result["imf_proxy_rows_removed_when_fallback_disabled"] = delete_imf_proxy_rows(db)
