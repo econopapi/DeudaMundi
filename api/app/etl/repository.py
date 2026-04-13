@@ -14,6 +14,7 @@ PG_MAX_BIND_PARAMS = 65_535
 DEBT_RECORD_INSERT_COLUMNS = 11
 DEBT_UPSERT_BATCH_SIZE = max(1, PG_MAX_BIND_PARAMS // DEBT_RECORD_INSERT_COLUMNS)
 IMF_PROXY_SOURCE = "imf_dm_proxy_ggxwdg"
+QEDS_SOURCE = "wb_qeds_dt_dod_dect_cd_ar_us"
 
 
 def upsert_countries(db: Session, countries: list[CountrySeed]) -> dict[str, int]:
@@ -71,6 +72,13 @@ def delete_imf_proxy_rows(
         conditions.append(DebtRecord.year >= min_year_inclusive)
 
     stmt = delete(DebtRecord).where(*conditions)
+    result = db.execute(stmt)
+    return int(result.rowcount or 0)
+
+
+def delete_qeds_rows(db: Session) -> int:
+    """Remove all QEDS-sourced debt rows (used when QEDS is disabled)."""
+    stmt = delete(DebtRecord).where(DebtRecord.source == QEDS_SOURCE)
     result = db.execute(stmt)
     return int(result.rowcount or 0)
 

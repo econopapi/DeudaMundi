@@ -9,6 +9,11 @@ EXTERNAL_DEBT_INDICATOR = "DT.DOD.DECT.CD"
 GDP_INDICATOR = "NY.GDP.MKTP.CD"
 POPULATION_INDICATOR = "SP.POP.TOTL"
 
+# QEDS SDDS — Gross External Debt Position (all sectors, all maturities, USD).
+# Source 22 from World Bank DataBank. Quarterly data; we annualise by taking Q4.
+QEDS_EXTERNAL_DEBT_INDICATOR = "DT.DOD.DECT.CD.AR.US"
+QEDS_SOURCE_ID = "22"
+
 
 class WorldBankClient:
     def __init__(self, timeout_seconds: float = 20.0) -> None:
@@ -34,6 +39,22 @@ class WorldBankClient:
         data = self._paginate(
             f"/country/all/indicator/{indicator}",
             params={"format": "json", "per_page": 20000},
+        )
+        return [item for item in data if isinstance(item, dict)]
+
+    def fetch_qeds_external_debt(self) -> list[dict[str, Any]]:
+        """Fetch Gross External Debt Position from QEDS SDDS (source 22).
+
+        Returns quarterly records.  The caller is responsible for
+        annualising (e.g. picking Q4 per country-year).
+        """
+        data = self._paginate(
+            f"/country/all/indicator/{QEDS_EXTERNAL_DEBT_INDICATOR}",
+            params={
+                "format": "json",
+                "per_page": 20000,
+                "source": QEDS_SOURCE_ID,
+            },
         )
         return [item for item in data if isinstance(item, dict)]
 

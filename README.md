@@ -45,7 +45,7 @@ El sistema resuelve un problema recurrente en la divulgación económica: la com
 
 | Principio | Implementación |
 |---|---|
-| **Consistencia conceptual** | Deuda externa total (BOP) como métrica primaria; cualquier proxy de deuda pública se etiqueta explícitamente como `public_debt_proxy`. |
+| **Consistencia conceptual** | Deuda externa total (BOP) como métrica primaria; QEDS SDDS como fuente intermedia de deuda externa real (~118 países); cualquier proxy de deuda pública se etiqueta explícitamente como `public_debt_proxy`. |
 | **Trazabilidad por registro** | Cada observación país-año expone `debt_concept`, `data_source` y `data_vintage` tanto en la API como en la UI. |
 | **Reproducibilidad operativa** | ETL versionado, migraciones Alembic idempotentes, CLI parametrizable, scheduler cron y reportes de gaps automatizados. |
 | **Accesibilidad analítica** | API REST paginada + globo 3D interactivo + gráficos de series temporales + comparador multi-país + exportación CSV/XLSX/PDF. |
@@ -77,7 +77,7 @@ Comparar ambos sin distinción produce conclusiones erróneas. Un país puede te
 1. Proveer una infraestructura abierta para explorar deuda externa por país y tiempo, con rigor en la distinción de conceptos.
 2. Hacer transparente la cobertura: qué países tienen dato, cuáles no, y por qué.
 3. Permitir comparación cross-country en tres dimensiones: stock absoluto (USD), ratio sobre PIB (%) y per cápita (USD/hab).
-4. Cuando se incorpore un proxy de fuente alternativa (ej. FMI), que esté siempre etiquetado y sea opt-in.
+4. Cuando se incorpore un proxy de fuente alternativa (ej. FMI), que esté siempre etiquetado y sea opt-in. Cuando existan fuentes intermedias de deuda externa real (ej. QEDS SDDS), priorizarlas sobre el proxy.
 
 ### Preguntas de investigación que el producto busca responder
 
@@ -106,7 +106,23 @@ Comparar ambos sin distinción produce conclusiones erróneas. Un país puede te
 
 La serie `DT.DOD.DECT.CD` del World Bank IDS mide el stock total de deuda externa pendiente de un país hacia acreedores no residentes, incluyendo deuda pública y públicamente garantizada (PPG), deuda privada no garantizada (PNG) y créditos del FMI. Es la referencia estándar para comparaciones internacionales de deuda externa ([World Bank Metadata](https://datatopics.worldbank.org/debt/ids/)).
 
-### 3.2 Fuente auxiliar (proxy): FMI DataMapper
+### 3.2 Fuente intermedia: World Bank QEDS SDDS (deuda externa real)
+
+| Atributo | Valor |
+|---|---|
+| **Indicador** | `DT.DOD.DECT.CD.AR.US` — Gross External Debt Position, All Sectors, All maturities, All instruments (USD) |
+| **Source ID** | `22` (Quarterly External Debt Statistics – Special Data Dissemination Standard) |
+| **API** | World Bank API v2 (`https://api.worldbank.org/v2`) con parámetro `source=22` |
+| **Autenticación** | Ninguna (API abierta) |
+| **Cobertura** | ~118 países (incluye economías avanzadas: USA, JPN, GBR, DEU, FRA) |
+| **Frecuencia** | Trimestral (el ETL selecciona el mejor trimestre por año: preferencia Q4, luego el más reciente) |
+| **Concepto económico** | Posición de deuda externa bruta (`external_debt_qeds`) |
+| **Prioridad en ETL** | `source_priority = 15` (inferior a WB IDS, superior a IMF proxy) |
+| **Activación** | `ETL_ENABLE_QEDS_EXTERNAL_DEBT=true` (habilitado por defecto) |
+
+> **Nota metodológica:** QEDS SDDS reporta la posición de deuda externa bruta agregando todos los sectores institucionales (gobierno general, bancos, otros sectores, inversión directa intercompañía) y todos los instrumentos. A diferencia del proxy IMF, este indicador mide específicamente deuda *externa*, no deuda pública. Cubre 44 de los 45 países que antes dependían exclusivamente del proxy IMF, reemplazándolos con datos de deuda externa real. Solo Letonia (LVA) queda sin cobertura QEDS entre los antiguos países proxy-only.
+
+### 3.3 Fuente auxiliar (proxy): FMI DataMapper
 
 | Atributo | Valor |
 |---|---|
@@ -115,12 +131,12 @@ La serie `DT.DOD.DECT.CD` del World Bank IDS mide el stock total de deuda extern
 | **API** | IMF DataMapper REST (`https://www.imf.org/external/datamapper/api/v1`) |
 | **Autenticación** | Ninguna |
 | **Concepto económico** | Deuda pública bruta del gobierno general (`public_debt_proxy`) |
-| **Prioridad en ETL** | `source_priority = 20` (inferior a WB) |
-| **Activación** | Solo con `ETL_ALLOW_PROXY_DEBT_FALLBACK=true` |
+| **Prioridad en ETL** | `source_priority = 20` (inferior a WB IDS y QEDS) |
+| **Activación** | Solo con `ETL_ALLOW_PROXY_DEBT_FALLBACK=true` (deshabilitado por defecto) |
 
-> ⚠️ **Advertencia metodológica:** Esta fuente mide deuda *pública* bruta (no deuda *externa*). Se incluye como proxy para países sin cobertura World Bank IDS, pero el concepto es diferente. El sistema etiqueta estos registros como `public_debt_proxy` en todos los niveles (base de datos, API, UI).
+> ⚠️ **Advertencia metodológica:** Esta fuente mide deuda *pública* bruta (no deuda *externa*). Se incluye como último recurso para países sin cobertura World Bank IDS ni QEDS SDDS. Con la incorporación de QEDS, el proxy IMF es necesario solo para ~1 país (LVA). El sistema etiqueta estos registros como `public_debt_proxy` en todos los niveles (base de datos, API, UI).
 
-### 3.3 Fuente de gobiernos: Wikidata (SPARQL)
+### 3.4 Fuente de gobiernos: Wikidata (SPARQL)
 
 | Atributo | Valor |
 |---|---|
@@ -130,25 +146,27 @@ La serie `DT.DOD.DECT.CD` del World Bank IDS mide el stock total de deuda extern
 | **Datos extraídos** | Nombre del líder, fecha de inicio/fin del mandato, rol |
 | **Modos de ejecución** | `pilot` (solo semillas hardcodeadas), `wikidata` (solo SPARQL), `hybrid` (ambos, recomendado) |
 
-### 3.4 Métricas derivadas
+### 3.5 Métricas derivadas
 
 A partir de las fuentes primarias, el ETL calcula y persiste las siguientes métricas:
 
 | Métrica | Fórmula | Unidad |
 |---|---|---|
-| `total_external_debt_usd` | Directa de `DT.DOD.DECT.CD` (o derivada para proxy FMI) | USD corrientes |
+| `total_external_debt_usd` | Directa de `DT.DOD.DECT.CD` / `DT.DOD.DECT.CD.AR.US` (o derivada para proxy FMI) | USD corrientes |
 | `gdp_usd` | Directa de `NY.GDP.MKTP.CD` | USD corrientes |
 | `debt_pct_gdp` | `total_external_debt_usd / gdp_usd × 100` | % |
 | `debt_per_capita_usd` | `total_external_debt_usd / population` | USD / habitante |
 
-### 3.5 Salvaguardas metodológicas implementadas
+### 3.6 Salvaguardas metodológicas implementadas
 
 1. **Exclusión de agregados no-país** en normalización del catálogo World Bank (ej. "World", "Euro Area").
 2. **Exclusión de años FMI actuales/futuros** para evitar nowcasts/proyecciones en la serie histórica.
-3. **Priorización determinística** por `source_priority` cuando existe colisión país-año entre fuentes.
-4. **Purga de proxies obsoletos** en cada corrida ETL: se eliminan filas FMI de año actual/futuro y de países que ya tienen cobertura World Bank.
-5. **Solo se persisten observaciones con deuda + PIB válidos.** `debt_per_capita_usd` se completa cuando además hay población.
-6. **Trazabilidad end-to-end**: `debt_concept`, `data_source` y `data_vintage` viajan desde el ETL hasta la respuesta JSON del endpoint.
+3. **Priorización determinística** por `source_priority` cuando existe colisión país-año entre fuentes (IDS 10 > QEDS 15 > IMF 20).
+4. **Purga de proxies obsoletos** en cada corrida ETL: se eliminan filas FMI de año actual/futuro y de países cubiertos por WB IDS o QEDS.
+5. **Purga de filas QEDS obsoletas** cuando un país tiene cobertura IDS, o cuando QEDS se deshabilita.
+6. **Conversión trimestral→anual** para QEDS: se selecciona el mejor trimestre por año (preferencia Q4, luego el más reciente disponible).
+7. **Solo se persisten observaciones con deuda + PIB válidos.** `debt_per_capita_usd` se completa cuando además hay población.
+8. **Trazabilidad end-to-end**: `debt_concept`, `data_source` y `data_vintage` viajan desde el ETL hasta la respuesta JSON del endpoint.
 
 ---
 
@@ -285,8 +303,8 @@ El esquema relacional consta de **4 tablas** gestionadas con Alembic (5 revision
 | `debt_pct_gdp` | `FLOAT` | nullable, indexed | Deuda como % del PIB |
 | `debt_per_capita_usd` | `FLOAT` | nullable, indexed | Deuda per cápita (USD) |
 | `gdp_usd` | `FLOAT` | nullable | PIB nominal (USD corrientes) |
-| `source` | `VARCHAR(30)` | NOT NULL | Clave corta de fuente (ej. `wb_ids_dt_dod_dect_cd`) |
-| `debt_concept` | `VARCHAR(50)` | NOT NULL | Concepto económico: `external_debt_bop` ó `public_debt_proxy` |
+| `source` | `VARCHAR(30)` | NOT NULL | Clave corta de fuente (ej. `wb_ids_dt_dod_dect_cd`, `wb_qeds_dt_dod_dect_cd_ar_us`) |
+| `debt_concept` | `VARCHAR(50)` | NOT NULL | Concepto económico: `external_debt_bop`, `external_debt_qeds` ó `public_debt_proxy` |
 | `data_source` | `VARCHAR(120)` | NOT NULL | Descripción legible de la fuente |
 | `data_vintage` | `DATE` | nullable | Fecha de referencia del dato (`YYYY-12-31`) |
 | `updated_at` | `TIMESTAMPTZ` | NOT NULL | Última actualización del registro |
@@ -381,9 +399,10 @@ Clientes (fetch)          Transformación              Persistencia
 ┌──────────────────┐     ┌─────────────────────┐     ┌────────────────────┐
 │ WorldBankClient  │────►│ normalize_countries  │────►│ upsert_countries   │
 │ (httpx, paginate)│     │ normalize_indicators │     │ upsert_debt_records│
-└──────────────────┘     │ normalize_debt_recs  │     │ (batched, ON       │
-┌──────────────────┐     │ merge_by_priority    │     │  CONFLICT upsert)  │
-│ ImfDataMapper    │────►│ keep_imf_uncovered   │     │ delete_imf_proxy   │
+│ IDS + QEDS SDDS  │     │ normalize_debt_recs  │     │ (batched, ON       │
+└──────────────────┘     │ normalize_qeds_recs  │     │  CONFLICT upsert)  │
+┌──────────────────┐     │ merge_by_priority    │     │ delete_imf_proxy   │
+│ ImfDataMapper    │────►│ keep_imf_uncovered   │     │ delete_qeds_rows   │
 │ (httpx)          │     └─────────────────────┘     │ invalidate_caches  │
 └──────────────────┘                                  └────────────────────┘
 ┌──────────────────┐
@@ -396,7 +415,7 @@ Clientes (fetch)          Transformación              Persistencia
 
 | Comando | Función |
 |---|---|
-| `deudamundi-etl-global` | ETL completo: WB + IMF (si habilitado) + gobiernos (si habilitado) |
+| `deudamundi-etl-global` | ETL completo: WB IDS + QEDS (si habilitado) + IMF (si habilitado) + gobiernos (si habilitado) |
 | `deudamundi-etl-worldbank` | Alias de `deudamundi-etl-global` |
 | `deudamundi-seed-governments` | Solo ETL de periodos de gobierno |
 | `deudamundi-report-gaps` | Genera reporte JSON de cobertura en `api/reports/` |
@@ -422,7 +441,8 @@ Usa APScheduler `BackgroundScheduler` registrado en el lifespan de FastAPI.
 
 | Variable | Default | Descripción |
 |---|---|---|
-| `ETL_ALLOW_PROXY_DEBT_FALLBACK` | `false` | Habilitar fallback FMI para países sin cobertura WB |
+| `ETL_ENABLE_QEDS_EXTERNAL_DEBT` | `true` | Habilitar QEDS SDDS (~118 países con deuda externa real) |
+| `ETL_ALLOW_PROXY_DEBT_FALLBACK` | `false` | Habilitar fallback FMI para países sin cobertura WB/QEDS |
 | `ETL_SEED_GOVERNMENTS_ENABLED` | `true` | Ejecutar seed de gobiernos en ETL global |
 | `ETL_GOVERNMENTS_SOURCE` | `hybrid` | Modo: `pilot`, `wikidata`, `hybrid` |
 | `ETL_GOVERNMENTS_MIN_START_YEAR` | `1990` | Año mínimo para periodos de gobierno |
@@ -639,13 +659,14 @@ Despliegue automático desde el monorepo. Variable:
 
 | # | Limitación | Impacto | Mitigación |
 |---|---|---|---|
-| 1 | **Cobertura incompleta de deuda externa WB** | 96 de 217 países sin datos de deuda. Sesgo hacia economías en desarrollo con financiamiento externo. | Proxy FMI opt-in, comunicación explícita de cobertura en UI. |
-| 2 | **Heterogeneidad conceptual WB vs FMI** | Cuando se activa proxy, los datos de FMI miden deuda pública (no externa). | Etiquetado `public_debt_proxy` end-to-end. Proxy desactivado por defecto. |
-| 3 | **Dependencia de proveedores externos** | Disponibilidad y formato de APIs de WB/IMF/Wikidata pueden cambiar. | ETL tolerante a fallos, validación de tipos, timeout configurable. |
-| 4 | **Frecuencia anual** | No captura dinámicas intra-año ni shocks de liquidez. | Limitación inherente a las fuentes; documentada en UI. |
-| 5 | **Nombres de gobiernos** | Wikidata puede tener inconsistencias o vacíos en periodos históricos. | Modo `hybrid` con semillas piloto como fallback. |
-| 6 | **Equivalencias emocionales** | Valores de referencia globales (costo de hospital, salario docente) son estimaciones gruesas. | Documentado como MVP; plan de regionalización futura. |
-| 7 | **Performance en móviles low-end** | Globo 3D puede ser pesado en hardware limitado. | Fallback tabular automático sin WebGL. |
+| 1 | **Cobertura IDS limitada a economías reportantes** | ~121 de 217 países sin datos IDS de deuda externa. Sesgo hacia economías en desarrollo con financiamiento externo. | QEDS SDDS cubre ~118 países adicionales (incluyendo economías avanzadas). Proxy FMI como último recurso. |
+| 2 | **Heterogeneidad conceptual entre fuentes** | IDS mide deuda externa BOP; QEDS mide posición de deuda externa bruta (todos los sectores); IMF proxy mide deuda pública bruta. | Cascada de prioridad (IDS > QEDS > IMF). Etiquetado `debt_concept` end-to-end. IMF proxy desactivado por defecto. |
+| 3 | **QEDS: datos trimestrales convertidos a anuales** | Se selecciona un trimestre por año (Q4 preferido); la deuda externa puede fluctuar intra-año. | Documentado; se prefiere Q4 (cierre fiscal) como mejor aproximación anual. |
+| 4 | **Dependencia de proveedores externos** | Disponibilidad y formato de APIs de WB/IMF/Wikidata pueden cambiar. | ETL tolerante a fallos, validación de tipos, timeout configurable. |
+| 5 | **Frecuencia anual** | No captura dinámicas intra-año ni shocks de liquidez. | Limitación inherente a las fuentes; documentada en UI. |
+| 6 | **Nombres de gobiernos** | Wikidata puede tener inconsistencias o vacíos en periodos históricos. | Modo `hybrid` con semillas piloto como fallback. |
+| 7 | **Equivalencias emocionales** | Valores de referencia globales (costo de hospital, salario docente) son estimaciones gruesas. | Documentado como MVP; plan de regionalización futura. |
+| 8 | **Performance en móviles low-end** | Globo 3D puede ser pesado en hardware limitado. | Fallback tabular automático sin WebGL. |
 
 ---
 
@@ -653,6 +674,7 @@ Despliegue automático desde el monorepo. Variable:
 
 | Prioridad | Tarea |
 |---|---|
+| ~~Alta~~ | ~~Integrar QEDS SDDS como fuente intermedia de deuda externa real~~ ✅ Completado |
 | Alta | Auditoría final de cobertura/consistencia por región y series atípicas |
 | Alta | Versionado semántico público (`v1.0.0`) y política formal de changelog |
 | Media | Performance móvil: optimización del globo en hardware low-end |

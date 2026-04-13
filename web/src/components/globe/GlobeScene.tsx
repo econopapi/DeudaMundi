@@ -7,7 +7,7 @@ import countries110m from "world-atlas/countries-110m.json";
 
 import { useGlobeStore } from "../../store/globeStore";
 import type { GlobeDataPoint } from "../../types/api";
-import { getDebtColor } from "./globeColors";
+import { getDebtColor, percentile, COLOR_SCALE_CAP_PERCENTILE } from "./globeColors";
 import { getGlobeViewForRegion } from "./globeView";
 
 type CountryFeatureProperties = {
@@ -87,7 +87,7 @@ function getDebtRange(points: GlobeDataPoint[]): { min: number; max: number } {
   if (ratioValues.length > 0) {
     return {
       min: Math.min(...ratioValues),
-      max: Math.max(...ratioValues),
+      max: percentile(ratioValues, COLOR_SCALE_CAP_PERCENTILE),
     };
   }
 
