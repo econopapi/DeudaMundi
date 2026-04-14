@@ -35,7 +35,10 @@ src/
 ├── index.css                    # Estilos globales (TailwindCSS)
 ├── vite-env.d.ts                # Tipos Vite
 ├── assets/
-│   └── author-logo.svg         # Logo del autor
+│   ├── author-logo.svg         # Logo del autor
+│   └── favicon_econopapi.png   # Asset fuente del favicon compartido con econopapi.com
+├── ../public/
+│   └── favicon_econopapi.png   # Favicon servido por Vite en /favicon_econopapi.png
 ├── components/
 │   ├── AppHeader.tsx            # Header global con navegación y créditos
 │   ├── AppFooter.tsx            # Footer global
