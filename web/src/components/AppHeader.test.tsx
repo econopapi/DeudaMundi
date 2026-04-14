@@ -14,4 +14,16 @@ describe("AppHeader", () => {
     expect(screen.getByRole("link", { name: "Perfil de Daniel Limon en econopapi.com" })).toHaveAttribute("href", "https://econopapi.com");
     expect(screen.getByRole("link", { name: "dani@dlimon.net" })).toHaveAttribute("href", "mailto:dani@dlimon.net");
   });
+
+  it("renders optional header actions when provided", () => {
+    render(
+      <AppHeader
+        title="Global Debt Atlas"
+        subtitle="Visualizando deuda soberana"
+        actions={<a href="https://example.com/docs">Project documentation</a>}
+      />,
+    );
+
+    expect(screen.getByRole("link", { name: "Project documentation" })).toHaveAttribute("href", "https://example.com/docs");
+  });
 });

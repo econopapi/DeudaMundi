@@ -9,7 +9,7 @@
 
 Atlas global e interactivo de **deuda externa soberana** por país, orientado a visualización pública, consistencia metodológica y trazabilidad de datos para análisis comparado.
 
-> Estado de madurez (abril 2026): **>90 % de desarrollo funcional** — transición activa hacia formalización académica, estabilidad operativa y documentación "paper-ready".
+La versión mejorada y extensa de esta documentación está disponible en este enlace: [Documentación DeudaMundi](https://econopapi.com/proyecto/deudamundi).
 
 ## Autor
 
@@ -502,7 +502,7 @@ Prefijo base: `/api/v1`
 
 | Ruta | Componente | Descripción |
 |---|---|---|
-| `/` | `HomePage` | Globo 3D interactivo, leyenda de intensidad, filtro por región, spotlight de comparación |
+| `/` | `HomePage` | Globo 3D interactivo, leyenda de intensidad, filtro por región, CTA a documentación/código fuente y spotlight de comparación |
 | `/country/:iso3` | `CountryDetailPage` | KPIs, gráfico histórico (doble eje), overlay de gobiernos, equivalencias, share/export |
 | `/compare` | `CompareCountriesPage` | Selector multi-país, gráfico comparativo doble eje, exportación CSV/XLSX/PDF |
 | `/rankings` | `RankingsPage` | Top 20 por métrica y región, búsqueda por país/ISO3 |
@@ -517,7 +517,7 @@ Prefijo base: `/api/v1`
 | `CountryHistoryChart` | Gráfico D3 de series temporales con doble eje (USD + %PIB) y overlay de gobiernos |
 | `CountryComparisonChart` | Gráfico multi-serie para comparación entre países |
 | `ShareCardActions` | Generación de share card PNG con mini gráfico, Web Share API, clipboard fallback |
-| `AppHeader` / `AppFooter` | Navegación global con créditos de autor y logo |
+| `AppHeader` / `AppFooter` | Navegación global con créditos de autor, CTA externos y firma visual del proyecto |
 | `LanguageSwitcher` | Selector ES/EN |
 | `LoadingPanel` | Skeleton/shimmer para estados de carga |
 
@@ -640,6 +640,12 @@ Variables de producción obligatorias:
 | `SECURITY_HSTS_ENABLED` | `true` |
 | `RUN_MIGRATIONS` | `true` |
 
+### Nota importante sobre Redis en producción
+
+- Si despliegas con **systemd** y Redis corre en la misma máquina, usa `REDIS_URL=redis://localhost:6379/0`.
+- El host `redis` es un alias típico de Docker Compose y **no** suele resolver en despliegues directos sobre host.
+- Si `REDIS_URL` apunta a un host incorrecto, la API seguirá respondiendo pero perderá el cache de lectura y endpoints como `/api/v1/globe-data` o `/api/v1/rankings` volverán a consultar PostgreSQL en cada request.
+
 ### Frontend (Vercel)
 
 Despliegue automático desde el monorepo. Variable:
@@ -653,6 +659,23 @@ Despliegue automático desde el monorepo. Variable:
 - `GET /` devuelve `404` por diseño; el health check es `GET /api/v1/health`.
 - En `development`, la API admite orígenes de red local vía regex para pruebas en dispositivos móviles.
 - La app y Alembic priorizan `SUPABASE_DATABASE_URL` sobre `DATABASE_URL` si ambas están definidas.
+- Si Redis está mal configurado, hoy el backend degrada a modo sin cache; conviene validar el cache tras cada deploy.
+
+### Smoke test recomendado para Redis/cache
+
+```bash
+redis-cli DEL globe-data:all
+curl -s -o /dev/null http://127.0.0.1:8002/api/v1/globe-data
+redis-cli EXISTS globe-data:all
+redis-cli TTL globe-data:all
+curl -w '\nstarttransfer=%{time_starttransfer} total=%{time_total}\n' -o /dev/null -s http://127.0.0.1:8002/api/v1/globe-data
+```
+
+Resultado esperado:
+
+- `EXISTS` debe devolver `1`.
+- `TTL` debe ser cercano a `86400` para `/globe-data`.
+- La segunda llamada debe caer drásticamente frente a la primera.
 
 ---
 

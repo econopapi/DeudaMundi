@@ -32,6 +32,8 @@ type IntensityMeta = {
 
 const LATAM_REGION = "Latin America & Caribbean";
 const MAX_COMPARE_SUGGESTIONS = 5;
+const PROJECT_DOCUMENTATION_URL = "https://econopapi.com/proyectos/deudamundi";
+const SOURCE_CODE_URL = "https://github.com/econopapi/DeudaMundi";
 const PREFERRED_COMPARE_PAIRS: ReadonlyArray<readonly [string, string]> = [
   ["MEX", "BRA"],
   ["BRA", "ARG"],
@@ -255,6 +257,26 @@ export function HomePage() {
       <AppHeader
         title={t(locale, "homeTitle")}
         subtitle={t(locale, "homeSubtitle")}
+        actions={(
+          <>
+            <a
+              href={PROJECT_DOCUMENTATION_URL}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center justify-center rounded-lg border border-[#7c6af5] bg-[#7c6af5]/20 px-4 py-2 text-sm font-medium text-[#f5f4f0] transition hover:bg-[#7c6af5]/30"
+            >
+              {t(locale, "homeCtaPrimary")}
+            </a>
+            <a
+              href={SOURCE_CODE_URL}
+              target="_blank"
+              rel="noreferrer"
+              className="text-sm font-medium text-[#a594f9] transition hover:text-[#c4b9fa]"
+            >
+              {t(locale, "homeCtaSecondary")} →
+            </a>
+          </>
+        )}
       />
 
       {status === "loading" && (

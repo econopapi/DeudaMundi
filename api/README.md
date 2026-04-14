@@ -680,6 +680,10 @@ curl -i https://api.tudominio.com/api/v1/health
 | `SECURITY_HSTS_ENABLED` | `true` |
 | `RUN_MIGRATIONS` | `true` |
 
+> Si despliegas con `systemd` sobre el host, `REDIS_URL` debe apuntar al Redis real del servidor, por ejemplo `redis://localhost:6379/0`.
+> El hostname `redis` suele funcionar solo dentro de Docker Compose o redes Docker equivalentes.
+> Si Redis está mal configurado, la API degradará a modo sin cache y rutas como `/api/v1/globe-data` y `/api/v1/rankings` volverán a consultar PostgreSQL en cada request.
+
 ### 11.4 ETL en producción
 
 ```bash
@@ -696,6 +700,22 @@ curl -i "https://api.tudominio.com/api/v1/rankings?metric=absolute&limit=5"
 curl -i "https://api.tudominio.com/api/v1/globe-data"
 curl -s "https://api.tudominio.com/api/v1/countries/MEX" | jq '.gdp_usd, .debt_pct_gdp, .debt_per_capita_usd'
 ```
+
+Validación mínima del cache Redis en el host:
+
+```bash
+redis-cli DEL globe-data:all
+curl -s -o /dev/null http://127.0.0.1:8000/api/v1/globe-data
+redis-cli EXISTS globe-data:all
+redis-cli TTL globe-data:all
+curl -w '\nstarttransfer=%{time_starttransfer} total=%{time_total}\n' -o /dev/null -s http://127.0.0.1:8000/api/v1/globe-data
+```
+
+Resultado esperado:
+
+- `EXISTS` = `1`
+- `TTL` cercano a `86400`
+- Segunda llamada sensiblemente más rápida que la primera
 
 ---
 
