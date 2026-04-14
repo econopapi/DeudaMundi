@@ -4,6 +4,8 @@ Backend REST en **FastAPI** para el Atlas Global de Deuda Externa Soberana.
 
 Sirve datos históricos de deuda externa por país, rankings comparativos, periodos de gobierno y un pipeline ETL multifuente con trazabilidad metodológica.
 
+> **Licencia y uso:** el código fuente del repositorio se publica bajo licencia MIT, pero esa licencia no sustituye los términos aplicables a datos, APIs, snapshots, exports u otros outputs derivados de fuentes como World Bank, IMF o Wikidata. El nombre **DeudaMundi**, la marca **econopapi** y la identidad visual del proyecto quedan reservados y no se licencian por MIT.
+
 ---
 
 ## Tabla de contenidos

@@ -5,7 +5,7 @@
 ![React](https://img.shields.io/badge/frontend-React%2018-61DAFB)
 ![PostgreSQL](https://img.shields.io/badge/database-PostgreSQL%2016-336791)
 ![Redis](https://img.shields.io/badge/cache-Redis%207-DC382D)
-![License](https://img.shields.io/badge/license-proprietary-lightgrey)
+![License](https://img.shields.io/badge/license-MIT-yellow)
 
 Atlas global e interactivo de **deuda externa soberana** por país, orientado a visualización pública, consistencia metodológica y trazabilidad de datos para análisis comparado.
 
@@ -32,8 +32,9 @@ Atlas global e interactivo de **deuda externa soberana** por país, orientado a 
 11. [Despliegue y operación](#11-despliegue-y-operación)
 12. [Limitaciones y amenazas a la validez](#12-limitaciones-y-amenazas-a-la-validez)
 13. [Roadmap a release estable](#13-roadmap-a-release-estable)
-14. [Convenciones de contribución](#14-convenciones-de-contribución)
-15. [Cita académica](#15-cita-académica)
+14. [Licencia, datos y marca](#14-licencia-datos-y-marca)
+15. [Convenciones de contribución](#15-convenciones-de-contribución)
+16. [Cita académica](#16-cita-académica)
 
 ---
 
@@ -684,7 +685,30 @@ Despliegue automático desde el monorepo. Variable:
 
 ---
 
-## 14. Convenciones de contribución
+## 14. Licencia, datos y marca
+
+El **código fuente original** de este repositorio se distribuye bajo la licencia **MIT**. Consulta el archivo `LICENSE` para el texto completo.
+
+### 14.1 Alcance de la licencia MIT
+
+- La licencia MIT aplica al código fuente y a la documentación original incluidos en este repositorio, salvo que un archivo indique expresamente otro régimen.
+- La licencia MIT **no** sustituye ni amplía los términos de uso de datos, APIs, metadatos o materiales de terceros consumidos por el proyecto.
+
+### 14.2 Datos, APIs y outputs derivados
+
+- DeudaMundi consume y transforma datos provenientes de World Bank, IMF y Wikidata, entre otras fuentes citadas en este repositorio.
+- Los **datasets descargados**, snapshots, exports, caches, seeds generados y otros outputs derivados pueden estar sujetos a términos, atribuciones y restricciones adicionales impuestos por sus fuentes originales.
+- Quien reutilice datos u outputs de DeudaMundi debe verificar y cumplir por su cuenta las condiciones aplicables de cada fuente.
+
+### 14.3 Marca e identidad del proyecto
+
+- **DeudaMundi**, **econopapi**, sus logotipos, naming e identidad visual se reservan como identificadores de proyecto y marca del autor.
+- La licencia MIT **no** concede permiso para usar el nombre del proyecto, la marca personal del autor, logotipos o elementos de identidad visual de manera que sugiera afiliación, patrocinio, respaldo oficial o continuidad del proyecto original.
+- Los forks y redistribuciones del código pueden indicar su origen, pero deben evitar presentarse como la instancia oficial de DeudaMundi sin autorización expresa.
+
+---
+
+## 15. Convenciones de contribución
 
 - **Commits:** Conventional Commits (`feat:`, `fix:`, `docs:`, `refactor:`, `test:`).
 - **Ramas:** `main` (producción), `dev` (integración), `feature/*` (trabajo incremental).
@@ -693,7 +717,7 @@ Despliegue automático desde el monorepo. Variable:
 
 ---
 
-## 15. Cita académica
+## 16. Cita académica
 
 Si usas DeudaMundi en análisis o investigación, cita este repositorio y registra versión y fecha de consulta.
 
