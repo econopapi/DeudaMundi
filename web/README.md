@@ -4,6 +4,8 @@ Frontend interactivo en **React + Vite + TypeScript** para el Atlas Global de De
 
 Ofrece un globo 3D navegable, fichas detalladas por país con series históricas, comparador multi-país, rankings y exportación de datos en múltiples formatos.
 
+> **Licencia y uso:** el código fuente del repositorio se publica bajo licencia MIT, pero esa licencia no sustituye los términos aplicables a datos, APIs, exports, share cards u otros outputs derivados de fuentes externas. El nombre **DeudaMundi**, la marca **econopapi** y la identidad visual del proyecto quedan reservados y no se licencian por MIT.
+
 ---
 
 ## Tabla de contenidos
