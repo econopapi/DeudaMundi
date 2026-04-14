@@ -9,7 +9,7 @@
 
 Atlas global e interactivo de **deuda externa soberana** por país, orientado a visualización pública, consistencia metodológica y trazabilidad de datos para análisis comparado.
 
-> Estado de madurez (abril 2026): **>90 % de desarrollo funcional** — transición activa hacia formalización académica, estabilidad operativa y documentación "paper-ready".
+La versión mejorada y extensa de esta documentación está disponible en este enlace: [Documentación DeudaMundi](https://econopapi.com/proyecto/deudamundi).
 
 ## Autor
 
@@ -502,7 +502,7 @@ Prefijo base: `/api/v1`
 
 | Ruta | Componente | Descripción |
 |---|---|---|
-| `/` | `HomePage` | Globo 3D interactivo, leyenda de intensidad, filtro por región, spotlight de comparación |
+| `/` | `HomePage` | Globo 3D interactivo, leyenda de intensidad, filtro por región, CTA a documentación/código fuente y spotlight de comparación |
 | `/country/:iso3` | `CountryDetailPage` | KPIs, gráfico histórico (doble eje), overlay de gobiernos, equivalencias, share/export |
 | `/compare` | `CompareCountriesPage` | Selector multi-país, gráfico comparativo doble eje, exportación CSV/XLSX/PDF |
 | `/rankings` | `RankingsPage` | Top 20 por métrica y región, búsqueda por país/ISO3 |
@@ -517,7 +517,7 @@ Prefijo base: `/api/v1`
 | `CountryHistoryChart` | Gráfico D3 de series temporales con doble eje (USD + %PIB) y overlay de gobiernos |
 | `CountryComparisonChart` | Gráfico multi-serie para comparación entre países |
 | `ShareCardActions` | Generación de share card PNG con mini gráfico, Web Share API, clipboard fallback |
-| `AppHeader` / `AppFooter` | Navegación global con créditos de autor y logo |
+| `AppHeader` / `AppFooter` | Navegación global con créditos de autor, CTA externos y firma visual del proyecto |
 | `LanguageSwitcher` | Selector ES/EN |
 | `LoadingPanel` | Skeleton/shimmer para estados de carga |
 

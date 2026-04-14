@@ -98,7 +98,7 @@ src/
 
 | Ruta | Componente | Descripción |
 |---|---|---|
-| `/` | `HomePage` | Globo 3D interactivo con leyenda, filtro por región, spotlight de comparación y sugerencias rápidas |
+| `/` | `HomePage` | Globo 3D interactivo con leyenda, filtro por región, CTA a documentación/código fuente, spotlight de comparación y sugerencias rápidas |
 | `/country/:iso3` | `CountryDetailPage` | Ficha país: hero con KPIs animados, gráfico histórico doble eje con overlay de gobiernos, equivalencias emocionales, share card, exportación |
 | `/compare` | `CompareCountriesPage` | Selector multi-país (chips + búsqueda), gráfico comparativo doble eje, exportación CSV/XLSX/PDF |
 | `/rankings` | `RankingsPage` | Top 20 por métrica (`absolute`, `pct_gdp`, `per_capita`), filtro por región, búsqueda por nombre/ISO3 |
@@ -111,6 +111,7 @@ src/
 - Leyenda interactiva con bandas de intensidad (low/medium/high); países no seleccionados se atenúan (no desaparecen).
 - Enfoque geográfico automático al seleccionar región.
 - Fallback tabular automático si WebGL no está disponible.
+- CTA superior con acceso directo a la documentación pública del proyecto y al repositorio fuente.
 - Bloque spotlight para descubrir y lanzar comparaciones, con sugerencias priorizando pares latinoamericanos.
 
 ### CountryDetailPage
@@ -171,8 +172,8 @@ src/
 
 | Componente | Responsabilidad |
 |---|---|
-| `AppHeader` | Header global con enlace a Home, navegación, créditos de autor y logo. |
-| `AppFooter` | Footer global con link al autor. |
+| `AppHeader` | Header global con enlace a Home, créditos de autor y acciones opcionales como CTA externos. |
+| `AppFooter` | Footer global con nombre del proyecto, procedencia del build y link al autor. |
 | `AuthorCredits` | Card de información del autor con logo incorporado. |
 | `LanguageSwitcher` | Toggle ES/EN que actualiza `localeStore`. |
 
@@ -405,7 +406,8 @@ npm run test -- --runInBand
 | `pages/CountryDetailPage.test.tsx` | Detalle país: KPIs, historia, gobiernos |
 | `pages/CompareCountriesPage.test.tsx` | Comparación: selector, gráfico, estados |
 | `pages/RankingsPage.test.tsx` | Rankings: métricas, filtros, búsqueda |
-| `components/AppHeader.test.tsx` | Header: navegación, créditos |
+| `components/AppHeader.test.tsx` | Header: créditos y acciones opcionales |
+| `components/AppFooter.test.tsx` | Footer: branding local y créditos compactos |
 | `components/globe/GlobeLegend.test.tsx` | Leyenda: bandas, cobertura |
 | `components/globe/globeView.test.ts` | Coordenadas de cámara por región |
 | `components/country/MetricCounter.test.tsx` | Contador animado |
