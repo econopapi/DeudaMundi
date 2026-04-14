@@ -640,6 +640,12 @@ Variables de producción obligatorias:
 | `SECURITY_HSTS_ENABLED` | `true` |
 | `RUN_MIGRATIONS` | `true` |
 
+### Nota importante sobre Redis en producción
+
+- Si despliegas con **systemd** y Redis corre en la misma máquina, usa `REDIS_URL=redis://localhost:6379/0`.
+- El host `redis` es un alias típico de Docker Compose y **no** suele resolver en despliegues directos sobre host.
+- Si `REDIS_URL` apunta a un host incorrecto, la API seguirá respondiendo pero perderá el cache de lectura y endpoints como `/api/v1/globe-data` o `/api/v1/rankings` volverán a consultar PostgreSQL en cada request.
+
 ### Frontend (Vercel)
 
 Despliegue automático desde el monorepo. Variable:
@@ -653,6 +659,23 @@ Despliegue automático desde el monorepo. Variable:
 - `GET /` devuelve `404` por diseño; el health check es `GET /api/v1/health`.
 - En `development`, la API admite orígenes de red local vía regex para pruebas en dispositivos móviles.
 - La app y Alembic priorizan `SUPABASE_DATABASE_URL` sobre `DATABASE_URL` si ambas están definidas.
+- Si Redis está mal configurado, hoy el backend degrada a modo sin cache; conviene validar el cache tras cada deploy.
+
+### Smoke test recomendado para Redis/cache
+
+```bash
+redis-cli DEL globe-data:all
+curl -s -o /dev/null http://127.0.0.1:8002/api/v1/globe-data
+redis-cli EXISTS globe-data:all
+redis-cli TTL globe-data:all
+curl -w '\nstarttransfer=%{time_starttransfer} total=%{time_total}\n' -o /dev/null -s http://127.0.0.1:8002/api/v1/globe-data
+```
+
+Resultado esperado:
+
+- `EXISTS` debe devolver `1`.
+- `TTL` debe ser cercano a `86400` para `/globe-data`.
+- La segunda llamada debe caer drásticamente frente a la primera.
 
 ---
 
