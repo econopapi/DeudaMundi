@@ -35,6 +35,10 @@ export type CountryDetailResponse = {
   debt_per_capita_usd: number | null;
   debt_pct_gdp: number | null;
   gdp_usd: number | null;
+  source?: string;
+  debt_concept?: string | null;
+  data_source?: string | null;
+  data_vintage?: string | null;
   equivalences: EquivalenceItem[];
 };
 
@@ -46,6 +50,9 @@ export type CountryHistoryItem = {
   debt_pct_gdp: number | null;
   gdp_usd: number | null;
   source: string;
+  debt_concept?: string | null;
+  data_source?: string | null;
+  data_vintage?: string | null;
 };
 
 export type CountryHistoryResponse = {
