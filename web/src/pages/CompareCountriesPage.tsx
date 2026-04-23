@@ -13,6 +13,7 @@ import {
 } from "../lib/dataExports";
 import { LoadingPanel } from "../components/ui/LoadingPanel";
 import { formatPercentage, formatUsdCompact } from "../lib/formatters";
+import { buildCountryProvenance } from "../lib/provenance";
 import { t, trRegion } from "../lib/translations";
 import { fetchCountriesCompare, fetchGlobeData } from "../services/deudamundiApi";
 import { useLocaleStore } from "../store/localeStore";
@@ -151,6 +152,17 @@ export function CompareCountriesPage() {
   }, [allCountries, countrySearch, selectedIso3]);
 
   const canCompare = selectedIso3.length >= 2;
+
+  const compareProvenanceByIso3 = useMemo(() => {
+    if (!comparePayload) {
+      return {};
+    }
+
+    return comparePayload.items.reduce<Record<string, ReturnType<typeof buildCountryProvenance>>>((acc, item) => {
+      acc[item.detail.iso3] = buildCountryProvenance(item.detail, item.history);
+      return acc;
+    }, {});
+  }, [comparePayload]);
 
   const runCompare = () => {
     const next = new URLSearchParams(searchParams);
@@ -379,6 +391,35 @@ export function CompareCountriesPage() {
                 ))}
               </tbody>
             </table>
+          </section>
+
+          <section className="glass-panel rounded-xl p-4">
+            <h2 className="text-sm font-semibold text-[#f5f4f0]">{t(locale, "dataTraceabilityTitle")}</h2>
+            <p className="mt-1 text-xs text-[#888680]">{t(locale, "dataTraceabilitySubtitle")}</p>
+
+            <div className="mt-3 grid gap-3 md:grid-cols-2">
+              {comparePayload.items.map((item) => {
+                const provenance = compareProvenanceByIso3[item.detail.iso3];
+
+                return (
+                  <article key={`trace-${item.detail.iso3}`} className="rounded-xl border border-[#3b4252] bg-[#0d1017]/70 p-3">
+                    <h3 className="text-xs font-semibold uppercase tracking-wide text-[#c8c7c2]">
+                      {item.detail.name_en} ({item.detail.iso3})
+                    </h3>
+                    <ul className="mt-2 space-y-1.5 text-xs text-[#f5f4f0]">
+                      <li>{t(locale, "dataSourceLabel")}: {provenance?.dataSource ?? t(locale, "notAvailable")}</li>
+                      <li>{t(locale, "debtConceptLabel")}: {provenance?.debtConcept ?? t(locale, "notAvailable")}</li>
+                      <li>
+                        {t(locale, "sourceCodeLabel")}: {provenance && provenance.sourceCodes.length > 0 ? provenance.sourceCodes.join(", ") : t(locale, "notAvailable")}
+                      </li>
+                      <li>
+                        {t(locale, "indicatorCodesLabel")}: {provenance && provenance.indicators.length > 0 ? provenance.indicators.join(", ") : t(locale, "notAvailable")}
+                      </li>
+                    </ul>
+                  </article>
+                );
+              })}
+            </div>
           </section>
         </>
       )}

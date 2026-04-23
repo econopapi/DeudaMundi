@@ -95,6 +95,8 @@ describe("CountryDetailPage", () => {
     expect(screen.getByRole("heading", { level: 2, name: "Argentina" })).toBeInTheDocument();
   expect(screen.getByText("Evolución histórica del stock de deuda externa (USD)")).toBeInTheDocument();
   expect(screen.getByText("Métricas de deuda externa")).toBeInTheDocument();
+  expect(screen.getByText("Trazabilidad de datos")).toBeInTheDocument();
+  expect(screen.getByText(/Indicadores consultados:/i)).toBeInTheDocument();
   expect(screen.getByText("La deuda en cifras cotidianas")).toBeInTheDocument();
   expect(screen.getByText("Hospitales públicos potenciales")).toBeInTheDocument();
     expect(mockFetchCountryDetail).toHaveBeenCalledWith("arg");
@@ -140,6 +142,7 @@ describe("CountryDetailPage", () => {
 
     expect(await screen.findByText("Perfil del país")).toBeInTheDocument();
     expect(screen.getByText("Algunos indicadores de razón no están disponibles actualmente en la fuente para el último año.")).toBeInTheDocument();
+    expect(screen.getByText("Trazabilidad de datos")).toBeInTheDocument();
     expect(screen.getAllByText(/No disponible en la fuente/i).length).toBeGreaterThan(0);
   });
 });

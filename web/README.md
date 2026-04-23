@@ -123,6 +123,7 @@ src/
 - Gráfico histórico D3 con doble eje vertical (USD izquierdo, %PIB derecho).
 - Overlay de periodos de gobierno con etiquetas escalonadas y nombres locale-aware.
 - Sección de equivalencias emocionales con iconografía semántica.
+- Sección explícita de trazabilidad (`data_source`, `debt_concept`, `source`, indicadores consultados y `data_vintage`) para auditar de dónde salen las métricas visibles.
 - Share card PNG client-side con mini gráfico histórico real.
 - Exportación: CSV, XLSX (datos históricos), PDF branded (gráfico + resumen de gobiernos).
 - Metadatos sociales dinámicos (`og:*`, `twitter:*`).
@@ -131,6 +132,7 @@ src/
 
 - Selector multi-país con chips y búsqueda por nombre/ISO3 (hasta ~5 países para legibilidad).
 - Gráfico comparativo con doble eje: stock USD (líneas sólidas, eje izq.) y %PIB (líneas punteadas, eje der.).
+- Bloque de trazabilidad por país comparado con fuente, concepto e indicadores utilizados para el cálculo de métricas.
 - Exportación CSV, XLSX y PDF de la comparación.
 
 ### RankingsPage
@@ -256,7 +258,7 @@ Tipos alineados 1:1 con los schemas Pydantic de la API:
 | `GlobeDataPoint` | Punto del globo: iso3, name_en, region, métricas, trazabilidad |
 | `GlobeDataResponse` | Wrapper: item_count + items[] |
 | `CountryDetailResponse` | Detalle país: datos generales + métricas + equivalencias |
-| `CountryHistoryItem` | Fila de serie histórica: año, métricas, source |
+| `CountryHistoryItem` | Fila de serie histórica: año, métricas, source + metadatos de trazabilidad |
 | `CountryHistoryResponse` | Wrapper: iso3 + items[] |
 | `CountryGovernmentItem` | Periodo de gobierno: leader, party, dates, lean |
 | `CountryGovernmentsResponse` | Wrapper: iso3 + items[] |

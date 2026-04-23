@@ -51,6 +51,8 @@ El sistema resuelve un problema recurrente en la divulgación económica: la com
 | **Reproducibilidad operativa** | ETL versionado, migraciones Alembic idempotentes, CLI parametrizable, scheduler cron y reportes de gaps automatizados. |
 | **Accesibilidad analítica** | API REST paginada + globo 3D interactivo + gráficos de series temporales + comparador multi-país + exportación CSV/XLSX/PDF. |
 
+Las vistas de país y comparación muestran de forma explícita la trazabilidad de métricas (fuente, concepto, código fuente, indicadores consultados y corte de datos) para que el usuario pueda auditar qué series alimentan cada valor visible.
+
 ### Cifras clave del dataset (última corrida ETL)
 
 | Indicador | Valor |

@@ -15,6 +15,7 @@ import {
 import { presentEquivalences } from "../lib/equivalences";
 import { LoadingPanel } from "../components/ui/LoadingPanel";
 import { formatPercentage, formatUsdCompact } from "../lib/formatters";
+import { buildCountryProvenance } from "../lib/provenance";
 import { t, trRegion } from "../lib/translations";
 import { fetchCountryDetail, fetchCountryGovernments, fetchCountryHistory } from "../services/deudamundiApi";
 import { useLocaleStore } from "../store/localeStore";
@@ -51,6 +52,14 @@ export function CountryDetailPage() {
 
     return presentEquivalences(country.equivalences, locale);
   }, [country, locale]);
+
+  const provenance = useMemo(() => {
+    if (!country) {
+      return null;
+    }
+
+    return buildCountryProvenance(country, historyItems);
+  }, [country, historyItems]);
 
   useEffect(() => {
     let cancelled = false;
@@ -272,6 +281,25 @@ export function CountryDetailPage() {
               </ul>
             </article>
           </section>
+
+          {provenance && (
+            <section className="glass-panel rounded-xl p-4">
+              <h2 className="text-sm font-semibold text-[#f5f4f0]">{t(locale, "dataTraceabilityTitle")}</h2>
+              <p className="mt-1 text-xs text-[#888680]">{t(locale, "dataTraceabilitySubtitle")}</p>
+
+              <ul className="mt-3 space-y-2 text-sm text-[#f5f4f0]">
+                <li>{t(locale, "dataSourceLabel")}: {provenance.dataSource ?? t(locale, "notAvailable")}</li>
+                <li>{t(locale, "debtConceptLabel")}: {provenance.debtConcept ?? t(locale, "notAvailable")}</li>
+                <li>
+                  {t(locale, "sourceCodeLabel")}: {provenance.sourceCodes.length > 0 ? provenance.sourceCodes.join(", ") : t(locale, "notAvailable")}
+                </li>
+                <li>
+                  {t(locale, "indicatorCodesLabel")}: {provenance.indicators.length > 0 ? provenance.indicators.join(", ") : t(locale, "notAvailable")}
+                </li>
+                <li>{t(locale, "dataVintageLabel")}: {provenance.dataVintage ?? t(locale, "notAvailable")}</li>
+              </ul>
+            </section>
+          )}
         </>
       )}
     </main>

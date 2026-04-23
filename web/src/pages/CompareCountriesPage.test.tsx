@@ -66,9 +66,21 @@ describe("CompareCountriesPage", () => {
             debt_per_capita_usd: 10,
             debt_pct_gdp: 40,
             gdp_usd: 200,
+            source: "wb_ids_dt_dod_dect_cd",
+            debt_concept: "external_debt_bop",
+            data_source: "World Bank IDS DT.DOD.DECT.CD",
             equivalences: [],
           },
-          history: [],
+          history: [
+            {
+              year: 2024,
+              total_external_debt_usd: 100,
+              debt_per_capita_usd: 10,
+              debt_pct_gdp: 40,
+              gdp_usd: 200,
+              source: "wb_ids_dt_dod_dect_cd",
+            },
+          ],
         },
         {
           detail: {
@@ -85,9 +97,21 @@ describe("CompareCountriesPage", () => {
             debt_per_capita_usd: 10,
             debt_pct_gdp: 90,
             gdp_usd: 2000,
+            source: "wb_ids_dt_dod_dect_cd",
+            debt_concept: "external_debt_bop",
+            data_source: "World Bank IDS DT.DOD.DECT.CD",
             equivalences: [],
           },
-          history: [],
+          history: [
+            {
+              year: 2024,
+              total_external_debt_usd: 999,
+              debt_per_capita_usd: 10,
+              debt_pct_gdp: 90,
+              gdp_usd: 2000,
+              source: "wb_ids_dt_dod_dect_cd",
+            },
+          ],
         },
       ],
     });
@@ -102,7 +126,9 @@ describe("CompareCountriesPage", () => {
 
     expect(await screen.findByText("Comparación entre países")).toBeInTheDocument();
     expect(await screen.findByText("Historical comparison: debt stock and debt/GDP")).toBeInTheDocument();
-    expect(await screen.findByText("Argentina (ARG)")).toBeInTheDocument();
+    expect(await screen.findByRole("link", { name: "Argentina (ARG)" })).toBeInTheDocument();
+    expect(await screen.findByText("Trazabilidad de datos")).toBeInTheDocument();
+    expect((await screen.findAllByText(/DT\.DOD\.DECT\.CD/)).length).toBeGreaterThan(0);
     expect(mockFetchCountriesCompare).toHaveBeenCalledWith(["ARG", "USA"]);
   });
 });
