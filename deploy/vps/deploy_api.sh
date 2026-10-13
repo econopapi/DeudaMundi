@@ -2,19 +2,20 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPOSITORY_DIR="$(cd "${SCRIPT_DIR}/../.." && pwd)"
 
-if [ ! -f "${SCRIPT_DIR}/.env.api" ]; then
-  echo "Missing ${SCRIPT_DIR}/.env.api (copy from .env.api.example)"
+if [ ! -f "${REPOSITORY_DIR}/.env.production" ]; then
+  echo "Missing ${REPOSITORY_DIR}/.env.production (run 'make prod-init' and configure it)"
   exit 1
 fi
 
-cd "${SCRIPT_DIR}"
+cd "${REPOSITORY_DIR}"
 
-echo "[deploy] Building and starting DeudaMundi API stack..."
-docker compose -f docker-compose.prod.yml up -d --build
+echo "[deploy] Building and starting the complete DeudaMundi stack..."
+make prod-up
 
 echo "[deploy] Current status:"
-docker compose -f docker-compose.prod.yml ps
+make prod-ps
 
-echo "[deploy] Last API logs:"
-docker compose -f docker-compose.prod.yml logs api --tail=100
+echo "[deploy] Last logs:"
+docker compose --env-file .env.production -f docker-compose.prod.yml logs --tail=100

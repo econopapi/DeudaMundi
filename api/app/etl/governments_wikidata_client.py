@@ -1,8 +1,8 @@
 from __future__ import annotations
 
+import logging
 from dataclasses import dataclass
 from datetime import date
-import logging
 from time import perf_counter, sleep
 
 import httpx
@@ -57,7 +57,9 @@ def _dedupe_periods(periods: list[WikidataGovernmentPeriod]) -> list[WikidataGov
     return sorted(by_key.values(), key=lambda row: (row.iso3, row.start_date, row.leader_name))
 
 
-def select_preferred_role_periods(periods: list[WikidataGovernmentPeriod]) -> list[WikidataGovernmentPeriod]:
+def select_preferred_role_periods(
+    periods: list[WikidataGovernmentPeriod],
+) -> list[WikidataGovernmentPeriod]:
     by_iso3: dict[str, dict[str, list[WikidataGovernmentPeriod]]] = {}
 
     for period in periods:
@@ -65,8 +67,12 @@ def select_preferred_role_periods(periods: list[WikidataGovernmentPeriod]) -> li
 
     selected: list[WikidataGovernmentPeriod] = []
     for iso3, role_map in by_iso3.items():
-        role_p6 = sorted(role_map.get("p6", []), key=lambda row: (row.start_date, row.leader_name))
-        role_p35 = sorted(role_map.get("p35", []), key=lambda row: (row.start_date, row.leader_name))
+        role_p6 = sorted(
+            role_map.get("p6", []), key=lambda row: (row.start_date, row.leader_name)
+        )
+        role_p35 = sorted(
+            role_map.get("p35", []), key=lambda row: (row.start_date, row.leader_name)
+        )
 
         # Prefer heads of government when there is enough timeline depth; fallback to head of state.
         if len(role_p6) >= 2:
@@ -93,15 +99,24 @@ class WikidataGovernmentsClient:
         self.chunk_size = max(1, chunk_size)
         self.max_duration_seconds = max(10.0, max_duration_seconds)
 
-    def fetch_periods(self, iso3_codes: set[str], min_start_year: int = 1990) -> list[WikidataGovernmentPeriod]:
-        normalized_iso3 = sorted({code.strip().upper() for code in iso3_codes if len(code.strip()) == 3})
+    def fetch_periods(
+        self,
+        iso3_codes: set[str],
+        min_start_year: int = 1990,
+    ) -> list[WikidataGovernmentPeriod]:
+        normalized_iso3 = sorted(
+            {code.strip().upper() for code in iso3_codes if len(code.strip()) == 3}
+        )
         if not normalized_iso3:
             return []
 
         chunks = _chunked(normalized_iso3, self.chunk_size)
         started_at = perf_counter()
         rows: list[WikidataGovernmentPeriod] = []
-        with httpx.Client(timeout=self.timeout_seconds, headers={"User-Agent": WIKIDATA_USER_AGENT}) as client:
+        with httpx.Client(
+            timeout=self.timeout_seconds,
+            headers={"User-Agent": WIKIDATA_USER_AGENT},
+        ) as client:
             for index, chunk in enumerate(chunks, start=1):
                 elapsed = perf_counter() - started_at
                 if elapsed > self.max_duration_seconds:
@@ -139,7 +154,10 @@ class WikidataGovernmentsClient:
 
         selected_rows = select_preferred_role_periods(rows)
         logger.info(
-            "Wikidata governments fetch completed (raw_rows=%s, selected_rows=%s, countries=%s, elapsed=%.1fs)",
+            (
+                "Wikidata governments fetch completed "
+                "(raw_rows=%s, selected_rows=%s, countries=%s, elapsed=%.1fs)"
+            ),
             len(rows),
             len(selected_rows),
             len(normalized_iso3),
@@ -189,7 +207,9 @@ class WikidataGovernmentsClient:
 
                 retry_after_header = response.headers.get("Retry-After")
                 try:
-                    delay_seconds = float(retry_after_header) if retry_after_header else float(attempt)
+                    delay_seconds = (
+                        float(retry_after_header) if retry_after_header else float(attempt)
+                    )
                 except ValueError:
                     delay_seconds = float(attempt)
 
@@ -237,7 +257,9 @@ ORDER BY ?iso3 ?start
 
     def _parse_payload(self, payload: dict) -> list[WikidataGovernmentPeriod]:
         rows: list[WikidataGovernmentPeriod] = []
-        bindings = payload.get("results", {}).get("bindings", []) if isinstance(payload, dict) else []
+        bindings = (
+            payload.get("results", {}).get("bindings", []) if isinstance(payload, dict) else []
+        )
 
         for binding in bindings:
             if not isinstance(binding, dict):

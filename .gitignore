@@ -25,6 +25,7 @@ web/vite.config.d.ts
 .env
 .env.*
 !.env.example
+!.env.production.example
 
 # OS / IDE
 .DS_Store
@@ -32,6 +33,7 @@ web/vite.config.d.ts
 
 # Docker
 *.log
+backups/
 
 # Generated reports
 api/reports/

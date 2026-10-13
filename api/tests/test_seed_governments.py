@@ -46,7 +46,10 @@ def test_seed_governments_uses_injected_session(monkeypatch) -> None:  # type: i
     def fail_begin():  # type: ignore[no-untyped-def]
         raise AssertionError("SessionLocal.begin should not be called when db is provided")
 
-    monkeypatch.setattr("app.etl.seed_governments._seed_governments_with_session", fake_seed_with_session)
+    monkeypatch.setattr(
+        "app.etl.seed_governments._seed_governments_with_session",
+        fake_seed_with_session,
+    )
     monkeypatch.setattr("app.etl.seed_governments.SessionLocal.begin", fail_begin)
 
     fake_db = object()

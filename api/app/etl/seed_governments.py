@@ -1,8 +1,8 @@
 from __future__ import annotations
 
+import logging
 from dataclasses import dataclass
 from datetime import date
-import logging
 
 from sqlalchemy import select
 from sqlalchemy.dialects.postgresql import insert
@@ -197,7 +197,10 @@ def _resolve_seed_mode(source: str | None) -> str:
     return mode
 
 
-def _build_seed_input(country_iso3_codes: set[str], mode: str) -> tuple[list[GovernmentSeed], dict[str, int | str]]:
+def _build_seed_input(
+    country_iso3_codes: set[str],
+    mode: str,
+) -> tuple[list[GovernmentSeed], dict[str, int | str]]:
     if mode == "pilot":
         return list(PILOT_GOVERNMENTS), {
             "seed_source": "pilot",

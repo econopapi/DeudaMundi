@@ -58,5 +58,11 @@ export function getApiBaseUrl(): string {
     return getApiBaseUrlForHost(window.location.hostname);
   }
 
+  // En el despliegue unificado, Caddy enruta /api/* al contenedor de FastAPI.
+  // Mantener el mismo origen evita CORS y permite cambiar de dominio sin recompilar.
+  if (typeof window !== "undefined") {
+    return window.location.origin;
+  }
+
   return DEFAULT_API_BASE_URL;
 }

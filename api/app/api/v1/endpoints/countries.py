@@ -64,7 +64,7 @@ def compare_countries_endpoint(
 
     if len(normalized_iso3) < 2:
         raise HTTPException(
-            status_code=status.HTTP_422_UNPROCESSABLE_CONTENT,
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
             detail="At least two valid iso3 query params are required",
         )
 

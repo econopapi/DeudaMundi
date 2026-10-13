@@ -9,7 +9,8 @@ description = "Backend API for DeudaMundi (Global Debt Atlas)."
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
-  "fastapi>=0.115.0,<1.0.0",
+  # SlowAPI 0.1.x relies on FastAPI's pre-0.116 route internals.
+  "fastapi>=0.115.0,<0.116.0",
   "uvicorn[standard]>=0.30.0,<1.0.0",
   "httpx>=0.27.0,<1.0.0",
   "apscheduler>=3.10.4,<4.0.0",

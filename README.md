@@ -201,8 +201,11 @@ A partir de las fuentes primarias, el ETL calcula y persiste las siguientes mét
 │   │   ├── lib/                 # Formatters, translations (ES/EN), exports, chart helpers
 │   │   └── types/               # Tipos TypeScript alineados a schemas de API
 │   └── ...
-├── deploy/vps/                  # systemd service, Nginx config, deploy script
-├── docker-compose.yml           # Stack local: Postgres 16 + Redis 7 + API + Web
+├── deploy/caddy/                # Reverse proxy HTTPS del stack productivo
+├── deploy/vps/                  # Guía de operación y script de compatibilidad
+├── docker-compose.yml           # Stack local: Postgres 16 + Redis 7 + API + Vite
+├── docker-compose.prod.yml      # Stack VPS: Caddy + Web + API + Postgres + Redis
+├── Makefile                     # Comandos reproducibles de desarrollo y producción
 └── README.md                    # ← Este archivo
 ```
 
@@ -232,9 +235,8 @@ A partir de las fuentes primarias, el ETL calcula y persiste las siguientes mét
 | **Testing backend** | Pytest, Ruff | 8.x / 0.6+ |
 | **Testing frontend** | Jest, React Testing Library | 29.x / 16.x |
 | **Infra local** | Docker Compose | — |
-| **Deploy backend** | VPS Linux + systemd + Nginx | — |
-| **Deploy frontend** | Vercel | — |
-| **Analytics** | Vercel Analytics | — |
+| **Deploy** | VPS Linux + Docker Compose + Caddy | — |
+| **TLS / reverse proxy** | Caddy | 2.8 |
 
 ### 4.3 Diagrama de flujo de datos
 
@@ -548,7 +550,7 @@ Prefijo base: `/api/v1`
 ### Opción recomendada: Docker Compose (stack completo)
 
 ```bash
-docker compose up --build
+make dev-up
 ```
 
 | Servicio | URL |
@@ -572,13 +574,13 @@ Tras levantar el stack:
 
 ```bash
 # 1. Aplicar migraciones (automático con RUN_MIGRATIONS=true en Docker)
-docker compose exec api alembic upgrade head
+make dev-migrate
 
 # 2. Ejecutar ETL global
-docker compose exec api deudamundi-etl-global
+make dev-etl
 
 # 3. Seed de gobiernos
-docker compose exec api deudamundi-seed-governments
+make dev-seed
 
 # 4. Reporte de cobertura
 docker compose exec api deudamundi-report-gaps
@@ -619,49 +621,33 @@ npm run test -- --runInBand   # Jest + RTL
 
 ## 11. Despliegue y operación
 
-### Backend (VPS Linux)
+### VPS unificado (producción)
 
-Ruta de despliegue:
+El despliegue de producción está contenido en `docker-compose.prod.yml`:
 
-```bash
-deploy/vps/systemd/deploy_systemd.sh   # Instala/actualiza servicio systemd
-deploy/vps/systemd/nginx.deudamundi-api.conf  # Reverse proxy Nginx
-api/scripts/start_api.sh               # Entrypoint: migraciones + uvicorn
+```text
+Internet → Caddy (TLS) → Web (SPA React) / API (FastAPI)
+                              └──────────→ PostgreSQL + Redis (red interna)
 ```
 
-Variables de producción obligatorias:
+En el VPS, después de apuntar el DNS del dominio a su IP y abrir `80/tcp`, `443/tcp` y `443/udp`:
 
-| Variable | Ejemplo |
-|---|---|
-| `APP_ENV` | `production` |
-| `SUPABASE_DATABASE_URL` | `postgresql://...` |
-| `REDIS_URL` | `redis://localhost:6379/0` |
-| `CORS_ALLOWED_ORIGINS` | `https://deudamundi.econopapi.com` |
-| `ADMIN_API_KEY` | `<secret>` |
-| `RATE_LIMIT_REQUESTS_PER_MINUTE` | `100` |
-| `SECURITY_HSTS_ENABLED` | `true` |
-| `RUN_MIGRATIONS` | `true` |
+```bash
+make prod-init                # crea .env.production sin sobrescribirlo
+# editar .env.production: DOMAIN, CORS_ALLOWED_ORIGINS y secretos
+make prod-up
+make prod-ps
+```
 
-### Nota importante sobre Redis en producción
+`Caddy` emite y renueva TLS automáticamente. Solo Caddy expone puertos públicos; PostgreSQL, Redis y FastAPI permanecen en la red Docker interna. Las migraciones se ejecutan al arrancar la API y los volúmenes preservan base de datos, cache y certificados durante actualizaciones.
 
-- Si despliegas con **systemd** y Redis corre en la misma máquina, usa `REDIS_URL=redis://localhost:6379/0`.
-- El host `redis` es un alias típico de Docker Compose y **no** suele resolver en despliegues directos sobre host.
-- Si `REDIS_URL` apunta a un host incorrecto, la API seguirá respondiendo pero perderá el cache de lectura y endpoints como `/api/v1/globe-data` o `/api/v1/rankings` volverán a consultar PostgreSQL en cada request.
-
-### Frontend (Vercel)
-
-Despliegue automático desde el monorepo. Variable:
-
-| Variable | Default |
-|---|---|
-| `VITE_API_BASE_URL` | `https://deudamundi.dlimon.net` |
+Los comandos cotidianos son `make prod-logs`, `make prod-etl`, `make prod-migrate` y `make prod-backup-db`. La guía de instalación/migración completa está en [`deploy/vps/README.md`](deploy/vps/README.md).
 
 ### Notas operativas
 
-- `GET /` devuelve `404` por diseño; el health check es `GET /api/v1/health`.
+- El health check público es `GET /api/v1/health`.
 - En `development`, la API admite orígenes de red local vía regex para pruebas en dispositivos móviles.
-- La app y Alembic priorizan `SUPABASE_DATABASE_URL` sobre `DATABASE_URL` si ambas están definidas.
-- Si Redis está mal configurado, hoy el backend degrada a modo sin cache; conviene validar el cache tras cada deploy.
+- Si Redis está mal configurado, el backend degrada a modo sin cache; conviene validar el cache tras cada deploy.
 
 ### Smoke test recomendado para Redis/cache
 

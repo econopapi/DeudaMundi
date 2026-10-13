@@ -9,7 +9,6 @@ from sqlalchemy.orm import Session
 from app.etl.types import CountrySeed, DebtRecordSeed
 from app.models import Country, DebtRecord
 
-
 PG_MAX_BIND_PARAMS = 65_535
 DEBT_RECORD_INSERT_COLUMNS = 11
 DEBT_UPSERT_BATCH_SIZE = max(1, PG_MAX_BIND_PARAMS // DEBT_RECORD_INSERT_COLUMNS)
