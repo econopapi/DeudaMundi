@@ -1,27 +1,34 @@
-FROM python:3.12-slim
+FROM python:3.12-slim AS base
 
-ENV PYTHONUNBUFFERED=1
+ENV PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PIP_NO_CACHE_DIR=1
 
 WORKDIR /app
 
-# Copy metadata first (for caching)
 COPY pyproject.toml README.md ./
-
-# Install build tools
-RUN pip install --upgrade pip setuptools wheel
-
-# Copy the actual source code and scripts
 COPY app ./app
+COPY alembic ./alembic
+COPY alembic.ini ./
 COPY scripts ./scripts
+
+RUN pip install --upgrade pip setuptools wheel && chmod +x /app/scripts/start_api.sh
+
+
+FROM base AS development
+
 COPY tests ./tests
-
-# Install your package
-RUN pip install .
-
-# Make the production start script executable
-RUN chmod +x /app/scripts/start_api.sh
+RUN pip install -e ".[dev]"
 
 EXPOSE 8000
 
-# Use production start script which runs migrations and uvicorn
+CMD ["./scripts/start_api.sh"]
+
+
+FROM base AS production
+
+RUN pip install .
+
+EXPOSE 8000
+
 CMD ["./scripts/start_api.sh"]

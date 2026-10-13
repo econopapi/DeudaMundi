@@ -1,0 +1,8 @@
+{$DOMAIN} {
+	encode zstd gzip
+
+	@api path /api/* /docs /docs/* /redoc /redoc/* /openapi.json
+	reverse_proxy @api api:8000
+
+	reverse_proxy web:8080
+}

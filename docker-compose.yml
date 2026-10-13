@@ -25,11 +25,12 @@ services:
   api:
     build:
       context: ./api
+      target: development
     container_name: deudamundi-api
     restart: unless-stopped
     env_file:
       - ./api/.env
-    # Force the start script to be executed via sh so mounts without exec bit still run
+    # Run through sh because bind mounts may not retain the executable bit.
     command: sh -c "./scripts/start_api.sh"
     volumes:
       - ./api:/app:z
