@@ -1,8 +1,7 @@
-from pathlib import Path
 import re
+from pathlib import Path
 
 from pydantic_settings import BaseSettings, SettingsConfigDict
-
 
 LOCAL_NETWORK_CORS_REGEX = (
     r"^https?://(localhost|127\\.0\\.0\\.1|0\\.0\\.0\\.0"
