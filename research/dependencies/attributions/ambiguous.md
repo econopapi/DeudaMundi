@@ -61,7 +61,11 @@ Ningún URL fue deducido ni supuesto a partir del nombre del paquete.
 - **No** calcula métricas de actividad.
 - Los 6 casos que inicialmente salieron `pending` (`h11`, `httptools`,
   `mako`, `pyjwt`, `websockets`, `wrapt`) pasaron a `verified` únicamente
-  cuando las dos fuentes coincidieron; nada se adivinó para cerrar en verde.
+  cuando la URL congelada y la de PyPI fueron exactamente la misma y GitHub
+  resolvió ese repositorio. `verified` prueba la concordancia de los
+  metadatos publicados por el proyecto y la existencia del repositorio;
+  probar que el paquete se produjo desde ese árbol requeriría hashes
+  (trabajo futuro), y este paso no lo asume.
 - Reconstruir la imagen o actualizar dependencias para "contrastar" el
   upstream quedó fuera de alcance: los datos vienen de los metadatos
   congelados y de APIs de solo lectura.
@@ -71,8 +75,11 @@ Ningún URL fue deducido ni supuesto a partir del nombre del paquete.
 - Los metadatos de PyPI y la API de GitHub (redirecciones, `fork`,
   `archived`) son volátiles. Las carpetas `pypi-evidence/` y
   `github-evidence/` guardan la respuesta completa y su instante UTC de
-  consulta (2026-10-30): si el upstream cambia después, esos ficheros
-  documentan lo que se vio.
-- Un nivel de atribución más duro (por ejemplo, hash del sdist contra tag del
-  repositorio) queda como trabajo explícito de un paso posterior, no como
-  conclusión de este entregable.
+  consulta (2026-10-30), y están **incluidas en `SHA256SUMS`**: el
+  orquestador valida ese manifiesto antes de cada extracción, por lo que las
+  decisiones quedan asociadas a lo observado en esa fecha incluso si el
+  upstream cambia después.
+- Los 37 `verified` demuestran concordancia de los metadatos publicados y
+  que el repositorio existe; probar que cada wheel se produjo exactamente de
+  ese árbol requeriría cruces por hash (trabajo explícito de un paso
+  posterior, no una conclusión de este entregable).

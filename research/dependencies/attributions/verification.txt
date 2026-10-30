@@ -1,6 +1,8 @@
 # verification.txt - step 3 attribution checks
-generated_at_utc: 2026-10-30T14:20:37Z
+generated_at_utc: 2026-10-30T14:38:37Z
 inputs_source: graph/nodes.csv (step 2) + pip-inspect.json (step 1), hash-verified
+evidence_cache: 72 ficheros (pypi-evidence + github-evidence) verificados contra SHA256SUMS antes de extraer
+nodes_vs_photo_versions: PASS
 coverage_result: PASS
 stability_result: PASS (byte-identical outputs across two runs)
 publish_policy: verification.txt is published ONLY after every gate passes

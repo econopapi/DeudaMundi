@@ -43,7 +43,7 @@ trazable de distribución → repositorio con evidencia fechada.
 
 | confidence | significado | resultado en este snapshot |
 |---|---|---|
-| `verified` | metadatos congelados **y** PyPI actual coinciden en el repositorio canónico; el repositorio resuelve en GitHub | 37 |
+| `verified` | la URL del repositorio declarada por los **metadatos del wheel congelado** y los **metadatos actuales de PyPI (misma distribución/versión) son la misma** y el repositorio resuelve en GitHub. Esto demuestra concordancia de metadatos publicados por el proyecto y existencia del repositorio: **no** son dos confirmaciones independientes de que el paquete se produjo allí (esa auditoría más profunda queda como trabajo futuro) | 37 |
 | `single-source` | solo una de las dos fuentes da la URL (no corroborada; se lista en `ambiguous.md`) | 0 |
 | `pending` | fuentes en conflicto, repositorio no resoluble o falta de URL de código (razón registrada, nunca inventada) | 0 |
 
@@ -66,8 +66,8 @@ adivinaciones.
 | `ambiguous.md` | Casos a marcar e interpretaciones que exige transparencia (repos compartidos, redirect de owner, URLs sacadas de etiquetas secundárias, pendientes). |
 | `pypi-evidence/` | Respuesta compleja de PyPI por (nombre, versión) fija + instante de consulta (37 ficheros). |
 | `github-evidence/` | Respuesta de `gh api repos/…` por repositorio candidato + instante (35 ficheros: 37 - 2 repos compartidos doble-conteados). |
-| `verification.txt` | Certificación del orquestador (inputs, cobertura, estabilidad); solo se publica si todas las puertas pasaron. |
-| `SHA256SUMS` | Hashes de los ficheros narrativos de la carpeta (no incluye a sí mismo; las carpetas de evidencia son las fotografías de datos externos, y su integridad es la historia que ellas mismas cuentan). |
+| `verification.txt` | Certificación del orquestador (inputs, evidencia cacheada, nodes-vs-foto, cobertura, estabilidad); solo se publica si todas las puertas pasaron. |
+| `SHA256SUMS` | Hashes de TODOS los ficheros de la carpeta con **excepciones ninguna**: tablas/código/README **y los 72 JSON de evidencia** (`pypi-evidence/`, `github-evidence/`) queda dentro del manifiesto. La puerta 1 del orquestador los valida bit a bit *antes* de extraer, de modo que una caché modificada o no commitida detiene la corrida en lugar de sobrescribirse a sí misma con evidencia adulterada. |
 
 ## Cómo regenerar
 
@@ -81,6 +81,21 @@ usan la caché** y la salida es byte-idéntica (el orquestador lo exige con su
 doble corrida): las consultas externas solo ocurren para URLs nuevas o
 ficheras de evidencia desaparecidas. Estabilidad demostrada con la doble
 corrida y con `sha256sum -c SHA256SUMS` verde.
+
+Gates del orquestador ahora mismo:
+
+- Puerta 1 (**antes de extraer**): valida el `SHA256SUMS` completo, que cubre
+  tablas/código **y los 72 JSON de evidencia**; detecta una caché modificada
+  o una evidencia no commitida y detiene sin regenerar nada sobre ella.
+- Puerta 2: doble extracción byte-idéntica (inestabilidad ⇒ exit 1 y no
+  publica nada, como en el paso 2).
+- Puerta 3 (en el extractor): cada fila de `nodes.csv` debe tener la misma
+  versión que la foto del paso 1 (`pip-inspect.json`) — la comparación es
+  contra **ambas** entradas, no solo consigo misma — y la identidad completa
+  de las 41 distribuciones congeladas es coherente con el entorno de
+  ejecución.
+- Publicación: `verification.txt`, tablas y manifiesto se publican solo si
+  todas las puertas pasaron.
 
 Puerta negativa documentada:
 
@@ -107,11 +122,13 @@ COVERAGE_TEST=drop ./research/dependencies/attributions/build_source_attribution
 ## Limitaciones
 
 1. **URLs escritas por los propios mantenedores:** una URL "Repository"
-   errónea se replica tal cual aquí; el doble control (metadatos congelados
-   frente a PyPI actual) mitiga las deducciones, pero no descarta un error
-   o una suplantación deliberada. Auditarla a fondo exigiría cruces
-   adicionales (p. ej. hash del wheel contra el release del repositorio):
-   trabajo futuro, no un supuesto de este paso.
+   errónea se replica tal cual aquí. La regla `verified` demuestra la
+   **concordancia de los metadatos publicados por el proyecto** (wheel
+   congelado + PyPI actual) y que el repositorio existe; **no** son dos
+   confirmaciones independientes de que el paquete se produjo en ese
+   repositorio. Auditar la producción a fondo exigiría cruces adicionales
+   (p. ej. hash del wheel contra el release del repositorio): trabajo
+   futuro, no un supuesto de este paso.
 2. **Volatilidad temporal:** PyPI y GitHub son servicios vivos (por ejemplo,
    el redirect de `starlette` cambió de owner después de congelar los
    metadatos). El estudio fija las consultas con fecha; re-ejecuciones

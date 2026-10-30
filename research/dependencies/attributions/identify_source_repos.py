@@ -17,9 +17,14 @@ Evidence is gathered read-only from:
      final full_name after redirects, status) — cached verbatim under
      github-evidence/.
 
-Attribution rules (no guessing by name):
-  confidence 'verified' — frozen metadata AND current PyPI metadata agree on
-  the same canonical repository, and the repository resolves on GitHub.
+Confidence semantics (exact):
+  'verified' — the FROZEN wheel metadata and the CURRENT PyPI metadata for
+  the same distribution/version agree on the same canonical repository, and
+  that repository resolves on GitHub. This proves agreement between the
+  project's published metadata (at two points in time) and that the
+  repository exists and resolves; it does NOT independently prove the wheel
+  was produced from that repository (that audit would need wheel-hash ↔
+  release cross-checks; explicitly out of scope for this step).
   'single-source' — exactly one of the two sources holds a repo URL (it is
   not corroborated; flagged in ambiguous.md).
   'pending' — conflicting sources, unresolvable repository, or no code URL
@@ -284,14 +289,37 @@ def main() -> int:
         for pkg in snapshot.get("installed", [])
     }
 
-    packages = []
+    # Cross-check between the two frozen sources BEFORE attributing:
+    # every universe row (nodes.csv) must match the version recorded in the
+    # step-1 photo (pip-inspect.json). This gate now compares BOTH inputs.
+    version_mismatches = []
     for node in sorted(universe, key=lambda r: (r["category"], r["name"])):
         canonical = canonical_pkg(node["name"])
         meta = frozen_by_name.get(canonical)
         if meta is None:  # pragma: no cover
             print(f"ERROR: {canonical} missing from frozen snapshot", file=sys.stderr)
             return 2
-        frozen_version = node["version"]
+        if node["version"] != meta.get("version"):
+            version_mismatches.append({
+                "name": canonical,
+                "nodes_csv_version": node["version"],
+                "photo_version": meta.get("version"),
+            })
+    if version_mismatches:
+        print(
+            f"ERROR: {len(version_mismatches)} version mismatch(es) between "
+            "nodes.csv and the step-1 photo (pip-inspect.json). Refusing to "
+            "attribute: the universe is inconsistent.",
+            file=sys.stderr,
+        )
+        print(json.dumps(version_mismatches, indent=2), file=sys.stderr)
+        return 2
+
+    packages = []
+    for node in sorted(universe, key=lambda r: (r["category"], r["name"])):
+        canonical = canonical_pkg(node["name"])
+        meta = frozen_by_name[canonical]
+        frozen_version = node["version"]  # verified == photo version
 
         labelled_frozen = frozen_urls(meta)
         pypi = pypi_evidence(canonical, frozen_version)
@@ -447,7 +475,7 @@ def main() -> int:
             "build_tooling_excluded": ["pip", "setuptools", "wheel"],
         },
         "attribution_rules": {
-            "verified": "frozen wheel metadata AND current PyPI metadata agree on the same canonical repository; repository resolves on GitHub",
+            "verified": "the FROZEN wheel metadata and the CURRENT PyPI metadata (same distribution/version) agree on the same canonical repository, and the repository resolves on GitHub; proves agreement of the project's published metadata and repository existence, not independently that the wheel was produced there",
             "single-source": "exactly one source holds the repo URL (not corroborated; see ambiguous.md)",
             "pending": "conflicting sources, unresolvable repo, or no code URL (never guessed)",
         },
@@ -479,6 +507,11 @@ def main() -> int:
     }
     report = {
         "counts": counts,
+        "snapshot_consistency": {
+            "nodes_vs_photo_versions": "PASS" if not version_mismatches else "FAIL",
+            "version_mismatches": version_mismatches,
+            "comparison": "nodes.csv version == pip-inspect.json version (per canonical name) BEFORE attribution",
+        },
         "missing_vs_universe": missing,
         "unexpected_vs_universe": sorted(unexpected),
         "duplicated_names": duplicates,

@@ -2,7 +2,7 @@
   "attribution_rules": {
     "pending": "conflicting sources, unresolvable repo, or no code URL (never guessed)",
     "single-source": "exactly one source holds the repo URL (not corroborated; see ambiguous.md)",
-    "verified": "frozen wheel metadata AND current PyPI metadata agree on the same canonical repository; repository resolves on GitHub"
+    "verified": "the FROZEN wheel metadata and the CURRENT PyPI metadata (same distribution/version) agree on the same canonical repository, and the repository resolves on GitHub; proves agreement of the project's published metadata and repository existence, not independently that the wheel was produced there"
   },
   "consulted_at_utc": [
     "2026-10-30T14:16:11Z"

@@ -25,5 +25,10 @@
     ]
   },
   "single_source_detail": [],
+  "snapshot_consistency": {
+    "comparison": "nodes.csv version == pip-inspect.json version (per canonical name) BEFORE attribution",
+    "nodes_vs_photo_versions": "PASS",
+    "version_mismatches": []
+  },
   "unexpected_vs_universe": []
 }
