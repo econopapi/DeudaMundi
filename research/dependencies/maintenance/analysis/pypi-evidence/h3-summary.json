@@ -1,0 +1,261 @@
+[
+ {
+  "distribution": "alembic",
+  "unavailable": false,
+  "published_12m": true,
+  "published_24m": true,
+  "latest_before_cut": "1.20.1"
+ },
+ {
+  "distribution": "apscheduler",
+  "unavailable": false,
+  "published_12m": true,
+  "published_24m": true,
+  "latest_before_cut": "3.11.3"
+ },
+ {
+  "distribution": "fastapi",
+  "unavailable": false,
+  "published_12m": true,
+  "published_24m": true,
+  "latest_before_cut": "0.162.0"
+ },
+ {
+  "distribution": "httpx",
+  "unavailable": false,
+  "published_12m": true,
+  "published_24m": true,
+  "latest_before_cut": "0.28.1"
+ },
+ {
+  "distribution": "psycopg",
+  "unavailable": false,
+  "published_12m": true,
+  "published_24m": true,
+  "latest_before_cut": "3.3.6"
+ },
+ {
+  "distribution": "pydantic-settings",
+  "unavailable": false,
+  "published_12m": true,
+  "published_24m": true,
+  "latest_before_cut": "2.16.2"
+ },
+ {
+  "distribution": "redis",
+  "unavailable": false,
+  "published_12m": true,
+  "published_24m": true,
+  "latest_before_cut": "8.1.0"
+ },
+ {
+  "distribution": "slowapi",
+  "unavailable": false,
+  "published_12m": true,
+  "published_24m": true,
+  "latest_before_cut": "0.1.10"
+ },
+ {
+  "distribution": "sqlalchemy",
+  "unavailable": false,
+  "published_12m": true,
+  "published_24m": true,
+  "latest_before_cut": "2.1.6"
+ },
+ {
+  "distribution": "uvicorn",
+  "unavailable": false,
+  "published_12m": true,
+  "published_24m": true,
+  "latest_before_cut": "0.54.0"
+ },
+ {
+  "distribution": "annotated-types",
+  "unavailable": false,
+  "published_12m": true,
+  "published_24m": true,
+  "latest_before_cut": "0.8.0"
+ },
+ {
+  "distribution": "anyio",
+  "unavailable": false,
+  "published_12m": true,
+  "published_24m": true,
+  "latest_before_cut": "4.15.1"
+ },
+ {
+  "distribution": "certifi",
+  "unavailable": false,
+  "published_12m": true,
+  "published_24m": true,
+  "latest_before_cut": "2026.10.23"
+ },
+ {
+  "distribution": "click",
+  "unavailable": false,
+  "published_12m": true,
+  "published_24m": true,
+  "latest_before_cut": "8.5.0"
+ },
+ {
+  "distribution": "deprecated",
+  "unavailable": false,
+  "published_12m": true,
+  "published_24m": true,
+  "latest_before_cut": "3.0.1"
+ },
+ {
+  "distribution": "h11",
+  "unavailable": false,
+  "published_12m": false,
+  "published_24m": true,
+  "latest_before_cut": "0.16.0"
+ },
+ {
+  "distribution": "httpcore",
+  "unavailable": false,
+  "published_12m": false,
+  "published_24m": true,
+  "latest_before_cut": "1.0.9"
+ },
+ {
+  "distribution": "httptools",
+  "unavailable": false,
+  "published_12m": true,
+  "published_24m": true,
+  "latest_before_cut": "0.9.0"
+ },
+ {
+  "distribution": "idna",
+  "unavailable": false,
+  "published_12m": true,
+  "published_24m": true,
+  "latest_before_cut": "3.20"
+ },
+ {
+  "distribution": "limits",
+  "unavailable": false,
+  "published_12m": true,
+  "published_24m": true,
+  "latest_before_cut": "5.8.0"
+ },
+ {
+  "distribution": "mako",
+  "unavailable": false,
+  "published_12m": true,
+  "published_24m": true,
+  "latest_before_cut": "1.4.3"
+ },
+ {
+  "distribution": "markupsafe",
+  "unavailable": false,
+  "published_12m": true,
+  "published_24m": true,
+  "latest_before_cut": "3.0.4"
+ },
+ {
+  "distribution": "packaging",
+  "unavailable": false,
+  "published_12m": true,
+  "published_24m": true,
+  "latest_before_cut": "26.3"
+ },
+ {
+  "distribution": "psycopg-binary",
+  "unavailable": false,
+  "published_12m": true,
+  "published_24m": true,
+  "latest_before_cut": "3.3.6"
+ },
+ {
+  "distribution": "pydantic",
+  "unavailable": false,
+  "published_12m": true,
+  "published_24m": true,
+  "latest_before_cut": "2.14.2"
+ },
+ {
+  "distribution": "pydantic-core",
+  "unavailable": false,
+  "published_12m": true,
+  "published_24m": true,
+  "latest_before_cut": "2.50.2"
+ },
+ {
+  "distribution": "pyjwt",
+  "unavailable": false,
+  "published_12m": true,
+  "published_24m": true,
+  "latest_before_cut": "2.15.1"
+ },
+ {
+  "distribution": "python-dotenv",
+  "unavailable": false,
+  "published_12m": true,
+  "published_24m": true,
+  "latest_before_cut": "1.2.4"
+ },
+ {
+  "distribution": "pyyaml",
+  "unavailable": false,
+  "published_12m": false,
+  "published_24m": true,
+  "latest_before_cut": "6.0.3"
+ },
+ {
+  "distribution": "starlette",
+  "unavailable": false,
+  "published_12m": true,
+  "published_24m": true,
+  "latest_before_cut": "1.10.0"
+ },
+ {
+  "distribution": "typing-extensions",
+  "unavailable": false,
+  "published_12m": true,
+  "published_24m": true,
+  "latest_before_cut": "4.16.0"
+ },
+ {
+  "distribution": "typing-inspection",
+  "unavailable": false,
+  "published_12m": true,
+  "published_24m": true,
+  "latest_before_cut": "0.4.4"
+ },
+ {
+  "distribution": "tzlocal",
+  "unavailable": false,
+  "published_12m": true,
+  "published_24m": true,
+  "latest_before_cut": "5.4.5"
+ },
+ {
+  "distribution": "uvloop",
+  "unavailable": false,
+  "published_12m": true,
+  "published_24m": true,
+  "latest_before_cut": "0.23.0"
+ },
+ {
+  "distribution": "watchfiles",
+  "unavailable": false,
+  "published_12m": true,
+  "published_24m": true,
+  "latest_before_cut": "1.3.0"
+ },
+ {
+  "distribution": "websockets",
+  "unavailable": false,
+  "published_12m": true,
+  "published_24m": true,
+  "latest_before_cut": "17.4"
+ },
+ {
+  "distribution": "wrapt",
+  "unavailable": false,
+  "published_12m": true,
+  "published_24m": true,
+  "latest_before_cut": "2.5.2"
+ }
+]

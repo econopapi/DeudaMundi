@@ -1,0 +1,76 @@
+{
+ "12m": {
+  "commits_nonmerge": {
+   "events": 6432,
+   "bots": 1495,
+   "unattributed": 21
+  },
+  "commit_merges": {
+   "events": 582,
+   "bots": 0,
+   "unattributed": 0
+  },
+  "merged_prs_main": {
+   "events": 3786,
+   "bots": 670,
+   "unattributed": 0
+  },
+  "merged_prs_other_base": {
+   "events": 195,
+   "bots": 0,
+   "unattributed": 0
+  },
+  "review_pairs": {
+   "events": 5756,
+   "bots": 1638,
+   "unattributed": 1
+  },
+  "reviews_raw": {
+   "events": 10543,
+   "bots": 2610,
+   "unattributed": 1
+  },
+  "releases": {
+   "events": 356,
+   "bots": 140,
+   "unattributed": 0
+  }
+ },
+ "24m": {
+  "commits_nonmerge": {
+   "events": 11536,
+   "bots": 1973,
+   "unattributed": 53
+  },
+  "commit_merges": {
+   "events": 1057,
+   "bots": 0,
+   "unattributed": 0
+  },
+  "merged_prs_main": {
+   "events": 6004,
+   "bots": 984,
+   "unattributed": 2
+  },
+  "merged_prs_other_base": {
+   "events": 541,
+   "bots": 0,
+   "unattributed": 0
+  },
+  "review_pairs": {
+   "events": 9380,
+   "bots": 1757,
+   "unattributed": 6
+  },
+  "reviews_raw": {
+   "events": 18025,
+   "bots": 2768,
+   "unattributed": 7
+  },
+  "releases": {
+   "events": 594,
+   "bots": 187,
+   "unattributed": 0
+  }
+ }
+}

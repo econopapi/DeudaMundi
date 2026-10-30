@@ -1,0 +1,26 @@
+{
+ "distribution": "annotated-types",
+ "unavailable": false,
+ "request": {
+  "url": "https://pypi.org/pypi/annotated-types/json",
+  "method": "GET",
+  "consulted_at_utc": "2026-10-30T17:47:38Z",
+  "http_status": 200,
+  "error": null,
+  "body_sha256": "bbe701554fc03915c80b90d54d2af7b15fa716679967376e86f222ea7fc80181",
+  "body_bytes": 31556
+ },
+ "total_versions": 9,
+ "latest_version_at_query": "0.8.0",
+ "versions_published_at": {
+  "0.1.0": "2022-05-02T17:42:49.820181Z",
+  "0.2.0": "2022-06-15T04:42:46.669504Z",
+  "0.3.0": "2022-09-25T02:37:14.056816Z",
+  "0.3.1": "2022-09-25T17:08:03.237969Z",
+  "0.4.0": "2022-10-12T10:59:15.063139Z",
+  "0.5.0": "2023-05-31T19:09:56.141367Z",
+  "0.6.0": "2023-10-06T18:53:18.027190Z",
+  "0.7.0": "2024-05-20T21:33:24.100469Z",
+  "0.8.0": "2026-07-23T20:16:12.938651Z"
+ }
+}

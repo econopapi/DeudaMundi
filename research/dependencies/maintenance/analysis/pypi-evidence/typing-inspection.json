@@ -1,0 +1,27 @@
+{
+ "distribution": "typing-inspection",
+ "unavailable": false,
+ "request": {
+  "url": "https://pypi.org/pypi/typing-inspection/json",
+  "method": "GET",
+  "consulted_at_utc": "2026-10-30T17:48:01Z",
+  "http_status": 200,
+  "error": null,
+  "body_sha256": "01f2c8a64e34ff03f674ac255b8bf5dd43d175d701059d9420cc9509c3c0edf0",
+  "body_bytes": 20393
+ },
+ "total_versions": 10,
+ "latest_version_at_query": "0.4.4",
+ "versions_published_at": {
+  "0.0.0": "2025-02-13T10:25:04.294280Z",
+  "0.1.0": "2025-02-22T11:45:20.479335Z",
+  "0.2.0": "2025-02-23T18:52:05.007559Z",
+  "0.3.0": "2025-02-24T09:59:54.737709Z",
+  "0.3.1": "2025-02-24T17:15:03.840233Z",
+  "0.4.0": "2025-02-25T17:27:57.754229Z",
+  "0.4.1": "2025-05-21T18:55:22.152660Z",
+  "0.4.2": "2025-10-01T02:14:40.154613Z",
+  "0.4.3": "2026-08-10T09:39:16.693990Z",
+  "0.4.4": "2026-08-12T12:37:24.648475Z"
+ }
+}
