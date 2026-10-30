@@ -29,12 +29,12 @@ Los cuatro tipos se cuentan por separado. No se suman como horas, esfuerzo, auto
 
 ## Consultas y completitud
 
-Usar la API REST de GitHub con versión fijada `2026-03-10`, `per_page=100` y paginación completa. Registrar endpoint, parámetros, URL de cada página, instante UTC de respuesta, número de registros, código de estado y SHA-256 del cuerpo recibido. Conservar una extracción normalizada mínima que permita rehacer los conteos, sin cuerpos de comentarios, correos ni textos de PR.
+Usar la API REST de GitHub con versión fijada `2026-03-10` para metadatos, commits y releases. Para PR y revisiones usar GraphQL con cursores y conexiones de hasta 100 nodos: en el piloto `fastapi/fastapi` hubo 100 PR actualizados en apenas diez días, por lo que una llamada REST por PR no escala a 35 repositorios. Este ajuste se registra antes de recolectar eventos y conserva las definiciones y ventanas originales. Registrar endpoint o consulta, parámetros o cursor, instante UTC de respuesta, número de registros, código de estado, costo GraphQL cuando aplique y SHA-256 del cuerpo recibido. Conservar una extracción normalizada mínima que permita rehacer los conteos, sin cuerpos de comentarios, correos ni textos de PR.
 
 1. Consultar metadatos del repositorio y su rama principal.
 2. Listar commits de la rama principal con `since` y `until` que cubran 24 meses; filtrar otra vez por timestamp en cliente y deduplicar por SHA. El API puede interpretar `since` según su propia semántica; contrastar bordes del intervalo en el piloto.
-3. Listar PR con `state=all`, `sort=updated`, `direction=desc`; avanzar hasta una página cuyo máximo `updated_at` sea anterior al inicio de la ventana de 24 meses. Filtrar `merged_at` para la tabla de PR fusionados. El conjunto de PR actualizado durante la ventana alimenta las consultas de revisiones; documentar si alguna revisión no puede observarse.
-4. Listar revisiones de cada PR candidato, paginando hasta agotamiento, y filtrar `submitted_at` en cliente. No inferir revisiones a partir de comentarios ordinarios.
+3. Listar PR con GraphQL `pullRequests(orderBy: UPDATED_AT DESC, states: OPEN/CLOSED/MERGED)`; avanzar hasta una página cuyo máximo `updatedAt` sea anterior al inicio de la ventana de 24 meses. Filtrar `mergedAt` para la tabla de PR fusionados. El conjunto de PR actualizado durante la ventana alimenta las consultas de revisiones; documentar si alguna revisión no puede observarse.
+4. Incluir hasta 100 revisiones en cada PR de la consulta GraphQL; para conexiones con `hasNextPage`, continuar por cursor hasta agotamiento. Filtrar `submittedAt` en cliente. No inferir revisiones a partir de comentarios ordinarios.
 5. Listar releases hasta agotamiento; filtrar `published_at` en cliente. Los tags sin release se mantienen fuera del indicador.
 
 Detener con estado incompleto, no con un cero, ante error de API, límite de tasa, respuesta inesperada o paginación truncada. Conservar el avance parcial para reanudar. Una cobertura `PASS` exige 35 repositorios considerados y cada tipo de evento marcado `complete` o `unavailable` con razón; `unavailable` nunca se interpreta como cero eventos.
@@ -50,3 +50,5 @@ Usar `fastapi/fastapi` (directa), `sqlalchemy/mako` (transitiva), `psycopg/psyco
 - [GitHub REST: reviews](https://docs.github.com/en/rest/pulls/reviews)
 - [GitHub REST: releases](https://docs.github.com/en/rest/releases/releases)
 - [GitHub REST: pagination](https://docs.github.com/en/rest/using-the-rest-api/using-pagination-in-the-rest-api)
+- [GitHub GraphQL: límites y costos](https://docs.github.com/en/graphql/overview/rate-limits-and-query-limits-for-the-graphql-api)
+- [GitHub GraphQL: pull requests](https://docs.github.com/en/graphql/reference/pulls)

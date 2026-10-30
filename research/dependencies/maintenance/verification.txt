@@ -1,0 +1,25 @@
+Paso 4 — verificaciones de extracción (2026-10-30 UTC)
+
+Fuente: ../attributions/source-repos.csv
+SHA-256 fuente: f1d2884a5907652236848be559f168a535eb898e4ef2db14e57e352472fea12c
+Universo esperado: 35 repositorios únicos de 37 distribuciones de ejecución
+
+Colector:
+- Piloto de fastapi/fastapi, sqlalchemy/mako, psycopg/psycopg y kludex/starlette: exit 0, cuatro coberturas completas.
+- Corrida completa: exit 0, 35 coberturas completas. Se reutilizaron páginas del piloto.
+- Respuestas preservadas: 2026-10-30T15:50:42Z a 2026-10-30T16:03:50Z.
+- 404 solicitudes efectivas: 35 metadatos + 144 páginas commits + 183 páginas PR/revisiones + 42 páginas releases.
+- Ningún PR necesitó páginas extra de revisiones.
+
+Verificador independiente:
+- python research/dependencies/maintenance/verify_activity.py -> exit 0; PASS 35/35 repositorios, cuatro tipos, dos ventanas.
+- Todos los identificadores de commits, PR, reviews y releases son únicos dentro de su repositorio/tipo según las páginas preservadas.
+- coverage-descriptive.csv byte idéntico en dos corridas; SHA-256 e2e64b83a989f703a759f8dd0ef52a9d9314d8c9b995156fbd24ff893bce30df.
+- Prueba negativa en copia temporal: se retiró fastapi__fastapi/prs/00002.json; verificador exit 1: Page gap. Los originales quedaron intactos.
+
+Idempotencia:
+- Repetición de collect_activity.py sobre el conjunto completo, sin token ni red: exit 0.
+- Digest de listado ordenado de SHA-256 de todos los archivos de data/ antes/después: 673897140354fc0c61bc69943b9d715a13000e6ac42b139ae11b2d16ecdb3123 en ambas corridas.
+- 440 JSON normalizados; suma de bytes de archivos: 12,575,893.
+
+Límites: el API no brinda una foto histórica inmutable de todas las relaciones al corte; ver README.md. El hash del cuerpo de cada respuesta se conserva como recibo, pero los cuerpos brutos no se archivan.
