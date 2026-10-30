@@ -296,10 +296,12 @@ def main():
     fonts = PLUGIN_DIR / "assets" / "fonts"
     for p in (assets, fonts):
         p.mkdir(parents=True, exist_ok=True)
-    # PHP
-    (PLUGIN_DIR / "econopapi-plotly.php").write_text(
-        PHP_PLUGIN, encoding="utf-8")
-    defs_php = DEFS_META_PHP_TEMPLATE.replace("{defs}", _php_array(meta))
+    # PHP (no leading whitespace: anything before <?php is output at activation)
+    php_code = PHP_PLUGIN.lstrip("\n")
+    assert php_code.startswith("<?php"), "plugin PHP must start with the open tag"
+    (PLUGIN_DIR / "econopapi-plotly.php").write_text(php_code, encoding="utf-8")
+    defs_php = DEFS_META_PHP_TEMPLATE.replace("{defs}", _php_array(meta)).lstrip("\n")
+    assert defs_php.startswith("<?php")
     (assets / "defs-meta.php").write_text(defs_php, encoding="utf-8")
     # JS
     (assets / "definitions.js").write_text(defs_js(meta), encoding="utf-8")

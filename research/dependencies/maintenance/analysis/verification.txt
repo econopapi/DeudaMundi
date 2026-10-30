@@ -46,3 +46,6 @@ Vía final de publicación del borrador (Paso 5 close, 30 de octubre)
 - Verificación del plugin: node --check OK (render, builders, definitions, editor); php -l OK bajo php:8-cli oficial; arnés local con el marcado renderizado del servidor + 5 bloques: capturas Chrome headless correctas en claro y oscuro; norte: el editor no corre Plotly (SSR muestra el marcado y la tabla).
 - blob del zip: econopapi-plotly.zip incluido en SHA256SUMS del análisis.
 -PENDIENTE en el sitio: subir el zip (Plugins → Añadir → Subir plugin → Activar), probar el bloque en el borrador de prueba 2753 y, tras el visto bueno, insertar los cinco bloques nativos en 2735 en las mismas posiciones aprobadas antes.
+
+Corrección del aviso de activación («1 carácter de salida inesperado»)
+- Causa exacta: econopapi-plotly.php empezaba con un salto de línea antes de <?php (el include del plugin durante la activación emitía ese byte). Corregido en build_block_plugin.py (lstrip + aserción de que el archivo abre con el tag PHP), re-armado y re-verificado: los dos PHP abren exactamente con '<?php', php -l OK y el zip再生.
