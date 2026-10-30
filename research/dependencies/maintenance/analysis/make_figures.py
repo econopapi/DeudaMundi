@@ -243,7 +243,16 @@ def render(idx, slug, title, kicker, subtitle, alt, provenance_extra, height,
     scoped = scope_for_wp(fragment)
     (wpdir / f"fig{idx}-{slug}-wp-scoped.html").write_text(
         scoped, encoding="utf-8")
+    FIGURE_META.append({
+        "id": f"fig{idx}", "slug": slug, "title": title, "kicker": kicker,
+        "subtitle": subtitle, "alt": alt, "provenance_extra": provenance_extra,
+        "table_head": table_head, "table_body": table_body,
+        "data": json.loads((FIGS / f"fig{idx}-data.json").read_text(encoding="utf-8")),
+    })
     print(f"fig{idx}: ok")
+
+
+FIGURE_META = []
 
 
 # --------------------------------------------------------------- data helpers
@@ -624,11 +633,15 @@ def fig5():
 
 
 def main():
+    (RESULTS / "figure-meta.json").write_text("[]", encoding="utf-8")  # reset
+    FIGURE_META.clear()
     fig1()
     fig2()
     fig3()
     fig4()
     fig5()
+    (RESULTS / "figure-meta.json").write_text(
+        json.dumps(FIGURE_META, indent=1, ensure_ascii=False), encoding="utf-8")
     print("figures done")
 
 

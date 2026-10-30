@@ -39,3 +39,10 @@ Integración con WordPress (borrador 2735, sin publicar)
 Límites
 - El API de GitHub no ofrece foto histórica inmutable; los límites del paso 4 quedan sin cambiar. Cero discrepancias entre implementaciones no certifica los totales absolutos de GitHub, sí la reproducibilidad del cálculo desde los datos congelados.
 - Las reglas de `plan.md` no se ajustaron después de ver cifras; no se fusionan alias ni se recategorizan cuentas.
+
+Vía final de publicación del borrador (Paso 5 close, 30 de octubre)
+- Primera integración en 2735 vía bloques wp:html fue REVERTIDA byte-idéntico al borrador original (hash de vuelta 081b1c07…) tras:(a) observar en la vista previa que el `id="chart"` duplicado entre figuras rompía el render (sólo una figura pintaba), y (b) decisión editorial de no incrustar 5×~250 KB de HTML dentro de wp:html.
+- Vía definitiva: plugin de bloque dinámico `wp:econopapi/plotly-figure` (fuente en analysis/wp-block-plugin/econopapi-plotly/, zip listo para subir: econopapi-plotly.zip). El bloque guarda SOLO `{"figure":"figN"}`; el servidor imprime kicker/título/subtítulo/pie + tabla accesible + <noscript> (no-JS lee la tabla); los contenedores .econ-chart tienen ID única por instancia; plots/fonts/datos se encolan una sola vez por página. builders.js reutiliza el mismo código de make_figures.py con tokens LIGHT/DARK y soporte del modo oscuro del sitio (html.dark / data-theme / prefers-color-scheme) vía MutationObserver.
+- Verificación del plugin: node --check OK (render, builders, definitions, editor); php -l OK bajo php:8-cli oficial; arnés local con el marcado renderizado del servidor + 5 bloques: capturas Chrome headless correctas en claro y oscuro; norte: el editor no corre Plotly (SSR muestra el marcado y la tabla).
+- blob del zip: econopapi-plotly.zip incluido en SHA256SUMS del análisis.
+-PENDIENTE en el sitio: subir el zip (Plugins → Añadir → Subir plugin → Activar), probar el bloque en el borrador de prueba 2753 y, tras el visto bueno, insertar los cinco bloques nativos en 2735 en las mismas posiciones aprobadas antes.
