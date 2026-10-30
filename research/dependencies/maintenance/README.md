@@ -7,8 +7,8 @@
 - Universo: `../attributions/source-repos.csv` del paso 3, commit `c129e4edd21db956ba6cb68f918d104d5aeac9cc`, SHA-256 `f1d2884a5907652236848be559f168a535eb898e4ef2db14e57e352472fea12c`. Dos repositorios compartidos se cuentan una vez cada uno.
 - Corte exclusivo UTC: `2026-10-30T00:00:00Z`. Ventana principal: 12 meses desde `2025-10-30T00:00:00Z`; sensibilidad: 24 meses desde `2024-10-30T00:00:00Z`. Los eventos del día de consulta quedan fuera.
 - Definiciones y ajuste del método: [`protocol.md`](protocol.md). REST con API version `2026-03-10` para repositorios, commits y releases; GraphQL para PR y revisiones en páginas de hasta 100. No se truncó el volumen de FastAPI.
-- Extracción: 404 solicitudes efectivas, 144 páginas de commits, 183 de PR, 42 de releases y 35 de metadatos. Ningún PR necesitó páginas extra de revisiones. Primera respuesta archivada: `2026-10-30T15:50:42Z`; última: `2026-10-30T16:03:50Z`.
-- Preservación: `data/` contiene 440 JSON normalizados, **12,575,893 bytes de contenido**. Cada página conserva URL o variables de consulta, instante UTC, código HTTP, conteo de registros, hash SHA-256 del cuerpo recibido y, si aplica, costo GraphQL. No se archivaron cuerpos completos de PR ni correos de commit. El hash del cuerpo sirve como recibo de la consulta; sin el cuerpo original no permite reconstruirlo ni verificarlo de forma independiente.
+- Extracción y auditoría de paginación: 407 solicitudes efectivas, 144 páginas de commits, 183 de PR, 45 de releases y 35 de metadatos. Ningún PR necesitó páginas extra de revisiones. Primera respuesta archivada: `2026-10-30T15:50:42Z`; última: `2026-10-30T16:15:14Z`. Tres páginas finales de releases se añadieron en la auditoría sin cambiar los conteos de las ventanas.
+- Preservación: `data/` contiene 443 JSON normalizados, **12,584,931 bytes de contenido**. Cada página conserva URL o variables de consulta, instante UTC, código HTTP, conteo de registros, hash SHA-256 del cuerpo recibido y, si aplica, costo GraphQL. No se archivaron cuerpos completos de PR ni correos de commit. El hash del cuerpo sirve como recibo de la consulta; sin el cuerpo original no permite reconstruirlo ni verificarlo de forma independiente.
 
 ## Resultados descriptivos de cobertura
 
@@ -42,8 +42,8 @@ Los directorios `data/<owner>__<repo>/` guardan páginas numeradas. Una ejecuci�
 
 ## Verificación ejecutada
 
-- Verificador independiente: 35/35 repositorios, cuatro corrientes, dos ventanas, sin IDs duplicados ni páginas faltantes; `coverage-descriptive.csv` byte idéntico en dos corridas.
-- Repetición del colector sobre la foto completa, sin token ni red: exit 0, hash agregado de `data/` sin cambio (`673897140354fc0c61bc69943b9d715a13000e6ac42b139ae11b2d16ecdb3123`).
+- Verificador independiente: 35/35 repositorios, cuatro corrientes, dos ventanas, sin IDs duplicados ni páginas faltantes; releases paginados hasta una página con menos de 100 registros; `coverage-descriptive.csv` byte idéntico en dos corridas.
+- Repetición del colector sobre la foto completa, sin token ni red: exit 0; tras la auditoría, el hash agregado de `data/` es `45536bba7e4ea330a6c409b38478c26af6536b34742c2204128702894bf95d94`.
 - Prueba negativa en copia temporal: retirar `fastapi__fastapi/prs/00002.json` produjo exit 1 con `Page gap`; los originales quedaron intactos.
 - `SHA256SUMS` cubre los archivos publicados de este directorio y la tabla fuente del paso 3. Su comprobación se ejecuta desde este directorio.
 
@@ -52,3 +52,5 @@ Los directorios `data/<owner>__<repo>/` guardan páginas numeradas. Una ejecuci�
 GitHub presenta un estado actual, no una foto histórica perfecta al corte: `updatedAt`, rama principal y atribuciones de cuentas pueden cambiar mientras se pagina. El colector filtra por fecha de cada evento y detecta IDs duplicados, pero no puede demostrar que nunca hubo un movimiento de PR entre páginas durante la consulta. Las revisiones se descubren a través de PR actualizados en la ventana; si GitHub no actualizara `updatedAt` por una revisión, podría faltar. Los commits se recorren desde la rama principal observada al consultar, no desde una referencia histórica inmutable del día de corte. Releases de GitHub excluyen tags sin objeto release. La clasificación de bots usa el tipo de cuenta o el sufijo `[bot]` y puede omitir automatizaciones no declaradas.
 
 No hay análisis de concentración, HHI, «bus factor», calidad de revisión, riesgo o quién mantiene cada repositorio en este paso. El material de demostración para el blog y el video está en [`editorial-evidence.md`](editorial-evidence.md).
+
+La [auditoría de aptitud analítica](quality-audit.md) mapea las preguntas del protocolo a los datos disponibles y registra los controles pendientes antes de sacar conclusiones.

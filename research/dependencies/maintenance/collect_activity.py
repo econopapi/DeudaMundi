@@ -136,8 +136,17 @@ def save_page(folder, number, meta, rows, next_cursor, complete, **details):
 def collect_rest(client, repo, out, kind, path, params, normalizer, *, stop_before_start=False):
     folder = out / kind
     files = page_files(folder)
-    if files and read_json(files[-1])["complete"]:
-        return
+    if files:
+        last = read_json(files[-1])
+        # A full release page containing only old publication dates does not
+        # prove later pages cannot contain a newly published older tag.
+        if kind == "releases" and last["complete"] and last.get("boundary_stop") and last["response_records"] == 100:
+            last["complete"] = False
+            last["next_cursor"] = len(files) + 1
+            last["boundary_stop"] = False
+            write_json(files[-1], last)
+        elif last["complete"]:
+            return
     page = len(files) + 1
     while True:
         query = {**params, "per_page": 100, "page": page}
@@ -268,7 +277,10 @@ def collect_repo(client, repo, base):
     out = base / repo.replace("/", "__")
     out.mkdir(parents=True, exist_ok=True)
     coverage_file = out / "coverage.json"
-    if coverage_file.exists() and read_json(coverage_file)["complete"]:
+    release_files = page_files(out / "releases")
+    release_recheck = bool(release_files and read_json(release_files[-1]).get("boundary_stop")
+                           and read_json(release_files[-1])["response_records"] == 100)
+    if coverage_file.exists() and read_json(coverage_file)["complete"] and not release_recheck:
         return read_json(coverage_file)
     metadata_file = out / "repository.json"
     if not metadata_file.exists():
@@ -283,7 +295,7 @@ def collect_repo(client, repo, base):
     collect_rest(client, repo, out, "commits", "repos/" + repo + "/commits",
                  {"sha": metadata["default_branch"], "since": START, "until": END}, commit_row)
     collect_rest(client, repo, out, "releases", "repos/" + repo + "/releases",
-                 {}, release_row, stop_before_start=True)
+                 {}, release_row)
     collect_prs(client, repo, out)
     collect_extra_reviews(client, repo, out)
     coverage = {"repo": repo, "repository_id": metadata["id"], "default_branch": metadata["default_branch"],
@@ -315,9 +327,16 @@ def main():
         if len(repos) != 4:
             raise RuntimeError(f"Expected 4 pilot repositories, found {len(repos)}")
     args.output.mkdir(parents=True, exist_ok=True)
-    need_network = any(not (args.output / repo.replace("/", "__") / "coverage.json").exists()
-                       or not read_json(args.output / repo.replace("/", "__") / "coverage.json")["complete"]
-                       for repo in repos)
+    def incomplete(repo):
+        out = args.output / repo.replace("/", "__")
+        coverage = out / "coverage.json"
+        if not coverage.exists() or not read_json(coverage)["complete"]:
+            return True
+        files = page_files(out / "releases")
+        return bool(files and read_json(files[-1]).get("boundary_stop")
+                    and read_json(files[-1])["response_records"] == 100)
+
+    need_network = any(incomplete(repo) for repo in repos)
     client = Client() if need_network else None
     failures = []
     for repo in repos:

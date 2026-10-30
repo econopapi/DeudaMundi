@@ -75,6 +75,8 @@ def verify_repo(repo):
     commits = records(folder / "commits")
     prs = records(folder / "prs")
     releases = records(folder / "releases")
+    if pages(folder / "releases")[-1]["response_records"] == 100:
+        raise ValueError(f"Release pagination not exhausted: {repo}")
     unique(commits, "sha", f"commit SHA in {repo}")
     unique(prs, "number", f"PR number in {repo}")
     unique(releases, "id", f"release id in {repo}")
@@ -130,7 +132,7 @@ def main():
     path = args.output
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("w", newline="", encoding="utf-8") as f:
-        writer = csv.DictWriter(f, fieldnames=list(rows[0]))
+        writer = csv.DictWriter(f, fieldnames=list(rows[0]), lineterminator="\n")
         writer.writeheader()
         writer.writerows(rows)
     print(f"PASS: 35/35 repositories, four event types, two windows; wrote {path.name}")

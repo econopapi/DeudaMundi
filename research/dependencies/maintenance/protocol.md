@@ -1,6 +1,6 @@
 # Paso 4 — registro previo de actividad pública de mantenimiento
 
-Estado: reglas fijadas antes de consultar eventos de los repositorios. Este paso recolecta evidencia; las cuotas de concentración, HHI, interpretación y selección editorial se calculan después.
+Estado: reglas centrales de universo, ventanas y eventos fijadas antes de consultar actividad. La sustitución de llamadas REST por lotes GraphQL quedó registrada tras el sondeo de volumen y antes de la extracción; el agotamiento completo de releases se añadió en la auditoría posterior, sin cambiar las ventanas ni los conteos de eventos. Este paso recolecta evidencia; las cuotas de concentración, HHI, interpretación y selección editorial se calculan después.
 
 ## Universo y fecha
 
@@ -35,7 +35,7 @@ Usar la API REST de GitHub con versión fijada `2026-03-10` para metadatos, comm
 2. Listar commits de la rama principal con `since` y `until` que cubran 24 meses; filtrar otra vez por timestamp en cliente y deduplicar por SHA. El API puede interpretar `since` según su propia semántica; contrastar bordes del intervalo en el piloto.
 3. Listar PR con GraphQL `pullRequests(orderBy: UPDATED_AT DESC, states: OPEN/CLOSED/MERGED)`; avanzar hasta una página cuyo máximo `updatedAt` sea anterior al inicio de la ventana de 24 meses. Filtrar `mergedAt` para la tabla de PR fusionados. El conjunto de PR actualizado durante la ventana alimenta las consultas de revisiones; documentar si alguna revisión no puede observarse.
 4. Incluir hasta 100 revisiones en cada PR de la consulta GraphQL; para conexiones con `hasNextPage`, continuar por cursor hasta agotamiento. Filtrar `submittedAt` en cliente. No inferir revisiones a partir de comentarios ordinarios.
-5. Listar releases hasta agotamiento; filtrar `published_at` en cliente. Los tags sin release se mantienen fuera del indicador.
+5. Listar releases hasta agotamiento, sin detenerse en una página cuya `published_at` sea antigua: el endpoint no ofrece aquí un contrato de orden por fecha de publicación y una versión puede publicarse sobre un tag antiguo. Filtrar `published_at` en cliente. Los tags sin release se mantienen fuera del indicador.
 
 Detener con estado incompleto, no con un cero, ante error de API, límite de tasa, respuesta inesperada o paginación truncada. Conservar el avance parcial para reanudar. Una cobertura `PASS` exige 35 repositorios considerados y cada tipo de evento marcado `complete` o `unavailable` con razón; `unavailable` nunca se interpreta como cero eventos.
 
