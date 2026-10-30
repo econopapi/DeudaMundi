@@ -48,4 +48,4 @@ Vía final de publicación del borrador (Paso 5 close, 30 de octubre)
 -PENDIENTE en el sitio: subir el zip (Plugins → Añadir → Subir plugin → Activar), probar el bloque en el borrador de prueba 2753 y, tras el visto bueno, insertar los cinco bloques nativos en 2735 en las mismas posiciones aprobadas antes.
 
 Corrección del aviso de activación («1 carácter de salida inesperado»)
-- Causa exacta: econopapi-plotly.php empezaba con un salto de línea antes de <?php (el include del plugin durante la activación emitía ese byte). Corregido en build_block_plugin.py (lstrip + aserción de que el archivo abre con el tag PHP), re-armado y re-verificado: los dos PHP abren exactamente con '<?php', php -l OK y el zip再生.
+- Causa exacta: econopapi-plotly.php empezaba con un salto de línea antes de `<?php` (el include del plugin durante la activación emitía ese byte único). Corregido en build_block_plugin.py (stripping inicial + aserción de que el archivo abre con el tag PHP), re-armado y re-verificado: ambos PHP abren exactamente con `<?php`, `php -l` OK bajo la imagen oficial php:8-cli y el zip regenerado en SHA256SUMS.
