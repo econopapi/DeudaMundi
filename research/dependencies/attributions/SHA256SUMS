@@ -1,7 +1,7 @@
 59b3d4763dd30f8729f293158641b58b846655e31700f72c5d2626e92e6b42a6  ./README.md
 9f5edf696258dceb70490f698e7b572881e33af9e74abcff11ad2e605289ed2b  ./ambiguous.md
 a7381e4269b2b72407ebfdd6bf9f0abdf8f5b72aa391e07530465d91c6e990dc  ./attributions.json
-52525266dac9aab0330b4a5d8e2da424390d91d300c4038eeaa2fad7a1eb6aff  ./build_source_attribution.sh
+f8ddb5ebcc2c6e20dc0573aaf043b1f70fa97c74f65df76d385771af228f95ec  ./build_source_attribution.sh
 3479e2dadb963c6eeff3a3ca62934e3d384c394b0d008406e09399e2939abb28  ./coverage-check.txt
 48015bb680c1cd929e45ff61a587357da334ca6acc11ae83e67fb6193fc6a797  ./github-evidence/agronholm__anyio.json
 203c991dfa8f8a33d27173e132c1968bade8a09fa7c2ecf3d40ac164c81c6218  ./github-evidence/agronholm__apscheduler.json
@@ -77,4 +77,4 @@ bd739c68c96b7e1b10a500051ca33e43f3e494430d0fe839763838fdb1daccce  ./pypi-evidenc
 f58d88ca21fb880c794585c6207b0183e690a24e1ef5dacad3d9c3a8b1981644  ./pypi-evidence/websockets/17.3.json
 b2a88e118885c790bc1bfb1fa2a7ff94b7457457d95b67832c0fd58b5e95128a  ./pypi-evidence/wrapt/2.5.2.json
 f1d2884a5907652236848be559f168a535eb898e4ef2db14e57e352472fea12c  ./source-repos.csv
-cd6fd9064a3e862c33fa84b5d5a60a5252dcb445dc145cc1f76ee697876a4c1b  ./verification.txt
+8777feeac0306457ddcd4d7f9ee33cec384f1b94f80ad8b7500d4a3a99a7f039  ./verification.txt

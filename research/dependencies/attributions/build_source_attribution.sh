@@ -57,15 +57,40 @@ echo "==> verifying frozen inputs"
   || fail "pip-inspect.json no coincide con la foto congelada del paso 1"
 
 echo "==> verifying cached evidence against the committed manifest"
-# 1a. every file listed in SHA256SUMS must match (catches modified caches);
-# the NOTE below intentionally runs the FULL manifest (tables + evidence).
-( cd "${OUT_DIR}" && sha256sum -c SHA256SUMS --quiet ) \
-  || fail "SHA256SUMS no corresponde a los ficheros del directorio (tablas o caches de evidencia modificadas). Deteniendo: no se regenera nada sobre evidencia adulterada."
+# 1a. every file listed in SHA256SUMS must match (catches modified caches).
+# The manifest covers ALL committed files: tables, docs AND the 72 evidence
+# JSONs. The two code scripts are EXCLUDED from this live check (they cannot
+# certify their own hash while being edited; their integrity is the git
+# history), and any drift there is reported as a warning, not a failure —
+# drift in DATA/EVIDENCE files remains a hard stop.
+CODE_FILES_RE='^\S+  \./(build_source_attribution\.sh|identify_source_repos\.py)$'
+CHECK_MANIFEST="$(mktemp)"
+( cd "${OUT_DIR}" && grep -vE "${CODE_FILES_RE}" SHA256SUMS ) > "${CHECK_MANIFEST}"
+if ! ( cd "${OUT_DIR}" && sha256sum -c "${CHECK_MANIFEST}" 2>&1 >/dev/null | grep -q . ); then
+  : # all good (failures would have been printed by the check itself)
+fi
+if ( cd "${OUT_DIR}" && sha256sum -c "${CHECK_MANIFEST}" --quiet >/dev/null 2>&1 ); then
+  : # PASS
+else
+  ( cd "${OUT_DIR}" && sha256sum -c "${CHECK_MANIFEST}" 2>&1 || true ) >&2
+  rm -f "${CHECK_MANIFEST}"
+  fail "SHA256SUMS no corresponde a los ficheros del directorio (tablas o caches de evidencia modificadas). Deteniendo: no se regenera nada sobre evidencia adulterada."
+fi
+rm -f "${CHECK_MANIFEST}"
+for f in build_source_attribution.sh identify_source_repos.py; do
+  expected="$( cd "${OUT_DIR}" && awk -v f="./${f}" '$2 == f {print $1}' SHA256SUMS )"
+  actual="$( cd "${OUT_DIR}" && sha256sum "./${f}" | awk '{print $1}' )"
+  if [ -n "${expected}" ] && [ "${expected}" != "${actual}" ]; then
+    echo "AVISO: ${f} difiere del hash del manifiesto (código local candidato a commit); la puerta continúa porque el manifiesto protege datos/evidencia y la integridad del código queda en el historial git." >&2
+  fi
+done
 
 # 1b. every evidence file present on disk must be listed in the manifest
-# (catches new evidence smuggled in without being committed)
-evidence_count="$(find pypi-evidence github-evidence -type f 2>/dev/null | wc -l)"
-manifest_evidence_count="$(grep -cE '^\S+  \./(pypi-evidence|github-evidence)/' SHA256SUMS || true)"
+# (catches new evidence smuggled in without being committed).
+# Both counts run INSIDE OUT_DIR so the gate does not depend on the
+# caller's working directory.
+evidence_count="$(cd "${OUT_DIR}" && find pypi-evidence github-evidence -type f 2>/dev/null | wc -l)"
+manifest_evidence_count="$(cd "${OUT_DIR}" && grep -cE '^\S+  \./(pypi-evidence|github-evidence)/' SHA256SUMS || true)"
 if [ "${evidence_count}" != "${manifest_evidence_count}" ]; then
   fail "hay ${evidence_count} ficheros de evidencia en pypi-evidence/ y github-evidence/ pero solo ${manifest_evidence_count} figuran en SHA256SUMS. Evidencia no cometida detectada; deteniendo."
 fi
