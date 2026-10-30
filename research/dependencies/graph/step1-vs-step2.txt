@@ -1,0 +1,26 @@
+# step1-vs-step2: comparison of dependency attribution
+
+## Semantics
+- step 1 (`categorize_env.py`): simplified marker handling - `extra ==` clauses
+  active only for extras seeded from the *top-level* pyproject requirements;
+  every other marker is treated as true; no extras propagation beyond the
+  seeds (extras of the base wheels are never re-requested).
+- step 2 (this extractor): `packaging` evaluation of every marker against
+  the snapshot environment; extras seeded from pyproject are propagated to
+  fixpoint through active edges before each evaluation.
+- both attribute ancestors transitively, skipping to claim a root reached
+  through another root (that quirk was replicated from step 1 for a
+  like-for-like comparison).
+
+## Result for this snapshot
+- packages compared: 27
+- attribution differences: 1
+- CONCLUSION: DIFFERENT
+
+## Differences
+- typing-extensions: step1=['alembic', 'deudamundi-api', 'fastapi', 'httpx', 'psycopg', 'pydantic-settings', 'redis', 'slowapi', 'sqlalchemy', 'uvicorn'] step2=['alembic', 'deudamundi-api', 'fastapi', 'httpx', 'psycopg', 'pydantic-settings', 'slowapi', 'sqlalchemy', 'uvicorn']
+  - claimed only by step 1 (false positives of its simplified markers): ['redis']
+  - explanation: redis: redis -> pyjwt -> typing-extensions (final hop 'typing_extensions>=4.0; python_version < "3.11"' inactive: marker-not-satisfied)
+
+Note: the step-1 arrows are NOT used as source of truth anywhere in
+step 2; this file exists to document exactly one semantic comparison.

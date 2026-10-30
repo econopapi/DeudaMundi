@@ -1,0 +1,341 @@
+{
+  "snapshot": {
+    "pip_version": "26.2.2",
+    "environment": {
+      "implementation_name": "cpython",
+      "implementation_version": "3.12.16",
+      "os_name": "posix",
+      "platform_machine": "x86_64",
+      "platform_release": "7.2.11-200.fc44.x86_64",
+      "platform_system": "Linux",
+      "platform_version": "#1 SMP PREEMPT_DYNAMIC Thu Oct 15 15:58:58 UTC 2026",
+      "python_full_version": "3.12.16",
+      "platform_python_implementation": "CPython",
+      "python_version": "3.12",
+      "sys_platform": "linux"
+    },
+    "source": "pip-inspect.json (frozen photo, step 1)"
+  },
+  "counts": {
+    "installed": 41,
+    "runtime_nodes": 38,
+    "direct": 10,
+    "transitive": 27,
+    "build_tooling": 3,
+    "active_edges_total": 56,
+    "active_edges_in_execution_graph": 55,
+    "inactive_requirements": 233,
+    "unexplained": 0,
+    "acyclic": true
+  },
+  "extras": {
+    "requested_via_pyproject": {
+      "uvicorn": [
+        "standard"
+      ],
+      "psycopg": [
+        "binary"
+      ]
+    },
+    "active_after_fixpoint": {
+      "uvicorn": [
+        "standard"
+      ],
+      "psycopg": [
+        "binary"
+      ]
+    },
+    "known_inactive_examples": [
+      "fastapi[standard]/[all] (fastapi's own extras, never requested)",
+      "apscheduler[doc] (extra=='doc' not requested)",
+      "deudamundi-api[dev] (pytest/pytest-cov/ruff/locust not installed)"
+    ]
+  },
+  "markers": {
+    "python_or_platform_gated_active": [
+      {
+        "requirement": "typing_extensions>=4.16.0; python_version < \"3.15\"",
+        "requirement_of": "anyio",
+        "target": "typing-extensions",
+        "marker": "python_version < \"3.15\"",
+        "active": true,
+        "matched_extras": []
+      },
+      {
+        "requirement": "typing-extensions>=4.6; python_version < \"3.13\"",
+        "requirement_of": "psycopg",
+        "target": "typing-extensions",
+        "marker": "python_version < \"3.13\"",
+        "active": true,
+        "matched_extras": [
+          "binary"
+        ]
+      },
+      {
+        "requirement": "psycopg-binary==3.3.6; implementation_name != \"pypy\" and extra == \"binary\"",
+        "requirement_of": "psycopg",
+        "target": "psycopg-binary",
+        "marker": "implementation_name != \"pypy\" and extra == \"binary\"",
+        "active": true,
+        "matched_extras": [
+          "binary"
+        ]
+      },
+      {
+        "requirement": "uvloop>=0.15.1; (sys_platform != 'win32' and (sys_platform != 'cygwin' and platform_python_implementation != 'PyPy')) and extra == 'standard'",
+        "requirement_of": "uvicorn",
+        "target": "uvloop",
+        "marker": "(sys_platform != \"win32\" and (sys_platform != \"cygwin\" and platform_python_implementation != \"PyPy\")) and extra == \"standard\"",
+        "active": true,
+        "matched_extras": [
+          "standard"
+        ]
+      }
+    ],
+    "unconditional_active": "47"
+  },
+  "shared_paths": {
+    "annotated-types": {
+      "ancestor_count": 3,
+      "simple_paths": 2,
+      "claimed_by": [
+        "deudamundi-api",
+        "fastapi",
+        "pydantic-settings"
+      ]
+    },
+    "anyio": {
+      "ancestor_count": 4,
+      "simple_paths": 3,
+      "claimed_by": [
+        "deudamundi-api",
+        "fastapi",
+        "httpx",
+        "uvicorn"
+      ]
+    },
+    "certifi": {
+      "ancestor_count": 2,
+      "simple_paths": 2,
+      "claimed_by": [
+        "deudamundi-api",
+        "httpx"
+      ]
+    },
+    "click": {
+      "ancestor_count": 2,
+      "simple_paths": 1,
+      "claimed_by": [
+        "deudamundi-api",
+        "uvicorn"
+      ]
+    },
+    "deprecated": {
+      "ancestor_count": 2,
+      "simple_paths": 1,
+      "claimed_by": [
+        "deudamundi-api",
+        "slowapi"
+      ]
+    },
+    "h11": {
+      "ancestor_count": 3,
+      "simple_paths": 2,
+      "claimed_by": [
+        "deudamundi-api",
+        "httpx",
+        "uvicorn"
+      ]
+    },
+    "httpcore": {
+      "ancestor_count": 2,
+      "simple_paths": 1,
+      "claimed_by": [
+        "deudamundi-api",
+        "httpx"
+      ]
+    },
+    "httptools": {
+      "ancestor_count": 2,
+      "simple_paths": 1,
+      "claimed_by": [
+        "deudamundi-api",
+        "uvicorn"
+      ]
+    },
+    "idna": {
+      "ancestor_count": 4,
+      "simple_paths": 4,
+      "claimed_by": [
+        "deudamundi-api",
+        "fastapi",
+        "httpx",
+        "uvicorn"
+      ]
+    },
+    "limits": {
+      "ancestor_count": 2,
+      "simple_paths": 1,
+      "claimed_by": [
+        "deudamundi-api",
+        "slowapi"
+      ]
+    },
+    "mako": {
+      "ancestor_count": 2,
+      "simple_paths": 1,
+      "claimed_by": [
+        "alembic",
+        "deudamundi-api"
+      ]
+    },
+    "markupsafe": {
+      "ancestor_count": 2,
+      "simple_paths": 1,
+      "claimed_by": [
+        "alembic",
+        "deudamundi-api"
+      ]
+    },
+    "packaging": {
+      "ancestor_count": 2,
+      "simple_paths": 1,
+      "claimed_by": [
+        "deudamundi-api",
+        "slowapi"
+      ]
+    },
+    "psycopg-binary": {
+      "ancestor_count": 2,
+      "simple_paths": 1,
+      "claimed_by": [
+        "deudamundi-api",
+        "psycopg"
+      ]
+    },
+    "pydantic": {
+      "ancestor_count": 3,
+      "simple_paths": 2,
+      "claimed_by": [
+        "deudamundi-api",
+        "fastapi",
+        "pydantic-settings"
+      ]
+    },
+    "pydantic-core": {
+      "ancestor_count": 3,
+      "simple_paths": 2,
+      "claimed_by": [
+        "deudamundi-api",
+        "fastapi",
+        "pydantic-settings"
+      ]
+    },
+    "pyjwt": {
+      "ancestor_count": 2,
+      "simple_paths": 1,
+      "claimed_by": [
+        "deudamundi-api",
+        "redis"
+      ]
+    },
+    "python-dotenv": {
+      "ancestor_count": 3,
+      "simple_paths": 2,
+      "claimed_by": [
+        "deudamundi-api",
+        "pydantic-settings",
+        "uvicorn"
+      ]
+    },
+    "pyyaml": {
+      "ancestor_count": 2,
+      "simple_paths": 1,
+      "claimed_by": [
+        "deudamundi-api",
+        "uvicorn"
+      ]
+    },
+    "starlette": {
+      "ancestor_count": 2,
+      "simple_paths": 1,
+      "claimed_by": [
+        "deudamundi-api",
+        "fastapi"
+      ]
+    },
+    "typing-extensions": {
+      "ancestor_count": 9,
+      "simple_paths": 17,
+      "claimed_by": [
+        "alembic",
+        "deudamundi-api",
+        "fastapi",
+        "httpx",
+        "psycopg",
+        "pydantic-settings",
+        "slowapi",
+        "sqlalchemy",
+        "uvicorn"
+      ]
+    },
+    "typing-inspection": {
+      "ancestor_count": 3,
+      "simple_paths": 3,
+      "claimed_by": [
+        "deudamundi-api",
+        "fastapi",
+        "pydantic-settings"
+      ]
+    },
+    "tzlocal": {
+      "ancestor_count": 2,
+      "simple_paths": 1,
+      "claimed_by": [
+        "apscheduler",
+        "deudamundi-api"
+      ]
+    },
+    "uvloop": {
+      "ancestor_count": 2,
+      "simple_paths": 1,
+      "claimed_by": [
+        "deudamundi-api",
+        "uvicorn"
+      ]
+    },
+    "watchfiles": {
+      "ancestor_count": 2,
+      "simple_paths": 1,
+      "claimed_by": [
+        "deudamundi-api",
+        "uvicorn"
+      ]
+    },
+    "websockets": {
+      "ancestor_count": 2,
+      "simple_paths": 1,
+      "claimed_by": [
+        "deudamundi-api",
+        "uvicorn"
+      ]
+    },
+    "wrapt": {
+      "ancestor_count": 2,
+      "simple_paths": 1,
+      "claimed_by": [
+        "deudamundi-api",
+        "slowapi"
+      ]
+    }
+  },
+  "unexplained_packages": [],
+  "build_tooling_isolation": {
+    "nodes": [
+      "pip",
+      "setuptools",
+      "wheel"
+    ],
+    "reachable_from_runtime_edges": []
+  }
+}

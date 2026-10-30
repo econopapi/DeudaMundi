@@ -1,0 +1,107 @@
+---
+title: deudamundi-api production Python dependency graph (snapshot, pip 26.2.2, CPython 3.12.16)
+---
+flowchart LR
+  ROOT["deudamundi-api<br/>0.1.0 (project)"]:::project
+  N_alembic["alembic<br/>1.20.1"]:::direct
+  N_apscheduler["APScheduler<br/>3.11.3"]:::direct
+  N_fastapi["fastapi<br/>0.115.14"]:::direct
+  N_httpx["httpx<br/>0.28.1"]:::direct
+  N_psycopg["psycopg<br/>3.3.6"]:::direct
+  N_pydantic-settings["pydantic-settings<br/>2.16.2"]:::direct
+  N_redis["redis<br/>5.3.1"]:::direct
+  N_slowapi["slowapi<br/>0.1.10"]:::direct
+  N_sqlalchemy["SQLAlchemy<br/>2.1.6"]:::direct
+  N_uvicorn["uvicorn<br/>0.54.0"]:::direct
+  N_annotated-types["annotated-types<br/>0.8.0"]:::transitive
+  N_anyio["anyio<br/>4.15.1"]:::transitive
+  N_certifi["certifi<br/>2026.10.23"]:::transitive
+  N_click["click<br/>8.5.0"]:::transitive
+  N_deprecated["Deprecated<br/>3.0.1"]:::transitive
+  N_h11["h11<br/>0.16.0"]:::transitive
+  N_httpcore["httpcore<br/>1.0.9"]:::transitive
+  N_httptools["httptools<br/>0.9.0"]:::transitive
+  N_idna["idna<br/>3.20"]:::transitive
+  N_limits["limits<br/>5.8.0"]:::transitive
+  N_mako["Mako<br/>1.4.3"]:::transitive
+  N_markupsafe["MarkupSafe<br/>3.0.4"]:::transitive
+  N_packaging["packaging<br/>26.3"]:::transitive
+  N_psycopg-binary["psycopg-binary<br/>3.3.6"]:::transitive
+  N_pydantic["pydantic<br/>2.14.2"]:::transitive
+  N_pydantic-core["pydantic_core<br/>2.50.2"]:::transitive
+  N_pyjwt["PyJWT<br/>2.15.1"]:::transitive
+  N_python-dotenv["python-dotenv<br/>1.2.4"]:::transitive
+  N_pyyaml["PyYAML<br/>6.0.3"]:::transitive
+  N_starlette["starlette<br/>0.46.2"]:::transitive
+  N_typing-extensions["typing_extensions<br/>4.16.0"]:::transitive
+  N_typing-inspection["typing-inspection<br/>0.4.4"]:::transitive
+  N_tzlocal["tzlocal<br/>5.4.5"]:::transitive
+  N_uvloop["uvloop<br/>0.23.0"]:::transitive
+  N_watchfiles["watchfiles<br/>1.3.0"]:::transitive
+  N_websockets["websockets<br/>17.3"]:::transitive
+  N_wrapt["wrapt<br/>2.5.2"]:::transitive
+  subgraph build_tooling["build:tooling - fuera del grafo de ejecucion"]
+  N_pip["pip<br/>26.2.2"]:::tooling
+  N_setuptools["setuptools<br/>84.2.1"]:::tooling
+  N_wheel["wheel<br/>0.48.0"]:::tooling
+  end
+  N_alembic -->  N_mako
+  N_alembic -->  N_sqlalchemy
+  N_alembic -->  N_typing-extensions
+  N_anyio -->  N_idna
+  N_anyio --> |"marker"| N_typing-extensions
+  N_apscheduler -->  N_tzlocal
+  N_deprecated -->  N_wrapt
+  ROOT -->  N_alembic
+  ROOT -->  N_apscheduler
+  ROOT -->  N_fastapi
+  ROOT -->  N_httpx
+  ROOT -->  N_psycopg
+  ROOT -->  N_pydantic-settings
+  ROOT -->  N_redis
+  ROOT -->  N_slowapi
+  ROOT -->  N_sqlalchemy
+  ROOT -->  N_uvicorn
+  N_fastapi -->  N_pydantic
+  N_fastapi -->  N_starlette
+  N_fastapi -->  N_typing-extensions
+  N_httpcore -->  N_certifi
+  N_httpcore -->  N_h11
+  N_httpx -->  N_anyio
+  N_httpx -->  N_certifi
+  N_httpx -->  N_httpcore
+  N_httpx -->  N_idna
+  N_limits -->  N_deprecated
+  N_limits -->  N_packaging
+  N_limits -->  N_typing-extensions
+  N_mako -->  N_markupsafe
+  N_psycopg --> |"extra binary"| N_psycopg-binary
+  N_psycopg --> |"extra binary"| N_typing-extensions
+  N_pydantic -->  N_annotated-types
+  N_pydantic -->  N_pydantic-core
+  N_pydantic -->  N_typing-extensions
+  N_pydantic -->  N_typing-inspection
+  N_pydantic-core -->  N_typing-extensions
+  N_pydantic-settings -->  N_pydantic
+  N_pydantic-settings -->  N_python-dotenv
+  N_pydantic-settings -->  N_typing-extensions
+  N_pydantic-settings -->  N_typing-inspection
+  N_redis -->  N_pyjwt
+  N_slowapi -->  N_limits
+  N_sqlalchemy -->  N_typing-extensions
+  N_starlette -->  N_anyio
+  N_typing-inspection -->  N_typing-extensions
+  N_uvicorn -->  N_click
+  N_uvicorn -->  N_h11
+  N_uvicorn --> |"extra standard"| N_httptools
+  N_uvicorn --> |"extra standard"| N_python-dotenv
+  N_uvicorn --> |"extra standard"| N_pyyaml
+  N_uvicorn --> |"extra standard"| N_uvloop
+  N_uvicorn --> |"extra standard"| N_watchfiles
+  N_uvicorn --> |"extra standard"| N_websockets
+  N_watchfiles -->  N_anyio
+  classDef project fill:#0b7285,color:#fff,stroke:#0b7285;
+  classDef direct fill:#2f9e44,color:#fff,stroke:#2f9e44;
+  classDef transitive fill:#adb5bd,color:#111,stroke:#6c757d;
+  classDef tooling fill:#e9ecef,color:#111,stroke:#adb5bd;
+  linkStyle default stroke:#343a40,stroke-width:1px;

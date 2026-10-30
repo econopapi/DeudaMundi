@@ -1,0 +1,57 @@
+from,to,requirement,specifier,requirement_extras,matched_extras,marker,in_execution_graph,reason_kind
+alembic,mako,Mako,,,,,yes,unconditional
+alembic,sqlalchemy,SQLAlchemy>=2.0,>=2.0,,,,yes,unconditional
+alembic,typing-extensions,typing-extensions>=4.12,>=4.12,,,,yes,unconditional
+anyio,idna,idna>=2.8,>=2.8,,,,yes,unconditional
+anyio,typing-extensions,"typing_extensions>=4.16.0; python_version < ""3.15""",>=4.16.0,,,"python_version < ""3.15""",yes,gated-by-extra
+apscheduler,tzlocal,tzlocal>=3.0,>=3.0,,,,yes,unconditional
+deprecated,wrapt,"wrapt<3,>=1.16","<3,>=1.16",,,,yes,unconditional
+deudamundi-api,alembic,"alembic<2.0.0,>=1.14.0","<2.0.0,>=1.14.0",,,,yes,unconditional
+deudamundi-api,apscheduler,"apscheduler<4.0.0,>=3.10.4","<4.0.0,>=3.10.4",,,,yes,unconditional
+deudamundi-api,fastapi,"fastapi<0.116.0,>=0.115.0","<0.116.0,>=0.115.0",,,,yes,unconditional
+deudamundi-api,httpx,"httpx<1.0.0,>=0.27.0","<1.0.0,>=0.27.0",,,,yes,unconditional
+deudamundi-api,psycopg,"psycopg[binary]<4.0.0,>=3.2.1","<4.0.0,>=3.2.1",binary,,,yes,gated-by-extra
+deudamundi-api,pydantic-settings,"pydantic-settings<3.0.0,>=2.6.0","<3.0.0,>=2.6.0",,,,yes,unconditional
+deudamundi-api,redis,"redis<6.0.0,>=5.0.8","<6.0.0,>=5.0.8",,,,yes,unconditional
+deudamundi-api,slowapi,"slowapi<1.0.0,>=0.1.9","<1.0.0,>=0.1.9",,,,yes,unconditional
+deudamundi-api,sqlalchemy,"sqlalchemy<3.0.0,>=2.0.35","<3.0.0,>=2.0.35",,,,yes,unconditional
+deudamundi-api,uvicorn,"uvicorn[standard]<1.0.0,>=0.30.0","<1.0.0,>=0.30.0",standard,,,yes,gated-by-extra
+fastapi,pydantic,"pydantic!=1.8,!=1.8.1,!=2.0.0,!=2.0.1,!=2.1.0,<3.0.0,>=1.7.4","!=1.8,!=1.8.1,!=2.0.0,!=2.0.1,!=2.1.0,<3.0.0,>=1.7.4",,,,yes,unconditional
+fastapi,starlette,"starlette<0.47.0,>=0.40.0","<0.47.0,>=0.40.0",,,,yes,unconditional
+fastapi,typing-extensions,typing-extensions>=4.8.0,>=4.8.0,,,,yes,unconditional
+httpcore,certifi,certifi,,,,,yes,unconditional
+httpcore,h11,h11>=0.16,>=0.16,,,,yes,unconditional
+httpx,anyio,anyio,,,,,yes,unconditional
+httpx,certifi,certifi,,,,,yes,unconditional
+httpx,httpcore,httpcore==1.*,==1.*,,,,yes,unconditional
+httpx,idna,idna,,,,,yes,unconditional
+limits,deprecated,deprecated>=1.2,>=1.2,,,,yes,unconditional
+limits,packaging,packaging>=21,>=21,,,,yes,unconditional
+limits,typing-extensions,typing-extensions,,,,,yes,unconditional
+mako,markupsafe,MarkupSafe>=2.0,>=2.0,,,,yes,unconditional
+psycopg,psycopg-binary,"psycopg-binary==3.3.6; implementation_name != ""pypy"" and extra == ""binary""",==3.3.6,,binary,"implementation_name != ""pypy"" and extra == ""binary""",yes,gated-by-extra
+psycopg,typing-extensions,"typing-extensions>=4.6; python_version < ""3.13""",>=4.6,,binary,"python_version < ""3.13""",yes,gated-by-extra
+pydantic,annotated-types,annotated-types>=0.6.0,>=0.6.0,,,,yes,unconditional
+pydantic,pydantic-core,pydantic-core==2.50.2,==2.50.2,,,,yes,unconditional
+pydantic,typing-extensions,typing-extensions>=4.16.0,>=4.16.0,,,,yes,unconditional
+pydantic,typing-inspection,typing-inspection>=0.4.4,>=0.4.4,,,,yes,unconditional
+pydantic-core,typing-extensions,typing-extensions>=4.16.0,>=4.16.0,,,,yes,unconditional
+pydantic-settings,pydantic,pydantic>=2.7.0,>=2.7.0,,,,yes,unconditional
+pydantic-settings,python-dotenv,python-dotenv>=1.2.2,>=1.2.2,,,,yes,unconditional
+pydantic-settings,typing-extensions,typing-extensions>=4.0.0,>=4.0.0,,,,yes,unconditional
+pydantic-settings,typing-inspection,typing-inspection>=0.4.0,>=0.4.0,,,,yes,unconditional
+redis,pyjwt,PyJWT>=2.9.0,>=2.9.0,,,,yes,unconditional
+slowapi,limits,limits (>=2.3),>=2.3,,,,yes,unconditional
+sqlalchemy,typing-extensions,typing-extensions>=4.6.0,>=4.6.0,,,,yes,unconditional
+starlette,anyio,"anyio<5,>=3.6.2","<5,>=3.6.2",,,,yes,unconditional
+typing-inspection,typing-extensions,typing-extensions>=4.15.0,>=4.15.0,,,,yes,unconditional
+uvicorn,click,click>=7.0,>=7.0,,,,yes,unconditional
+uvicorn,h11,h11>=0.8,>=0.8,,,,yes,unconditional
+uvicorn,httptools,httptools>=0.8.0; extra == 'standard',>=0.8.0,,standard,"extra == ""standard""",yes,gated-by-extra
+uvicorn,python-dotenv,python-dotenv>=0.13; extra == 'standard',>=0.13,,standard,"extra == ""standard""",yes,gated-by-extra
+uvicorn,pyyaml,pyyaml>=5.1; extra == 'standard',>=5.1,,standard,"extra == ""standard""",yes,gated-by-extra
+uvicorn,uvloop,uvloop>=0.15.1; (sys_platform != 'win32' and (sys_platform != 'cygwin' and platform_python_implementation != 'PyPy')) and extra == 'standard',>=0.15.1,,standard,"(sys_platform != ""win32"" and (sys_platform != ""cygwin"" and platform_python_implementation != ""PyPy"")) and extra == ""standard""",yes,gated-by-extra
+uvicorn,watchfiles,watchfiles>=0.20; extra == 'standard',>=0.20,,standard,"extra == ""standard""",yes,gated-by-extra
+uvicorn,websockets,websockets>=13.0; extra == 'standard',>=13.0,,standard,"extra == ""standard""",yes,gated-by-extra
+watchfiles,anyio,anyio>=3.0.0,>=3.0.0,,,,yes,unconditional
+wheel,packaging,packaging >= 24.0,>=24.0,,,,,unconditional

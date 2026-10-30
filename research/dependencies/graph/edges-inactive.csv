@@ -1,0 +1,234 @@
+from,to,requirement,specifier,requirement_extras,marker,inactive_reason
+alembic,tomli,"tomli; python_version < ""3.11""",,,"python_version < ""3.11""",marker-not-satisfied
+alembic,tzdata,"tzdata; extra == ""tz""",,,"extra == ""tz""",extra-not-requested
+anyio,exceptiongroup,"exceptiongroup>=1.0.2; python_version < ""3.11""",>=1.0.2,,"python_version < ""3.11""",marker-not-satisfied
+anyio,trio,"trio>=0.32.0; extra == ""trio""",>=0.32.0,,"extra == ""trio""",extra-not-requested
+apscheduler,anyio,"anyio>=4.5.2; extra == ""test""",>=4.5.2,,"extra == ""test""",extra-not-requested
+apscheduler,apscheduler,"APScheduler[etcd,mongodb,redis,rethinkdb,sqlalchemy,tornado,zookeeper]; extra == ""test""",,etcd;mongodb;redis;rethinkdb;sqlalchemy;tornado;zookeeper,"extra == ""test""",extra-not-requested
+apscheduler,backports-zoneinfo,"backports.zoneinfo; python_version < ""3.9""",,,"python_version < ""3.9""",marker-not-satisfied
+apscheduler,etcd3,"etcd3; extra == ""etcd""",,,"extra == ""etcd""",extra-not-requested
+apscheduler,gevent,"gevent; extra == ""gevent""",,,"extra == ""gevent""",extra-not-requested
+apscheduler,gevent,"gevent; python_version < ""3.14"" and extra == ""test""",,,"python_version < ""3.14"" and extra == ""test""",extra-not-requested
+apscheduler,kazoo,"kazoo; extra == ""zookeeper""",,,"extra == ""zookeeper""",extra-not-requested
+apscheduler,packaging,"packaging; extra == ""doc""",,,"extra == ""doc""",extra-not-requested
+apscheduler,protobuf,"protobuf<=3.21.0; extra == ""etcd""",<=3.21.0,,"extra == ""etcd""",extra-not-requested
+apscheduler,pymongo,"pymongo>=3.0; extra == ""mongodb""",>=3.0,,"extra == ""mongodb""",extra-not-requested
+apscheduler,pyside6,"PySide6; platform_python_implementation == ""CPython"" and extra == ""test""",,,"platform_python_implementation == ""CPython"" and extra == ""test""",extra-not-requested
+apscheduler,pytest,"pytest; extra == ""test""",,,"extra == ""test""",extra-not-requested
+apscheduler,pytest-timeout,"pytest-timeout; extra == ""test""",,,"extra == ""test""",extra-not-requested
+apscheduler,pytz,"pytz; extra == ""test""",,,"extra == ""test""",extra-not-requested
+apscheduler,redis,"redis>=3.0; extra == ""redis""",>=3.0,,"extra == ""redis""",extra-not-requested
+apscheduler,rethinkdb,"rethinkdb>=2.4.0; extra == ""rethinkdb""",>=2.4.0,,"extra == ""rethinkdb""",extra-not-requested
+apscheduler,sphinx,"sphinx; extra == ""doc""",,,"extra == ""doc""",extra-not-requested
+apscheduler,sphinx-rtd-theme,"sphinx-rtd-theme>=1.3.0; extra == ""doc""",>=1.3.0,,"extra == ""doc""",extra-not-requested
+apscheduler,sqlalchemy,"sqlalchemy>=1.4; extra == ""sqlalchemy""",>=1.4,,"extra == ""sqlalchemy""",extra-not-requested
+apscheduler,tornado,"tornado>=4.3; extra == ""tornado""",>=4.3,,"extra == ""tornado""",extra-not-requested
+apscheduler,twisted,"twisted; extra == ""twisted""",,,"extra == ""twisted""",extra-not-requested
+apscheduler,twisted,"twisted; python_version < ""3.14"" and extra == ""test""",,,"python_version < ""3.14"" and extra == ""test""",extra-not-requested
+deudamundi-api,locust,"locust<3.0.0,>=2.37.14; extra == ""dev""","<3.0.0,>=2.37.14",,"extra == ""dev""",extra-not-requested
+deudamundi-api,pytest,"pytest<9.0.0,>=8.3.0; extra == ""dev""","<9.0.0,>=8.3.0",,"extra == ""dev""",extra-not-requested
+deudamundi-api,pytest-cov,"pytest-cov<6.0.0,>=5.0.0; extra == ""dev""","<6.0.0,>=5.0.0",,"extra == ""dev""",extra-not-requested
+deudamundi-api,ruff,"ruff<1.0.0,>=0.6.0; extra == ""dev""","<1.0.0,>=0.6.0",,"extra == ""dev""",extra-not-requested
+fastapi,email-validator,"email-validator>=2.0.0; extra == ""all""",>=2.0.0,,"extra == ""all""",extra-not-requested
+fastapi,email-validator,"email-validator>=2.0.0; extra == ""standard""",>=2.0.0,,"extra == ""standard""",extra-not-requested
+fastapi,fastapi-cli,"fastapi-cli[standard]>=0.0.5; extra == ""all""",>=0.0.5,standard,"extra == ""all""",extra-not-requested
+fastapi,fastapi-cli,"fastapi-cli[standard]>=0.0.5; extra == ""standard""",>=0.0.5,standard,"extra == ""standard""",extra-not-requested
+fastapi,httpx,"httpx>=0.23.0; extra == ""all""",>=0.23.0,,"extra == ""all""",extra-not-requested
+fastapi,httpx,"httpx>=0.23.0; extra == ""standard""",>=0.23.0,,"extra == ""standard""",extra-not-requested
+fastapi,itsdangerous,"itsdangerous>=1.1.0; extra == ""all""",>=1.1.0,,"extra == ""all""",extra-not-requested
+fastapi,jinja2,"jinja2>=3.1.5; extra == ""all""",>=3.1.5,,"extra == ""all""",extra-not-requested
+fastapi,jinja2,"jinja2>=3.1.5; extra == ""standard""",>=3.1.5,,"extra == ""standard""",extra-not-requested
+fastapi,orjson,"orjson>=3.2.1; extra == ""all""",>=3.2.1,,"extra == ""all""",extra-not-requested
+fastapi,pydantic-extra-types,"pydantic-extra-types>=2.0.0; extra == ""all""",>=2.0.0,,"extra == ""all""",extra-not-requested
+fastapi,pydantic-settings,"pydantic-settings>=2.0.0; extra == ""all""",>=2.0.0,,"extra == ""all""",extra-not-requested
+fastapi,python-multipart,"python-multipart>=0.0.18; extra == ""all""",>=0.0.18,,"extra == ""all""",extra-not-requested
+fastapi,python-multipart,"python-multipart>=0.0.18; extra == ""standard""",>=0.0.18,,"extra == ""standard""",extra-not-requested
+fastapi,pyyaml,"pyyaml>=5.3.1; extra == ""all""",>=5.3.1,,"extra == ""all""",extra-not-requested
+fastapi,ujson,"ujson!=4.0.2,!=4.1.0,!=4.2.0,!=4.3.0,!=5.0.0,!=5.1.0,>=4.0.1; extra == ""all""","!=4.0.2,!=4.1.0,!=4.2.0,!=4.3.0,!=5.0.0,!=5.1.0,>=4.0.1",,"extra == ""all""",extra-not-requested
+fastapi,uvicorn,"uvicorn[standard]>=0.12.0; extra == ""all""",>=0.12.0,standard,"extra == ""all""",extra-not-requested
+fastapi,uvicorn,"uvicorn[standard]>=0.12.0; extra == ""standard""",>=0.12.0,standard,"extra == ""standard""",extra-not-requested
+httpcore,anyio,"anyio<5.0,>=4.0; extra == 'asyncio'","<5.0,>=4.0",,"extra == ""asyncio""",extra-not-requested
+httpcore,h2,"h2<5,>=3; extra == 'http2'","<5,>=3",,"extra == ""http2""",extra-not-requested
+httpcore,socksio,socksio==1.*; extra == 'socks',==1.*,,"extra == ""socks""",extra-not-requested
+httpcore,trio,"trio<1.0,>=0.22.0; extra == 'trio'","<1.0,>=0.22.0",,"extra == ""trio""",extra-not-requested
+httpx,brotli,brotli; (platform_python_implementation == 'CPython') and extra == 'brotli',,,"platform_python_implementation == ""CPython"" and extra == ""brotli""",extra-not-requested
+httpx,brotlicffi,brotlicffi; (platform_python_implementation != 'CPython') and extra == 'brotli',,,"platform_python_implementation != ""CPython"" and extra == ""brotli""",extra-not-requested
+httpx,click,click==8.*; extra == 'cli',==8.*,,"extra == ""cli""",extra-not-requested
+httpx,h2,"h2<5,>=3; extra == 'http2'","<5,>=3",,"extra == ""http2""",extra-not-requested
+httpx,pygments,pygments==2.*; extra == 'cli',==2.*,,"extra == ""cli""",extra-not-requested
+httpx,rich,"rich<14,>=10; extra == 'cli'","<14,>=10",,"extra == ""cli""",extra-not-requested
+httpx,socksio,socksio==1.*; extra == 'socks',==1.*,,"extra == ""socks""",extra-not-requested
+httpx,zstandard,zstandard>=0.18.0; extra == 'zstd',>=0.18.0,,"extra == ""zstd""",extra-not-requested
+idna,coverage,"coverage >= 7.10.0 ; extra == ""all""",>=7.10.0,,"extra == ""all""",extra-not-requested
+idna,hypothesis,"hypothesis >= 6.141.1 ; extra == ""all""",>=6.141.1,,"extra == ""all""",extra-not-requested
+idna,mypy,"mypy >= 1.11.2 ; extra == ""all""",>=1.11.2,,"extra == ""all""",extra-not-requested
+idna,pytest,"pytest >= 8.3.2 ; extra == ""all""",>=8.3.2,,"extra == ""all""",extra-not-requested
+idna,ruff,"ruff >= 0.16.0 ; extra == ""all""",>=0.16.0,,"extra == ""all""",extra-not-requested
+idna,ty,"ty >= 0.0.37 ; extra == ""all""",>=0.0.37,,"extra == ""all""",extra-not-requested
+limits,coredis,"coredis<6,>=3.4.0; extra == 'async-redis'","<6,>=3.4.0",,"extra == ""async-redis""",extra-not-requested
+limits,memcachio,memcachio>=0.3; extra == 'async-memcached',>=0.3,,"extra == ""async-memcached""",extra-not-requested
+limits,motor,"motor<4,>=3; extra == 'async-mongodb'","<4,>=3",,"extra == ""async-mongodb""",extra-not-requested
+limits,pymemcache,"pymemcache<5.0.0,>3; extra == 'memcached'","<5.0.0,>3",,"extra == ""memcached""",extra-not-requested
+limits,pymongo,"pymongo<5,>4.1; extra == 'mongodb'","<5,>4.1",,"extra == ""mongodb""",extra-not-requested
+limits,redis,"redis!=4.5.2,!=4.5.3,<8.0.0,>3; extra == 'redis'","!=4.5.2,!=4.5.3,<8.0.0,>3",,"extra == ""redis""",extra-not-requested
+limits,redis,"redis!=4.5.2,!=4.5.3,>=4.2.0; extra == 'rediscluster'","!=4.5.2,!=4.5.3,>=4.2.0",,"extra == ""rediscluster""",extra-not-requested
+limits,valkey,valkey>=6; extra == 'async-valkey',>=6,,"extra == ""async-valkey""",extra-not-requested
+limits,valkey,valkey>=6; extra == 'valkey',>=6,,"extra == ""valkey""",extra-not-requested
+mako,babel,"Babel; extra == ""babel""",,,"extra == ""babel""",extra-not-requested
+mako,lingua,"lingua>=4.16; extra == ""lingua""",>=4.16,,"extra == ""lingua""",extra-not-requested
+mako,pytest,"pytest; extra == ""testing""",,,"extra == ""testing""",extra-not-requested
+psycopg,anyio,"anyio>=4.0; extra == ""test""",>=4.0,,"extra == ""test""",marker-unmet-for-all-requested-extras
+psycopg,ast-comments,"ast-comments>=1.1.2; extra == ""dev""",>=1.1.2,,"extra == ""dev""",marker-unmet-for-all-requested-extras
+psycopg,black,"black>=26.1.0; extra == ""dev""",>=26.1.0,,"extra == ""dev""",marker-unmet-for-all-requested-extras
+psycopg,codespell,"codespell>=2.2; extra == ""dev""",>=2.2,,"extra == ""dev""",marker-unmet-for-all-requested-extras
+psycopg,cython-lint,"cython-lint>=0.21; extra == ""dev""",>=0.21,,"extra == ""dev""",marker-unmet-for-all-requested-extras
+psycopg,dnspython,"dnspython>=2.1; extra == ""dev""",>=2.1,,"extra == ""dev""",marker-unmet-for-all-requested-extras
+psycopg,flake8,"flake8>=4.0; extra == ""dev""",>=4.0,,"extra == ""dev""",marker-unmet-for-all-requested-extras
+psycopg,furo,"furo==2025.12.19; extra == ""docs""",==2025.12.19,,"extra == ""docs""",marker-unmet-for-all-requested-extras
+psycopg,isort,"isort[colors]>=6.0; extra == ""dev""",>=6.0,colors,"extra == ""dev""",marker-unmet-for-all-requested-extras
+psycopg,isort-psycopg,"isort-psycopg>=0.0.3; extra == ""dev""",>=0.0.3,,"extra == ""dev""",marker-unmet-for-all-requested-extras
+psycopg,mypy,"mypy>=2.1.0; extra == ""dev""",>=2.1.0,,"extra == ""dev""",marker-unmet-for-all-requested-extras
+psycopg,mypy,"mypy>=2.1.0; implementation_name != ""pypy"" and extra == ""test""",>=2.1.0,,"implementation_name != ""pypy"" and extra == ""test""",marker-unmet-for-all-requested-extras
+psycopg,pproxy,"pproxy>=2.7; extra == ""test""",>=2.7,,"extra == ""test""",marker-unmet-for-all-requested-extras
+psycopg,pre-commit,"pre-commit>=4.0.1; extra == ""dev""",>=4.0.1,,"extra == ""dev""",marker-unmet-for-all-requested-extras
+psycopg,psycopg-c,"psycopg-c==3.3.6; implementation_name != ""pypy"" and extra == ""c""",==3.3.6,,"implementation_name != ""pypy"" and extra == ""c""",marker-unmet-for-all-requested-extras
+psycopg,psycopg-pool,"psycopg-pool; extra == ""pool""",,,"extra == ""pool""",marker-unmet-for-all-requested-extras
+psycopg,pytest,"pytest>=6.2.5; extra == ""test""",>=6.2.5,,"extra == ""test""",marker-unmet-for-all-requested-extras
+psycopg,pytest-cov,"pytest-cov>=3.0; extra == ""test""",>=3.0,,"extra == ""test""",marker-unmet-for-all-requested-extras
+psycopg,pytest-randomly,"pytest-randomly>=3.5; extra == ""test""",>=3.5,,"extra == ""test""",marker-unmet-for-all-requested-extras
+psycopg,sphinx,"Sphinx>=9.1; extra == ""docs""",>=9.1,,"extra == ""docs""",marker-unmet-for-all-requested-extras
+psycopg,sphinx-autobuild,"sphinx-autobuild>=2025.8.25; extra == ""docs""",>=2025.8.25,,"extra == ""docs""",marker-unmet-for-all-requested-extras
+psycopg,sphinx-autodoc-typehints,"sphinx-autodoc-typehints>=3.10.2; extra == ""docs""",>=3.10.2,,"extra == ""docs""",marker-unmet-for-all-requested-extras
+psycopg,types-setuptools,"types-setuptools>=57.4; extra == ""dev""",>=57.4,,"extra == ""dev""",marker-unmet-for-all-requested-extras
+psycopg,types-shapely,"types-shapely>=2.0; extra == ""dev""",>=2.0,,"extra == ""dev""",marker-unmet-for-all-requested-extras
+psycopg,tzdata,"tzdata; sys_platform == ""win32""",,,"sys_platform == ""win32""",marker-not-satisfied
+psycopg,wheel,"wheel>=0.37; extra == ""dev""",>=0.37,,"extra == ""dev""",marker-unmet-for-all-requested-extras
+pydantic,email-validator,email-validator>=2.0.0; extra == 'email',>=2.0.0,,"extra == ""email""",extra-not-requested
+pydantic,tzdata,tzdata; (platform_system == 'Windows') and extra == 'timezone',,,"platform_system == ""Windows"" and extra == ""timezone""",extra-not-requested
+pydantic-settings,azure-identity,azure-identity>=1.16.0; extra == 'azure-key-vault',>=1.16.0,,"extra == ""azure-key-vault""",extra-not-requested
+pydantic-settings,azure-keyvault-secrets,azure-keyvault-secrets>=4.8.0; extra == 'azure-key-vault',>=4.8.0,,"extra == ""azure-key-vault""",extra-not-requested
+pydantic-settings,boto3,boto3>=1.35.0; extra == 'aws-secrets-manager',>=1.35.0,,"extra == ""aws-secrets-manager""",extra-not-requested
+pydantic-settings,boto3,boto3>=1.35.0; extra == 'aws-systems-manager',>=1.35.0,,"extra == ""aws-systems-manager""",extra-not-requested
+pydantic-settings,google-cloud-secret-manager,google-cloud-secret-manager>=2.23.1; extra == 'gcp-secret-manager',>=2.23.1,,"extra == ""gcp-secret-manager""",extra-not-requested
+pydantic-settings,pyyaml,pyyaml>=6.0.1; extra == 'yaml',>=6.0.1,,"extra == ""yaml""",extra-not-requested
+pyjwt,cryptography,"cryptography>=3.4.0; extra == ""crypto""",>=3.4.0,,"extra == ""crypto""",extra-not-requested
+pyjwt,typing-extensions,"typing_extensions>=4.0; python_version < ""3.11""",>=4.0,,"python_version < ""3.11""",marker-not-satisfied
+python-dotenv,click,"click>=5.0; extra == ""cli""",>=5.0,,"extra == ""cli""",extra-not-requested
+redis,async-timeout,"async-timeout>=4.0.3; python_full_version < ""3.11.3""",>=4.0.3,,"python_full_version < ""3.11.3""",marker-not-satisfied
+redis,cryptography,"cryptography>=36.0.1; extra == ""ocsp""",>=36.0.1,,"extra == ""ocsp""",extra-not-requested
+redis,hiredis,"hiredis>=3.0.0; extra == ""hiredis""",>=3.0.0,,"extra == ""hiredis""",extra-not-requested
+redis,pyopenssl,"pyopenssl==23.2.1; extra == ""ocsp""",==23.2.1,,"extra == ""ocsp""",extra-not-requested
+redis,requests,"requests>=2.31.0; extra == ""ocsp""",>=2.31.0,,"extra == ""ocsp""",extra-not-requested
+setuptools,build,"build[virtualenv]>=1.0.3; extra == ""test""",>=1.0.3,virtualenv,"extra == ""test""",extra-not-requested
+setuptools,filelock,"filelock>=3.4.0; extra == ""test""",>=3.4.0,,"extra == ""test""",extra-not-requested
+setuptools,furo,"furo; extra == ""doc""",,,"extra == ""doc""",extra-not-requested
+setuptools,importlib-metadata,"importlib_metadata>=6; python_version < ""3.10"" and extra == ""core""",>=6,,"python_version < ""3.10"" and extra == ""core""",extra-not-requested
+setuptools,importlib-metadata,"importlib_metadata>=7.0.2; python_version < ""3.10"" and extra == ""type""",>=7.0.2,,"python_version < ""3.10"" and extra == ""type""",extra-not-requested
+setuptools,ini2toml,"ini2toml[lite]>=0.14; extra == ""test""",>=0.14,lite,"extra == ""test""",extra-not-requested
+setuptools,jaraco-develop,"jaraco.develop>=7.21; (python_version >= ""3.9"" and sys_platform != ""cygwin"") and extra == ""test""",>=7.21,,"(python_version >= ""3.9"" and sys_platform != ""cygwin"") and extra == ""test""",extra-not-requested
+setuptools,jaraco-develop,"jaraco.develop>=7.21; sys_platform != ""cygwin"" and extra == ""type""",>=7.21,,"sys_platform != ""cygwin"" and extra == ""type""",extra-not-requested
+setuptools,jaraco-envs,"jaraco.envs>=2.2; extra == ""test""",>=2.2,,"extra == ""test""",extra-not-requested
+setuptools,jaraco-functools,"jaraco.functools>=4; extra == ""core""",>=4,,"extra == ""core""",extra-not-requested
+setuptools,jaraco-packaging,"jaraco.packaging>=9.3; extra == ""doc""",>=9.3,,"extra == ""doc""",extra-not-requested
+setuptools,jaraco-path,"jaraco.path>=3.7.2; extra == ""test""",>=3.7.2,,"extra == ""test""",extra-not-requested
+setuptools,jaraco-test,"jaraco.test>=5.5; extra == ""test""",>=5.5,,"extra == ""test""",extra-not-requested
+setuptools,jaraco-text,"jaraco.text>=3.7; extra == ""core""",>=3.7,,"extra == ""core""",extra-not-requested
+setuptools,jaraco-tidelift,"jaraco.tidelift>=1.4; extra == ""doc""",>=1.4,,"extra == ""doc""",extra-not-requested
+setuptools,more-itertools,"more_itertools; extra == ""core""",,,"extra == ""core""",extra-not-requested
+setuptools,more-itertools,"more_itertools>=8.8; extra == ""core""",>=8.8,,"extra == ""core""",extra-not-requested
+setuptools,mypy,"mypy==1.18.*; extra == ""type""",==1.18.*,,"extra == ""type""",extra-not-requested
+setuptools,packaging,"packaging>=26.3; extra == ""core""",>=26.3,,"extra == ""core""",extra-not-requested
+setuptools,packaging,"packaging>=26.3; extra == ""test""",>=26.3,,"extra == ""test""",extra-not-requested
+setuptools,pip,"pip>=19.1; extra == ""test""",>=19.1,,"extra == ""test""",extra-not-requested
+setuptools,pygments-github-lexers,"pygments-github-lexers==0.0.5; extra == ""doc""",==0.0.5,,"extra == ""doc""",extra-not-requested
+setuptools,pyproject-hooks,"pyproject-hooks!=1.1; extra == ""doc""",!=1.1,,"extra == ""doc""",extra-not-requested
+setuptools,pyproject-hooks,"pyproject-hooks!=1.1; extra == ""test""",!=1.1,,"extra == ""test""",extra-not-requested
+setuptools,pytest,"pytest!=8.1.*,>=6; extra == ""test""","!=8.1.*,>=6",,"extra == ""test""",extra-not-requested
+setuptools,pytest-checkdocs,"pytest-checkdocs>=2.14; extra == ""check""",>=2.14,,"extra == ""check""",extra-not-requested
+setuptools,pytest-cov,"pytest-cov; extra == ""cover""",,,"extra == ""cover""",extra-not-requested
+setuptools,pytest-enabler,"pytest-enabler>=3.4; extra == ""enabler""",>=3.4,,"extra == ""enabler""",extra-not-requested
+setuptools,pytest-home,"pytest-home>=0.5; extra == ""test""",>=0.5,,"extra == ""test""",extra-not-requested
+setuptools,pytest-mypy,"pytest-mypy>=1.0.1; platform_python_implementation != ""PyPy"" and extra == ""type""",>=1.0.1,,"platform_python_implementation != ""PyPy"" and extra == ""type""",extra-not-requested
+setuptools,pytest-perf,"pytest-perf; sys_platform != ""cygwin"" and extra == ""test""",,,"sys_platform != ""cygwin"" and extra == ""test""",extra-not-requested
+setuptools,pytest-ruff,"pytest-ruff>=0.2.1; sys_platform != ""cygwin"" and extra == ""check""",>=0.2.1,,"sys_platform != ""cygwin"" and extra == ""check""",extra-not-requested
+setuptools,pytest-subprocess,"pytest-subprocess; extra == ""test""",,,"extra == ""test""",extra-not-requested
+setuptools,pytest-timeout,"pytest-timeout; extra == ""test""",,,"extra == ""test""",extra-not-requested
+setuptools,pytest-xdist,"pytest-xdist>=3; extra == ""test""",>=3,,"extra == ""test""",extra-not-requested
+setuptools,rst-linker,"rst.linker>=1.9; extra == ""doc""",>=1.9,,"extra == ""doc""",extra-not-requested
+setuptools,ruff,"ruff>=0.13.0; sys_platform != ""cygwin"" and extra == ""check""",>=0.13.0,,"sys_platform != ""cygwin"" and extra == ""check""",extra-not-requested
+setuptools,sphinx,"sphinx>=3.5; extra == ""doc""",>=3.5,,"extra == ""doc""",extra-not-requested
+setuptools,sphinx-favicon,"sphinx-favicon; extra == ""doc""",,,"extra == ""doc""",extra-not-requested
+setuptools,sphinx-inline-tabs,"sphinx-inline-tabs; extra == ""doc""",,,"extra == ""doc""",extra-not-requested
+setuptools,sphinx-lint,"sphinx-lint; extra == ""doc""",,,"extra == ""doc""",extra-not-requested
+setuptools,sphinx-notfound-page,"sphinx-notfound-page<2,>=1; extra == ""doc""","<2,>=1",,"extra == ""doc""",extra-not-requested
+setuptools,sphinx-reredirects,"sphinx-reredirects; extra == ""doc""",,,"extra == ""doc""",extra-not-requested
+setuptools,sphinxcontrib-towncrier,"sphinxcontrib-towncrier; extra == ""doc""",,,"extra == ""doc""",extra-not-requested
+setuptools,tomli,"tomli>=2.0.1; python_version < ""3.11"" and extra == ""core""",>=2.0.1,,"python_version < ""3.11"" and extra == ""core""",extra-not-requested
+setuptools,tomli-w,"tomli-w>=1.0.0; extra == ""test""",>=1.0.0,,"extra == ""test""",extra-not-requested
+setuptools,towncrier,"towncrier<24.7; extra == ""doc""",<24.7,,"extra == ""doc""",extra-not-requested
+setuptools,virtualenv,"virtualenv>=13.0.0; extra == ""test""",>=13.0.0,,"extra == ""test""",extra-not-requested
+setuptools,wheel,"wheel>=0.43.0; extra == ""core""",>=0.43.0,,"extra == ""core""",extra-not-requested
+setuptools,wheel,"wheel>=0.44.0; extra == ""test""",>=0.44.0,,"extra == ""test""",extra-not-requested
+slowapi,redis,"redis (>=3.4.1,<4.0.0) ; extra == ""redis""","<4.0.0,>=3.4.1",,"extra == ""redis""",extra-not-requested
+sqlalchemy,aiomysql,"aiomysql; extra == ""aiomysql""",,,"extra == ""aiomysql""",extra-not-requested
+sqlalchemy,aioodbc,"aioodbc; extra == ""aioodbc""",,,"extra == ""aioodbc""",extra-not-requested
+sqlalchemy,aiosqlite,"aiosqlite; extra == ""aiosqlite""",,,"extra == ""aiosqlite""",extra-not-requested
+sqlalchemy,asyncmy,"asyncmy>=0.2.12; extra == ""asyncmy""",>=0.2.12,,"extra == ""asyncmy""",extra-not-requested
+sqlalchemy,asyncpg,"asyncpg; extra == ""postgresql-asyncpg""",,,"extra == ""postgresql-asyncpg""",extra-not-requested
+sqlalchemy,cx-oracle,"cx_oracle>=8; extra == ""oracle-cxoracle""",>=8,,"extra == ""oracle-cxoracle""",extra-not-requested
+sqlalchemy,cymysql,"cymysql; extra == ""cymysql""",,,"extra == ""cymysql""",extra-not-requested
+sqlalchemy,greenlet,"greenlet>=1; extra == ""asyncio""",>=1,,"extra == ""asyncio""",extra-not-requested
+sqlalchemy,mariadb,"mariadb!=1.1.10,!=1.1.2,!=1.1.5,>=1.0.1; extra == ""mariadb-connector""","!=1.1.10,!=1.1.2,!=1.1.5,>=1.0.1",,"extra == ""mariadb-connector""",extra-not-requested
+sqlalchemy,mssql-python,"mssql-python>=1.9.0; extra == ""mssql-python""",>=1.9.0,,"extra == ""mssql-python""",extra-not-requested
+sqlalchemy,mypy,"mypy>=2.4; extra == ""mypy""",>=2.4,,"extra == ""mypy""",extra-not-requested
+sqlalchemy,mysql-connector-python,"mysql-connector-python; extra == ""mysql-connector""",,,"extra == ""mysql-connector""",extra-not-requested
+sqlalchemy,mysqlclient,"mysqlclient>=1.4.0; extra == ""mysql""",>=1.4.0,,"extra == ""mysql""",extra-not-requested
+sqlalchemy,oracledb,"oracledb>=2.0.1; extra == ""oracle""",>=2.0.1,,"extra == ""oracle""",extra-not-requested
+sqlalchemy,oracledb,"oracledb>=2.0.1; extra == ""oracle-oracledb""",>=2.0.1,,"extra == ""oracle-oracledb""",extra-not-requested
+sqlalchemy,pg8000,"pg8000>=1.29.3; extra == ""postgresql-pg8000""",>=1.29.3,,"extra == ""postgresql-pg8000""",extra-not-requested
+sqlalchemy,psycopg,"psycopg!=3.1.15,>=3.0.7; extra == ""postgresql""","!=3.1.15,>=3.0.7",,"extra == ""postgresql""",extra-not-requested
+sqlalchemy,psycopg,"psycopg!=3.1.15,>=3.0.7; extra == ""postgresql-psycopg""","!=3.1.15,>=3.0.7",,"extra == ""postgresql-psycopg""",extra-not-requested
+sqlalchemy,psycopg,"psycopg[binary]!=3.1.15,>=3.0.7; extra == ""postgresql-psycopgbinary""","!=3.1.15,>=3.0.7",binary,"extra == ""postgresql-psycopgbinary""",extra-not-requested
+sqlalchemy,psycopg2-binary,"psycopg2-binary; extra == ""postgresql-psycopg2binary""",,,"extra == ""postgresql-psycopg2binary""",extra-not-requested
+sqlalchemy,psycopg2cffi,"psycopg2cffi; extra == ""postgresql-psycopg2cffi""",,,"extra == ""postgresql-psycopg2cffi""",extra-not-requested
+sqlalchemy,pymssql,"pymssql; extra == ""mssql-pymssql""",,,"extra == ""mssql-pymssql""",extra-not-requested
+sqlalchemy,pymysql,"pymysql; extra == ""pymysql""",,,"extra == ""pymysql""",extra-not-requested
+sqlalchemy,pyodbc,"pyodbc; extra == ""mssql""",,,"extra == ""mssql""",extra-not-requested
+sqlalchemy,pyodbc,"pyodbc; extra == ""mssql-pyodbc""",,,"extra == ""mssql-pyodbc""",extra-not-requested
+sqlalchemy,sqlalchemy,"sqlalchemy[asyncio]; extra == ""aiomysql""",,asyncio,"extra == ""aiomysql""",extra-not-requested
+sqlalchemy,sqlalchemy,"sqlalchemy[asyncio]; extra == ""aioodbc""",,asyncio,"extra == ""aioodbc""",extra-not-requested
+sqlalchemy,sqlalchemy,"sqlalchemy[asyncio]; extra == ""aiosqlite""",,asyncio,"extra == ""aiosqlite""",extra-not-requested
+sqlalchemy,sqlalchemy,"sqlalchemy[asyncio]; extra == ""asyncmy""",,asyncio,"extra == ""asyncmy""",extra-not-requested
+sqlalchemy,sqlalchemy,"sqlalchemy[asyncio]; extra == ""postgresql-asyncpg""",,asyncio,"extra == ""postgresql-asyncpg""",extra-not-requested
+sqlalchemy,sqlcipher3-binary,"sqlcipher3_binary; extra == ""sqlcipher""",,,"extra == ""sqlcipher""",extra-not-requested
+sqlalchemy,types-greenlet,"types-greenlet>=2; extra == ""mypy""",>=2,,"extra == ""mypy""",extra-not-requested
+starlette,httpx,"httpx<0.29.0,>=0.27.0; extra == 'full'","<0.29.0,>=0.27.0",,"extra == ""full""",extra-not-requested
+starlette,itsdangerous,itsdangerous; extra == 'full',,,"extra == ""full""",extra-not-requested
+starlette,jinja2,jinja2; extra == 'full',,,"extra == ""full""",extra-not-requested
+starlette,python-multipart,python-multipart>=0.0.18; extra == 'full',>=0.0.18,,"extra == ""full""",extra-not-requested
+starlette,pyyaml,pyyaml; extra == 'full',,,"extra == ""full""",extra-not-requested
+starlette,typing-extensions,typing-extensions>=3.10.0; python_version < '3.10',>=3.10.0,,"python_version < ""3.10""",marker-not-satisfied
+tzlocal,check-manifest,"check_manifest; extra == ""testing""",,,"extra == ""testing""",extra-not-requested
+tzlocal,pyroma,"pyroma; extra == ""testing""",,,"extra == ""testing""",extra-not-requested
+tzlocal,pytest,"pytest>=4.3; extra == ""testing""",>=4.3,,"extra == ""testing""",extra-not-requested
+tzlocal,pytest-cov,"pytest-cov; extra == ""testing""",,,"extra == ""testing""",extra-not-requested
+tzlocal,pytest-mock,"pytest-mock>=3.3; extra == ""testing""",>=3.3,,"extra == ""testing""",extra-not-requested
+tzlocal,ruff,"ruff; extra == ""testing""",,,"extra == ""testing""",extra-not-requested
+tzlocal,tzdata,"tzdata; platform_system == ""Windows""",,,"platform_system == ""Windows""",marker-not-satisfied
+tzlocal,zest-releaser,"zest.releaser; extra == ""devenv""",,,"extra == ""devenv""",extra-not-requested
+uvicorn,typing-extensions,typing-extensions>=4.0; python_version < '3.11',>=4.0,,"python_version < ""3.11""",marker-not-satisfied
+uvloop,aiohttp,"aiohttp>=3.10.5; extra == ""test""",>=3.10.5,,"extra == ""test""",extra-not-requested
+uvloop,cython,"Cython~=3.1; extra == ""dev""",~=3.1,,"extra == ""dev""",extra-not-requested
+uvloop,flake8,"flake8~=6.1; extra == ""test""",~=6.1,,"extra == ""test""",extra-not-requested
+uvloop,mypy,"mypy>=0.800; extra == ""test""",>=0.800,,"extra == ""test""",extra-not-requested
+uvloop,packaging,"packaging>=20; extra == ""dev""",>=20,,"extra == ""dev""",extra-not-requested
+uvloop,psutil,"psutil; extra == ""test""",,,"extra == ""test""",extra-not-requested
+uvloop,pycodestyle,"pycodestyle~=2.11.0; extra == ""test""",~=2.11.0,,"extra == ""test""",extra-not-requested
+uvloop,pyopenssl,"pyOpenSSL~=25.3.0; python_version < ""3.9"" and extra == ""test""",~=25.3.0,,"python_version < ""3.9"" and extra == ""test""",extra-not-requested
+uvloop,pyopenssl,"pyOpenSSL~=26.4.0; python_version >= ""3.9"" and extra == ""test""",~=26.4.0,,"python_version >= ""3.9"" and extra == ""test""",extra-not-requested
+uvloop,setuptools,"setuptools>=60; extra == ""dev""",>=60,,"extra == ""dev""",extra-not-requested
+uvloop,sphinx,"Sphinx~=4.1.2; extra == ""docs""",~=4.1.2,,"extra == ""docs""",extra-not-requested
+uvloop,sphinx-rtd-theme,"sphinx_rtd_theme~=0.5.2; extra == ""docs""",~=0.5.2,,"extra == ""docs""",extra-not-requested
+uvloop,sphinxcontrib-asyncio,"sphinxcontrib-asyncio~=0.3.0; extra == ""docs""",~=0.3.0,,"extra == ""docs""",extra-not-requested
+wrapt,pytest,"pytest; extra == ""dev""",,,"extra == ""dev""",extra-not-requested
+wrapt,setuptools,"setuptools; extra == ""dev""",,,"extra == ""dev""",extra-not-requested

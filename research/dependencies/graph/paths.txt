@@ -1,0 +1,112 @@
+# Simple dependency paths from deudamundi-api (step-2 extractor)
+# environment: CPython 3.12.16 on Linux x86_64, pip 26.2.2
+# nodes in execution graph: 38, transitive: 27, direct: 10, unexplained: 0
+# DAG (acyclic): True
+
+annotated-types 0.8.0 (hops=3, simple_paths=2)
+  shortest: deudamundi-api -> fastapi -> pydantic -> annotated-types
+  claimed_by: deudamundi-api, fastapi, pydantic-settings
+
+anyio 4.15.1 (hops=2, simple_paths=3)
+  shortest: deudamundi-api -> httpx -> anyio
+  claimed_by: deudamundi-api, fastapi, httpx, uvicorn
+
+certifi 2026.10.23 (hops=2, simple_paths=2)
+  shortest: deudamundi-api -> httpx -> certifi
+  claimed_by: deudamundi-api, httpx
+
+click 8.5.0 (hops=2, simple_paths=1)
+  shortest: deudamundi-api -> uvicorn -> click
+  claimed_by: deudamundi-api, uvicorn
+
+deprecated 3.0.1 (hops=3, simple_paths=1)
+  shortest: deudamundi-api -> slowapi -> limits -> deprecated
+  claimed_by: deudamundi-api, slowapi
+
+h11 0.16.0 (hops=2, simple_paths=2)
+  shortest: deudamundi-api -> uvicorn -> h11
+  claimed_by: deudamundi-api, httpx, uvicorn
+
+httpcore 1.0.9 (hops=2, simple_paths=1)
+  shortest: deudamundi-api -> httpx -> httpcore
+  claimed_by: deudamundi-api, httpx
+
+httptools 0.9.0 (hops=2, simple_paths=1)
+  shortest: deudamundi-api -> uvicorn -> httptools
+  claimed_by: deudamundi-api, uvicorn
+
+idna 3.20 (hops=2, simple_paths=4)
+  shortest: deudamundi-api -> httpx -> idna
+  claimed_by: deudamundi-api, fastapi, httpx, uvicorn
+
+limits 5.8.0 (hops=2, simple_paths=1)
+  shortest: deudamundi-api -> slowapi -> limits
+  claimed_by: deudamundi-api, slowapi
+
+mako 1.4.3 (hops=2, simple_paths=1)
+  shortest: deudamundi-api -> alembic -> mako
+  claimed_by: alembic, deudamundi-api
+
+markupsafe 3.0.4 (hops=3, simple_paths=1)
+  shortest: deudamundi-api -> alembic -> mako -> markupsafe
+  claimed_by: alembic, deudamundi-api
+
+packaging 26.3 (hops=3, simple_paths=1)
+  shortest: deudamundi-api -> slowapi -> limits -> packaging
+  claimed_by: deudamundi-api, slowapi
+
+psycopg-binary 3.3.6 (hops=2, simple_paths=1)
+  shortest: deudamundi-api -> psycopg -> psycopg-binary
+  claimed_by: deudamundi-api, psycopg
+
+pydantic 2.14.2 (hops=2, simple_paths=2)
+  shortest: deudamundi-api -> fastapi -> pydantic
+  claimed_by: deudamundi-api, fastapi, pydantic-settings
+
+pydantic-core 2.50.2 (hops=3, simple_paths=2)
+  shortest: deudamundi-api -> fastapi -> pydantic -> pydantic-core
+  claimed_by: deudamundi-api, fastapi, pydantic-settings
+
+pyjwt 2.15.1 (hops=2, simple_paths=1)
+  shortest: deudamundi-api -> redis -> pyjwt
+  claimed_by: deudamundi-api, redis
+
+python-dotenv 1.2.4 (hops=2, simple_paths=2)
+  shortest: deudamundi-api -> pydantic-settings -> python-dotenv
+  claimed_by: deudamundi-api, pydantic-settings, uvicorn
+
+pyyaml 6.0.3 (hops=2, simple_paths=1)
+  shortest: deudamundi-api -> uvicorn -> pyyaml
+  claimed_by: deudamundi-api, uvicorn
+
+starlette 0.46.2 (hops=2, simple_paths=1)
+  shortest: deudamundi-api -> fastapi -> starlette
+  claimed_by: deudamundi-api, fastapi
+
+typing-extensions 4.16.0 (hops=2, simple_paths=17)
+  shortest: deudamundi-api -> alembic -> typing-extensions
+  claimed_by: alembic, deudamundi-api, fastapi, httpx, psycopg, pydantic-settings, slowapi, sqlalchemy, uvicorn
+
+typing-inspection 0.4.4 (hops=2, simple_paths=3)
+  shortest: deudamundi-api -> pydantic-settings -> typing-inspection
+  claimed_by: deudamundi-api, fastapi, pydantic-settings
+
+tzlocal 5.4.5 (hops=2, simple_paths=1)
+  shortest: deudamundi-api -> apscheduler -> tzlocal
+  claimed_by: apscheduler, deudamundi-api
+
+uvloop 0.23.0 (hops=2, simple_paths=1)
+  shortest: deudamundi-api -> uvicorn -> uvloop
+  claimed_by: deudamundi-api, uvicorn
+
+watchfiles 1.3.0 (hops=2, simple_paths=1)
+  shortest: deudamundi-api -> uvicorn -> watchfiles
+  claimed_by: deudamundi-api, uvicorn
+
+websockets 17.3 (hops=2, simple_paths=1)
+  shortest: deudamundi-api -> uvicorn -> websockets
+  claimed_by: deudamundi-api, uvicorn
+
+wrapt 2.5.2 (hops=4, simple_paths=1)
+  shortest: deudamundi-api -> slowapi -> limits -> deprecated -> wrapt
+  claimed_by: deudamundi-api, slowapi
