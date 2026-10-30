@@ -1,0 +1,1572 @@
+{
+ "body": {
+  "info": {
+   "author": null,
+   "author_email": "Yury Selivanov <yury@magic.io>",
+   "bugtrack_url": null,
+   "classifiers": [
+    "Development Status :: 5 - Production/Stable",
+    "Framework :: AsyncIO",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: Apache Software License",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: MacOS :: MacOS X",
+    "Operating System :: POSIX",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Topic :: System :: Networking"
+   ],
+   "description": ".. image:: https://img.shields.io/github/actions/workflow/status/MagicStack/uvloop/tests.yml?branch=master\n    :target: https://github.com/MagicStack/uvloop/actions/workflows/tests.yml?query=branch%3Amaster\n\n.. image:: https://img.shields.io/pypi/v/uvloop.svg\n    :target: https://pypi.python.org/pypi/uvloop\n\n.. image:: https://pepy.tech/badge/uvloop\n    :target: https://pepy.tech/project/uvloop\n    :alt: PyPI - Downloads\n\n\nuvloop is a fast, drop-in replacement of the built-in asyncio\nevent loop.  uvloop is implemented in Cython and uses libuv\nunder the hood.\n\nThe project documentation can be found\n`here <http://uvloop.readthedocs.org/>`_.  Please also check out the\n`wiki <https://github.com/MagicStack/uvloop/wiki>`_.\n\n\nPerformance\n-----------\n\nuvloop makes asyncio 2-4x faster.\n\n.. image:: https://raw.githubusercontent.com/MagicStack/uvloop/master/performance.png\n    :target: http://magic.io/blog/uvloop-blazing-fast-python-networking/\n\nThe above chart shows the performance of an echo server with different\nmessage sizes.  The *sockets* benchmark uses ``loop.sock_recv()`` and\n``loop.sock_sendall()`` methods; the *streams* benchmark uses asyncio\nhigh-level streams, created by the ``asyncio.start_server()`` function;\nand the *protocol* benchmark uses ``loop.create_server()`` with a simple\necho protocol.  Read more about uvloop in a\n`blog post <http://magic.io/blog/uvloop-blazing-fast-python-networking/>`_\nabout it.\n\n\nInstallation\n------------\n\nuvloop requires Python 3.8 or greater and is available on PyPI.\nUse pip to install it::\n\n    $ pip install uvloop\n\nNote that it is highly recommended to **upgrade pip before** installing\nuvloop with::\n\n    $ pip install -U pip\n\n\nUsing uvloop\n------------\n\nAs of uvloop 0.18, the preferred way of using it is via the\n``uvloop.run()`` helper function:\n\n\n.. code:: python\n\n    import uvloop\n\n    async def main():\n        # Main entry-point.\n        ...\n\n    uvloop.run(main())\n\n``uvloop.run()`` works by simply configuring ``asyncio.run()``\nto use uvloop, passing all of the arguments to it, such as ``debug``,\ne.g. ``uvloop.run(main(), debug=True)``.\n\nWith Python 3.11 and earlier the following alternative\nsnippet can be used:\n\n.. code:: python\n\n    import asyncio\n    import sys\n\n    import uvloop\n\n    async def main():\n        # Main entry-point.\n        ...\n\n    if sys.version_info >= (3, 11):\n        with asyncio.Runner(loop_factory=uvloop.new_event_loop) as runner:\n            runner.run(main())\n    else:\n        uvloop.install()\n        asyncio.run(main())\n\n\nBuilding From Source\n--------------------\n\nTo build uvloop, you'll need Python 3.8 or greater:\n\n1. Clone the repository:\n\n   .. code::\n\n    $ git clone --recursive git@github.com:MagicStack/uvloop.git\n    $ cd uvloop\n\n2. Create a virtual environment and activate it:\n\n   .. code::\n\n    $ python3 -m venv uvloop-dev\n    $ source uvloop-dev/bin/activate\n\n3. Install development dependencies:\n\n   ..  code::\n\n    $ pip install -e .[dev]\n\n4. Build and run tests:\n\n   .. code::\n\n    $ make\n    $ make test\n\n\nLicense\n-------\n\nuvloop is dual-licensed under MIT and Apache 2.0 licenses.\n",
+   "description_content_type": "text/x-rst",
+   "docs_url": null,
+   "download_url": null,
+   "downloads": {
+    "last_day": -1,
+    "last_month": -1,
+    "last_week": -1
+   },
+   "dynamic": [
+    "License-File"
+   ],
+   "home_page": null,
+   "keywords": "asyncio, networking",
+   "license": "MIT License",
+   "license_expression": null,
+   "license_files": [
+    "LICENSE-APACHE",
+    "LICENSE-MIT"
+   ],
+   "maintainer": null,
+   "maintainer_email": null,
+   "name": "uvloop",
+   "package_url": "https://pypi.org/project/uvloop/",
+   "platform": null,
+   "project_url": "https://pypi.org/project/uvloop/",
+   "project_urls": {
+    "github": "https://github.com/MagicStack/uvloop"
+   },
+   "provides_extra": [
+    "test",
+    "dev",
+    "docs"
+   ],
+   "release_url": "https://pypi.org/project/uvloop/0.23.0/",
+   "requires_dist": [
+    "aiohttp>=3.10.5; extra == \"test\"",
+    "flake8~=6.1; extra == \"test\"",
+    "psutil; extra == \"test\"",
+    "pycodestyle~=2.11.0; extra == \"test\"",
+    "pyOpenSSL~=25.3.0; python_version < \"3.9\" and extra == \"test\"",
+    "pyOpenSSL~=26.4.0; python_version >= \"3.9\" and extra == \"test\"",
+    "mypy>=0.800; extra == \"test\"",
+    "packaging>=20; extra == \"dev\"",
+    "setuptools>=60; extra == \"dev\"",
+    "Cython~=3.1; extra == \"dev\"",
+    "Sphinx~=4.1.2; extra == \"docs\"",
+    "sphinxcontrib-asyncio~=0.3.0; extra == \"docs\"",
+    "sphinx_rtd_theme~=0.5.2; extra == \"docs\""
+   ],
+   "requires_python": ">=3.8.1",
+   "summary": "Fast implementation of asyncio event loop on top of libuv",
+   "version": "0.23.0",
+   "yanked": false,
+   "yanked_reason": null
+  },
+  "last_serial": 41667699,
+  "ownership": {
+   "organization": null,
+   "roles": [
+    {
+     "role": "Owner",
+     "user": "Elvis.Pranskevichus"
+    },
+    {
+     "role": "Owner",
+     "user": "yselivanov"
+    },
+    {
+     "role": "Maintainer",
+     "user": "edgedb-ci"
+    },
+    {
+     "role": "Maintainer",
+     "user": "magicstack-ci"
+    }
+   ]
+  },
+  "urls": [
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "fe11a50198ffd4d9f1cb20922dc638ad459d5e63e6c615b0c1c69448d3362977"
+    },
+    "digests": {
+     "blake2b_256": "5daaa67389d92dc118bb6b48cb57b08bf6f24925a07e05de196e4b998c339017",
+     "md5": "f5050e7be716107b209a18b733b32527",
+     "sha256": "ce17bc317d089f361b33521654c13e30eacfd3d2034fd34e613ca9c51c969686"
+    },
+    "downloads": -1,
+    "filename": "uvloop-0.23.0-cp310-cp310-macosx_10_9_universal2.whl",
+    "has_sig": false,
+    "md5_digest": "f5050e7be716107b209a18b733b32527",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp310",
+    "requires_python": ">=3.8.1",
+    "size": 1420655,
+    "upload_time": "2026-10-01T03:15:21",
+    "upload_time_iso_8601": "2026-10-01T03:15:21.220970Z",
+    "url": "https://files.pythonhosted.org/packages/5d/aa/a67389d92dc118bb6b48cb57b08bf6f24925a07e05de196e4b998c339017/uvloop-0.23.0-cp310-cp310-macosx_10_9_universal2.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "fe11a50198ffd4d9f1cb20922dc638ad459d5e63e6c615b0c1c69448d3362977"
+    },
+    "digests": {
+     "blake2b_256": "7970749d8bad691e6036f83d7c7e3cb34306261e01de847ce4ce46eb7aec5240",
+     "md5": "50a5232777d7e931ef9ef2a19ac947e1",
+     "sha256": "53c2c5d7e2024e46776c2d90e6c637d01102126b61aaf5faa5edaf05f8b5722a"
+    },
+    "downloads": -1,
+    "filename": "uvloop-0.23.0-cp310-cp310-macosx_10_9_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "50a5232777d7e931ef9ef2a19ac947e1",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp310",
+    "requires_python": ">=3.8.1",
+    "size": 780765,
+    "upload_time": "2026-10-01T03:15:22",
+    "upload_time_iso_8601": "2026-10-01T03:15:22.842918Z",
+    "url": "https://files.pythonhosted.org/packages/79/70/749d8bad691e6036f83d7c7e3cb34306261e01de847ce4ce46eb7aec5240/uvloop-0.23.0-cp310-cp310-macosx_10_9_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "fe11a50198ffd4d9f1cb20922dc638ad459d5e63e6c615b0c1c69448d3362977"
+    },
+    "digests": {
+     "blake2b_256": "bc44a4b7bea44d55c882e23fc858eebed9e157486650cdbecdb951577e89362f",
+     "md5": "4d56a753f234db51a833661550505f1e",
+     "sha256": "42feced24b9b44b856c633eafb5cc5dec354972da55ce77598db6844c054bc7c"
+    },
+    "downloads": -1,
+    "filename": "uvloop-0.23.0-cp310-cp310-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+    "has_sig": false,
+    "md5_digest": "4d56a753f234db51a833661550505f1e",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp310",
+    "requires_python": ">=3.8.1",
+    "size": 3795900,
+    "upload_time": "2026-10-01T03:15:25",
+    "upload_time_iso_8601": "2026-10-01T03:15:25.507754Z",
+    "url": "https://files.pythonhosted.org/packages/bc/44/a4b7bea44d55c882e23fc858eebed9e157486650cdbecdb951577e89362f/uvloop-0.23.0-cp310-cp310-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "fe11a50198ffd4d9f1cb20922dc638ad459d5e63e6c615b0c1c69448d3362977"
+    },
+    "digests": {
+     "blake2b_256": "764a488d9ee6eb87899273d84ebeaf7023c551ff8f8d44f7e7c0f78d06b6da25",
+     "md5": "13d4fb8d42edb45ddedad07f493a8fe8",
+     "sha256": "9bf08e4b6362dd1c08623bbfa2d061e8bac0f1da8fc2007062cfe1dc360a49fa"
+    },
+    "downloads": -1,
+    "filename": "uvloop-0.23.0-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "13d4fb8d42edb45ddedad07f493a8fe8",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp310",
+    "requires_python": ">=3.8.1",
+    "size": 3850999,
+    "upload_time": "2026-10-01T03:15:27",
+    "upload_time_iso_8601": "2026-10-01T03:15:27.308825Z",
+    "url": "https://files.pythonhosted.org/packages/76/4a/488d9ee6eb87899273d84ebeaf7023c551ff8f8d44f7e7c0f78d06b6da25/uvloop-0.23.0-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "fe11a50198ffd4d9f1cb20922dc638ad459d5e63e6c615b0c1c69448d3362977"
+    },
+    "digests": {
+     "blake2b_256": "fc516146339b0a4e0f880ed1abd98517b21a6021ac0988cbc83c7339d7ee346f",
+     "md5": "505d478a26432e47175d248a78a86005",
+     "sha256": "4bb7f5d0b62b5afaaaea2b7b60d508921c24b0fe39c22c1438bec1811ffe10ec"
+    },
+    "downloads": -1,
+    "filename": "uvloop-0.23.0-cp310-cp310-musllinux_1_2_aarch64.whl",
+    "has_sig": false,
+    "md5_digest": "505d478a26432e47175d248a78a86005",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp310",
+    "requires_python": ">=3.8.1",
+    "size": 3655020,
+    "upload_time": "2026-10-01T03:15:28",
+    "upload_time_iso_8601": "2026-10-01T03:15:28.908593Z",
+    "url": "https://files.pythonhosted.org/packages/fc/51/6146339b0a4e0f880ed1abd98517b21a6021ac0988cbc83c7339d7ee346f/uvloop-0.23.0-cp310-cp310-musllinux_1_2_aarch64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "fe11a50198ffd4d9f1cb20922dc638ad459d5e63e6c615b0c1c69448d3362977"
+    },
+    "digests": {
+     "blake2b_256": "7a76c2576407efee20fdfbf08ad35122ec9b2eb439a9090016e7f025c41259ab",
+     "md5": "b8187c179120262255b7d8f4ca94abda",
+     "sha256": "0305871ac712f54b62af73f943dbf21ae3ce80a44bc0f0151424484affa85645"
+    },
+    "downloads": -1,
+    "filename": "uvloop-0.23.0-cp310-cp310-musllinux_1_2_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "b8187c179120262255b7d8f4ca94abda",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp310",
+    "requires_python": ">=3.8.1",
+    "size": 3758530,
+    "upload_time": "2026-10-01T03:15:30",
+    "upload_time_iso_8601": "2026-10-01T03:15:30.500724Z",
+    "url": "https://files.pythonhosted.org/packages/7a/76/c2576407efee20fdfbf08ad35122ec9b2eb439a9090016e7f025c41259ab/uvloop-0.23.0-cp310-cp310-musllinux_1_2_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "fe11a50198ffd4d9f1cb20922dc638ad459d5e63e6c615b0c1c69448d3362977"
+    },
+    "digests": {
+     "blake2b_256": "2fb1948067eab45d5307f04b34e50eb7bd1f7352aee866fa5f0706b061ddacf0",
+     "md5": "1c684f945cfd7ad93954cac5c5f284e4",
+     "sha256": "24c58ae4a83e93a04c504bcc678125e36a0bfc44af928ad69444880c60f187a5"
+    },
+    "downloads": -1,
+    "filename": "uvloop-0.23.0-cp311-cp311-macosx_10_9_universal2.whl",
+    "has_sig": false,
+    "md5_digest": "1c684f945cfd7ad93954cac5c5f284e4",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp311",
+    "requires_python": ">=3.8.1",
+    "size": 1415276,
+    "upload_time": "2026-10-01T03:15:32",
+    "upload_time_iso_8601": "2026-10-01T03:15:32.634200Z",
+    "url": "https://files.pythonhosted.org/packages/2f/b1/948067eab45d5307f04b34e50eb7bd1f7352aee866fa5f0706b061ddacf0/uvloop-0.23.0-cp311-cp311-macosx_10_9_universal2.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "fe11a50198ffd4d9f1cb20922dc638ad459d5e63e6c615b0c1c69448d3362977"
+    },
+    "digests": {
+     "blake2b_256": "8a6fee3ee84c5d27f2f0a47ae8b67a6adeacf9841b193c0e07412a1403586ce2",
+     "md5": "7a589e0b37fa3c2c9562200041c7a962",
+     "sha256": "0efdd55bddbd36bb2fcb842d64c0d5f6407c6958c68088cc25df8c09edc5b5fd"
+    },
+    "downloads": -1,
+    "filename": "uvloop-0.23.0-cp311-cp311-macosx_10_9_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "7a589e0b37fa3c2c9562200041c7a962",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp311",
+    "requires_python": ">=3.8.1",
+    "size": 779533,
+    "upload_time": "2026-10-01T03:15:34",
+    "upload_time_iso_8601": "2026-10-01T03:15:34.062922Z",
+    "url": "https://files.pythonhosted.org/packages/8a/6f/ee3ee84c5d27f2f0a47ae8b67a6adeacf9841b193c0e07412a1403586ce2/uvloop-0.23.0-cp311-cp311-macosx_10_9_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "fe11a50198ffd4d9f1cb20922dc638ad459d5e63e6c615b0c1c69448d3362977"
+    },
+    "digests": {
+     "blake2b_256": "250db5f69dae3736d96a8753c6ecd32d676ecd212be7ba3252e9c379ad9cc05c",
+     "md5": "db9e6af0d7b9bbfc34b0cc4c671fa4a2",
+     "sha256": "8fcd721113260ffb5e38bf14a8725b17d431f34209f7d1c7005b667946e630b3"
+    },
+    "downloads": -1,
+    "filename": "uvloop-0.23.0-cp311-cp311-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+    "has_sig": false,
+    "md5_digest": "db9e6af0d7b9bbfc34b0cc4c671fa4a2",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp311",
+    "requires_python": ">=3.8.1",
+    "size": 3896377,
+    "upload_time": "2026-10-01T03:15:35",
+    "upload_time_iso_8601": "2026-10-01T03:15:35.816633Z",
+    "url": "https://files.pythonhosted.org/packages/25/0d/b5f69dae3736d96a8753c6ecd32d676ecd212be7ba3252e9c379ad9cc05c/uvloop-0.23.0-cp311-cp311-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "fe11a50198ffd4d9f1cb20922dc638ad459d5e63e6c615b0c1c69448d3362977"
+    },
+    "digests": {
+     "blake2b_256": "16fd8cbf6124607863399008ae4b0d2bb50c22ed83526deec28dca08d635eb6d",
+     "md5": "8d3e07847a92cfd341c7d57d31343092",
+     "sha256": "ab17b3a8aa754be0de0e397f7b95f13b14e56f077a4c6ae295e3d4afd199b325"
+    },
+    "downloads": -1,
+    "filename": "uvloop-0.23.0-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "8d3e07847a92cfd341c7d57d31343092",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp311",
+    "requires_python": ">=3.8.1",
+    "size": 3956355,
+    "upload_time": "2026-10-01T03:15:37",
+    "upload_time_iso_8601": "2026-10-01T03:15:37.688624Z",
+    "url": "https://files.pythonhosted.org/packages/16/fd/8cbf6124607863399008ae4b0d2bb50c22ed83526deec28dca08d635eb6d/uvloop-0.23.0-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "fe11a50198ffd4d9f1cb20922dc638ad459d5e63e6c615b0c1c69448d3362977"
+    },
+    "digests": {
+     "blake2b_256": "a77ab73007866e7198519067a1f1afc343b4973ae924d2b7afcea67c44320a98",
+     "md5": "057664efcebef9a407b3b161b27005f5",
+     "sha256": "80cac5cb90ed7b9b72a217a1d6982b15b829cdbd0ee6bc19b93e3a9e47fb0ac9"
+    },
+    "downloads": -1,
+    "filename": "uvloop-0.23.0-cp311-cp311-musllinux_1_2_aarch64.whl",
+    "has_sig": false,
+    "md5_digest": "057664efcebef9a407b3b161b27005f5",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp311",
+    "requires_python": ">=3.8.1",
+    "size": 3755618,
+    "upload_time": "2026-10-01T03:15:39",
+    "upload_time_iso_8601": "2026-10-01T03:15:39.270213Z",
+    "url": "https://files.pythonhosted.org/packages/a7/7a/b73007866e7198519067a1f1afc343b4973ae924d2b7afcea67c44320a98/uvloop-0.23.0-cp311-cp311-musllinux_1_2_aarch64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "fe11a50198ffd4d9f1cb20922dc638ad459d5e63e6c615b0c1c69448d3362977"
+    },
+    "digests": {
+     "blake2b_256": "3c28e50816f1ce38b97b28d62bc4adf7c82c33b7c68fa902e41a39adc8a3d189",
+     "md5": "cb8f288ad926f8e6bbc3725509169c77",
+     "sha256": "93087a845cdfb35753e539354ac9551bdd2ff528c202a98df0ae46e852bcf021"
+    },
+    "downloads": -1,
+    "filename": "uvloop-0.23.0-cp311-cp311-musllinux_1_2_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "cb8f288ad926f8e6bbc3725509169c77",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp311",
+    "requires_python": ">=3.8.1",
+    "size": 3863192,
+    "upload_time": "2026-10-01T03:15:40",
+    "upload_time_iso_8601": "2026-10-01T03:15:40.882682Z",
+    "url": "https://files.pythonhosted.org/packages/3c/28/e50816f1ce38b97b28d62bc4adf7c82c33b7c68fa902e41a39adc8a3d189/uvloop-0.23.0-cp311-cp311-musllinux_1_2_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "fe11a50198ffd4d9f1cb20922dc638ad459d5e63e6c615b0c1c69448d3362977"
+    },
+    "digests": {
+     "blake2b_256": "059804e766a6de99e6f7f955ecb7829e8d5a557de3427cb85be2236de54dda0c",
+     "md5": "a7c32221f882fe20162cef4f5775ff32",
+     "sha256": "93935ab27b6eaef4c3e5489aebc84284f0644592f7ab516df60ee1b27eaf5eb3"
+    },
+    "downloads": -1,
+    "filename": "uvloop-0.23.0-cp312-cp312-macosx_10_13_universal2.whl",
+    "has_sig": false,
+    "md5_digest": "a7c32221f882fe20162cef4f5775ff32",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp312",
+    "requires_python": ">=3.8.1",
+    "size": 1393055,
+    "upload_time": "2026-10-01T03:15:42",
+    "upload_time_iso_8601": "2026-10-01T03:15:42.526098Z",
+    "url": "https://files.pythonhosted.org/packages/05/98/04e766a6de99e6f7f955ecb7829e8d5a557de3427cb85be2236de54dda0c/uvloop-0.23.0-cp312-cp312-macosx_10_13_universal2.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "fe11a50198ffd4d9f1cb20922dc638ad459d5e63e6c615b0c1c69448d3362977"
+    },
+    "digests": {
+     "blake2b_256": "338a499e7b863a848ede009539bce39806b66205da5f8779354228e785601144",
+     "md5": "2af9f94440b78fcb22e249b692df58c7",
+     "sha256": "4448e9124537620f9c25d004c227bb5104440b58955c19bbd312d910af919a63"
+    },
+    "downloads": -1,
+    "filename": "uvloop-0.23.0-cp312-cp312-macosx_10_13_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "2af9f94440b78fcb22e249b692df58c7",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp312",
+    "requires_python": ">=3.8.1",
+    "size": 768909,
+    "upload_time": "2026-10-01T03:15:43",
+    "upload_time_iso_8601": "2026-10-01T03:15:43.974946Z",
+    "url": "https://files.pythonhosted.org/packages/33/8a/499e7b863a848ede009539bce39806b66205da5f8779354228e785601144/uvloop-0.23.0-cp312-cp312-macosx_10_13_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "fe11a50198ffd4d9f1cb20922dc638ad459d5e63e6c615b0c1c69448d3362977"
+    },
+    "digests": {
+     "blake2b_256": "3d95a880f8ce3b87ac5b307c354e8ee480be4658d24bf01f87921d57e3530b4a",
+     "md5": "41bf1395456c72ecc53c107bca8bbe60",
+     "sha256": "f7548ede3ee908cfabc0d068106e303a9a2d811af959cdf6ab85676344cedcda"
+    },
+    "downloads": -1,
+    "filename": "uvloop-0.23.0-cp312-cp312-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+    "has_sig": false,
+    "md5_digest": "41bf1395456c72ecc53c107bca8bbe60",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp312",
+    "requires_python": ">=3.8.1",
+    "size": 4419106,
+    "upload_time": "2026-10-01T03:15:45",
+    "upload_time_iso_8601": "2026-10-01T03:15:45.551282Z",
+    "url": "https://files.pythonhosted.org/packages/3d/95/a880f8ce3b87ac5b307c354e8ee480be4658d24bf01f87921d57e3530b4a/uvloop-0.23.0-cp312-cp312-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "fe11a50198ffd4d9f1cb20922dc638ad459d5e63e6c615b0c1c69448d3362977"
+    },
+    "digests": {
+     "blake2b_256": "5127c1d2f9fa977f8f42ea294604166df10e0027e6dc6cd17f85ede386c9bf36",
+     "md5": "21fdccc1f29f0a535815e24d441aa94c",
+     "sha256": "090865d8ce7a03986755a3ce711b7dd0d4b44eb14ab74368b717f3fad1180208"
+    },
+    "downloads": -1,
+    "filename": "uvloop-0.23.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "21fdccc1f29f0a535815e24d441aa94c",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp312",
+    "requires_python": ">=3.8.1",
+    "size": 4532597,
+    "upload_time": "2026-10-01T03:15:47",
+    "upload_time_iso_8601": "2026-10-01T03:15:47.258042Z",
+    "url": "https://files.pythonhosted.org/packages/51/27/c1d2f9fa977f8f42ea294604166df10e0027e6dc6cd17f85ede386c9bf36/uvloop-0.23.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "fe11a50198ffd4d9f1cb20922dc638ad459d5e63e6c615b0c1c69448d3362977"
+    },
+    "digests": {
+     "blake2b_256": "42dd2cb6a2c8a30ca55c07a882dd4ae4ceae0fa7d8c15b25b3b7cb9a4b6cf4ca",
+     "md5": "63e72893f1f1bb25d077f6694c1777fd",
+     "sha256": "bd6f2f81c7b9da99d301c0b16b82044e76fe887086e42e1590ecf520b94dbdac"
+    },
+    "downloads": -1,
+    "filename": "uvloop-0.23.0-cp312-cp312-musllinux_1_2_aarch64.whl",
+    "has_sig": false,
+    "md5_digest": "63e72893f1f1bb25d077f6694c1777fd",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp312",
+    "requires_python": ">=3.8.1",
+    "size": 4230048,
+    "upload_time": "2026-10-01T03:15:49",
+    "upload_time_iso_8601": "2026-10-01T03:15:49.119562Z",
+    "url": "https://files.pythonhosted.org/packages/42/dd/2cb6a2c8a30ca55c07a882dd4ae4ceae0fa7d8c15b25b3b7cb9a4b6cf4ca/uvloop-0.23.0-cp312-cp312-musllinux_1_2_aarch64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "fe11a50198ffd4d9f1cb20922dc638ad459d5e63e6c615b0c1c69448d3362977"
+    },
+    "digests": {
+     "blake2b_256": "f45229989cbaa4022dc4ef35c1dd60a4ab989e4c2065f341ed483ae71d2bd950",
+     "md5": "892fd8ebd0e5681a13f13f7b79967b9b",
+     "sha256": "a6ac96da66c35bf789bdcde78a88dc7d56b7907d8379648c54adc1c61594575d"
+    },
+    "downloads": -1,
+    "filename": "uvloop-0.23.0-cp312-cp312-musllinux_1_2_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "892fd8ebd0e5681a13f13f7b79967b9b",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp312",
+    "requires_python": ">=3.8.1",
+    "size": 4394152,
+    "upload_time": "2026-10-01T03:15:50",
+    "upload_time_iso_8601": "2026-10-01T03:15:50.829965Z",
+    "url": "https://files.pythonhosted.org/packages/f4/52/29989cbaa4022dc4ef35c1dd60a4ab989e4c2065f341ed483ae71d2bd950/uvloop-0.23.0-cp312-cp312-musllinux_1_2_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "fe11a50198ffd4d9f1cb20922dc638ad459d5e63e6c615b0c1c69448d3362977"
+    },
+    "digests": {
+     "blake2b_256": "5f83eb980d64e6dd5da46d4dc35755fa6afd6b5b47141437cf89615f1117c5a6",
+     "md5": "27e3eec4c76aaffe118199f2bbfc1307",
+     "sha256": "2dcff2d69be43e6559e5dad2c5a7a2dbfb60e05a77311b6c4b7a4a8123d86c65"
+    },
+    "downloads": -1,
+    "filename": "uvloop-0.23.0-cp313-cp313-macosx_10_13_universal2.whl",
+    "has_sig": false,
+    "md5_digest": "27e3eec4c76aaffe118199f2bbfc1307",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp313",
+    "requires_python": ">=3.8.1",
+    "size": 1412726,
+    "upload_time": "2026-10-01T03:15:52",
+    "upload_time_iso_8601": "2026-10-01T03:15:52.490874Z",
+    "url": "https://files.pythonhosted.org/packages/5f/83/eb980d64e6dd5da46d4dc35755fa6afd6b5b47141437cf89615f1117c5a6/uvloop-0.23.0-cp313-cp313-macosx_10_13_universal2.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "fe11a50198ffd4d9f1cb20922dc638ad459d5e63e6c615b0c1c69448d3362977"
+    },
+    "digests": {
+     "blake2b_256": "04c102a725e7698134c647904bdee6589e2be14a0e7fc9942c74f86e2b90d48b",
+     "md5": "829fb02dc6d069db7eec7f410e237f7d",
+     "sha256": "19c64108b507cd0bc140e400e3396bacebd9d504956aa7726272bf6de7d9aabb"
+    },
+    "downloads": -1,
+    "filename": "uvloop-0.23.0-cp313-cp313-macosx_10_13_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "829fb02dc6d069db7eec7f410e237f7d",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp313",
+    "requires_python": ">=3.8.1",
+    "size": 779071,
+    "upload_time": "2026-10-01T03:15:54",
+    "upload_time_iso_8601": "2026-10-01T03:15:54.020808Z",
+    "url": "https://files.pythonhosted.org/packages/04/c1/02a725e7698134c647904bdee6589e2be14a0e7fc9942c74f86e2b90d48b/uvloop-0.23.0-cp313-cp313-macosx_10_13_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "fe11a50198ffd4d9f1cb20922dc638ad459d5e63e6c615b0c1c69448d3362977"
+    },
+    "digests": {
+     "blake2b_256": "0b1dcde53c79e8c01884ad1cdca8e407e086d523362cfe4139e2c2a8dde27304",
+     "md5": "d6af053b57686750cded28f0b786f3fc",
+     "sha256": "1748321e3c59a14a75404b1ae8d5a8d81c4e201803ea0e14c1b6fd84421024b5"
+    },
+    "downloads": -1,
+    "filename": "uvloop-0.23.0-cp313-cp313-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+    "has_sig": false,
+    "md5_digest": "d6af053b57686750cded28f0b786f3fc",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp313",
+    "requires_python": ">=3.8.1",
+    "size": 4395323,
+    "upload_time": "2026-10-01T03:15:55",
+    "upload_time_iso_8601": "2026-10-01T03:15:55.549343Z",
+    "url": "https://files.pythonhosted.org/packages/0b/1d/cde53c79e8c01884ad1cdca8e407e086d523362cfe4139e2c2a8dde27304/uvloop-0.23.0-cp313-cp313-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "fe11a50198ffd4d9f1cb20922dc638ad459d5e63e6c615b0c1c69448d3362977"
+    },
+    "digests": {
+     "blake2b_256": "9854b12915bebbf99d7ae0796211e7f5977b95f069830dca45dc1a346d84125d",
+     "md5": "506e001c2f27e60e59ae190e8deddb93",
+     "sha256": "e2cba180d6451822763eda8364f342435a873bcfb3849cbd82fdeca248ca65eb"
+    },
+    "downloads": -1,
+    "filename": "uvloop-0.23.0-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "506e001c2f27e60e59ae190e8deddb93",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp313",
+    "requires_python": ">=3.8.1",
+    "size": 4480449,
+    "upload_time": "2026-10-01T03:15:57",
+    "upload_time_iso_8601": "2026-10-01T03:15:57.362598Z",
+    "url": "https://files.pythonhosted.org/packages/98/54/b12915bebbf99d7ae0796211e7f5977b95f069830dca45dc1a346d84125d/uvloop-0.23.0-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "fe11a50198ffd4d9f1cb20922dc638ad459d5e63e6c615b0c1c69448d3362977"
+    },
+    "digests": {
+     "blake2b_256": "f78eda6de68c31549a052a105fc76f5a9a204f6df22cb0909440aa4dbb06f9a2",
+     "md5": "ac2c1b6eaee9d4314f12d874b87586cd",
+     "sha256": "dc61e4f9e37b507069dc7e659ae28bca7adcb04c993c3508214315d12c63f848"
+    },
+    "downloads": -1,
+    "filename": "uvloop-0.23.0-cp313-cp313-musllinux_1_2_aarch64.whl",
+    "has_sig": false,
+    "md5_digest": "ac2c1b6eaee9d4314f12d874b87586cd",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp313",
+    "requires_python": ">=3.8.1",
+    "size": 4219177,
+    "upload_time": "2026-10-01T03:15:59",
+    "upload_time_iso_8601": "2026-10-01T03:15:59.351721Z",
+    "url": "https://files.pythonhosted.org/packages/f7/8e/da6de68c31549a052a105fc76f5a9a204f6df22cb0909440aa4dbb06f9a2/uvloop-0.23.0-cp313-cp313-musllinux_1_2_aarch64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "fe11a50198ffd4d9f1cb20922dc638ad459d5e63e6c615b0c1c69448d3362977"
+    },
+    "digests": {
+     "blake2b_256": "a1c31b53c6a89dc9c9d5cb75eb9a0b891ad69b32e1421ad3aa01617a9cbdcc78",
+     "md5": "4e1e9cb5dab60712636ff806d7649c82",
+     "sha256": "7337b06a9f9ed9ea3049f04b76f65819db9b19bb832ee598e97b388eadf25e5f"
+    },
+    "downloads": -1,
+    "filename": "uvloop-0.23.0-cp313-cp313-musllinux_1_2_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "4e1e9cb5dab60712636ff806d7649c82",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp313",
+    "requires_python": ">=3.8.1",
+    "size": 4346132,
+    "upload_time": "2026-10-01T03:16:01",
+    "upload_time_iso_8601": "2026-10-01T03:16:01.064767Z",
+    "url": "https://files.pythonhosted.org/packages/a1/c3/1b53c6a89dc9c9d5cb75eb9a0b891ad69b32e1421ad3aa01617a9cbdcc78/uvloop-0.23.0-cp313-cp313-musllinux_1_2_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "fe11a50198ffd4d9f1cb20922dc638ad459d5e63e6c615b0c1c69448d3362977"
+    },
+    "digests": {
+     "blake2b_256": "4ea400e85345871c59c834a23c136c1771205856028ecc8ba940b3951178e59b",
+     "md5": "f51f223cb19352197937dac2dfdcdd0c",
+     "sha256": "b90397a50ad6332ed3e459c648ac20d182cce24a557354363ad85fc9ea4a17cd"
+    },
+    "downloads": -1,
+    "filename": "uvloop-0.23.0-cp314-cp314-macosx_10_15_universal2.whl",
+    "has_sig": false,
+    "md5_digest": "f51f223cb19352197937dac2dfdcdd0c",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.8.1",
+    "size": 1421363,
+    "upload_time": "2026-10-01T03:16:02",
+    "upload_time_iso_8601": "2026-10-01T03:16:02.599117Z",
+    "url": "https://files.pythonhosted.org/packages/4e/a4/00e85345871c59c834a23c136c1771205856028ecc8ba940b3951178e59b/uvloop-0.23.0-cp314-cp314-macosx_10_15_universal2.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "fe11a50198ffd4d9f1cb20922dc638ad459d5e63e6c615b0c1c69448d3362977"
+    },
+    "digests": {
+     "blake2b_256": "d0a9e5f0f3cfde30af3ec32eba8ec07bccdba2b5116afbd1ecc53edfeb0a0790",
+     "md5": "be83c31f924298a0f4e7a1d24e0adf66",
+     "sha256": "be53e1d5f83de43dc175c87612ecc128d444b38e5c56cb3f807f5a73d6887476"
+    },
+    "downloads": -1,
+    "filename": "uvloop-0.23.0-cp314-cp314-macosx_10_15_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "be83c31f924298a0f4e7a1d24e0adf66",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.8.1",
+    "size": 785177,
+    "upload_time": "2026-10-01T03:16:04",
+    "upload_time_iso_8601": "2026-10-01T03:16:04.018084Z",
+    "url": "https://files.pythonhosted.org/packages/d0/a9/e5f0f3cfde30af3ec32eba8ec07bccdba2b5116afbd1ecc53edfeb0a0790/uvloop-0.23.0-cp314-cp314-macosx_10_15_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "fe11a50198ffd4d9f1cb20922dc638ad459d5e63e6c615b0c1c69448d3362977"
+    },
+    "digests": {
+     "blake2b_256": "9e799ddf78f8cd75a15c14a09a57f59c587b8cd9d82802c5c8368b9c3ebefa0b",
+     "md5": "08397fa9b5bfba9045e51ea4fc9cafd1",
+     "sha256": "6b3cbc4f96ddfa1fb88a78a69dd851369825b7816d9702eee8c4461505ba172e"
+    },
+    "downloads": -1,
+    "filename": "uvloop-0.23.0-cp314-cp314-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+    "has_sig": false,
+    "md5_digest": "08397fa9b5bfba9045e51ea4fc9cafd1",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.8.1",
+    "size": 4381060,
+    "upload_time": "2026-10-01T03:16:05",
+    "upload_time_iso_8601": "2026-10-01T03:16:05.642165Z",
+    "url": "https://files.pythonhosted.org/packages/9e/79/9ddf78f8cd75a15c14a09a57f59c587b8cd9d82802c5c8368b9c3ebefa0b/uvloop-0.23.0-cp314-cp314-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "fe11a50198ffd4d9f1cb20922dc638ad459d5e63e6c615b0c1c69448d3362977"
+    },
+    "digests": {
+     "blake2b_256": "1e2057d63c44d32326878fcad5c63854afc9deb394ed95673c1b1a429178c79d",
+     "md5": "1b24a2febd545cc7dae87151ca40ff8a",
+     "sha256": "31e0cf90bc8fd88784f6802cdba968a51fb1aec1cc3feec74d862b2d371d1330"
+    },
+    "downloads": -1,
+    "filename": "uvloop-0.23.0-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "1b24a2febd545cc7dae87151ca40ff8a",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.8.1",
+    "size": 4418891,
+    "upload_time": "2026-10-01T03:16:07",
+    "upload_time_iso_8601": "2026-10-01T03:16:07.326245Z",
+    "url": "https://files.pythonhosted.org/packages/1e/20/57d63c44d32326878fcad5c63854afc9deb394ed95673c1b1a429178c79d/uvloop-0.23.0-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "fe11a50198ffd4d9f1cb20922dc638ad459d5e63e6c615b0c1c69448d3362977"
+    },
+    "digests": {
+     "blake2b_256": "12c50795abecda2cc3dfe41033f880a32a9ff103be4e6b177ac736833c153a0e",
+     "md5": "29a4bff562947be3e545ebb1400c0dfa",
+     "sha256": "fa8ed556fcc87a4091cf61587ef172fa104323dc89ecc085a618ba7ff8629a8f"
+    },
+    "downloads": -1,
+    "filename": "uvloop-0.23.0-cp314-cp314-musllinux_1_2_aarch64.whl",
+    "has_sig": false,
+    "md5_digest": "29a4bff562947be3e545ebb1400c0dfa",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.8.1",
+    "size": 4214811,
+    "upload_time": "2026-10-01T03:16:09",
+    "upload_time_iso_8601": "2026-10-01T03:16:09.130922Z",
+    "url": "https://files.pythonhosted.org/packages/12/c5/0795abecda2cc3dfe41033f880a32a9ff103be4e6b177ac736833c153a0e/uvloop-0.23.0-cp314-cp314-musllinux_1_2_aarch64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "fe11a50198ffd4d9f1cb20922dc638ad459d5e63e6c615b0c1c69448d3362977"
+    },
+    "digests": {
+     "blake2b_256": "20189010dacd5221eec1bd79a4a83ac68f3db6a42d7bb657f7b640c4838ca6b6",
+     "md5": "1e1bd0cccda1db76bd42bceb6b89771d",
+     "sha256": "f3fbfe82829d8e381426a289b87e59e585278728361db9ce975b88b51f64f410"
+    },
+    "downloads": -1,
+    "filename": "uvloop-0.23.0-cp314-cp314-musllinux_1_2_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "1e1bd0cccda1db76bd42bceb6b89771d",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.8.1",
+    "size": 4294876,
+    "upload_time": "2026-10-01T03:16:10",
+    "upload_time_iso_8601": "2026-10-01T03:16:10.875058Z",
+    "url": "https://files.pythonhosted.org/packages/20/18/9010dacd5221eec1bd79a4a83ac68f3db6a42d7bb657f7b640c4838ca6b6/uvloop-0.23.0-cp314-cp314-musllinux_1_2_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "fe11a50198ffd4d9f1cb20922dc638ad459d5e63e6c615b0c1c69448d3362977"
+    },
+    "digests": {
+     "blake2b_256": "b108f6384a03c771d00067cba4f542a69b2fc1a982e9fd78b357c2f788678d72",
+     "md5": "a8af5586d8aa2a4037c336e7e1f5c45d",
+     "sha256": "7e35c9bc977760981693e1a7a51493b58ee5a501f9ebb1e547565ee40b6c6208"
+    },
+    "downloads": -1,
+    "filename": "uvloop-0.23.0-cp314-cp314t-macosx_10_15_universal2.whl",
+    "has_sig": false,
+    "md5_digest": "a8af5586d8aa2a4037c336e7e1f5c45d",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.8.1",
+    "size": 1494811,
+    "upload_time": "2026-10-01T03:16:12",
+    "upload_time_iso_8601": "2026-10-01T03:16:12.399921Z",
+    "url": "https://files.pythonhosted.org/packages/b1/08/f6384a03c771d00067cba4f542a69b2fc1a982e9fd78b357c2f788678d72/uvloop-0.23.0-cp314-cp314t-macosx_10_15_universal2.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "fe11a50198ffd4d9f1cb20922dc638ad459d5e63e6c615b0c1c69448d3362977"
+    },
+    "digests": {
+     "blake2b_256": "ac01756a4fb24a449f313cf4a153eb0c6210b49cfe5539255ec9fb1e17d2c4ef",
+     "md5": "ce8d40522307aa8d35f5e41d5aebc53a",
+     "sha256": "5bb9be71d9ee39b4359b832f9569518ec9bc08704194034e79e4958e6bc4d46d"
+    },
+    "downloads": -1,
+    "filename": "uvloop-0.23.0-cp314-cp314t-macosx_10_15_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "ce8d40522307aa8d35f5e41d5aebc53a",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.8.1",
+    "size": 819396,
+    "upload_time": "2026-10-01T03:16:14",
+    "upload_time_iso_8601": "2026-10-01T03:16:14.094953Z",
+    "url": "https://files.pythonhosted.org/packages/ac/01/756a4fb24a449f313cf4a153eb0c6210b49cfe5539255ec9fb1e17d2c4ef/uvloop-0.23.0-cp314-cp314t-macosx_10_15_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "fe11a50198ffd4d9f1cb20922dc638ad459d5e63e6c615b0c1c69448d3362977"
+    },
+    "digests": {
+     "blake2b_256": "3e45e314b0c600b14f53dad3a3c2d7a922a249a88225fd727652b53e1854b9dd",
+     "md5": "780f4fbe0aefacd8dfa835b167432a23",
+     "sha256": "1e84575f11873c109cf3962ad0bdf679094466184125f4cadcc41a73febff41f"
+    },
+    "downloads": -1,
+    "filename": "uvloop-0.23.0-cp314-cp314t-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+    "has_sig": false,
+    "md5_digest": "780f4fbe0aefacd8dfa835b167432a23",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.8.1",
+    "size": 4734966,
+    "upload_time": "2026-10-01T03:16:15",
+    "upload_time_iso_8601": "2026-10-01T03:16:15.815232Z",
+    "url": "https://files.pythonhosted.org/packages/3e/45/e314b0c600b14f53dad3a3c2d7a922a249a88225fd727652b53e1854b9dd/uvloop-0.23.0-cp314-cp314t-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "fe11a50198ffd4d9f1cb20922dc638ad459d5e63e6c615b0c1c69448d3362977"
+    },
+    "digests": {
+     "blake2b_256": "660d8686a7f0b1b2d55ebd770ba21f8e0e4ffa0cde5ab738f43ffb8264499052",
+     "md5": "896320fb816fa031b46f5d81f7e15936",
+     "sha256": "bbbdb8fcd5e7062e546eec1ac78c28bb21ae7df54c18f8e4b06e15a18d661a49"
+    },
+    "downloads": -1,
+    "filename": "uvloop-0.23.0-cp314-cp314t-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "896320fb816fa031b46f5d81f7e15936",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.8.1",
+    "size": 4584963,
+    "upload_time": "2026-10-01T03:16:18",
+    "upload_time_iso_8601": "2026-10-01T03:16:18.198272Z",
+    "url": "https://files.pythonhosted.org/packages/66/0d/8686a7f0b1b2d55ebd770ba21f8e0e4ffa0cde5ab738f43ffb8264499052/uvloop-0.23.0-cp314-cp314t-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "fe11a50198ffd4d9f1cb20922dc638ad459d5e63e6c615b0c1c69448d3362977"
+    },
+    "digests": {
+     "blake2b_256": "78b2034a2d47e435ac02357c42956246887167bdc0357bdd6ad31c5f6d94497b",
+     "md5": "f1fea689c9d90c1b5cfdfeb76d9acb25",
+     "sha256": "76345f51367fb1f23e08605c6efb18374f669be5b223658fbab6b17627950507"
+    },
+    "downloads": -1,
+    "filename": "uvloop-0.23.0-cp314-cp314t-musllinux_1_2_aarch64.whl",
+    "has_sig": false,
+    "md5_digest": "f1fea689c9d90c1b5cfdfeb76d9acb25",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.8.1",
+    "size": 4421388,
+    "upload_time": "2026-10-01T03:16:19",
+    "upload_time_iso_8601": "2026-10-01T03:16:19.953549Z",
+    "url": "https://files.pythonhosted.org/packages/78/b2/034a2d47e435ac02357c42956246887167bdc0357bdd6ad31c5f6d94497b/uvloop-0.23.0-cp314-cp314t-musllinux_1_2_aarch64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "fe11a50198ffd4d9f1cb20922dc638ad459d5e63e6c615b0c1c69448d3362977"
+    },
+    "digests": {
+     "blake2b_256": "f077131f4b583e6b4b715c404a66b51c812d701db20f25c9018b188a2b00062c",
+     "md5": "df824b495a582204d8b8ac748191087e",
+     "sha256": "6c7ef4701a96553514b2688e342ef1bf2beae6cfd172d89a76c768292aabf405"
+    },
+    "downloads": -1,
+    "filename": "uvloop-0.23.0-cp314-cp314t-musllinux_1_2_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "df824b495a582204d8b8ac748191087e",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.8.1",
+    "size": 4402414,
+    "upload_time": "2026-10-01T03:16:21",
+    "upload_time_iso_8601": "2026-10-01T03:16:21.716220Z",
+    "url": "https://files.pythonhosted.org/packages/f0/77/131f4b583e6b4b715c404a66b51c812d701db20f25c9018b188a2b00062c/uvloop-0.23.0-cp314-cp314t-musllinux_1_2_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "fe11a50198ffd4d9f1cb20922dc638ad459d5e63e6c615b0c1c69448d3362977"
+    },
+    "digests": {
+     "blake2b_256": "583dee11f4718ea1280595c67ed25c83d4c92115dc100bbdfd192d3ed9339168",
+     "md5": "ec7c06182c3cb2c460c05adc763a6bd7",
+     "sha256": "f1341c6abcee1c31277cfe28d34e46196f2143ec3d755e6efe7452126e1f626d"
+    },
+    "downloads": -1,
+    "filename": "uvloop-0.23.0-cp315-cp315-macosx_10_15_universal2.whl",
+    "has_sig": false,
+    "md5_digest": "ec7c06182c3cb2c460c05adc763a6bd7",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp315",
+    "requires_python": ">=3.8.1",
+    "size": 1418095,
+    "upload_time": "2026-10-01T03:16:23",
+    "upload_time_iso_8601": "2026-10-01T03:16:23.241553Z",
+    "url": "https://files.pythonhosted.org/packages/58/3d/ee11f4718ea1280595c67ed25c83d4c92115dc100bbdfd192d3ed9339168/uvloop-0.23.0-cp315-cp315-macosx_10_15_universal2.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "fe11a50198ffd4d9f1cb20922dc638ad459d5e63e6c615b0c1c69448d3362977"
+    },
+    "digests": {
+     "blake2b_256": "f80c7ca516a0671418517d79a09d3ff2ccbb44af94c75711afa6e4cf58aa6f65",
+     "md5": "f5dd50344e144167ca2d616b3aea5648",
+     "sha256": "e095f9e105af76593b4c183bb0bcbdae64bd913a59ec595732dc108b48730ab5"
+    },
+    "downloads": -1,
+    "filename": "uvloop-0.23.0-cp315-cp315-macosx_10_15_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "f5dd50344e144167ca2d616b3aea5648",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp315",
+    "requires_python": ">=3.8.1",
+    "size": 784837,
+    "upload_time": "2026-10-01T03:16:24",
+    "upload_time_iso_8601": "2026-10-01T03:16:24.666423Z",
+    "url": "https://files.pythonhosted.org/packages/f8/0c/7ca516a0671418517d79a09d3ff2ccbb44af94c75711afa6e4cf58aa6f65/uvloop-0.23.0-cp315-cp315-macosx_10_15_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "fe11a50198ffd4d9f1cb20922dc638ad459d5e63e6c615b0c1c69448d3362977"
+    },
+    "digests": {
+     "blake2b_256": "359575d4e28e596d505b7ae11de517646b4ca3d369fb8537ba755410380da11a",
+     "md5": "c45306b13dcab21ee9986635f22444b3",
+     "sha256": "f673d835bdb1a60229cc3609a113fd2c9ce3f4a3c75ad4eaed111180c00199d2"
+    },
+    "downloads": -1,
+    "filename": "uvloop-0.23.0-cp315-cp315-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+    "has_sig": false,
+    "md5_digest": "c45306b13dcab21ee9986635f22444b3",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp315",
+    "requires_python": ">=3.8.1",
+    "size": 4380276,
+    "upload_time": "2026-10-01T03:16:26",
+    "upload_time_iso_8601": "2026-10-01T03:16:26.389118Z",
+    "url": "https://files.pythonhosted.org/packages/35/95/75d4e28e596d505b7ae11de517646b4ca3d369fb8537ba755410380da11a/uvloop-0.23.0-cp315-cp315-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "fe11a50198ffd4d9f1cb20922dc638ad459d5e63e6c615b0c1c69448d3362977"
+    },
+    "digests": {
+     "blake2b_256": "109968daf827ad62efaf4667d1f3fda127046d42161178396bdd93aab3684082",
+     "md5": "0f673701f2aea23f7706c4f3d50add4f",
+     "sha256": "c3f23f403a273900d57de6ee5ca0614c650f7f58563065dad1a4744498960e53"
+    },
+    "downloads": -1,
+    "filename": "uvloop-0.23.0-cp315-cp315-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "0f673701f2aea23f7706c4f3d50add4f",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp315",
+    "requires_python": ">=3.8.1",
+    "size": 4451496,
+    "upload_time": "2026-10-01T03:16:28",
+    "upload_time_iso_8601": "2026-10-01T03:16:28.364345Z",
+    "url": "https://files.pythonhosted.org/packages/10/99/68daf827ad62efaf4667d1f3fda127046d42161178396bdd93aab3684082/uvloop-0.23.0-cp315-cp315-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "fe11a50198ffd4d9f1cb20922dc638ad459d5e63e6c615b0c1c69448d3362977"
+    },
+    "digests": {
+     "blake2b_256": "7169f67e696ee688f426a96f99099bae26fec14a1d0fa75dccdd6518ee267c0c",
+     "md5": "b7095c08881764b5e821dd2049c7c64f",
+     "sha256": "cbe8d03d4efcccdb7fcedecbaa1e1fa02913eaf3a74cb933634a6bc6d2ea9e2a"
+    },
+    "downloads": -1,
+    "filename": "uvloop-0.23.0-cp315-cp315-musllinux_1_2_aarch64.whl",
+    "has_sig": false,
+    "md5_digest": "b7095c08881764b5e821dd2049c7c64f",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp315",
+    "requires_python": ">=3.8.1",
+    "size": 4212541,
+    "upload_time": "2026-10-01T03:16:30",
+    "upload_time_iso_8601": "2026-10-01T03:16:30.014403Z",
+    "url": "https://files.pythonhosted.org/packages/71/69/f67e696ee688f426a96f99099bae26fec14a1d0fa75dccdd6518ee267c0c/uvloop-0.23.0-cp315-cp315-musllinux_1_2_aarch64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "fe11a50198ffd4d9f1cb20922dc638ad459d5e63e6c615b0c1c69448d3362977"
+    },
+    "digests": {
+     "blake2b_256": "f16ac8c436a9d7453297b4be70bdf6a9f9fc9400da45e0059ddf7b28ab63f4c7",
+     "md5": "c5d4fe12d4de16524114694e80911725",
+     "sha256": "4f1798f56c6f4ba5ac11fa2869e5717926e4470d97a1dd42b4f59219d43b5027"
+    },
+    "downloads": -1,
+    "filename": "uvloop-0.23.0-cp315-cp315-musllinux_1_2_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "c5d4fe12d4de16524114694e80911725",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp315",
+    "requires_python": ">=3.8.1",
+    "size": 4319377,
+    "upload_time": "2026-10-01T03:16:31",
+    "upload_time_iso_8601": "2026-10-01T03:16:31.705098Z",
+    "url": "https://files.pythonhosted.org/packages/f1/6a/c8c436a9d7453297b4be70bdf6a9f9fc9400da45e0059ddf7b28ab63f4c7/uvloop-0.23.0-cp315-cp315-musllinux_1_2_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "fe11a50198ffd4d9f1cb20922dc638ad459d5e63e6c615b0c1c69448d3362977"
+    },
+    "digests": {
+     "blake2b_256": "3b2c8fc15a03489299aab8a6212dfe0f137dc39836f915c87f7fd9d9ddd814de",
+     "md5": "2c68f4d770e1357316e297fcd72a6995",
+     "sha256": "098a85e1393ef5202767b7e5fb41a32cd8bd81e6ee4af364c179801c4aa3f6d4"
+    },
+    "downloads": -1,
+    "filename": "uvloop-0.23.0-cp315-cp315t-macosx_10_15_universal2.whl",
+    "has_sig": false,
+    "md5_digest": "2c68f4d770e1357316e297fcd72a6995",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp315",
+    "requires_python": ">=3.8.1",
+    "size": 1493428,
+    "upload_time": "2026-10-01T03:16:33",
+    "upload_time_iso_8601": "2026-10-01T03:16:33.859507Z",
+    "url": "https://files.pythonhosted.org/packages/3b/2c/8fc15a03489299aab8a6212dfe0f137dc39836f915c87f7fd9d9ddd814de/uvloop-0.23.0-cp315-cp315t-macosx_10_15_universal2.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "fe11a50198ffd4d9f1cb20922dc638ad459d5e63e6c615b0c1c69448d3362977"
+    },
+    "digests": {
+     "blake2b_256": "b77c05e4a210790229607f71460fcb2ed4a2c7bc72668d8a928ce577c22e38f8",
+     "md5": "dac8fb7346a352cd85ef2906e8f20eca",
+     "sha256": "5a2bbad3a63007f7e9524d4903ba04fee252557c2acd86f9a3d4f91786695254"
+    },
+    "downloads": -1,
+    "filename": "uvloop-0.23.0-cp315-cp315t-macosx_10_15_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "dac8fb7346a352cd85ef2906e8f20eca",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp315",
+    "requires_python": ">=3.8.1",
+    "size": 818115,
+    "upload_time": "2026-10-01T03:16:35",
+    "upload_time_iso_8601": "2026-10-01T03:16:35.450670Z",
+    "url": "https://files.pythonhosted.org/packages/b7/7c/05e4a210790229607f71460fcb2ed4a2c7bc72668d8a928ce577c22e38f8/uvloop-0.23.0-cp315-cp315t-macosx_10_15_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "fe11a50198ffd4d9f1cb20922dc638ad459d5e63e6c615b0c1c69448d3362977"
+    },
+    "digests": {
+     "blake2b_256": "6514a40b11c6c024213803b13955664a15754c72f64c873a33d986b26ec9ff5b",
+     "md5": "8c03ae985b113f572e3e4beba8e5c48b",
+     "sha256": "4a08875543bbd4519faf30497506c9cda8a48470467ffdf967c7313c7a5981a8"
+    },
+    "downloads": -1,
+    "filename": "uvloop-0.23.0-cp315-cp315t-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+    "has_sig": false,
+    "md5_digest": "8c03ae985b113f572e3e4beba8e5c48b",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp315",
+    "requires_python": ">=3.8.1",
+    "size": 4734149,
+    "upload_time": "2026-10-01T03:16:37",
+    "upload_time_iso_8601": "2026-10-01T03:16:37.025768Z",
+    "url": "https://files.pythonhosted.org/packages/65/14/a40b11c6c024213803b13955664a15754c72f64c873a33d986b26ec9ff5b/uvloop-0.23.0-cp315-cp315t-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "fe11a50198ffd4d9f1cb20922dc638ad459d5e63e6c615b0c1c69448d3362977"
+    },
+    "digests": {
+     "blake2b_256": "9f83f421a077712c1e87603bfec62744c3cd3a2f4b47378025db3d740df9af0d",
+     "md5": "e83fb0b341404d0f08393bcab12ffbda",
+     "sha256": "12634f15e6625f78b3f2922f91404c4d7173487eba11746764153f556e9852dc"
+    },
+    "downloads": -1,
+    "filename": "uvloop-0.23.0-cp315-cp315t-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "e83fb0b341404d0f08393bcab12ffbda",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp315",
+    "requires_python": ">=3.8.1",
+    "size": 4661763,
+    "upload_time": "2026-10-01T03:16:38",
+    "upload_time_iso_8601": "2026-10-01T03:16:38.719589Z",
+    "url": "https://files.pythonhosted.org/packages/9f/83/f421a077712c1e87603bfec62744c3cd3a2f4b47378025db3d740df9af0d/uvloop-0.23.0-cp315-cp315t-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "fe11a50198ffd4d9f1cb20922dc638ad459d5e63e6c615b0c1c69448d3362977"
+    },
+    "digests": {
+     "blake2b_256": "f56225dcaa6b7e7b48f82ce633854ce96597ab768f9650931f4f86c572de392c",
+     "md5": "db5202114c0e895e7e211d79968228c3",
+     "sha256": "378188efbb1524f2219d05246a3e1e5907217848d2882144dff59585f1b81d55"
+    },
+    "downloads": -1,
+    "filename": "uvloop-0.23.0-cp315-cp315t-musllinux_1_2_aarch64.whl",
+    "has_sig": false,
+    "md5_digest": "db5202114c0e895e7e211d79968228c3",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp315",
+    "requires_python": ">=3.8.1",
+    "size": 4421324,
+    "upload_time": "2026-10-01T03:16:40",
+    "upload_time_iso_8601": "2026-10-01T03:16:40.488631Z",
+    "url": "https://files.pythonhosted.org/packages/f5/62/25dcaa6b7e7b48f82ce633854ce96597ab768f9650931f4f86c572de392c/uvloop-0.23.0-cp315-cp315t-musllinux_1_2_aarch64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "fe11a50198ffd4d9f1cb20922dc638ad459d5e63e6c615b0c1c69448d3362977"
+    },
+    "digests": {
+     "blake2b_256": "054604628239b43dcef703af314202a3307d6060918e2d76aa86c5b1188f5551",
+     "md5": "46d6b1e5e333905082ab8af93be8b44a",
+     "sha256": "4b8e207c67d207a8608fec57e116511030af3495dc0109b8c333cf9cb412b16f"
+    },
+    "downloads": -1,
+    "filename": "uvloop-0.23.0-cp315-cp315t-musllinux_1_2_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "46d6b1e5e333905082ab8af93be8b44a",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp315",
+    "requires_python": ">=3.8.1",
+    "size": 4462501,
+    "upload_time": "2026-10-01T03:16:42",
+    "upload_time_iso_8601": "2026-10-01T03:16:42.359811Z",
+    "url": "https://files.pythonhosted.org/packages/05/46/04628239b43dcef703af314202a3307d6060918e2d76aa86c5b1188f5551/uvloop-0.23.0-cp315-cp315t-musllinux_1_2_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "d9896c08a343218acc1ce96cffdf7d42071203fdd9c2b0f249f6e45437863995"
+    },
+    "digests": {
+     "blake2b_256": "32c130c9d59b8d9b2a0ed120f9f83cb511f55a1067e96374df98f8f15e5f51d5",
+     "md5": "717a5de7c4e00658ab5ef4003e39277c",
+     "sha256": "8af88fe5c7dd68fe1fec6dea8155caa1a47155d219a750ff34049541cf536a5e"
+    },
+    "downloads": -1,
+    "filename": "uvloop-0.23.0-cp38-cp38-macosx_10_9_universal2.whl",
+    "has_sig": false,
+    "md5_digest": "717a5de7c4e00658ab5ef4003e39277c",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp38",
+    "requires_python": ">=3.8.1",
+    "size": 1388762,
+    "upload_time": "2026-10-01T03:16:43",
+    "upload_time_iso_8601": "2026-10-01T03:16:43.951552Z",
+    "url": "https://files.pythonhosted.org/packages/32/c1/30c9d59b8d9b2a0ed120f9f83cb511f55a1067e96374df98f8f15e5f51d5/uvloop-0.23.0-cp38-cp38-macosx_10_9_universal2.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "d9896c08a343218acc1ce96cffdf7d42071203fdd9c2b0f249f6e45437863995"
+    },
+    "digests": {
+     "blake2b_256": "3b8bf389c19c2669ed81a7f576e654d44638a21d9bd0d61f67f62ca79d765ea5",
+     "md5": "f6ca47b38255509d876c8af185eafeb0",
+     "sha256": "5a3e0f56ec19bfd9ad1605572878dd6ff7f01b325f4fc154812ae70d615c3aff"
+    },
+    "downloads": -1,
+    "filename": "uvloop-0.23.0-cp38-cp38-macosx_10_9_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "f6ca47b38255509d876c8af185eafeb0",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp38",
+    "requires_python": ">=3.8.1",
+    "size": 763637,
+    "upload_time": "2026-10-01T03:16:45",
+    "upload_time_iso_8601": "2026-10-01T03:16:45.347671Z",
+    "url": "https://files.pythonhosted.org/packages/3b/8b/f389c19c2669ed81a7f576e654d44638a21d9bd0d61f67f62ca79d765ea5/uvloop-0.23.0-cp38-cp38-macosx_10_9_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "d9896c08a343218acc1ce96cffdf7d42071203fdd9c2b0f249f6e45437863995"
+    },
+    "digests": {
+     "blake2b_256": "4a82002583a672fe1030e24f3d842e5ad0323c6cf7a818597e00ffaff9636fe6",
+     "md5": "2bcc9cf129d95f3264e7be34561369f1",
+     "sha256": "ff7144d8167e513fe39fbb46bffb4f6f192dfb1f4b0b4e9102e1fd4f212e4747"
+    },
+    "downloads": -1,
+    "filename": "uvloop-0.23.0-cp38-cp38-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+    "has_sig": false,
+    "md5_digest": "2bcc9cf129d95f3264e7be34561369f1",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp38",
+    "requires_python": ">=3.8.1",
+    "size": 4093069,
+    "upload_time": "2026-10-01T03:16:47",
+    "upload_time_iso_8601": "2026-10-01T03:16:47.084766Z",
+    "url": "https://files.pythonhosted.org/packages/4a/82/002583a672fe1030e24f3d842e5ad0323c6cf7a818597e00ffaff9636fe6/uvloop-0.23.0-cp38-cp38-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "d9896c08a343218acc1ce96cffdf7d42071203fdd9c2b0f249f6e45437863995"
+    },
+    "digests": {
+     "blake2b_256": "843d9e64116b5c99283816c06c4be35355ac4971ad9262f92e8b475b293625c8",
+     "md5": "1926dc107762f5511f0be650bfea9d7a",
+     "sha256": "f5576e8ae1723ece60d8f93c6710abf784714e99388bcf023ba9ca800bc587f6"
+    },
+    "downloads": -1,
+    "filename": "uvloop-0.23.0-cp38-cp38-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "1926dc107762f5511f0be650bfea9d7a",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp38",
+    "requires_python": ">=3.8.1",
+    "size": 4132563,
+    "upload_time": "2026-10-01T03:16:48",
+    "upload_time_iso_8601": "2026-10-01T03:16:48.931514Z",
+    "url": "https://files.pythonhosted.org/packages/84/3d/9e64116b5c99283816c06c4be35355ac4971ad9262f92e8b475b293625c8/uvloop-0.23.0-cp38-cp38-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "d9896c08a343218acc1ce96cffdf7d42071203fdd9c2b0f249f6e45437863995"
+    },
+    "digests": {
+     "blake2b_256": "601dce088141c429d43f40eae0b43f68768ba04ae8beda141906ab2490cf2994",
+     "md5": "c5eeca9d5edbc478b1e4bd9493f61421",
+     "sha256": "514698d3683189031dcbfdc31e87115992e5ce9e1b19fe5359941323f2df800c"
+    },
+    "downloads": -1,
+    "filename": "uvloop-0.23.0-cp38-cp38-musllinux_1_2_aarch64.whl",
+    "has_sig": false,
+    "md5_digest": "c5eeca9d5edbc478b1e4bd9493f61421",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp38",
+    "requires_python": ">=3.8.1",
+    "size": 3919511,
+    "upload_time": "2026-10-01T03:16:50",
+    "upload_time_iso_8601": "2026-10-01T03:16:50.708480Z",
+    "url": "https://files.pythonhosted.org/packages/60/1d/ce088141c429d43f40eae0b43f68768ba04ae8beda141906ab2490cf2994/uvloop-0.23.0-cp38-cp38-musllinux_1_2_aarch64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "d9896c08a343218acc1ce96cffdf7d42071203fdd9c2b0f249f6e45437863995"
+    },
+    "digests": {
+     "blake2b_256": "4538552bd7200817c86700b04dc78946bbfa85e6e4d3794d012aad7272e37bde",
+     "md5": "f2ef63453a31d34712eef836a7f6e7e2",
+     "sha256": "f50b580fad005a092ed87c5a3a4683459b21d1620497d6a5bccad203bee4c071"
+    },
+    "downloads": -1,
+    "filename": "uvloop-0.23.0-cp38-cp38-musllinux_1_2_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "f2ef63453a31d34712eef836a7f6e7e2",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp38",
+    "requires_python": ">=3.8.1",
+    "size": 4023190,
+    "upload_time": "2026-10-01T03:16:52",
+    "upload_time_iso_8601": "2026-10-01T03:16:52.508150Z",
+    "url": "https://files.pythonhosted.org/packages/45/38/552bd7200817c86700b04dc78946bbfa85e6e4d3794d012aad7272e37bde/uvloop-0.23.0-cp38-cp38-musllinux_1_2_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "fe11a50198ffd4d9f1cb20922dc638ad459d5e63e6c615b0c1c69448d3362977"
+    },
+    "digests": {
+     "blake2b_256": "693e70852798237e7e6f3ea98e0ecca8fcae98a40eddb1f23a6dae0f87a467a3",
+     "md5": "ec1a05a189490f8ff4d1148faa5b3782",
+     "sha256": "e49eba8f1e28e7c03648b7a476e1ba05309e087ccdea859fc6dd659564aa8d7e"
+    },
+    "downloads": -1,
+    "filename": "uvloop-0.23.0-cp39-cp39-macosx_10_9_universal2.whl",
+    "has_sig": false,
+    "md5_digest": "ec1a05a189490f8ff4d1148faa5b3782",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp39",
+    "requires_python": ">=3.8.1",
+    "size": 1427912,
+    "upload_time": "2026-10-01T03:16:54",
+    "upload_time_iso_8601": "2026-10-01T03:16:54.318489Z",
+    "url": "https://files.pythonhosted.org/packages/69/3e/70852798237e7e6f3ea98e0ecca8fcae98a40eddb1f23a6dae0f87a467a3/uvloop-0.23.0-cp39-cp39-macosx_10_9_universal2.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "fe11a50198ffd4d9f1cb20922dc638ad459d5e63e6c615b0c1c69448d3362977"
+    },
+    "digests": {
+     "blake2b_256": "895f506f4f78304747c60d0e8d3745f73a48affa4a636a055992594536e28202",
+     "md5": "7012ce993d122bc162ba5fb8d970d48c",
+     "sha256": "d918d6f304a309222a784bbd140b85ec5594d97e4dc0e79f590549d28970663a"
+    },
+    "downloads": -1,
+    "filename": "uvloop-0.23.0-cp39-cp39-macosx_10_9_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "7012ce993d122bc162ba5fb8d970d48c",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp39",
+    "requires_python": ">=3.8.1",
+    "size": 784725,
+    "upload_time": "2026-10-01T03:16:55",
+    "upload_time_iso_8601": "2026-10-01T03:16:55.778813Z",
+    "url": "https://files.pythonhosted.org/packages/89/5f/506f4f78304747c60d0e8d3745f73a48affa4a636a055992594536e28202/uvloop-0.23.0-cp39-cp39-macosx_10_9_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "fe11a50198ffd4d9f1cb20922dc638ad459d5e63e6c615b0c1c69448d3362977"
+    },
+    "digests": {
+     "blake2b_256": "d4f0855cfe0abc7e51a05b13311a017fcc967142067180f24cdcfe7ba047e4f3",
+     "md5": "c6446eca30157d5942624a8a8b186b10",
+     "sha256": "55d6f4135d914305929fe9e9c44d8b5383a9b3fa1bee3bfcf60ee97e01af07ea"
+    },
+    "downloads": -1,
+    "filename": "uvloop-0.23.0-cp39-cp39-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+    "has_sig": false,
+    "md5_digest": "c6446eca30157d5942624a8a8b186b10",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp39",
+    "requires_python": ">=3.8.1",
+    "size": 3782203,
+    "upload_time": "2026-10-01T03:16:57",
+    "upload_time_iso_8601": "2026-10-01T03:16:57.544047Z",
+    "url": "https://files.pythonhosted.org/packages/d4/f0/855cfe0abc7e51a05b13311a017fcc967142067180f24cdcfe7ba047e4f3/uvloop-0.23.0-cp39-cp39-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "fe11a50198ffd4d9f1cb20922dc638ad459d5e63e6c615b0c1c69448d3362977"
+    },
+    "digests": {
+     "blake2b_256": "2d471588017ca9db785340f1546c5b45efa3864524adbff21f3c06d95560e018",
+     "md5": "964b84bce4fa9d12a6a77117e3e7e6a1",
+     "sha256": "fefea5cf8cdda9053b962ca8a90216fb0b1d40907dcb6819382b42e483e6e9f6"
+    },
+    "downloads": -1,
+    "filename": "uvloop-0.23.0-cp39-cp39-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "964b84bce4fa9d12a6a77117e3e7e6a1",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp39",
+    "requires_python": ">=3.8.1",
+    "size": 3837756,
+    "upload_time": "2026-10-01T03:16:59",
+    "upload_time_iso_8601": "2026-10-01T03:16:59.274741Z",
+    "url": "https://files.pythonhosted.org/packages/2d/47/1588017ca9db785340f1546c5b45efa3864524adbff21f3c06d95560e018/uvloop-0.23.0-cp39-cp39-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "fe11a50198ffd4d9f1cb20922dc638ad459d5e63e6c615b0c1c69448d3362977"
+    },
+    "digests": {
+     "blake2b_256": "06fd8a7a1df1992524d5f87b189e0ee7f24103052257b418f2fc5e54c9b7ab65",
+     "md5": "50639c3c96f9c66df8f969417fb98002",
+     "sha256": "b0d106d9314546d69b3df1b5352639aa628530ec3ecef8a98a21942d2a2a64f5"
+    },
+    "downloads": -1,
+    "filename": "uvloop-0.23.0-cp39-cp39-musllinux_1_2_aarch64.whl",
+    "has_sig": false,
+    "md5_digest": "50639c3c96f9c66df8f969417fb98002",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp39",
+    "requires_python": ">=3.8.1",
+    "size": 3642569,
+    "upload_time": "2026-10-01T03:17:00",
+    "upload_time_iso_8601": "2026-10-01T03:17:00.886703Z",
+    "url": "https://files.pythonhosted.org/packages/06/fd/8a7a1df1992524d5f87b189e0ee7f24103052257b418f2fc5e54c9b7ab65/uvloop-0.23.0-cp39-cp39-musllinux_1_2_aarch64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "fe11a50198ffd4d9f1cb20922dc638ad459d5e63e6c615b0c1c69448d3362977"
+    },
+    "digests": {
+     "blake2b_256": "9a496bab48f6c1019247091a0767788117d79cd807bb7f6603881af627b8c083",
+     "md5": "51c4848334ff19cc6879da2993ebc0a1",
+     "sha256": "60ec798c40a1810d282ee046f61ecac1c5675cb898763d9f08d97d53a5e00a81"
+    },
+    "downloads": -1,
+    "filename": "uvloop-0.23.0-cp39-cp39-musllinux_1_2_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "51c4848334ff19cc6879da2993ebc0a1",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp39",
+    "requires_python": ">=3.8.1",
+    "size": 3744252,
+    "upload_time": "2026-10-01T03:17:02",
+    "upload_time_iso_8601": "2026-10-01T03:17:02.676711Z",
+    "url": "https://files.pythonhosted.org/packages/9a/49/6bab48f6c1019247091a0767788117d79cd807bb7f6603881af627b8c083/uvloop-0.23.0-cp39-cp39-musllinux_1_2_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": false,
+    "digests": {
+     "blake2b_256": "fa4202c739ce85fb2ee8d99212c61417da8140c6b87e9d97c430bea520d76044",
+     "md5": "1a247fd41018a438b73f89248e1c3316",
+     "sha256": "28d160f51ab4da3b187063652e643dea6831072add4adc1e6d62afbe73b6be27"
+    },
+    "downloads": -1,
+    "filename": "uvloop-0.23.0.tar.gz",
+    "has_sig": false,
+    "md5_digest": "1a247fd41018a438b73f89248e1c3316",
+    "packagetype": "sdist",
+    "python_version": "source",
+    "requires_python": ">=3.8.1",
+    "size": 2559185,
+    "upload_time": "2026-10-01T03:17:04",
+    "upload_time_iso_8601": "2026-10-01T03:17:04.400341Z",
+    "url": "https://files.pythonhosted.org/packages/fa/42/02c739ce85fb2ee8d99212c61417da8140c6b87e9d97c430bea520d76044/uvloop-0.23.0.tar.gz",
+    "yanked": false,
+    "yanked_reason": null
+   }
+  ],
+  "vulnerabilities": []
+ },
+ "http_status": 200,
+ "requested_at_utc": "2026-10-30T14:16:11Z",
+ "url": "https://pypi.org/pypi/uvloop/0.23.0/json"
+}

@@ -1,0 +1,140 @@
+{
+ "body": {
+  "info": {
+   "author": null,
+   "author_email": "Mike Bayer <mike_mp@zzzcomputing.com>",
+   "bugtrack_url": null,
+   "classifiers": [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Programming Language :: Python :: 3.15",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Programming Language :: Python :: Implementation :: PyPy",
+    "Topic :: Database :: Front-Ends"
+   ],
+   "description": "Alembic is a database migrations tool written by the author\nof `SQLAlchemy <http://www.sqlalchemy.org>`_.  A migrations tool\noffers the following functionality:\n\n* Can emit ALTER statements to a database in order to change\n  the structure of tables and other constructs\n* Provides a system whereby \"migration scripts\" may be constructed;\n  each script indicates a particular series of steps that can \"upgrade\" a\n  target database to a new version, and optionally a series of steps that can\n  \"downgrade\" similarly, doing the same steps in reverse.\n* Allows the scripts to execute in some sequential manner.\n\nThe goals of Alembic are:\n\n* Very open ended and transparent configuration and operation.   A new\n  Alembic environment is generated from a set of templates which is selected\n  among a set of options when setup first occurs. The templates then deposit a\n  series of scripts that define fully how database connectivity is established\n  and how migration scripts are invoked; the migration scripts themselves are\n  generated from a template within that series of scripts. The scripts can\n  then be further customized to define exactly how databases will be\n  interacted with and what structure new migration files should take.\n* Full support for transactional DDL.   The default scripts ensure that all\n  migrations occur within a transaction - for those databases which support\n  this (Postgresql, Microsoft SQL Server), migrations can be tested with no\n  need to manually undo changes upon failure.\n* Minimalist script construction.  Basic operations like renaming\n  tables/columns, adding/removing columns, changing column attributes can be\n  performed through one line commands like alter_column(), rename_table(),\n  add_constraint(). There is no need to recreate full SQLAlchemy Table\n  structures for simple operations like these - the functions themselves\n  generate minimalist schema structures behind the scenes to achieve the given\n  DDL sequence.\n* \"auto generation\" of migrations. While real world migrations are far more\n  complex than what can be automatically determined, Alembic can still\n  eliminate the initial grunt work in generating new migration directives\n  from an altered schema.  The ``--autogenerate`` feature will inspect the\n  current status of a database using SQLAlchemy's schema inspection\n  capabilities, compare it to the current state of the database model as\n  specified in Python, and generate a series of \"candidate\" migrations,\n  rendering them into a new migration script as Python directives. The\n  developer then edits the new file, adding additional directives and data\n  migrations as needed, to produce a finished migration. Table and column\n  level changes can be detected, with constraints and indexes to follow as\n  well.\n* Full support for migrations generated as SQL scripts.   Those of us who\n  work in corporate environments know that direct access to DDL commands on a\n  production database is a rare privilege, and DBAs want textual SQL scripts.\n  Alembic's usage model and commands are oriented towards being able to run a\n  series of migrations into a textual output file as easily as it runs them\n  directly to a database. Care must be taken in this mode to not invoke other\n  operations that rely upon in-memory SELECTs of rows - Alembic tries to\n  provide helper constructs like bulk_insert() to help with data-oriented\n  operations that are compatible with script-based DDL.\n* Non-linear, dependency-graph versioning.   Scripts are given UUID\n  identifiers similarly to a DVCS, and the linkage of one script to the next\n  is achieved via human-editable markers within the scripts themselves.\n  The structure of a set of migration files is considered as a\n  directed-acyclic graph, meaning any migration file can be dependent\n  on any other arbitrary set of migration files, or none at\n  all.  Through this open-ended system, migration files can be organized\n  into branches, multiple roots, and mergepoints, without restriction.\n  Commands are provided to produce new branches, roots, and merges of\n  branches automatically.\n* Provide a library of ALTER constructs that can be used by any SQLAlchemy\n  application. The DDL constructs build upon SQLAlchemy's own DDLElement base\n  and can be used standalone by any application or script.\n* At long last, bring SQLite and its inability to ALTER things into the fold,\n  but in such a way that SQLite's very special workflow needs are accommodated\n  in an explicit way that makes the most of a bad situation, through the\n  concept of a \"batch\" migration, where multiple changes to a table can\n  be batched together to form a series of instructions for a single, subsequent\n  \"move-and-copy\" workflow.   You can even use \"move-and-copy\" workflow for\n  other databases, if you want to recreate a table in the background\n  on a busy system.\n\nDocumentation and status of Alembic is at https://alembic.sqlalchemy.org/\n\nThe SQLAlchemy Project\n======================\n\nAlembic is part of the `SQLAlchemy Project <https://www.sqlalchemy.org>`_ and\nadheres to the same standards and conventions as the core project.\n\nDevelopment / Bug reporting / Pull requests\n___________________________________________\n\nPlease refer to the\n`SQLAlchemy Community Guide <https://www.sqlalchemy.org/develop.html>`_ for\nguidelines on coding and participating in this project.\n\nCode of Conduct\n_______________\n\nAbove all, SQLAlchemy places great emphasis on polite, thoughtful, and\nconstructive communication between users and developers.\nPlease see our current Code of Conduct at\n`Code of Conduct <https://www.sqlalchemy.org/codeofconduct.html>`_.\n\nLicense\n=======\n\nAlembic is distributed under the `MIT license\n<https://opensource.org/licenses/MIT>`_.\n",
+   "description_content_type": "text/x-rst",
+   "docs_url": "https://pythonhosted.org/alembic/",
+   "download_url": null,
+   "downloads": {
+    "last_day": -1,
+    "last_month": -1,
+    "last_week": -1
+   },
+   "dynamic": [
+    "License-File"
+   ],
+   "home_page": null,
+   "keywords": null,
+   "license": null,
+   "license_expression": "MIT",
+   "license_files": [
+    "LICENSE"
+   ],
+   "maintainer": null,
+   "maintainer_email": null,
+   "name": "alembic",
+   "package_url": "https://pypi.org/project/alembic/",
+   "platform": null,
+   "project_url": "https://pypi.org/project/alembic/",
+   "project_urls": {
+    "Changelog": "https://alembic.sqlalchemy.org/en/latest/changelog.html",
+    "Documentation": "https://alembic.sqlalchemy.org/en/latest/",
+    "Homepage": "https://alembic.sqlalchemy.org",
+    "Issue Tracker": "https://github.com/sqlalchemy/alembic/issues/",
+    "Source": "https://github.com/sqlalchemy/alembic/"
+   },
+   "provides_extra": [
+    "tz"
+   ],
+   "release_url": "https://pypi.org/project/alembic/1.20.1/",
+   "requires_dist": [
+    "SQLAlchemy>=2.0",
+    "Mako",
+    "typing-extensions>=4.12",
+    "tomli; python_version < \"3.11\"",
+    "tzdata; extra == \"tz\""
+   ],
+   "requires_python": ">=3.10",
+   "summary": "A database migration tool for SQLAlchemy.",
+   "version": "1.20.1",
+   "yanked": false,
+   "yanked_reason": null
+  },
+  "last_serial": 42573478,
+  "ownership": {
+   "organization": "sqlalchemy",
+   "roles": [
+    {
+     "role": "Owner",
+     "user": "CaselIT"
+    },
+    {
+     "role": "Owner",
+     "user": "zzzeek"
+    }
+   ]
+  },
+  "urls": [
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "a7251d864147d4676f916be5888c1a2252a4f1db87a70cdf1d9b1dfa322cbe4e"
+    },
+    "digests": {
+     "blake2b_256": "113c8740f5b4e1bd57333e4f84265b9b6363da4f7cf70f5622dd1e2fde7a0bd5",
+     "md5": "be5ae3001625e76c75941f9d7a7b9602",
+     "sha256": "9970712cfb81ea26c8658d378aaa5b8f6ff9146e5bb111d70497c164016cf598"
+    },
+    "downloads": -1,
+    "filename": "alembic-1.20.1-py3-none-any.whl",
+    "has_sig": false,
+    "md5_digest": "be5ae3001625e76c75941f9d7a7b9602",
+    "packagetype": "bdist_wheel",
+    "python_version": "py3",
+    "requires_python": ">=3.10",
+    "size": 270355,
+    "upload_time": "2026-10-22T03:24:37",
+    "upload_time_iso_8601": "2026-10-22T03:24:37.667799Z",
+    "url": "https://files.pythonhosted.org/packages/11/3c/8740f5b4e1bd57333e4f84265b9b6363da4f7cf70f5622dd1e2fde7a0bd5/alembic-1.20.1-py3-none-any.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": false,
+    "digests": {
+     "blake2b_256": "931c00909e0fbebad2121d916fdcab044cae988146680e9ee4387ba25fef8747",
+     "md5": "bb84aa125492dfc16d26003dcd181311",
+     "sha256": "83490def1f723413db5096591f7609ac52544805be93849170088ed04f5a2e0b"
+    },
+    "downloads": -1,
+    "filename": "alembic-1.20.1.tar.gz",
+    "has_sig": false,
+    "md5_digest": "bb84aa125492dfc16d26003dcd181311",
+    "packagetype": "sdist",
+    "python_version": "source",
+    "requires_python": ">=3.10",
+    "size": 2103576,
+    "upload_time": "2026-10-22T03:24:35",
+    "upload_time_iso_8601": "2026-10-22T03:24:35.930159Z",
+    "url": "https://files.pythonhosted.org/packages/93/1c/00909e0fbebad2121d916fdcab044cae988146680e9ee4387ba25fef8747/alembic-1.20.1.tar.gz",
+    "yanked": false,
+    "yanked_reason": null
+   }
+  ],
+  "vulnerabilities": []
+ },
+ "http_status": 200,
+ "requested_at_utc": "2026-10-30T14:16:11Z",
+ "url": "https://pypi.org/pypi/alembic/1.20.1/json"
+}

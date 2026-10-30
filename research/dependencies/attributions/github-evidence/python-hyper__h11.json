@@ -1,0 +1,9 @@
+{
+  "archived": false,
+  "description": "A pure-Python, bring-your-own-I/O implementation of HTTP/1.1",
+  "fork": false,
+  "html_url": "https://github.com/python-hyper/h11",
+  "requested_at_utc": "2026-10-30T14:16:11Z",
+  "requested_repo": "python-hyper/h11",
+  "resolved_full_name": "python-hyper/h11"
+}

@@ -1,0 +1,9 @@
+{
+  "archived": false,
+  "description": "Simple, modern and fast file watching and code reload for Python, written in Rust",
+  "fork": false,
+  "html_url": "https://github.com/samuelcolvin/watchfiles",
+  "requested_at_utc": "2026-10-30T14:16:11Z",
+  "requested_repo": "samuelcolvin/watchfiles",
+  "resolved_full_name": "samuelcolvin/watchfiles"
+}

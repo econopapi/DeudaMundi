@@ -1,0 +1,129 @@
+{
+ "body": {
+  "info": {
+   "author": null,
+   "author_email": "Jose Padilla <hello@jpadilla.com>",
+   "bugtrack_url": null,
+   "classifiers": [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "Natural Language :: English",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Programming Language :: Python :: 3.15",
+    "Programming Language :: Python :: 3.9",
+    "Topic :: Utilities"
+   ],
+   "description": "PyJWT\n=====\n\n.. image:: https://github.com/jpadilla/pyjwt/workflows/CI/badge.svg\n   :target: https://github.com/jpadilla/pyjwt/actions?query=workflow%3ACI\n\n.. image:: https://img.shields.io/pypi/v/pyjwt.svg\n   :target: https://pypi.python.org/pypi/pyjwt\n\n.. image:: https://codecov.io/gh/jpadilla/pyjwt/branch/master/graph/badge.svg\n   :target: https://codecov.io/gh/jpadilla/pyjwt\n\n.. image:: https://readthedocs.org/projects/pyjwt/badge/?version=stable\n   :target: https://pyjwt.readthedocs.io/en/stable/\n\nA Python implementation of `RFC 7519 <https://tools.ietf.org/html/rfc7519>`_. Original implementation was written by `@progrium <https://github.com/progrium>`_.\n\nSponsor\n-------\n\n.. |auth0-logo| image:: https://github.com/user-attachments/assets/ee98379e-ee76-4bcb-943a-e25c4ea6d174\n   :width: 160px\n\n+--------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+\n| |auth0-logo| | If you want to quickly add secure token-based authentication to Python projects, feel free to check Auth0's Python SDK and free plan at `auth0.com/signup <https://auth0.com/signup?utm_source=external_sites&utm_medium=pyjwt&utm_campaign=devn_signup>`_. |\n+--------------+-----------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+\n\nInstalling\n----------\n\nInstall with **pip**:\n\n.. code-block:: console\n\n    $ pip install PyJWT\n\n\nUsage\n-----\n\n.. code-block:: pycon\n\n    >>> import jwt\n    >>> encoded = jwt.encode({\"some\": \"payload\"}, \"secret\", algorithm=\"HS256\")\n    >>> print(encoded)\n    eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzb21lIjoicGF5bG9hZCJ9.4twFt5NiznN84AWoo1d7KO1T_yoc0Z6XOpOVswacPZg\n    >>> jwt.decode(encoded, \"secret\", algorithms=[\"HS256\"])\n    {'some': 'payload'}\n\nDocumentation\n-------------\n\nView the full docs online at https://pyjwt.readthedocs.io/en/stable/\n\n\nTests\n-----\n\nYou can run tests from the project root after cloning with:\n\n.. code-block:: console\n\n    $ tox\n",
+   "description_content_type": "text/x-rst",
+   "docs_url": null,
+   "download_url": null,
+   "downloads": {
+    "last_day": -1,
+    "last_month": -1,
+    "last_week": -1
+   },
+   "dynamic": [
+    "License-File"
+   ],
+   "home_page": null,
+   "keywords": "json, jwt, security, signing, token, web",
+   "license": null,
+   "license_expression": "MIT",
+   "license_files": [
+    "LICENSE",
+    "AUTHORS.rst"
+   ],
+   "maintainer": null,
+   "maintainer_email": null,
+   "name": "PyJWT",
+   "package_url": "https://pypi.org/project/PyJWT/",
+   "platform": null,
+   "project_url": "https://pypi.org/project/PyJWT/",
+   "project_urls": {
+    "Homepage": "https://github.com/jpadilla/pyjwt"
+   },
+   "provides_extra": [
+    "crypto"
+   ],
+   "release_url": "https://pypi.org/project/PyJWT/2.15.1/",
+   "requires_dist": [
+    "typing_extensions>=4.0; python_version < \"3.11\"",
+    "cryptography>=3.4.0; extra == \"crypto\""
+   ],
+   "requires_python": ">=3.9",
+   "summary": "JSON Web Token implementation in Python",
+   "version": "2.15.1",
+   "yanked": false,
+   "yanked_reason": null
+  },
+  "last_serial": 41564282,
+  "ownership": {
+   "organization": null,
+   "roles": [
+    {
+     "role": "Owner",
+     "user": "jpadilla"
+    }
+   ]
+  },
+  "urls": [
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "1ea0c9f139b8c928276b3628af165955f6f764491448a6ad8f103cdcbb382da3"
+    },
+    "digests": {
+     "blake2b_256": "50ca44de4e75f8aadc457f0634be3b542815078ded46dca30efb960edeecad6e",
+     "md5": "926cc7e28279513ebd670c59f7cafd4c",
+     "sha256": "42d59d631f7768a1028a64c7ff581a9bf7519804daf91fc5b6c56e30eec5e193"
+    },
+    "downloads": -1,
+    "filename": "pyjwt-2.15.1-py3-none-any.whl",
+    "has_sig": false,
+    "md5_digest": "926cc7e28279513ebd670c59f7cafd4c",
+    "packagetype": "bdist_wheel",
+    "python_version": "py3",
+    "requires_python": ">=3.9",
+    "size": 33860,
+    "upload_time": "2026-09-28T18:40:41",
+    "upload_time_iso_8601": "2026-09-28T18:40:41.429003Z",
+    "url": "https://files.pythonhosted.org/packages/50/ca/44de4e75f8aadc457f0634be3b542815078ded46dca30efb960edeecad6e/pyjwt-2.15.1-py3-none-any.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": false,
+    "digests": {
+     "blake2b_256": "43ea5194e52748b0da83d71e082d75496eaec6e58f419f5e184786ded517e6a9",
+     "md5": "c095da5019479aa8153266b1adc09d3c",
+     "sha256": "4f259e80cdfb6b3fc18a7de51fd1ef9ec79652f25019bae68975ca2468a34df8"
+    },
+    "downloads": -1,
+    "filename": "pyjwt-2.15.1.tar.gz",
+    "has_sig": false,
+    "md5_digest": "c095da5019479aa8153266b1adc09d3c",
+    "packagetype": "sdist",
+    "python_version": "source",
+    "requires_python": ">=3.9",
+    "size": 121252,
+    "upload_time": "2026-09-28T18:40:42",
+    "upload_time_iso_8601": "2026-09-28T18:40:42.598678Z",
+    "url": "https://files.pythonhosted.org/packages/43/ea/5194e52748b0da83d71e082d75496eaec6e58f419f5e184786ded517e6a9/pyjwt-2.15.1.tar.gz",
+    "yanked": false,
+    "yanked_reason": null
+   }
+  ],
+  "vulnerabilities": []
+ },
+ "http_status": 200,
+ "requested_at_utc": "2026-10-30T14:16:11Z",
+ "url": "https://pypi.org/pypi/pyjwt/2.15.1/json"
+}

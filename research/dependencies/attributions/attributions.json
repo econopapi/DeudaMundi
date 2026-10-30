@@ -1,0 +1,3465 @@
+{
+  "attribution_rules": {
+    "pending": "conflicting sources, unresolvable repo, or no code URL (never guessed)",
+    "single-source": "exactly one source holds the repo URL (not corroborated; see ambiguous.md)",
+    "verified": "frozen wheel metadata AND current PyPI metadata agree on the same canonical repository; repository resolves on GitHub"
+  },
+  "consulted_at_utc": [
+    "2026-10-30T14:16:11Z"
+  ],
+  "packages": [
+    {
+      "canonical_name": "alembic",
+      "category": "runtime:direct",
+      "confidence": "verified",
+      "consulted_at_utc": "2026-10-30T14:16:11Z",
+      "display_name": "alembic",
+      "frozen_repo_urls": [
+        [
+          "source",
+          "https://github.com/sqlalchemy/alembic/"
+        ],
+        [
+          "issue tracker",
+          "https://github.com/sqlalchemy/alembic/issues/"
+        ]
+      ],
+      "frozen_version": "1.20.1",
+      "method": "frozen-metadata+current-pypi",
+      "notes": [
+        "two independent sources agree on the same repository"
+      ],
+      "pypi_repo_urls": [
+        [
+          "source",
+          "https://github.com/sqlalchemy/alembic/"
+        ],
+        [
+          "issue tracker",
+          "https://github.com/sqlalchemy/alembic/issues/"
+        ]
+      ],
+      "resolved": {
+        "canonical": "sqlalchemy/alembic",
+        "evidence": {
+          "archived": false,
+          "description": "A database migrations tool for SQLAlchemy.",
+          "fork": false,
+          "html_url": "https://github.com/sqlalchemy/alembic",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "sqlalchemy/alembic",
+          "resolved_full_name": "sqlalchemy/alembic"
+        },
+        "full_name": "sqlalchemy/alembic",
+        "owner": "sqlalchemy",
+        "redirect": false,
+        "repo": "alembic",
+        "requested": "sqlalchemy/alembic",
+        "supporting_label": "source",
+        "supporting_url": "https://github.com/sqlalchemy/alembic/",
+        "url": "https://github.com/sqlalchemy/alembic"
+      },
+      "sources": [
+        "wheel-metadata",
+        "pypi-current"
+      ],
+      "src_frozen": {
+        "canonical": "sqlalchemy/alembic",
+        "evidence": {
+          "archived": false,
+          "description": "A database migrations tool for SQLAlchemy.",
+          "fork": false,
+          "html_url": "https://github.com/sqlalchemy/alembic",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "sqlalchemy/alembic",
+          "resolved_full_name": "sqlalchemy/alembic"
+        },
+        "full_name": "sqlalchemy/alembic",
+        "owner": "sqlalchemy",
+        "redirect": false,
+        "repo": "alembic",
+        "requested": "sqlalchemy/alembic",
+        "supporting_label": "source",
+        "supporting_url": "https://github.com/sqlalchemy/alembic/",
+        "url": "https://github.com/sqlalchemy/alembic"
+      },
+      "src_pypi": {
+        "canonical": "sqlalchemy/alembic",
+        "evidence": {
+          "archived": false,
+          "description": "A database migrations tool for SQLAlchemy.",
+          "fork": false,
+          "html_url": "https://github.com/sqlalchemy/alembic",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "sqlalchemy/alembic",
+          "resolved_full_name": "sqlalchemy/alembic"
+        },
+        "full_name": "sqlalchemy/alembic",
+        "owner": "sqlalchemy",
+        "redirect": false,
+        "repo": "alembic",
+        "requested": "sqlalchemy/alembic",
+        "supporting_label": "source",
+        "supporting_url": "https://github.com/sqlalchemy/alembic/",
+        "url": "https://github.com/sqlalchemy/alembic"
+      }
+    },
+    {
+      "canonical_name": "apscheduler",
+      "category": "runtime:direct",
+      "confidence": "verified",
+      "consulted_at_utc": "2026-10-30T14:16:11Z",
+      "display_name": "APScheduler",
+      "frozen_repo_urls": [
+        [
+          "source code",
+          "https://github.com/agronholm/apscheduler"
+        ],
+        [
+          "issue tracker",
+          "https://github.com/agronholm/apscheduler/issues"
+        ]
+      ],
+      "frozen_version": "3.11.3",
+      "method": "frozen-metadata+current-pypi",
+      "notes": [
+        "two independent sources agree on the same repository"
+      ],
+      "pypi_repo_urls": [
+        [
+          "source code",
+          "https://github.com/agronholm/apscheduler"
+        ],
+        [
+          "issue tracker",
+          "https://github.com/agronholm/apscheduler/issues"
+        ]
+      ],
+      "resolved": {
+        "canonical": "agronholm/apscheduler",
+        "evidence": {
+          "archived": false,
+          "description": "Task scheduling library for Python",
+          "fork": false,
+          "html_url": "https://github.com/agronholm/apscheduler",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "agronholm/apscheduler",
+          "resolved_full_name": "agronholm/apscheduler"
+        },
+        "full_name": "agronholm/apscheduler",
+        "owner": "agronholm",
+        "redirect": false,
+        "repo": "apscheduler",
+        "requested": "agronholm/apscheduler",
+        "supporting_label": "source code",
+        "supporting_url": "https://github.com/agronholm/apscheduler",
+        "url": "https://github.com/agronholm/apscheduler"
+      },
+      "sources": [
+        "wheel-metadata",
+        "pypi-current"
+      ],
+      "src_frozen": {
+        "canonical": "agronholm/apscheduler",
+        "evidence": {
+          "archived": false,
+          "description": "Task scheduling library for Python",
+          "fork": false,
+          "html_url": "https://github.com/agronholm/apscheduler",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "agronholm/apscheduler",
+          "resolved_full_name": "agronholm/apscheduler"
+        },
+        "full_name": "agronholm/apscheduler",
+        "owner": "agronholm",
+        "redirect": false,
+        "repo": "apscheduler",
+        "requested": "agronholm/apscheduler",
+        "supporting_label": "source code",
+        "supporting_url": "https://github.com/agronholm/apscheduler",
+        "url": "https://github.com/agronholm/apscheduler"
+      },
+      "src_pypi": {
+        "canonical": "agronholm/apscheduler",
+        "evidence": {
+          "archived": false,
+          "description": "Task scheduling library for Python",
+          "fork": false,
+          "html_url": "https://github.com/agronholm/apscheduler",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "agronholm/apscheduler",
+          "resolved_full_name": "agronholm/apscheduler"
+        },
+        "full_name": "agronholm/apscheduler",
+        "owner": "agronholm",
+        "redirect": false,
+        "repo": "apscheduler",
+        "requested": "agronholm/apscheduler",
+        "supporting_label": "source code",
+        "supporting_url": "https://github.com/agronholm/apscheduler",
+        "url": "https://github.com/agronholm/apscheduler"
+      }
+    },
+    {
+      "canonical_name": "fastapi",
+      "category": "runtime:direct",
+      "confidence": "verified",
+      "consulted_at_utc": "2026-10-30T14:16:11Z",
+      "display_name": "fastapi",
+      "frozen_repo_urls": [
+        [
+          "repository",
+          "https://github.com/fastapi/fastapi"
+        ],
+        [
+          "issues",
+          "https://github.com/fastapi/fastapi/issues"
+        ]
+      ],
+      "frozen_version": "0.115.14",
+      "method": "frozen-metadata+current-pypi",
+      "notes": [
+        "two independent sources agree on the same repository"
+      ],
+      "pypi_repo_urls": [
+        [
+          "repository",
+          "https://github.com/fastapi/fastapi"
+        ],
+        [
+          "issues",
+          "https://github.com/fastapi/fastapi/issues"
+        ]
+      ],
+      "resolved": {
+        "canonical": "fastapi/fastapi",
+        "evidence": {
+          "archived": false,
+          "description": "FastAPI framework, high performance, easy to learn, fast to code, ready for production",
+          "fork": false,
+          "html_url": "https://github.com/fastapi/fastapi",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "fastapi/fastapi",
+          "resolved_full_name": "fastapi/fastapi"
+        },
+        "full_name": "fastapi/fastapi",
+        "owner": "fastapi",
+        "redirect": false,
+        "repo": "fastapi",
+        "requested": "fastapi/fastapi",
+        "supporting_label": "repository",
+        "supporting_url": "https://github.com/fastapi/fastapi",
+        "url": "https://github.com/fastapi/fastapi"
+      },
+      "sources": [
+        "wheel-metadata",
+        "pypi-current"
+      ],
+      "src_frozen": {
+        "canonical": "fastapi/fastapi",
+        "evidence": {
+          "archived": false,
+          "description": "FastAPI framework, high performance, easy to learn, fast to code, ready for production",
+          "fork": false,
+          "html_url": "https://github.com/fastapi/fastapi",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "fastapi/fastapi",
+          "resolved_full_name": "fastapi/fastapi"
+        },
+        "full_name": "fastapi/fastapi",
+        "owner": "fastapi",
+        "redirect": false,
+        "repo": "fastapi",
+        "requested": "fastapi/fastapi",
+        "supporting_label": "repository",
+        "supporting_url": "https://github.com/fastapi/fastapi",
+        "url": "https://github.com/fastapi/fastapi"
+      },
+      "src_pypi": {
+        "canonical": "fastapi/fastapi",
+        "evidence": {
+          "archived": false,
+          "description": "FastAPI framework, high performance, easy to learn, fast to code, ready for production",
+          "fork": false,
+          "html_url": "https://github.com/fastapi/fastapi",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "fastapi/fastapi",
+          "resolved_full_name": "fastapi/fastapi"
+        },
+        "full_name": "fastapi/fastapi",
+        "owner": "fastapi",
+        "redirect": false,
+        "repo": "fastapi",
+        "requested": "fastapi/fastapi",
+        "supporting_label": "repository",
+        "supporting_url": "https://github.com/fastapi/fastapi",
+        "url": "https://github.com/fastapi/fastapi"
+      }
+    },
+    {
+      "canonical_name": "httpx",
+      "category": "runtime:direct",
+      "confidence": "verified",
+      "consulted_at_utc": "2026-10-30T14:16:11Z",
+      "display_name": "httpx",
+      "frozen_repo_urls": [
+        [
+          "source",
+          "https://github.com/encode/httpx"
+        ]
+      ],
+      "frozen_version": "0.28.1",
+      "method": "frozen-metadata+current-pypi",
+      "notes": [
+        "two independent sources agree on the same repository"
+      ],
+      "pypi_repo_urls": [
+        [
+          "source",
+          "https://github.com/encode/httpx"
+        ]
+      ],
+      "resolved": {
+        "canonical": "encode/httpx",
+        "evidence": {
+          "archived": false,
+          "description": "A next generation HTTP client for Python. \ud83e\udd8b",
+          "fork": false,
+          "html_url": "https://github.com/encode/httpx",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "encode/httpx",
+          "resolved_full_name": "encode/httpx"
+        },
+        "full_name": "encode/httpx",
+        "owner": "encode",
+        "redirect": false,
+        "repo": "httpx",
+        "requested": "encode/httpx",
+        "supporting_label": "source",
+        "supporting_url": "https://github.com/encode/httpx",
+        "url": "https://github.com/encode/httpx"
+      },
+      "sources": [
+        "wheel-metadata",
+        "pypi-current"
+      ],
+      "src_frozen": {
+        "canonical": "encode/httpx",
+        "evidence": {
+          "archived": false,
+          "description": "A next generation HTTP client for Python. \ud83e\udd8b",
+          "fork": false,
+          "html_url": "https://github.com/encode/httpx",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "encode/httpx",
+          "resolved_full_name": "encode/httpx"
+        },
+        "full_name": "encode/httpx",
+        "owner": "encode",
+        "redirect": false,
+        "repo": "httpx",
+        "requested": "encode/httpx",
+        "supporting_label": "source",
+        "supporting_url": "https://github.com/encode/httpx",
+        "url": "https://github.com/encode/httpx"
+      },
+      "src_pypi": {
+        "canonical": "encode/httpx",
+        "evidence": {
+          "archived": false,
+          "description": "A next generation HTTP client for Python. \ud83e\udd8b",
+          "fork": false,
+          "html_url": "https://github.com/encode/httpx",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "encode/httpx",
+          "resolved_full_name": "encode/httpx"
+        },
+        "full_name": "encode/httpx",
+        "owner": "encode",
+        "redirect": false,
+        "repo": "httpx",
+        "requested": "encode/httpx",
+        "supporting_label": "source",
+        "supporting_url": "https://github.com/encode/httpx",
+        "url": "https://github.com/encode/httpx"
+      }
+    },
+    {
+      "canonical_name": "psycopg",
+      "category": "runtime:direct",
+      "confidence": "verified",
+      "consulted_at_utc": "2026-10-30T14:16:11Z",
+      "display_name": "psycopg",
+      "frozen_repo_urls": [
+        [
+          "code",
+          "https://github.com/psycopg/psycopg"
+        ],
+        [
+          "issue tracker",
+          "https://github.com/psycopg/psycopg/issues"
+        ]
+      ],
+      "frozen_version": "3.3.6",
+      "method": "frozen-metadata+current-pypi",
+      "notes": [
+        "two independent sources agree on the same repository"
+      ],
+      "pypi_repo_urls": [
+        [
+          "code",
+          "https://github.com/psycopg/psycopg"
+        ],
+        [
+          "issue tracker",
+          "https://github.com/psycopg/psycopg/issues"
+        ]
+      ],
+      "resolved": {
+        "canonical": "psycopg/psycopg",
+        "evidence": {
+          "archived": false,
+          "description": "New generation PostgreSQL database adapter for the Python programming language ",
+          "fork": false,
+          "html_url": "https://github.com/psycopg/psycopg",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "psycopg/psycopg",
+          "resolved_full_name": "psycopg/psycopg"
+        },
+        "full_name": "psycopg/psycopg",
+        "owner": "psycopg",
+        "redirect": false,
+        "repo": "psycopg",
+        "requested": "psycopg/psycopg",
+        "supporting_label": "code",
+        "supporting_url": "https://github.com/psycopg/psycopg",
+        "url": "https://github.com/psycopg/psycopg"
+      },
+      "sources": [
+        "wheel-metadata",
+        "pypi-current"
+      ],
+      "src_frozen": {
+        "canonical": "psycopg/psycopg",
+        "evidence": {
+          "archived": false,
+          "description": "New generation PostgreSQL database adapter for the Python programming language ",
+          "fork": false,
+          "html_url": "https://github.com/psycopg/psycopg",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "psycopg/psycopg",
+          "resolved_full_name": "psycopg/psycopg"
+        },
+        "full_name": "psycopg/psycopg",
+        "owner": "psycopg",
+        "redirect": false,
+        "repo": "psycopg",
+        "requested": "psycopg/psycopg",
+        "supporting_label": "code",
+        "supporting_url": "https://github.com/psycopg/psycopg",
+        "url": "https://github.com/psycopg/psycopg"
+      },
+      "src_pypi": {
+        "canonical": "psycopg/psycopg",
+        "evidence": {
+          "archived": false,
+          "description": "New generation PostgreSQL database adapter for the Python programming language ",
+          "fork": false,
+          "html_url": "https://github.com/psycopg/psycopg",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "psycopg/psycopg",
+          "resolved_full_name": "psycopg/psycopg"
+        },
+        "full_name": "psycopg/psycopg",
+        "owner": "psycopg",
+        "redirect": false,
+        "repo": "psycopg",
+        "requested": "psycopg/psycopg",
+        "supporting_label": "code",
+        "supporting_url": "https://github.com/psycopg/psycopg",
+        "url": "https://github.com/psycopg/psycopg"
+      }
+    },
+    {
+      "canonical_name": "pydantic-settings",
+      "category": "runtime:direct",
+      "confidence": "verified",
+      "consulted_at_utc": "2026-10-30T14:16:11Z",
+      "display_name": "pydantic-settings",
+      "frozen_repo_urls": [
+        [
+          "source",
+          "https://github.com/pydantic/pydantic-settings"
+        ]
+      ],
+      "frozen_version": "2.16.2",
+      "method": "frozen-metadata+current-pypi",
+      "notes": [
+        "two independent sources agree on the same repository"
+      ],
+      "pypi_repo_urls": [
+        [
+          "source",
+          "https://github.com/pydantic/pydantic-settings"
+        ]
+      ],
+      "resolved": {
+        "canonical": "pydantic/pydantic-settings",
+        "evidence": {
+          "archived": false,
+          "description": "Settings management using pydantic",
+          "fork": false,
+          "html_url": "https://github.com/pydantic/pydantic-settings",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "pydantic/pydantic-settings",
+          "resolved_full_name": "pydantic/pydantic-settings"
+        },
+        "full_name": "pydantic/pydantic-settings",
+        "owner": "pydantic",
+        "redirect": false,
+        "repo": "pydantic-settings",
+        "requested": "pydantic/pydantic-settings",
+        "supporting_label": "source",
+        "supporting_url": "https://github.com/pydantic/pydantic-settings",
+        "url": "https://github.com/pydantic/pydantic-settings"
+      },
+      "sources": [
+        "wheel-metadata",
+        "pypi-current"
+      ],
+      "src_frozen": {
+        "canonical": "pydantic/pydantic-settings",
+        "evidence": {
+          "archived": false,
+          "description": "Settings management using pydantic",
+          "fork": false,
+          "html_url": "https://github.com/pydantic/pydantic-settings",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "pydantic/pydantic-settings",
+          "resolved_full_name": "pydantic/pydantic-settings"
+        },
+        "full_name": "pydantic/pydantic-settings",
+        "owner": "pydantic",
+        "redirect": false,
+        "repo": "pydantic-settings",
+        "requested": "pydantic/pydantic-settings",
+        "supporting_label": "source",
+        "supporting_url": "https://github.com/pydantic/pydantic-settings",
+        "url": "https://github.com/pydantic/pydantic-settings"
+      },
+      "src_pypi": {
+        "canonical": "pydantic/pydantic-settings",
+        "evidence": {
+          "archived": false,
+          "description": "Settings management using pydantic",
+          "fork": false,
+          "html_url": "https://github.com/pydantic/pydantic-settings",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "pydantic/pydantic-settings",
+          "resolved_full_name": "pydantic/pydantic-settings"
+        },
+        "full_name": "pydantic/pydantic-settings",
+        "owner": "pydantic",
+        "redirect": false,
+        "repo": "pydantic-settings",
+        "requested": "pydantic/pydantic-settings",
+        "supporting_label": "source",
+        "supporting_url": "https://github.com/pydantic/pydantic-settings",
+        "url": "https://github.com/pydantic/pydantic-settings"
+      }
+    },
+    {
+      "canonical_name": "redis",
+      "category": "runtime:direct",
+      "confidence": "verified",
+      "consulted_at_utc": "2026-10-30T14:16:11Z",
+      "display_name": "redis",
+      "frozen_repo_urls": [
+        [
+          "code",
+          "https://github.com/redis/redis-py"
+        ],
+        [
+          "issue tracker",
+          "https://github.com/redis/redis-py/issues"
+        ]
+      ],
+      "frozen_version": "5.3.1",
+      "method": "frozen-metadata+current-pypi",
+      "notes": [
+        "two independent sources agree on the same repository"
+      ],
+      "pypi_repo_urls": [
+        [
+          "code",
+          "https://github.com/redis/redis-py"
+        ],
+        [
+          "issue tracker",
+          "https://github.com/redis/redis-py/issues"
+        ]
+      ],
+      "resolved": {
+        "canonical": "redis/redis-py",
+        "evidence": {
+          "archived": false,
+          "description": "Redis Python client",
+          "fork": false,
+          "html_url": "https://github.com/redis/redis-py",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "redis/redis-py",
+          "resolved_full_name": "redis/redis-py"
+        },
+        "full_name": "redis/redis-py",
+        "owner": "redis",
+        "redirect": false,
+        "repo": "redis-py",
+        "requested": "redis/redis-py",
+        "supporting_label": "code",
+        "supporting_url": "https://github.com/redis/redis-py",
+        "url": "https://github.com/redis/redis-py"
+      },
+      "sources": [
+        "wheel-metadata",
+        "pypi-current"
+      ],
+      "src_frozen": {
+        "canonical": "redis/redis-py",
+        "evidence": {
+          "archived": false,
+          "description": "Redis Python client",
+          "fork": false,
+          "html_url": "https://github.com/redis/redis-py",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "redis/redis-py",
+          "resolved_full_name": "redis/redis-py"
+        },
+        "full_name": "redis/redis-py",
+        "owner": "redis",
+        "redirect": false,
+        "repo": "redis-py",
+        "requested": "redis/redis-py",
+        "supporting_label": "code",
+        "supporting_url": "https://github.com/redis/redis-py",
+        "url": "https://github.com/redis/redis-py"
+      },
+      "src_pypi": {
+        "canonical": "redis/redis-py",
+        "evidence": {
+          "archived": false,
+          "description": "Redis Python client",
+          "fork": false,
+          "html_url": "https://github.com/redis/redis-py",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "redis/redis-py",
+          "resolved_full_name": "redis/redis-py"
+        },
+        "full_name": "redis/redis-py",
+        "owner": "redis",
+        "redirect": false,
+        "repo": "redis-py",
+        "requested": "redis/redis-py",
+        "supporting_label": "code",
+        "supporting_url": "https://github.com/redis/redis-py",
+        "url": "https://github.com/redis/redis-py"
+      }
+    },
+    {
+      "canonical_name": "slowapi",
+      "category": "runtime:direct",
+      "confidence": "verified",
+      "consulted_at_utc": "2026-10-30T14:16:11Z",
+      "display_name": "slowapi",
+      "frozen_repo_urls": [
+        [
+          "repository",
+          "https://github.com/laurents/slowapi"
+        ]
+      ],
+      "frozen_version": "0.1.10",
+      "method": "frozen-metadata+current-pypi",
+      "notes": [
+        "two independent sources agree on the same repository"
+      ],
+      "pypi_repo_urls": [
+        [
+          "repository",
+          "https://github.com/laurents/slowapi"
+        ]
+      ],
+      "resolved": {
+        "canonical": "laurents/slowapi",
+        "evidence": {
+          "archived": false,
+          "description": "A rate limiter for Starlette and FastAPI",
+          "fork": false,
+          "html_url": "https://github.com/laurentS/slowapi",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "laurents/slowapi",
+          "resolved_full_name": "laurentS/slowapi"
+        },
+        "full_name": "laurentS/slowapi",
+        "owner": "laurentS",
+        "redirect": false,
+        "repo": "slowapi",
+        "requested": "laurents/slowapi",
+        "supporting_label": "repository",
+        "supporting_url": "https://github.com/laurents/slowapi",
+        "url": "https://github.com/laurentS/slowapi"
+      },
+      "sources": [
+        "wheel-metadata",
+        "pypi-current"
+      ],
+      "src_frozen": {
+        "canonical": "laurents/slowapi",
+        "evidence": {
+          "archived": false,
+          "description": "A rate limiter for Starlette and FastAPI",
+          "fork": false,
+          "html_url": "https://github.com/laurentS/slowapi",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "laurents/slowapi",
+          "resolved_full_name": "laurentS/slowapi"
+        },
+        "full_name": "laurentS/slowapi",
+        "owner": "laurentS",
+        "redirect": false,
+        "repo": "slowapi",
+        "requested": "laurents/slowapi",
+        "supporting_label": "repository",
+        "supporting_url": "https://github.com/laurents/slowapi",
+        "url": "https://github.com/laurentS/slowapi"
+      },
+      "src_pypi": {
+        "canonical": "laurents/slowapi",
+        "evidence": {
+          "archived": false,
+          "description": "A rate limiter for Starlette and FastAPI",
+          "fork": false,
+          "html_url": "https://github.com/laurentS/slowapi",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "laurents/slowapi",
+          "resolved_full_name": "laurentS/slowapi"
+        },
+        "full_name": "laurentS/slowapi",
+        "owner": "laurentS",
+        "redirect": false,
+        "repo": "slowapi",
+        "requested": "laurents/slowapi",
+        "supporting_label": "repository",
+        "supporting_url": "https://github.com/laurents/slowapi",
+        "url": "https://github.com/laurentS/slowapi"
+      }
+    },
+    {
+      "canonical_name": "sqlalchemy",
+      "category": "runtime:direct",
+      "confidence": "verified",
+      "consulted_at_utc": "2026-10-30T14:16:11Z",
+      "display_name": "SQLAlchemy",
+      "frozen_repo_urls": [
+        [
+          "source code",
+          "https://github.com/sqlalchemy/sqlalchemy"
+        ],
+        [
+          "issue tracker",
+          "https://github.com/sqlalchemy/sqlalchemy/issues"
+        ]
+      ],
+      "frozen_version": "2.1.6",
+      "method": "frozen-metadata+current-pypi",
+      "notes": [
+        "two independent sources agree on the same repository"
+      ],
+      "pypi_repo_urls": [
+        [
+          "source code",
+          "https://github.com/sqlalchemy/sqlalchemy"
+        ],
+        [
+          "issue tracker",
+          "https://github.com/sqlalchemy/sqlalchemy/issues"
+        ]
+      ],
+      "resolved": {
+        "canonical": "sqlalchemy/sqlalchemy",
+        "evidence": {
+          "archived": false,
+          "description": "The Database Toolkit for Python",
+          "fork": false,
+          "html_url": "https://github.com/sqlalchemy/sqlalchemy",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "sqlalchemy/sqlalchemy",
+          "resolved_full_name": "sqlalchemy/sqlalchemy"
+        },
+        "full_name": "sqlalchemy/sqlalchemy",
+        "owner": "sqlalchemy",
+        "redirect": false,
+        "repo": "sqlalchemy",
+        "requested": "sqlalchemy/sqlalchemy",
+        "supporting_label": "source code",
+        "supporting_url": "https://github.com/sqlalchemy/sqlalchemy",
+        "url": "https://github.com/sqlalchemy/sqlalchemy"
+      },
+      "sources": [
+        "wheel-metadata",
+        "pypi-current"
+      ],
+      "src_frozen": {
+        "canonical": "sqlalchemy/sqlalchemy",
+        "evidence": {
+          "archived": false,
+          "description": "The Database Toolkit for Python",
+          "fork": false,
+          "html_url": "https://github.com/sqlalchemy/sqlalchemy",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "sqlalchemy/sqlalchemy",
+          "resolved_full_name": "sqlalchemy/sqlalchemy"
+        },
+        "full_name": "sqlalchemy/sqlalchemy",
+        "owner": "sqlalchemy",
+        "redirect": false,
+        "repo": "sqlalchemy",
+        "requested": "sqlalchemy/sqlalchemy",
+        "supporting_label": "source code",
+        "supporting_url": "https://github.com/sqlalchemy/sqlalchemy",
+        "url": "https://github.com/sqlalchemy/sqlalchemy"
+      },
+      "src_pypi": {
+        "canonical": "sqlalchemy/sqlalchemy",
+        "evidence": {
+          "archived": false,
+          "description": "The Database Toolkit for Python",
+          "fork": false,
+          "html_url": "https://github.com/sqlalchemy/sqlalchemy",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "sqlalchemy/sqlalchemy",
+          "resolved_full_name": "sqlalchemy/sqlalchemy"
+        },
+        "full_name": "sqlalchemy/sqlalchemy",
+        "owner": "sqlalchemy",
+        "redirect": false,
+        "repo": "sqlalchemy",
+        "requested": "sqlalchemy/sqlalchemy",
+        "supporting_label": "source code",
+        "supporting_url": "https://github.com/sqlalchemy/sqlalchemy",
+        "url": "https://github.com/sqlalchemy/sqlalchemy"
+      }
+    },
+    {
+      "canonical_name": "uvicorn",
+      "category": "runtime:direct",
+      "confidence": "verified",
+      "consulted_at_utc": "2026-10-30T14:16:11Z",
+      "display_name": "uvicorn",
+      "frozen_repo_urls": [
+        [
+          "source",
+          "https://github.com/Kludex/uvicorn"
+        ]
+      ],
+      "frozen_version": "0.54.0",
+      "method": "frozen-metadata+current-pypi",
+      "notes": [
+        "two independent sources agree on the same repository"
+      ],
+      "pypi_repo_urls": [
+        [
+          "source",
+          "https://github.com/Kludex/uvicorn"
+        ]
+      ],
+      "resolved": {
+        "canonical": "kludex/uvicorn",
+        "evidence": {
+          "archived": false,
+          "description": "An ASGI web server, for Python. \ud83e\udd84",
+          "fork": false,
+          "html_url": "https://github.com/Kludex/uvicorn",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "Kludex/uvicorn",
+          "resolved_full_name": "Kludex/uvicorn"
+        },
+        "full_name": "Kludex/uvicorn",
+        "owner": "Kludex",
+        "redirect": false,
+        "repo": "uvicorn",
+        "requested": "Kludex/uvicorn",
+        "supporting_label": "source",
+        "supporting_url": "https://github.com/Kludex/uvicorn",
+        "url": "https://github.com/Kludex/uvicorn"
+      },
+      "sources": [
+        "wheel-metadata",
+        "pypi-current"
+      ],
+      "src_frozen": {
+        "canonical": "kludex/uvicorn",
+        "evidence": {
+          "archived": false,
+          "description": "An ASGI web server, for Python. \ud83e\udd84",
+          "fork": false,
+          "html_url": "https://github.com/Kludex/uvicorn",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "Kludex/uvicorn",
+          "resolved_full_name": "Kludex/uvicorn"
+        },
+        "full_name": "Kludex/uvicorn",
+        "owner": "Kludex",
+        "redirect": false,
+        "repo": "uvicorn",
+        "requested": "Kludex/uvicorn",
+        "supporting_label": "source",
+        "supporting_url": "https://github.com/Kludex/uvicorn",
+        "url": "https://github.com/Kludex/uvicorn"
+      },
+      "src_pypi": {
+        "canonical": "kludex/uvicorn",
+        "evidence": {
+          "archived": false,
+          "description": "An ASGI web server, for Python. \ud83e\udd84",
+          "fork": false,
+          "html_url": "https://github.com/Kludex/uvicorn",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "Kludex/uvicorn",
+          "resolved_full_name": "Kludex/uvicorn"
+        },
+        "full_name": "Kludex/uvicorn",
+        "owner": "Kludex",
+        "redirect": false,
+        "repo": "uvicorn",
+        "requested": "Kludex/uvicorn",
+        "supporting_label": "source",
+        "supporting_url": "https://github.com/Kludex/uvicorn",
+        "url": "https://github.com/Kludex/uvicorn"
+      }
+    },
+    {
+      "canonical_name": "annotated-types",
+      "category": "runtime:transitive",
+      "confidence": "verified",
+      "consulted_at_utc": "2026-10-30T14:16:11Z",
+      "display_name": "annotated-types",
+      "frozen_repo_urls": [
+        [
+          "source",
+          "https://github.com/annotated-types/annotated-types"
+        ]
+      ],
+      "frozen_version": "0.8.0",
+      "method": "frozen-metadata+current-pypi",
+      "notes": [
+        "two independent sources agree on the same repository"
+      ],
+      "pypi_repo_urls": [
+        [
+          "source",
+          "https://github.com/annotated-types/annotated-types"
+        ]
+      ],
+      "resolved": {
+        "canonical": "annotated-types/annotated-types",
+        "evidence": {
+          "archived": false,
+          "description": "Reusable constraint types to use with typing.Annotated",
+          "fork": false,
+          "html_url": "https://github.com/annotated-types/annotated-types",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "annotated-types/annotated-types",
+          "resolved_full_name": "annotated-types/annotated-types"
+        },
+        "full_name": "annotated-types/annotated-types",
+        "owner": "annotated-types",
+        "redirect": false,
+        "repo": "annotated-types",
+        "requested": "annotated-types/annotated-types",
+        "supporting_label": "source",
+        "supporting_url": "https://github.com/annotated-types/annotated-types",
+        "url": "https://github.com/annotated-types/annotated-types"
+      },
+      "sources": [
+        "wheel-metadata",
+        "pypi-current"
+      ],
+      "src_frozen": {
+        "canonical": "annotated-types/annotated-types",
+        "evidence": {
+          "archived": false,
+          "description": "Reusable constraint types to use with typing.Annotated",
+          "fork": false,
+          "html_url": "https://github.com/annotated-types/annotated-types",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "annotated-types/annotated-types",
+          "resolved_full_name": "annotated-types/annotated-types"
+        },
+        "full_name": "annotated-types/annotated-types",
+        "owner": "annotated-types",
+        "redirect": false,
+        "repo": "annotated-types",
+        "requested": "annotated-types/annotated-types",
+        "supporting_label": "source",
+        "supporting_url": "https://github.com/annotated-types/annotated-types",
+        "url": "https://github.com/annotated-types/annotated-types"
+      },
+      "src_pypi": {
+        "canonical": "annotated-types/annotated-types",
+        "evidence": {
+          "archived": false,
+          "description": "Reusable constraint types to use with typing.Annotated",
+          "fork": false,
+          "html_url": "https://github.com/annotated-types/annotated-types",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "annotated-types/annotated-types",
+          "resolved_full_name": "annotated-types/annotated-types"
+        },
+        "full_name": "annotated-types/annotated-types",
+        "owner": "annotated-types",
+        "redirect": false,
+        "repo": "annotated-types",
+        "requested": "annotated-types/annotated-types",
+        "supporting_label": "source",
+        "supporting_url": "https://github.com/annotated-types/annotated-types",
+        "url": "https://github.com/annotated-types/annotated-types"
+      }
+    },
+    {
+      "canonical_name": "anyio",
+      "category": "runtime:transitive",
+      "confidence": "verified",
+      "consulted_at_utc": "2026-10-30T14:16:11Z",
+      "display_name": "anyio",
+      "frozen_repo_urls": [
+        [
+          "source code",
+          "https://github.com/agronholm/anyio"
+        ],
+        [
+          "issue tracker",
+          "https://github.com/agronholm/anyio/issues"
+        ]
+      ],
+      "frozen_version": "4.15.1",
+      "method": "frozen-metadata+current-pypi",
+      "notes": [
+        "two independent sources agree on the same repository"
+      ],
+      "pypi_repo_urls": [
+        [
+          "source code",
+          "https://github.com/agronholm/anyio"
+        ],
+        [
+          "issue tracker",
+          "https://github.com/agronholm/anyio/issues"
+        ]
+      ],
+      "resolved": {
+        "canonical": "agronholm/anyio",
+        "evidence": {
+          "archived": false,
+          "description": "High level asynchronous concurrency and networking framework that works on top of either Trio or asyncio",
+          "fork": false,
+          "html_url": "https://github.com/agronholm/anyio",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "agronholm/anyio",
+          "resolved_full_name": "agronholm/anyio"
+        },
+        "full_name": "agronholm/anyio",
+        "owner": "agronholm",
+        "redirect": false,
+        "repo": "anyio",
+        "requested": "agronholm/anyio",
+        "supporting_label": "source code",
+        "supporting_url": "https://github.com/agronholm/anyio",
+        "url": "https://github.com/agronholm/anyio"
+      },
+      "sources": [
+        "wheel-metadata",
+        "pypi-current"
+      ],
+      "src_frozen": {
+        "canonical": "agronholm/anyio",
+        "evidence": {
+          "archived": false,
+          "description": "High level asynchronous concurrency and networking framework that works on top of either Trio or asyncio",
+          "fork": false,
+          "html_url": "https://github.com/agronholm/anyio",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "agronholm/anyio",
+          "resolved_full_name": "agronholm/anyio"
+        },
+        "full_name": "agronholm/anyio",
+        "owner": "agronholm",
+        "redirect": false,
+        "repo": "anyio",
+        "requested": "agronholm/anyio",
+        "supporting_label": "source code",
+        "supporting_url": "https://github.com/agronholm/anyio",
+        "url": "https://github.com/agronholm/anyio"
+      },
+      "src_pypi": {
+        "canonical": "agronholm/anyio",
+        "evidence": {
+          "archived": false,
+          "description": "High level asynchronous concurrency and networking framework that works on top of either Trio or asyncio",
+          "fork": false,
+          "html_url": "https://github.com/agronholm/anyio",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "agronholm/anyio",
+          "resolved_full_name": "agronholm/anyio"
+        },
+        "full_name": "agronholm/anyio",
+        "owner": "agronholm",
+        "redirect": false,
+        "repo": "anyio",
+        "requested": "agronholm/anyio",
+        "supporting_label": "source code",
+        "supporting_url": "https://github.com/agronholm/anyio",
+        "url": "https://github.com/agronholm/anyio"
+      }
+    },
+    {
+      "canonical_name": "certifi",
+      "category": "runtime:transitive",
+      "confidence": "verified",
+      "consulted_at_utc": "2026-10-30T14:16:11Z",
+      "display_name": "certifi",
+      "frozen_repo_urls": [
+        [
+          "source",
+          "https://github.com/certifi/python-certifi"
+        ]
+      ],
+      "frozen_version": "2026.10.23",
+      "method": "frozen-metadata+current-pypi",
+      "notes": [
+        "two independent sources agree on the same repository"
+      ],
+      "pypi_repo_urls": [
+        [
+          "source",
+          "https://github.com/certifi/python-certifi"
+        ]
+      ],
+      "resolved": {
+        "canonical": "certifi/python-certifi",
+        "evidence": {
+          "archived": false,
+          "description": "(Python Distribution) A carefully curated collection of Root Certificates for validating the trustworthiness of SSL certificates while verifying the identity of TLS hosts.",
+          "fork": false,
+          "html_url": "https://github.com/certifi/python-certifi",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "certifi/python-certifi",
+          "resolved_full_name": "certifi/python-certifi"
+        },
+        "full_name": "certifi/python-certifi",
+        "owner": "certifi",
+        "redirect": false,
+        "repo": "python-certifi",
+        "requested": "certifi/python-certifi",
+        "supporting_label": "source",
+        "supporting_url": "https://github.com/certifi/python-certifi",
+        "url": "https://github.com/certifi/python-certifi"
+      },
+      "sources": [
+        "wheel-metadata",
+        "pypi-current"
+      ],
+      "src_frozen": {
+        "canonical": "certifi/python-certifi",
+        "evidence": {
+          "archived": false,
+          "description": "(Python Distribution) A carefully curated collection of Root Certificates for validating the trustworthiness of SSL certificates while verifying the identity of TLS hosts.",
+          "fork": false,
+          "html_url": "https://github.com/certifi/python-certifi",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "certifi/python-certifi",
+          "resolved_full_name": "certifi/python-certifi"
+        },
+        "full_name": "certifi/python-certifi",
+        "owner": "certifi",
+        "redirect": false,
+        "repo": "python-certifi",
+        "requested": "certifi/python-certifi",
+        "supporting_label": "source",
+        "supporting_url": "https://github.com/certifi/python-certifi",
+        "url": "https://github.com/certifi/python-certifi"
+      },
+      "src_pypi": {
+        "canonical": "certifi/python-certifi",
+        "evidence": {
+          "archived": false,
+          "description": "(Python Distribution) A carefully curated collection of Root Certificates for validating the trustworthiness of SSL certificates while verifying the identity of TLS hosts.",
+          "fork": false,
+          "html_url": "https://github.com/certifi/python-certifi",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "certifi/python-certifi",
+          "resolved_full_name": "certifi/python-certifi"
+        },
+        "full_name": "certifi/python-certifi",
+        "owner": "certifi",
+        "redirect": false,
+        "repo": "python-certifi",
+        "requested": "certifi/python-certifi",
+        "supporting_label": "source",
+        "supporting_url": "https://github.com/certifi/python-certifi",
+        "url": "https://github.com/certifi/python-certifi"
+      }
+    },
+    {
+      "canonical_name": "click",
+      "category": "runtime:transitive",
+      "confidence": "verified",
+      "consulted_at_utc": "2026-10-30T14:16:11Z",
+      "display_name": "click",
+      "frozen_repo_urls": [
+        [
+          "source",
+          "https://github.com/pallets/click/"
+        ]
+      ],
+      "frozen_version": "8.5.0",
+      "method": "frozen-metadata+current-pypi",
+      "notes": [
+        "two independent sources agree on the same repository"
+      ],
+      "pypi_repo_urls": [
+        [
+          "source",
+          "https://github.com/pallets/click/"
+        ]
+      ],
+      "resolved": {
+        "canonical": "pallets/click",
+        "evidence": {
+          "archived": false,
+          "description": "Python composable command line interface toolkit",
+          "fork": false,
+          "html_url": "https://github.com/pallets/click",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "pallets/click",
+          "resolved_full_name": "pallets/click"
+        },
+        "full_name": "pallets/click",
+        "owner": "pallets",
+        "redirect": false,
+        "repo": "click",
+        "requested": "pallets/click",
+        "supporting_label": "source",
+        "supporting_url": "https://github.com/pallets/click/",
+        "url": "https://github.com/pallets/click"
+      },
+      "sources": [
+        "wheel-metadata",
+        "pypi-current"
+      ],
+      "src_frozen": {
+        "canonical": "pallets/click",
+        "evidence": {
+          "archived": false,
+          "description": "Python composable command line interface toolkit",
+          "fork": false,
+          "html_url": "https://github.com/pallets/click",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "pallets/click",
+          "resolved_full_name": "pallets/click"
+        },
+        "full_name": "pallets/click",
+        "owner": "pallets",
+        "redirect": false,
+        "repo": "click",
+        "requested": "pallets/click",
+        "supporting_label": "source",
+        "supporting_url": "https://github.com/pallets/click/",
+        "url": "https://github.com/pallets/click"
+      },
+      "src_pypi": {
+        "canonical": "pallets/click",
+        "evidence": {
+          "archived": false,
+          "description": "Python composable command line interface toolkit",
+          "fork": false,
+          "html_url": "https://github.com/pallets/click",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "pallets/click",
+          "resolved_full_name": "pallets/click"
+        },
+        "full_name": "pallets/click",
+        "owner": "pallets",
+        "redirect": false,
+        "repo": "click",
+        "requested": "pallets/click",
+        "supporting_label": "source",
+        "supporting_url": "https://github.com/pallets/click/",
+        "url": "https://github.com/pallets/click"
+      }
+    },
+    {
+      "canonical_name": "deprecated",
+      "category": "runtime:transitive",
+      "confidence": "verified",
+      "consulted_at_utc": "2026-10-30T14:16:11Z",
+      "display_name": "Deprecated",
+      "frozen_repo_urls": [
+        [
+          "source",
+          "https://github.com/laurent-laporte-pro/deprecated"
+        ],
+        [
+          "bug tracker",
+          "https://github.com/laurent-laporte-pro/deprecated/issues"
+        ]
+      ],
+      "frozen_version": "3.0.1",
+      "method": "frozen-metadata+current-pypi",
+      "notes": [
+        "two independent sources agree on the same repository"
+      ],
+      "pypi_repo_urls": [
+        [
+          "source",
+          "https://github.com/laurent-laporte-pro/deprecated"
+        ],
+        [
+          "bug tracker",
+          "https://github.com/laurent-laporte-pro/deprecated/issues"
+        ]
+      ],
+      "resolved": {
+        "canonical": "laurent-laporte-pro/deprecated",
+        "evidence": {
+          "archived": false,
+          "description": "Python @deprecated decorator to deprecate old python classes, functions or methods.",
+          "fork": false,
+          "html_url": "https://github.com/laurent-laporte-pro/deprecated",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "laurent-laporte-pro/deprecated",
+          "resolved_full_name": "laurent-laporte-pro/deprecated"
+        },
+        "full_name": "laurent-laporte-pro/deprecated",
+        "owner": "laurent-laporte-pro",
+        "redirect": false,
+        "repo": "deprecated",
+        "requested": "laurent-laporte-pro/deprecated",
+        "supporting_label": "source",
+        "supporting_url": "https://github.com/laurent-laporte-pro/deprecated",
+        "url": "https://github.com/laurent-laporte-pro/deprecated"
+      },
+      "sources": [
+        "wheel-metadata",
+        "pypi-current"
+      ],
+      "src_frozen": {
+        "canonical": "laurent-laporte-pro/deprecated",
+        "evidence": {
+          "archived": false,
+          "description": "Python @deprecated decorator to deprecate old python classes, functions or methods.",
+          "fork": false,
+          "html_url": "https://github.com/laurent-laporte-pro/deprecated",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "laurent-laporte-pro/deprecated",
+          "resolved_full_name": "laurent-laporte-pro/deprecated"
+        },
+        "full_name": "laurent-laporte-pro/deprecated",
+        "owner": "laurent-laporte-pro",
+        "redirect": false,
+        "repo": "deprecated",
+        "requested": "laurent-laporte-pro/deprecated",
+        "supporting_label": "source",
+        "supporting_url": "https://github.com/laurent-laporte-pro/deprecated",
+        "url": "https://github.com/laurent-laporte-pro/deprecated"
+      },
+      "src_pypi": {
+        "canonical": "laurent-laporte-pro/deprecated",
+        "evidence": {
+          "archived": false,
+          "description": "Python @deprecated decorator to deprecate old python classes, functions or methods.",
+          "fork": false,
+          "html_url": "https://github.com/laurent-laporte-pro/deprecated",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "laurent-laporte-pro/deprecated",
+          "resolved_full_name": "laurent-laporte-pro/deprecated"
+        },
+        "full_name": "laurent-laporte-pro/deprecated",
+        "owner": "laurent-laporte-pro",
+        "redirect": false,
+        "repo": "deprecated",
+        "requested": "laurent-laporte-pro/deprecated",
+        "supporting_label": "source",
+        "supporting_url": "https://github.com/laurent-laporte-pro/deprecated",
+        "url": "https://github.com/laurent-laporte-pro/deprecated"
+      }
+    },
+    {
+      "canonical_name": "h11",
+      "category": "runtime:transitive",
+      "confidence": "verified",
+      "consulted_at_utc": "2026-10-30T14:16:11Z",
+      "display_name": "h11",
+      "frozen_repo_urls": [
+        [
+          "home page",
+          "https://github.com/python-hyper/h11"
+        ]
+      ],
+      "frozen_version": "0.16.0",
+      "method": "frozen-metadata+current-pypi",
+      "notes": [
+        "two independent sources agree on the same repository",
+        "repo URL taken from metadata label 'home page'"
+      ],
+      "pypi_repo_urls": [
+        [
+          "home page",
+          "https://github.com/python-hyper/h11"
+        ]
+      ],
+      "resolved": {
+        "canonical": "python-hyper/h11",
+        "evidence": {
+          "archived": false,
+          "description": "A pure-Python, bring-your-own-I/O implementation of HTTP/1.1",
+          "fork": false,
+          "html_url": "https://github.com/python-hyper/h11",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "python-hyper/h11",
+          "resolved_full_name": "python-hyper/h11"
+        },
+        "full_name": "python-hyper/h11",
+        "owner": "python-hyper",
+        "redirect": false,
+        "repo": "h11",
+        "requested": "python-hyper/h11",
+        "supporting_label": "home page",
+        "supporting_url": "https://github.com/python-hyper/h11",
+        "url": "https://github.com/python-hyper/h11"
+      },
+      "sources": [
+        "wheel-metadata",
+        "pypi-current"
+      ],
+      "src_frozen": {
+        "canonical": "python-hyper/h11",
+        "evidence": {
+          "archived": false,
+          "description": "A pure-Python, bring-your-own-I/O implementation of HTTP/1.1",
+          "fork": false,
+          "html_url": "https://github.com/python-hyper/h11",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "python-hyper/h11",
+          "resolved_full_name": "python-hyper/h11"
+        },
+        "full_name": "python-hyper/h11",
+        "owner": "python-hyper",
+        "redirect": false,
+        "repo": "h11",
+        "requested": "python-hyper/h11",
+        "supporting_label": "home page",
+        "supporting_url": "https://github.com/python-hyper/h11",
+        "url": "https://github.com/python-hyper/h11"
+      },
+      "src_pypi": {
+        "canonical": "python-hyper/h11",
+        "evidence": {
+          "archived": false,
+          "description": "A pure-Python, bring-your-own-I/O implementation of HTTP/1.1",
+          "fork": false,
+          "html_url": "https://github.com/python-hyper/h11",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "python-hyper/h11",
+          "resolved_full_name": "python-hyper/h11"
+        },
+        "full_name": "python-hyper/h11",
+        "owner": "python-hyper",
+        "redirect": false,
+        "repo": "h11",
+        "requested": "python-hyper/h11",
+        "supporting_label": "home page",
+        "supporting_url": "https://github.com/python-hyper/h11",
+        "url": "https://github.com/python-hyper/h11"
+      }
+    },
+    {
+      "canonical_name": "httpcore",
+      "category": "runtime:transitive",
+      "confidence": "verified",
+      "consulted_at_utc": "2026-10-30T14:16:11Z",
+      "display_name": "httpcore",
+      "frozen_repo_urls": [
+        [
+          "source",
+          "https://github.com/encode/httpcore"
+        ]
+      ],
+      "frozen_version": "1.0.9",
+      "method": "frozen-metadata+current-pypi",
+      "notes": [
+        "two independent sources agree on the same repository"
+      ],
+      "pypi_repo_urls": [
+        [
+          "source",
+          "https://github.com/encode/httpcore"
+        ]
+      ],
+      "resolved": {
+        "canonical": "encode/httpcore",
+        "evidence": {
+          "archived": false,
+          "description": "A minimal HTTP client. \u2699\ufe0f",
+          "fork": false,
+          "html_url": "https://github.com/encode/httpcore",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "encode/httpcore",
+          "resolved_full_name": "encode/httpcore"
+        },
+        "full_name": "encode/httpcore",
+        "owner": "encode",
+        "redirect": false,
+        "repo": "httpcore",
+        "requested": "encode/httpcore",
+        "supporting_label": "source",
+        "supporting_url": "https://github.com/encode/httpcore",
+        "url": "https://github.com/encode/httpcore"
+      },
+      "sources": [
+        "wheel-metadata",
+        "pypi-current"
+      ],
+      "src_frozen": {
+        "canonical": "encode/httpcore",
+        "evidence": {
+          "archived": false,
+          "description": "A minimal HTTP client. \u2699\ufe0f",
+          "fork": false,
+          "html_url": "https://github.com/encode/httpcore",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "encode/httpcore",
+          "resolved_full_name": "encode/httpcore"
+        },
+        "full_name": "encode/httpcore",
+        "owner": "encode",
+        "redirect": false,
+        "repo": "httpcore",
+        "requested": "encode/httpcore",
+        "supporting_label": "source",
+        "supporting_url": "https://github.com/encode/httpcore",
+        "url": "https://github.com/encode/httpcore"
+      },
+      "src_pypi": {
+        "canonical": "encode/httpcore",
+        "evidence": {
+          "archived": false,
+          "description": "A minimal HTTP client. \u2699\ufe0f",
+          "fork": false,
+          "html_url": "https://github.com/encode/httpcore",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "encode/httpcore",
+          "resolved_full_name": "encode/httpcore"
+        },
+        "full_name": "encode/httpcore",
+        "owner": "encode",
+        "redirect": false,
+        "repo": "httpcore",
+        "requested": "encode/httpcore",
+        "supporting_label": "source",
+        "supporting_url": "https://github.com/encode/httpcore",
+        "url": "https://github.com/encode/httpcore"
+      }
+    },
+    {
+      "canonical_name": "httptools",
+      "category": "runtime:transitive",
+      "confidence": "verified",
+      "consulted_at_utc": "2026-10-30T14:16:11Z",
+      "display_name": "httptools",
+      "frozen_repo_urls": [
+        [
+          "homepage",
+          "https://github.com/MagicStack/httptools"
+        ]
+      ],
+      "frozen_version": "0.9.0",
+      "method": "frozen-metadata+current-pypi",
+      "notes": [
+        "two independent sources agree on the same repository",
+        "repo URL taken from metadata label 'homepage'"
+      ],
+      "pypi_repo_urls": [
+        [
+          "homepage",
+          "https://github.com/MagicStack/httptools"
+        ]
+      ],
+      "resolved": {
+        "canonical": "magicstack/httptools",
+        "evidence": {
+          "archived": false,
+          "description": "Fast HTTP parser",
+          "fork": false,
+          "html_url": "https://github.com/MagicStack/httptools",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "MagicStack/httptools",
+          "resolved_full_name": "MagicStack/httptools"
+        },
+        "full_name": "MagicStack/httptools",
+        "owner": "MagicStack",
+        "redirect": false,
+        "repo": "httptools",
+        "requested": "MagicStack/httptools",
+        "supporting_label": "homepage",
+        "supporting_url": "https://github.com/MagicStack/httptools",
+        "url": "https://github.com/MagicStack/httptools"
+      },
+      "sources": [
+        "wheel-metadata",
+        "pypi-current"
+      ],
+      "src_frozen": {
+        "canonical": "magicstack/httptools",
+        "evidence": {
+          "archived": false,
+          "description": "Fast HTTP parser",
+          "fork": false,
+          "html_url": "https://github.com/MagicStack/httptools",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "MagicStack/httptools",
+          "resolved_full_name": "MagicStack/httptools"
+        },
+        "full_name": "MagicStack/httptools",
+        "owner": "MagicStack",
+        "redirect": false,
+        "repo": "httptools",
+        "requested": "MagicStack/httptools",
+        "supporting_label": "homepage",
+        "supporting_url": "https://github.com/MagicStack/httptools",
+        "url": "https://github.com/MagicStack/httptools"
+      },
+      "src_pypi": {
+        "canonical": "magicstack/httptools",
+        "evidence": {
+          "archived": false,
+          "description": "Fast HTTP parser",
+          "fork": false,
+          "html_url": "https://github.com/MagicStack/httptools",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "MagicStack/httptools",
+          "resolved_full_name": "MagicStack/httptools"
+        },
+        "full_name": "MagicStack/httptools",
+        "owner": "MagicStack",
+        "redirect": false,
+        "repo": "httptools",
+        "requested": "MagicStack/httptools",
+        "supporting_label": "homepage",
+        "supporting_url": "https://github.com/MagicStack/httptools",
+        "url": "https://github.com/MagicStack/httptools"
+      }
+    },
+    {
+      "canonical_name": "idna",
+      "category": "runtime:transitive",
+      "confidence": "verified",
+      "consulted_at_utc": "2026-10-30T14:16:11Z",
+      "display_name": "idna",
+      "frozen_repo_urls": [
+        [
+          "source",
+          "https://github.com/kjd/idna"
+        ],
+        [
+          "issue tracker",
+          "https://github.com/kjd/idna/issues"
+        ]
+      ],
+      "frozen_version": "3.20",
+      "method": "frozen-metadata+current-pypi",
+      "notes": [
+        "two independent sources agree on the same repository"
+      ],
+      "pypi_repo_urls": [
+        [
+          "source",
+          "https://github.com/kjd/idna"
+        ],
+        [
+          "issue tracker",
+          "https://github.com/kjd/idna/issues"
+        ]
+      ],
+      "resolved": {
+        "canonical": "kjd/idna",
+        "evidence": {
+          "archived": false,
+          "description": "Internationalized Domain Names for Python (IDNA 2008 and UTS #46)",
+          "fork": false,
+          "html_url": "https://github.com/kjd/idna",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "kjd/idna",
+          "resolved_full_name": "kjd/idna"
+        },
+        "full_name": "kjd/idna",
+        "owner": "kjd",
+        "redirect": false,
+        "repo": "idna",
+        "requested": "kjd/idna",
+        "supporting_label": "source",
+        "supporting_url": "https://github.com/kjd/idna",
+        "url": "https://github.com/kjd/idna"
+      },
+      "sources": [
+        "wheel-metadata",
+        "pypi-current"
+      ],
+      "src_frozen": {
+        "canonical": "kjd/idna",
+        "evidence": {
+          "archived": false,
+          "description": "Internationalized Domain Names for Python (IDNA 2008 and UTS #46)",
+          "fork": false,
+          "html_url": "https://github.com/kjd/idna",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "kjd/idna",
+          "resolved_full_name": "kjd/idna"
+        },
+        "full_name": "kjd/idna",
+        "owner": "kjd",
+        "redirect": false,
+        "repo": "idna",
+        "requested": "kjd/idna",
+        "supporting_label": "source",
+        "supporting_url": "https://github.com/kjd/idna",
+        "url": "https://github.com/kjd/idna"
+      },
+      "src_pypi": {
+        "canonical": "kjd/idna",
+        "evidence": {
+          "archived": false,
+          "description": "Internationalized Domain Names for Python (IDNA 2008 and UTS #46)",
+          "fork": false,
+          "html_url": "https://github.com/kjd/idna",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "kjd/idna",
+          "resolved_full_name": "kjd/idna"
+        },
+        "full_name": "kjd/idna",
+        "owner": "kjd",
+        "redirect": false,
+        "repo": "idna",
+        "requested": "kjd/idna",
+        "supporting_label": "source",
+        "supporting_url": "https://github.com/kjd/idna",
+        "url": "https://github.com/kjd/idna"
+      }
+    },
+    {
+      "canonical_name": "limits",
+      "category": "runtime:transitive",
+      "confidence": "verified",
+      "consulted_at_utc": "2026-10-30T14:16:11Z",
+      "display_name": "limits",
+      "frozen_repo_urls": [
+        [
+          "source",
+          "https://github.com/alisaifee/limits"
+        ]
+      ],
+      "frozen_version": "5.8.0",
+      "method": "frozen-metadata+current-pypi",
+      "notes": [
+        "two independent sources agree on the same repository"
+      ],
+      "pypi_repo_urls": [
+        [
+          "source",
+          "https://github.com/alisaifee/limits"
+        ]
+      ],
+      "resolved": {
+        "canonical": "alisaifee/limits",
+        "evidence": {
+          "archived": false,
+          "description": "Rate limiting using various strategies and storage backends such as redis, memcached & mongodb",
+          "fork": false,
+          "html_url": "https://github.com/alisaifee/limits",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "alisaifee/limits",
+          "resolved_full_name": "alisaifee/limits"
+        },
+        "full_name": "alisaifee/limits",
+        "owner": "alisaifee",
+        "redirect": false,
+        "repo": "limits",
+        "requested": "alisaifee/limits",
+        "supporting_label": "source",
+        "supporting_url": "https://github.com/alisaifee/limits",
+        "url": "https://github.com/alisaifee/limits"
+      },
+      "sources": [
+        "wheel-metadata",
+        "pypi-current"
+      ],
+      "src_frozen": {
+        "canonical": "alisaifee/limits",
+        "evidence": {
+          "archived": false,
+          "description": "Rate limiting using various strategies and storage backends such as redis, memcached & mongodb",
+          "fork": false,
+          "html_url": "https://github.com/alisaifee/limits",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "alisaifee/limits",
+          "resolved_full_name": "alisaifee/limits"
+        },
+        "full_name": "alisaifee/limits",
+        "owner": "alisaifee",
+        "redirect": false,
+        "repo": "limits",
+        "requested": "alisaifee/limits",
+        "supporting_label": "source",
+        "supporting_url": "https://github.com/alisaifee/limits",
+        "url": "https://github.com/alisaifee/limits"
+      },
+      "src_pypi": {
+        "canonical": "alisaifee/limits",
+        "evidence": {
+          "archived": false,
+          "description": "Rate limiting using various strategies and storage backends such as redis, memcached & mongodb",
+          "fork": false,
+          "html_url": "https://github.com/alisaifee/limits",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "alisaifee/limits",
+          "resolved_full_name": "alisaifee/limits"
+        },
+        "full_name": "alisaifee/limits",
+        "owner": "alisaifee",
+        "redirect": false,
+        "repo": "limits",
+        "requested": "alisaifee/limits",
+        "supporting_label": "source",
+        "supporting_url": "https://github.com/alisaifee/limits",
+        "url": "https://github.com/alisaifee/limits"
+      }
+    },
+    {
+      "canonical_name": "mako",
+      "category": "runtime:transitive",
+      "confidence": "verified",
+      "consulted_at_utc": "2026-10-30T14:16:11Z",
+      "display_name": "Mako",
+      "frozen_repo_urls": [
+        [
+          "issue tracker",
+          "https://github.com/sqlalchemy/mako"
+        ]
+      ],
+      "frozen_version": "1.4.3",
+      "method": "frozen-metadata+current-pypi",
+      "notes": [
+        "two independent sources agree on the same repository",
+        "repo URL taken from metadata label 'issue tracker'"
+      ],
+      "pypi_repo_urls": [
+        [
+          "issue tracker",
+          "https://github.com/sqlalchemy/mako"
+        ]
+      ],
+      "resolved": {
+        "canonical": "sqlalchemy/mako",
+        "evidence": {
+          "archived": false,
+          "description": "Mako Templates for Python",
+          "fork": false,
+          "html_url": "https://github.com/sqlalchemy/mako",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "sqlalchemy/mako",
+          "resolved_full_name": "sqlalchemy/mako"
+        },
+        "full_name": "sqlalchemy/mako",
+        "owner": "sqlalchemy",
+        "redirect": false,
+        "repo": "mako",
+        "requested": "sqlalchemy/mako",
+        "supporting_label": "issue tracker",
+        "supporting_url": "https://github.com/sqlalchemy/mako",
+        "url": "https://github.com/sqlalchemy/mako"
+      },
+      "sources": [
+        "wheel-metadata",
+        "pypi-current"
+      ],
+      "src_frozen": {
+        "canonical": "sqlalchemy/mako",
+        "evidence": {
+          "archived": false,
+          "description": "Mako Templates for Python",
+          "fork": false,
+          "html_url": "https://github.com/sqlalchemy/mako",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "sqlalchemy/mako",
+          "resolved_full_name": "sqlalchemy/mako"
+        },
+        "full_name": "sqlalchemy/mako",
+        "owner": "sqlalchemy",
+        "redirect": false,
+        "repo": "mako",
+        "requested": "sqlalchemy/mako",
+        "supporting_label": "issue tracker",
+        "supporting_url": "https://github.com/sqlalchemy/mako",
+        "url": "https://github.com/sqlalchemy/mako"
+      },
+      "src_pypi": {
+        "canonical": "sqlalchemy/mako",
+        "evidence": {
+          "archived": false,
+          "description": "Mako Templates for Python",
+          "fork": false,
+          "html_url": "https://github.com/sqlalchemy/mako",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "sqlalchemy/mako",
+          "resolved_full_name": "sqlalchemy/mako"
+        },
+        "full_name": "sqlalchemy/mako",
+        "owner": "sqlalchemy",
+        "redirect": false,
+        "repo": "mako",
+        "requested": "sqlalchemy/mako",
+        "supporting_label": "issue tracker",
+        "supporting_url": "https://github.com/sqlalchemy/mako",
+        "url": "https://github.com/sqlalchemy/mako"
+      }
+    },
+    {
+      "canonical_name": "markupsafe",
+      "category": "runtime:transitive",
+      "confidence": "verified",
+      "consulted_at_utc": "2026-10-30T14:16:11Z",
+      "display_name": "MarkupSafe",
+      "frozen_repo_urls": [
+        [
+          "source",
+          "https://github.com/pallets/markupsafe/"
+        ]
+      ],
+      "frozen_version": "3.0.4",
+      "method": "frozen-metadata+current-pypi",
+      "notes": [
+        "two independent sources agree on the same repository"
+      ],
+      "pypi_repo_urls": [
+        [
+          "source",
+          "https://github.com/pallets/markupsafe/"
+        ]
+      ],
+      "resolved": {
+        "canonical": "pallets/markupsafe",
+        "evidence": {
+          "archived": false,
+          "description": "Safely add untrusted strings to HTML/XML markup.",
+          "fork": false,
+          "html_url": "https://github.com/pallets/markupsafe",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "pallets/markupsafe",
+          "resolved_full_name": "pallets/markupsafe"
+        },
+        "full_name": "pallets/markupsafe",
+        "owner": "pallets",
+        "redirect": false,
+        "repo": "markupsafe",
+        "requested": "pallets/markupsafe",
+        "supporting_label": "source",
+        "supporting_url": "https://github.com/pallets/markupsafe/",
+        "url": "https://github.com/pallets/markupsafe"
+      },
+      "sources": [
+        "wheel-metadata",
+        "pypi-current"
+      ],
+      "src_frozen": {
+        "canonical": "pallets/markupsafe",
+        "evidence": {
+          "archived": false,
+          "description": "Safely add untrusted strings to HTML/XML markup.",
+          "fork": false,
+          "html_url": "https://github.com/pallets/markupsafe",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "pallets/markupsafe",
+          "resolved_full_name": "pallets/markupsafe"
+        },
+        "full_name": "pallets/markupsafe",
+        "owner": "pallets",
+        "redirect": false,
+        "repo": "markupsafe",
+        "requested": "pallets/markupsafe",
+        "supporting_label": "source",
+        "supporting_url": "https://github.com/pallets/markupsafe/",
+        "url": "https://github.com/pallets/markupsafe"
+      },
+      "src_pypi": {
+        "canonical": "pallets/markupsafe",
+        "evidence": {
+          "archived": false,
+          "description": "Safely add untrusted strings to HTML/XML markup.",
+          "fork": false,
+          "html_url": "https://github.com/pallets/markupsafe",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "pallets/markupsafe",
+          "resolved_full_name": "pallets/markupsafe"
+        },
+        "full_name": "pallets/markupsafe",
+        "owner": "pallets",
+        "redirect": false,
+        "repo": "markupsafe",
+        "requested": "pallets/markupsafe",
+        "supporting_label": "source",
+        "supporting_url": "https://github.com/pallets/markupsafe/",
+        "url": "https://github.com/pallets/markupsafe"
+      }
+    },
+    {
+      "canonical_name": "packaging",
+      "category": "runtime:transitive",
+      "confidence": "verified",
+      "consulted_at_utc": "2026-10-30T14:16:11Z",
+      "display_name": "packaging",
+      "frozen_repo_urls": [
+        [
+          "source",
+          "https://github.com/pypa/packaging"
+        ]
+      ],
+      "frozen_version": "26.3",
+      "method": "frozen-metadata+current-pypi",
+      "notes": [
+        "two independent sources agree on the same repository"
+      ],
+      "pypi_repo_urls": [
+        [
+          "source",
+          "https://github.com/pypa/packaging"
+        ]
+      ],
+      "resolved": {
+        "canonical": "pypa/packaging",
+        "evidence": {
+          "archived": false,
+          "description": "Core utilities for Python packages",
+          "fork": false,
+          "html_url": "https://github.com/pypa/packaging",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "pypa/packaging",
+          "resolved_full_name": "pypa/packaging"
+        },
+        "full_name": "pypa/packaging",
+        "owner": "pypa",
+        "redirect": false,
+        "repo": "packaging",
+        "requested": "pypa/packaging",
+        "supporting_label": "source",
+        "supporting_url": "https://github.com/pypa/packaging",
+        "url": "https://github.com/pypa/packaging"
+      },
+      "sources": [
+        "wheel-metadata",
+        "pypi-current"
+      ],
+      "src_frozen": {
+        "canonical": "pypa/packaging",
+        "evidence": {
+          "archived": false,
+          "description": "Core utilities for Python packages",
+          "fork": false,
+          "html_url": "https://github.com/pypa/packaging",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "pypa/packaging",
+          "resolved_full_name": "pypa/packaging"
+        },
+        "full_name": "pypa/packaging",
+        "owner": "pypa",
+        "redirect": false,
+        "repo": "packaging",
+        "requested": "pypa/packaging",
+        "supporting_label": "source",
+        "supporting_url": "https://github.com/pypa/packaging",
+        "url": "https://github.com/pypa/packaging"
+      },
+      "src_pypi": {
+        "canonical": "pypa/packaging",
+        "evidence": {
+          "archived": false,
+          "description": "Core utilities for Python packages",
+          "fork": false,
+          "html_url": "https://github.com/pypa/packaging",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "pypa/packaging",
+          "resolved_full_name": "pypa/packaging"
+        },
+        "full_name": "pypa/packaging",
+        "owner": "pypa",
+        "redirect": false,
+        "repo": "packaging",
+        "requested": "pypa/packaging",
+        "supporting_label": "source",
+        "supporting_url": "https://github.com/pypa/packaging",
+        "url": "https://github.com/pypa/packaging"
+      }
+    },
+    {
+      "canonical_name": "psycopg-binary",
+      "category": "runtime:transitive",
+      "confidence": "verified",
+      "consulted_at_utc": "2026-10-30T14:16:11Z",
+      "display_name": "psycopg-binary",
+      "frozen_repo_urls": [
+        [
+          "code",
+          "https://github.com/psycopg/psycopg"
+        ],
+        [
+          "issue tracker",
+          "https://github.com/psycopg/psycopg/issues"
+        ]
+      ],
+      "frozen_version": "3.3.6",
+      "method": "frozen-metadata+current-pypi",
+      "notes": [
+        "two independent sources agree on the same repository"
+      ],
+      "pypi_repo_urls": [
+        [
+          "code",
+          "https://github.com/psycopg/psycopg"
+        ],
+        [
+          "issue tracker",
+          "https://github.com/psycopg/psycopg/issues"
+        ]
+      ],
+      "resolved": {
+        "canonical": "psycopg/psycopg",
+        "evidence": {
+          "archived": false,
+          "description": "New generation PostgreSQL database adapter for the Python programming language ",
+          "fork": false,
+          "html_url": "https://github.com/psycopg/psycopg",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "psycopg/psycopg",
+          "resolved_full_name": "psycopg/psycopg"
+        },
+        "full_name": "psycopg/psycopg",
+        "owner": "psycopg",
+        "redirect": false,
+        "repo": "psycopg",
+        "requested": "psycopg/psycopg",
+        "supporting_label": "code",
+        "supporting_url": "https://github.com/psycopg/psycopg",
+        "url": "https://github.com/psycopg/psycopg"
+      },
+      "sources": [
+        "wheel-metadata",
+        "pypi-current"
+      ],
+      "src_frozen": {
+        "canonical": "psycopg/psycopg",
+        "evidence": {
+          "archived": false,
+          "description": "New generation PostgreSQL database adapter for the Python programming language ",
+          "fork": false,
+          "html_url": "https://github.com/psycopg/psycopg",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "psycopg/psycopg",
+          "resolved_full_name": "psycopg/psycopg"
+        },
+        "full_name": "psycopg/psycopg",
+        "owner": "psycopg",
+        "redirect": false,
+        "repo": "psycopg",
+        "requested": "psycopg/psycopg",
+        "supporting_label": "code",
+        "supporting_url": "https://github.com/psycopg/psycopg",
+        "url": "https://github.com/psycopg/psycopg"
+      },
+      "src_pypi": {
+        "canonical": "psycopg/psycopg",
+        "evidence": {
+          "archived": false,
+          "description": "New generation PostgreSQL database adapter for the Python programming language ",
+          "fork": false,
+          "html_url": "https://github.com/psycopg/psycopg",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "psycopg/psycopg",
+          "resolved_full_name": "psycopg/psycopg"
+        },
+        "full_name": "psycopg/psycopg",
+        "owner": "psycopg",
+        "redirect": false,
+        "repo": "psycopg",
+        "requested": "psycopg/psycopg",
+        "supporting_label": "code",
+        "supporting_url": "https://github.com/psycopg/psycopg",
+        "url": "https://github.com/psycopg/psycopg"
+      }
+    },
+    {
+      "canonical_name": "pydantic",
+      "category": "runtime:transitive",
+      "confidence": "verified",
+      "consulted_at_utc": "2026-10-30T14:16:11Z",
+      "display_name": "pydantic",
+      "frozen_repo_urls": [
+        [
+          "source",
+          "https://github.com/pydantic/pydantic"
+        ]
+      ],
+      "frozen_version": "2.14.2",
+      "method": "frozen-metadata+current-pypi",
+      "notes": [
+        "two independent sources agree on the same repository"
+      ],
+      "pypi_repo_urls": [
+        [
+          "source",
+          "https://github.com/pydantic/pydantic"
+        ]
+      ],
+      "resolved": {
+        "canonical": "pydantic/pydantic",
+        "evidence": {
+          "archived": false,
+          "description": "Data validation using Python type hints",
+          "fork": false,
+          "html_url": "https://github.com/pydantic/pydantic",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "pydantic/pydantic",
+          "resolved_full_name": "pydantic/pydantic"
+        },
+        "full_name": "pydantic/pydantic",
+        "owner": "pydantic",
+        "redirect": false,
+        "repo": "pydantic",
+        "requested": "pydantic/pydantic",
+        "supporting_label": "source",
+        "supporting_url": "https://github.com/pydantic/pydantic",
+        "url": "https://github.com/pydantic/pydantic"
+      },
+      "sources": [
+        "wheel-metadata",
+        "pypi-current"
+      ],
+      "src_frozen": {
+        "canonical": "pydantic/pydantic",
+        "evidence": {
+          "archived": false,
+          "description": "Data validation using Python type hints",
+          "fork": false,
+          "html_url": "https://github.com/pydantic/pydantic",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "pydantic/pydantic",
+          "resolved_full_name": "pydantic/pydantic"
+        },
+        "full_name": "pydantic/pydantic",
+        "owner": "pydantic",
+        "redirect": false,
+        "repo": "pydantic",
+        "requested": "pydantic/pydantic",
+        "supporting_label": "source",
+        "supporting_url": "https://github.com/pydantic/pydantic",
+        "url": "https://github.com/pydantic/pydantic"
+      },
+      "src_pypi": {
+        "canonical": "pydantic/pydantic",
+        "evidence": {
+          "archived": false,
+          "description": "Data validation using Python type hints",
+          "fork": false,
+          "html_url": "https://github.com/pydantic/pydantic",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "pydantic/pydantic",
+          "resolved_full_name": "pydantic/pydantic"
+        },
+        "full_name": "pydantic/pydantic",
+        "owner": "pydantic",
+        "redirect": false,
+        "repo": "pydantic",
+        "requested": "pydantic/pydantic",
+        "supporting_label": "source",
+        "supporting_url": "https://github.com/pydantic/pydantic",
+        "url": "https://github.com/pydantic/pydantic"
+      }
+    },
+    {
+      "canonical_name": "pydantic-core",
+      "category": "runtime:transitive",
+      "confidence": "verified",
+      "consulted_at_utc": "2026-10-30T14:16:11Z",
+      "display_name": "pydantic_core",
+      "frozen_repo_urls": [
+        [
+          "source",
+          "https://github.com/pydantic/pydantic/tree/main/pydantic-core"
+        ],
+        [
+          "home page",
+          "https://github.com/pydantic/pydantic"
+        ]
+      ],
+      "frozen_version": "2.50.2",
+      "method": "frozen-metadata+current-pypi",
+      "notes": [
+        "two independent sources agree on the same repository"
+      ],
+      "pypi_repo_urls": [
+        [
+          "source",
+          "https://github.com/pydantic/pydantic/tree/main/pydantic-core"
+        ],
+        [
+          "home page",
+          "https://github.com/pydantic/pydantic"
+        ]
+      ],
+      "resolved": {
+        "canonical": "pydantic/pydantic",
+        "evidence": {
+          "archived": false,
+          "description": "Data validation using Python type hints",
+          "fork": false,
+          "html_url": "https://github.com/pydantic/pydantic",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "pydantic/pydantic",
+          "resolved_full_name": "pydantic/pydantic"
+        },
+        "full_name": "pydantic/pydantic",
+        "owner": "pydantic",
+        "redirect": false,
+        "repo": "pydantic",
+        "requested": "pydantic/pydantic",
+        "supporting_label": "source",
+        "supporting_url": "https://github.com/pydantic/pydantic/tree/main/pydantic-core",
+        "url": "https://github.com/pydantic/pydantic"
+      },
+      "sources": [
+        "wheel-metadata",
+        "pypi-current"
+      ],
+      "src_frozen": {
+        "canonical": "pydantic/pydantic",
+        "evidence": {
+          "archived": false,
+          "description": "Data validation using Python type hints",
+          "fork": false,
+          "html_url": "https://github.com/pydantic/pydantic",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "pydantic/pydantic",
+          "resolved_full_name": "pydantic/pydantic"
+        },
+        "full_name": "pydantic/pydantic",
+        "owner": "pydantic",
+        "redirect": false,
+        "repo": "pydantic",
+        "requested": "pydantic/pydantic",
+        "supporting_label": "source",
+        "supporting_url": "https://github.com/pydantic/pydantic/tree/main/pydantic-core",
+        "url": "https://github.com/pydantic/pydantic"
+      },
+      "src_pypi": {
+        "canonical": "pydantic/pydantic",
+        "evidence": {
+          "archived": false,
+          "description": "Data validation using Python type hints",
+          "fork": false,
+          "html_url": "https://github.com/pydantic/pydantic",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "pydantic/pydantic",
+          "resolved_full_name": "pydantic/pydantic"
+        },
+        "full_name": "pydantic/pydantic",
+        "owner": "pydantic",
+        "redirect": false,
+        "repo": "pydantic",
+        "requested": "pydantic/pydantic",
+        "supporting_label": "source",
+        "supporting_url": "https://github.com/pydantic/pydantic/tree/main/pydantic-core",
+        "url": "https://github.com/pydantic/pydantic"
+      }
+    },
+    {
+      "canonical_name": "pyjwt",
+      "category": "runtime:transitive",
+      "confidence": "verified",
+      "consulted_at_utc": "2026-10-30T14:16:11Z",
+      "display_name": "PyJWT",
+      "frozen_repo_urls": [
+        [
+          "homepage",
+          "https://github.com/jpadilla/pyjwt"
+        ]
+      ],
+      "frozen_version": "2.15.1",
+      "method": "frozen-metadata+current-pypi",
+      "notes": [
+        "two independent sources agree on the same repository",
+        "repo URL taken from metadata label 'homepage'"
+      ],
+      "pypi_repo_urls": [
+        [
+          "homepage",
+          "https://github.com/jpadilla/pyjwt"
+        ]
+      ],
+      "resolved": {
+        "canonical": "jpadilla/pyjwt",
+        "evidence": {
+          "archived": false,
+          "description": "JSON Web Token implementation in Python",
+          "fork": false,
+          "html_url": "https://github.com/jpadilla/pyjwt",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "jpadilla/pyjwt",
+          "resolved_full_name": "jpadilla/pyjwt"
+        },
+        "full_name": "jpadilla/pyjwt",
+        "owner": "jpadilla",
+        "redirect": false,
+        "repo": "pyjwt",
+        "requested": "jpadilla/pyjwt",
+        "supporting_label": "homepage",
+        "supporting_url": "https://github.com/jpadilla/pyjwt",
+        "url": "https://github.com/jpadilla/pyjwt"
+      },
+      "sources": [
+        "wheel-metadata",
+        "pypi-current"
+      ],
+      "src_frozen": {
+        "canonical": "jpadilla/pyjwt",
+        "evidence": {
+          "archived": false,
+          "description": "JSON Web Token implementation in Python",
+          "fork": false,
+          "html_url": "https://github.com/jpadilla/pyjwt",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "jpadilla/pyjwt",
+          "resolved_full_name": "jpadilla/pyjwt"
+        },
+        "full_name": "jpadilla/pyjwt",
+        "owner": "jpadilla",
+        "redirect": false,
+        "repo": "pyjwt",
+        "requested": "jpadilla/pyjwt",
+        "supporting_label": "homepage",
+        "supporting_url": "https://github.com/jpadilla/pyjwt",
+        "url": "https://github.com/jpadilla/pyjwt"
+      },
+      "src_pypi": {
+        "canonical": "jpadilla/pyjwt",
+        "evidence": {
+          "archived": false,
+          "description": "JSON Web Token implementation in Python",
+          "fork": false,
+          "html_url": "https://github.com/jpadilla/pyjwt",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "jpadilla/pyjwt",
+          "resolved_full_name": "jpadilla/pyjwt"
+        },
+        "full_name": "jpadilla/pyjwt",
+        "owner": "jpadilla",
+        "redirect": false,
+        "repo": "pyjwt",
+        "requested": "jpadilla/pyjwt",
+        "supporting_label": "homepage",
+        "supporting_url": "https://github.com/jpadilla/pyjwt",
+        "url": "https://github.com/jpadilla/pyjwt"
+      }
+    },
+    {
+      "canonical_name": "python-dotenv",
+      "category": "runtime:transitive",
+      "confidence": "verified",
+      "consulted_at_utc": "2026-10-30T14:16:11Z",
+      "display_name": "python-dotenv",
+      "frozen_repo_urls": [
+        [
+          "source",
+          "https://github.com/theskumar/python-dotenv"
+        ]
+      ],
+      "frozen_version": "1.2.4",
+      "method": "frozen-metadata+current-pypi",
+      "notes": [
+        "two independent sources agree on the same repository"
+      ],
+      "pypi_repo_urls": [
+        [
+          "source",
+          "https://github.com/theskumar/python-dotenv"
+        ]
+      ],
+      "resolved": {
+        "canonical": "theskumar/python-dotenv",
+        "evidence": {
+          "archived": false,
+          "description": "Reads key-value pairs from a .env file and can set them as environment variables. It helps in developing applications following the 12-factor principles.",
+          "fork": false,
+          "html_url": "https://github.com/theskumar/python-dotenv",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "theskumar/python-dotenv",
+          "resolved_full_name": "theskumar/python-dotenv"
+        },
+        "full_name": "theskumar/python-dotenv",
+        "owner": "theskumar",
+        "redirect": false,
+        "repo": "python-dotenv",
+        "requested": "theskumar/python-dotenv",
+        "supporting_label": "source",
+        "supporting_url": "https://github.com/theskumar/python-dotenv",
+        "url": "https://github.com/theskumar/python-dotenv"
+      },
+      "sources": [
+        "wheel-metadata",
+        "pypi-current"
+      ],
+      "src_frozen": {
+        "canonical": "theskumar/python-dotenv",
+        "evidence": {
+          "archived": false,
+          "description": "Reads key-value pairs from a .env file and can set them as environment variables. It helps in developing applications following the 12-factor principles.",
+          "fork": false,
+          "html_url": "https://github.com/theskumar/python-dotenv",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "theskumar/python-dotenv",
+          "resolved_full_name": "theskumar/python-dotenv"
+        },
+        "full_name": "theskumar/python-dotenv",
+        "owner": "theskumar",
+        "redirect": false,
+        "repo": "python-dotenv",
+        "requested": "theskumar/python-dotenv",
+        "supporting_label": "source",
+        "supporting_url": "https://github.com/theskumar/python-dotenv",
+        "url": "https://github.com/theskumar/python-dotenv"
+      },
+      "src_pypi": {
+        "canonical": "theskumar/python-dotenv",
+        "evidence": {
+          "archived": false,
+          "description": "Reads key-value pairs from a .env file and can set them as environment variables. It helps in developing applications following the 12-factor principles.",
+          "fork": false,
+          "html_url": "https://github.com/theskumar/python-dotenv",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "theskumar/python-dotenv",
+          "resolved_full_name": "theskumar/python-dotenv"
+        },
+        "full_name": "theskumar/python-dotenv",
+        "owner": "theskumar",
+        "redirect": false,
+        "repo": "python-dotenv",
+        "requested": "theskumar/python-dotenv",
+        "supporting_label": "source",
+        "supporting_url": "https://github.com/theskumar/python-dotenv",
+        "url": "https://github.com/theskumar/python-dotenv"
+      }
+    },
+    {
+      "canonical_name": "pyyaml",
+      "category": "runtime:transitive",
+      "confidence": "verified",
+      "consulted_at_utc": "2026-10-30T14:16:11Z",
+      "display_name": "PyYAML",
+      "frozen_repo_urls": [
+        [
+          "source code",
+          "https://github.com/yaml/pyyaml"
+        ],
+        [
+          "bug tracker",
+          "https://github.com/yaml/pyyaml/issues"
+        ]
+      ],
+      "frozen_version": "6.0.3",
+      "method": "frozen-metadata+current-pypi",
+      "notes": [
+        "two independent sources agree on the same repository"
+      ],
+      "pypi_repo_urls": [
+        [
+          "source code",
+          "https://github.com/yaml/pyyaml"
+        ],
+        [
+          "bug tracker",
+          "https://github.com/yaml/pyyaml/issues"
+        ]
+      ],
+      "resolved": {
+        "canonical": "yaml/pyyaml",
+        "evidence": {
+          "archived": false,
+          "description": "Canonical source repository for PyYAML",
+          "fork": false,
+          "html_url": "https://github.com/yaml/pyyaml",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "yaml/pyyaml",
+          "resolved_full_name": "yaml/pyyaml"
+        },
+        "full_name": "yaml/pyyaml",
+        "owner": "yaml",
+        "redirect": false,
+        "repo": "pyyaml",
+        "requested": "yaml/pyyaml",
+        "supporting_label": "source code",
+        "supporting_url": "https://github.com/yaml/pyyaml",
+        "url": "https://github.com/yaml/pyyaml"
+      },
+      "sources": [
+        "wheel-metadata",
+        "pypi-current"
+      ],
+      "src_frozen": {
+        "canonical": "yaml/pyyaml",
+        "evidence": {
+          "archived": false,
+          "description": "Canonical source repository for PyYAML",
+          "fork": false,
+          "html_url": "https://github.com/yaml/pyyaml",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "yaml/pyyaml",
+          "resolved_full_name": "yaml/pyyaml"
+        },
+        "full_name": "yaml/pyyaml",
+        "owner": "yaml",
+        "redirect": false,
+        "repo": "pyyaml",
+        "requested": "yaml/pyyaml",
+        "supporting_label": "source code",
+        "supporting_url": "https://github.com/yaml/pyyaml",
+        "url": "https://github.com/yaml/pyyaml"
+      },
+      "src_pypi": {
+        "canonical": "yaml/pyyaml",
+        "evidence": {
+          "archived": false,
+          "description": "Canonical source repository for PyYAML",
+          "fork": false,
+          "html_url": "https://github.com/yaml/pyyaml",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "yaml/pyyaml",
+          "resolved_full_name": "yaml/pyyaml"
+        },
+        "full_name": "yaml/pyyaml",
+        "owner": "yaml",
+        "redirect": false,
+        "repo": "pyyaml",
+        "requested": "yaml/pyyaml",
+        "supporting_label": "source code",
+        "supporting_url": "https://github.com/yaml/pyyaml",
+        "url": "https://github.com/yaml/pyyaml"
+      }
+    },
+    {
+      "canonical_name": "starlette",
+      "category": "runtime:transitive",
+      "confidence": "verified",
+      "consulted_at_utc": "2026-10-30T14:16:11Z",
+      "display_name": "starlette",
+      "frozen_repo_urls": [
+        [
+          "source",
+          "https://github.com/encode/starlette"
+        ]
+      ],
+      "frozen_version": "0.46.2",
+      "method": "frozen-metadata+current-pypi",
+      "notes": [
+        "two independent sources agree on the same repository"
+      ],
+      "pypi_repo_urls": [
+        [
+          "source",
+          "https://github.com/encode/starlette"
+        ]
+      ],
+      "resolved": {
+        "canonical": "kludex/starlette",
+        "evidence": {
+          "archived": false,
+          "description": "The little ASGI framework that shines. \ud83c\udf1f",
+          "fork": false,
+          "html_url": "https://github.com/Kludex/starlette",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "encode/starlette",
+          "resolved_full_name": "Kludex/starlette"
+        },
+        "full_name": "Kludex/starlette",
+        "owner": "Kludex",
+        "redirect": true,
+        "repo": "starlette",
+        "requested": "encode/starlette",
+        "supporting_label": "source",
+        "supporting_url": "https://github.com/encode/starlette",
+        "url": "https://github.com/Kludex/starlette"
+      },
+      "sources": [
+        "wheel-metadata",
+        "pypi-current"
+      ],
+      "src_frozen": {
+        "canonical": "kludex/starlette",
+        "evidence": {
+          "archived": false,
+          "description": "The little ASGI framework that shines. \ud83c\udf1f",
+          "fork": false,
+          "html_url": "https://github.com/Kludex/starlette",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "encode/starlette",
+          "resolved_full_name": "Kludex/starlette"
+        },
+        "full_name": "Kludex/starlette",
+        "owner": "Kludex",
+        "redirect": true,
+        "repo": "starlette",
+        "requested": "encode/starlette",
+        "supporting_label": "source",
+        "supporting_url": "https://github.com/encode/starlette",
+        "url": "https://github.com/Kludex/starlette"
+      },
+      "src_pypi": {
+        "canonical": "kludex/starlette",
+        "evidence": {
+          "archived": false,
+          "description": "The little ASGI framework that shines. \ud83c\udf1f",
+          "fork": false,
+          "html_url": "https://github.com/Kludex/starlette",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "encode/starlette",
+          "resolved_full_name": "Kludex/starlette"
+        },
+        "full_name": "Kludex/starlette",
+        "owner": "Kludex",
+        "redirect": true,
+        "repo": "starlette",
+        "requested": "encode/starlette",
+        "supporting_label": "source",
+        "supporting_url": "https://github.com/encode/starlette",
+        "url": "https://github.com/Kludex/starlette"
+      }
+    },
+    {
+      "canonical_name": "typing-extensions",
+      "category": "runtime:transitive",
+      "confidence": "verified",
+      "consulted_at_utc": "2026-10-30T14:16:11Z",
+      "display_name": "typing_extensions",
+      "frozen_repo_urls": [
+        [
+          "repository",
+          "https://github.com/python/typing_extensions"
+        ],
+        [
+          "bug tracker",
+          "https://github.com/python/typing_extensions/issues"
+        ]
+      ],
+      "frozen_version": "4.16.0",
+      "method": "frozen-metadata+current-pypi",
+      "notes": [
+        "two independent sources agree on the same repository"
+      ],
+      "pypi_repo_urls": [
+        [
+          "repository",
+          "https://github.com/python/typing_extensions"
+        ],
+        [
+          "bug tracker",
+          "https://github.com/python/typing_extensions/issues"
+        ]
+      ],
+      "resolved": {
+        "canonical": "python/typing_extensions",
+        "evidence": {
+          "archived": false,
+          "description": "Backported and experimental type hints for Python",
+          "fork": false,
+          "html_url": "https://github.com/python/typing_extensions",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "python/typing_extensions",
+          "resolved_full_name": "python/typing_extensions"
+        },
+        "full_name": "python/typing_extensions",
+        "owner": "python",
+        "redirect": false,
+        "repo": "typing_extensions",
+        "requested": "python/typing_extensions",
+        "supporting_label": "repository",
+        "supporting_url": "https://github.com/python/typing_extensions",
+        "url": "https://github.com/python/typing_extensions"
+      },
+      "sources": [
+        "wheel-metadata",
+        "pypi-current"
+      ],
+      "src_frozen": {
+        "canonical": "python/typing_extensions",
+        "evidence": {
+          "archived": false,
+          "description": "Backported and experimental type hints for Python",
+          "fork": false,
+          "html_url": "https://github.com/python/typing_extensions",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "python/typing_extensions",
+          "resolved_full_name": "python/typing_extensions"
+        },
+        "full_name": "python/typing_extensions",
+        "owner": "python",
+        "redirect": false,
+        "repo": "typing_extensions",
+        "requested": "python/typing_extensions",
+        "supporting_label": "repository",
+        "supporting_url": "https://github.com/python/typing_extensions",
+        "url": "https://github.com/python/typing_extensions"
+      },
+      "src_pypi": {
+        "canonical": "python/typing_extensions",
+        "evidence": {
+          "archived": false,
+          "description": "Backported and experimental type hints for Python",
+          "fork": false,
+          "html_url": "https://github.com/python/typing_extensions",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "python/typing_extensions",
+          "resolved_full_name": "python/typing_extensions"
+        },
+        "full_name": "python/typing_extensions",
+        "owner": "python",
+        "redirect": false,
+        "repo": "typing_extensions",
+        "requested": "python/typing_extensions",
+        "supporting_label": "repository",
+        "supporting_url": "https://github.com/python/typing_extensions",
+        "url": "https://github.com/python/typing_extensions"
+      }
+    },
+    {
+      "canonical_name": "typing-inspection",
+      "category": "runtime:transitive",
+      "confidence": "verified",
+      "consulted_at_utc": "2026-10-30T14:16:11Z",
+      "display_name": "typing-inspection",
+      "frozen_repo_urls": [
+        [
+          "source",
+          "https://github.com/pydantic/typing-inspection"
+        ]
+      ],
+      "frozen_version": "0.4.4",
+      "method": "frozen-metadata+current-pypi",
+      "notes": [
+        "two independent sources agree on the same repository"
+      ],
+      "pypi_repo_urls": [
+        [
+          "source",
+          "https://github.com/pydantic/typing-inspection"
+        ]
+      ],
+      "resolved": {
+        "canonical": "pydantic/typing-inspection",
+        "evidence": {
+          "archived": false,
+          "description": "Runtime typing introspection tools",
+          "fork": false,
+          "html_url": "https://github.com/pydantic/typing-inspection",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "pydantic/typing-inspection",
+          "resolved_full_name": "pydantic/typing-inspection"
+        },
+        "full_name": "pydantic/typing-inspection",
+        "owner": "pydantic",
+        "redirect": false,
+        "repo": "typing-inspection",
+        "requested": "pydantic/typing-inspection",
+        "supporting_label": "source",
+        "supporting_url": "https://github.com/pydantic/typing-inspection",
+        "url": "https://github.com/pydantic/typing-inspection"
+      },
+      "sources": [
+        "wheel-metadata",
+        "pypi-current"
+      ],
+      "src_frozen": {
+        "canonical": "pydantic/typing-inspection",
+        "evidence": {
+          "archived": false,
+          "description": "Runtime typing introspection tools",
+          "fork": false,
+          "html_url": "https://github.com/pydantic/typing-inspection",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "pydantic/typing-inspection",
+          "resolved_full_name": "pydantic/typing-inspection"
+        },
+        "full_name": "pydantic/typing-inspection",
+        "owner": "pydantic",
+        "redirect": false,
+        "repo": "typing-inspection",
+        "requested": "pydantic/typing-inspection",
+        "supporting_label": "source",
+        "supporting_url": "https://github.com/pydantic/typing-inspection",
+        "url": "https://github.com/pydantic/typing-inspection"
+      },
+      "src_pypi": {
+        "canonical": "pydantic/typing-inspection",
+        "evidence": {
+          "archived": false,
+          "description": "Runtime typing introspection tools",
+          "fork": false,
+          "html_url": "https://github.com/pydantic/typing-inspection",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "pydantic/typing-inspection",
+          "resolved_full_name": "pydantic/typing-inspection"
+        },
+        "full_name": "pydantic/typing-inspection",
+        "owner": "pydantic",
+        "redirect": false,
+        "repo": "typing-inspection",
+        "requested": "pydantic/typing-inspection",
+        "supporting_label": "source",
+        "supporting_url": "https://github.com/pydantic/typing-inspection",
+        "url": "https://github.com/pydantic/typing-inspection"
+      }
+    },
+    {
+      "canonical_name": "tzlocal",
+      "category": "runtime:transitive",
+      "confidence": "verified",
+      "consulted_at_utc": "2026-10-30T14:16:11Z",
+      "display_name": "tzlocal",
+      "frozen_repo_urls": [
+        [
+          "source code",
+          "https://github.com/regebro/tzlocal"
+        ],
+        [
+          "issue tracker",
+          "https://github.com/regebro/tzlocal/issues"
+        ]
+      ],
+      "frozen_version": "5.4.5",
+      "method": "frozen-metadata+current-pypi",
+      "notes": [
+        "two independent sources agree on the same repository"
+      ],
+      "pypi_repo_urls": [
+        [
+          "source code",
+          "https://github.com/regebro/tzlocal"
+        ],
+        [
+          "issue tracker",
+          "https://github.com/regebro/tzlocal/issues"
+        ]
+      ],
+      "resolved": {
+        "canonical": "regebro/tzlocal",
+        "evidence": {
+          "archived": false,
+          "description": "A Python module that tries to figure out what your local timezone is",
+          "fork": false,
+          "html_url": "https://github.com/regebro/tzlocal",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "regebro/tzlocal",
+          "resolved_full_name": "regebro/tzlocal"
+        },
+        "full_name": "regebro/tzlocal",
+        "owner": "regebro",
+        "redirect": false,
+        "repo": "tzlocal",
+        "requested": "regebro/tzlocal",
+        "supporting_label": "source code",
+        "supporting_url": "https://github.com/regebro/tzlocal",
+        "url": "https://github.com/regebro/tzlocal"
+      },
+      "sources": [
+        "wheel-metadata",
+        "pypi-current"
+      ],
+      "src_frozen": {
+        "canonical": "regebro/tzlocal",
+        "evidence": {
+          "archived": false,
+          "description": "A Python module that tries to figure out what your local timezone is",
+          "fork": false,
+          "html_url": "https://github.com/regebro/tzlocal",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "regebro/tzlocal",
+          "resolved_full_name": "regebro/tzlocal"
+        },
+        "full_name": "regebro/tzlocal",
+        "owner": "regebro",
+        "redirect": false,
+        "repo": "tzlocal",
+        "requested": "regebro/tzlocal",
+        "supporting_label": "source code",
+        "supporting_url": "https://github.com/regebro/tzlocal",
+        "url": "https://github.com/regebro/tzlocal"
+      },
+      "src_pypi": {
+        "canonical": "regebro/tzlocal",
+        "evidence": {
+          "archived": false,
+          "description": "A Python module that tries to figure out what your local timezone is",
+          "fork": false,
+          "html_url": "https://github.com/regebro/tzlocal",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "regebro/tzlocal",
+          "resolved_full_name": "regebro/tzlocal"
+        },
+        "full_name": "regebro/tzlocal",
+        "owner": "regebro",
+        "redirect": false,
+        "repo": "tzlocal",
+        "requested": "regebro/tzlocal",
+        "supporting_label": "source code",
+        "supporting_url": "https://github.com/regebro/tzlocal",
+        "url": "https://github.com/regebro/tzlocal"
+      }
+    },
+    {
+      "canonical_name": "uvloop",
+      "category": "runtime:transitive",
+      "confidence": "verified",
+      "consulted_at_utc": "2026-10-30T14:16:11Z",
+      "display_name": "uvloop",
+      "frozen_repo_urls": [
+        [
+          "github",
+          "https://github.com/MagicStack/uvloop"
+        ]
+      ],
+      "frozen_version": "0.23.0",
+      "method": "frozen-metadata+current-pypi",
+      "notes": [
+        "two independent sources agree on the same repository"
+      ],
+      "pypi_repo_urls": [
+        [
+          "github",
+          "https://github.com/MagicStack/uvloop"
+        ]
+      ],
+      "resolved": {
+        "canonical": "magicstack/uvloop",
+        "evidence": {
+          "archived": false,
+          "description": "Ultra fast asyncio event loop.",
+          "fork": false,
+          "html_url": "https://github.com/MagicStack/uvloop",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "MagicStack/uvloop",
+          "resolved_full_name": "MagicStack/uvloop"
+        },
+        "full_name": "MagicStack/uvloop",
+        "owner": "MagicStack",
+        "redirect": false,
+        "repo": "uvloop",
+        "requested": "MagicStack/uvloop",
+        "supporting_label": "github",
+        "supporting_url": "https://github.com/MagicStack/uvloop",
+        "url": "https://github.com/MagicStack/uvloop"
+      },
+      "sources": [
+        "wheel-metadata",
+        "pypi-current"
+      ],
+      "src_frozen": {
+        "canonical": "magicstack/uvloop",
+        "evidence": {
+          "archived": false,
+          "description": "Ultra fast asyncio event loop.",
+          "fork": false,
+          "html_url": "https://github.com/MagicStack/uvloop",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "MagicStack/uvloop",
+          "resolved_full_name": "MagicStack/uvloop"
+        },
+        "full_name": "MagicStack/uvloop",
+        "owner": "MagicStack",
+        "redirect": false,
+        "repo": "uvloop",
+        "requested": "MagicStack/uvloop",
+        "supporting_label": "github",
+        "supporting_url": "https://github.com/MagicStack/uvloop",
+        "url": "https://github.com/MagicStack/uvloop"
+      },
+      "src_pypi": {
+        "canonical": "magicstack/uvloop",
+        "evidence": {
+          "archived": false,
+          "description": "Ultra fast asyncio event loop.",
+          "fork": false,
+          "html_url": "https://github.com/MagicStack/uvloop",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "MagicStack/uvloop",
+          "resolved_full_name": "MagicStack/uvloop"
+        },
+        "full_name": "MagicStack/uvloop",
+        "owner": "MagicStack",
+        "redirect": false,
+        "repo": "uvloop",
+        "requested": "MagicStack/uvloop",
+        "supporting_label": "github",
+        "supporting_url": "https://github.com/MagicStack/uvloop",
+        "url": "https://github.com/MagicStack/uvloop"
+      }
+    },
+    {
+      "canonical_name": "watchfiles",
+      "category": "runtime:transitive",
+      "confidence": "verified",
+      "consulted_at_utc": "2026-10-30T14:16:11Z",
+      "display_name": "watchfiles",
+      "frozen_repo_urls": [
+        [
+          "source",
+          "https://github.com/samuelcolvin/watchfiles"
+        ]
+      ],
+      "frozen_version": "1.3.0",
+      "method": "frozen-metadata+current-pypi",
+      "notes": [
+        "two independent sources agree on the same repository"
+      ],
+      "pypi_repo_urls": [
+        [
+          "source",
+          "https://github.com/samuelcolvin/watchfiles"
+        ]
+      ],
+      "resolved": {
+        "canonical": "samuelcolvin/watchfiles",
+        "evidence": {
+          "archived": false,
+          "description": "Simple, modern and fast file watching and code reload for Python, written in Rust",
+          "fork": false,
+          "html_url": "https://github.com/samuelcolvin/watchfiles",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "samuelcolvin/watchfiles",
+          "resolved_full_name": "samuelcolvin/watchfiles"
+        },
+        "full_name": "samuelcolvin/watchfiles",
+        "owner": "samuelcolvin",
+        "redirect": false,
+        "repo": "watchfiles",
+        "requested": "samuelcolvin/watchfiles",
+        "supporting_label": "source",
+        "supporting_url": "https://github.com/samuelcolvin/watchfiles",
+        "url": "https://github.com/samuelcolvin/watchfiles"
+      },
+      "sources": [
+        "wheel-metadata",
+        "pypi-current"
+      ],
+      "src_frozen": {
+        "canonical": "samuelcolvin/watchfiles",
+        "evidence": {
+          "archived": false,
+          "description": "Simple, modern and fast file watching and code reload for Python, written in Rust",
+          "fork": false,
+          "html_url": "https://github.com/samuelcolvin/watchfiles",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "samuelcolvin/watchfiles",
+          "resolved_full_name": "samuelcolvin/watchfiles"
+        },
+        "full_name": "samuelcolvin/watchfiles",
+        "owner": "samuelcolvin",
+        "redirect": false,
+        "repo": "watchfiles",
+        "requested": "samuelcolvin/watchfiles",
+        "supporting_label": "source",
+        "supporting_url": "https://github.com/samuelcolvin/watchfiles",
+        "url": "https://github.com/samuelcolvin/watchfiles"
+      },
+      "src_pypi": {
+        "canonical": "samuelcolvin/watchfiles",
+        "evidence": {
+          "archived": false,
+          "description": "Simple, modern and fast file watching and code reload for Python, written in Rust",
+          "fork": false,
+          "html_url": "https://github.com/samuelcolvin/watchfiles",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "samuelcolvin/watchfiles",
+          "resolved_full_name": "samuelcolvin/watchfiles"
+        },
+        "full_name": "samuelcolvin/watchfiles",
+        "owner": "samuelcolvin",
+        "redirect": false,
+        "repo": "watchfiles",
+        "requested": "samuelcolvin/watchfiles",
+        "supporting_label": "source",
+        "supporting_url": "https://github.com/samuelcolvin/watchfiles",
+        "url": "https://github.com/samuelcolvin/watchfiles"
+      }
+    },
+    {
+      "canonical_name": "websockets",
+      "category": "runtime:transitive",
+      "confidence": "verified",
+      "consulted_at_utc": "2026-10-30T14:16:11Z",
+      "display_name": "websockets",
+      "frozen_repo_urls": [
+        [
+          "homepage",
+          "https://github.com/python-websockets/websockets"
+        ],
+        [
+          "tracker",
+          "https://github.com/python-websockets/websockets/issues"
+        ]
+      ],
+      "frozen_version": "17.3",
+      "method": "frozen-metadata+current-pypi",
+      "notes": [
+        "two independent sources agree on the same repository",
+        "repo URL taken from metadata label 'homepage'"
+      ],
+      "pypi_repo_urls": [
+        [
+          "homepage",
+          "https://github.com/python-websockets/websockets"
+        ],
+        [
+          "tracker",
+          "https://github.com/python-websockets/websockets/issues"
+        ]
+      ],
+      "resolved": {
+        "canonical": "python-websockets/websockets",
+        "evidence": {
+          "archived": false,
+          "description": "Library for building WebSocket servers and clients in Python",
+          "fork": false,
+          "html_url": "https://github.com/python-websockets/websockets",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "python-websockets/websockets",
+          "resolved_full_name": "python-websockets/websockets"
+        },
+        "full_name": "python-websockets/websockets",
+        "owner": "python-websockets",
+        "redirect": false,
+        "repo": "websockets",
+        "requested": "python-websockets/websockets",
+        "supporting_label": "homepage",
+        "supporting_url": "https://github.com/python-websockets/websockets",
+        "url": "https://github.com/python-websockets/websockets"
+      },
+      "sources": [
+        "wheel-metadata",
+        "pypi-current"
+      ],
+      "src_frozen": {
+        "canonical": "python-websockets/websockets",
+        "evidence": {
+          "archived": false,
+          "description": "Library for building WebSocket servers and clients in Python",
+          "fork": false,
+          "html_url": "https://github.com/python-websockets/websockets",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "python-websockets/websockets",
+          "resolved_full_name": "python-websockets/websockets"
+        },
+        "full_name": "python-websockets/websockets",
+        "owner": "python-websockets",
+        "redirect": false,
+        "repo": "websockets",
+        "requested": "python-websockets/websockets",
+        "supporting_label": "homepage",
+        "supporting_url": "https://github.com/python-websockets/websockets",
+        "url": "https://github.com/python-websockets/websockets"
+      },
+      "src_pypi": {
+        "canonical": "python-websockets/websockets",
+        "evidence": {
+          "archived": false,
+          "description": "Library for building WebSocket servers and clients in Python",
+          "fork": false,
+          "html_url": "https://github.com/python-websockets/websockets",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "python-websockets/websockets",
+          "resolved_full_name": "python-websockets/websockets"
+        },
+        "full_name": "python-websockets/websockets",
+        "owner": "python-websockets",
+        "redirect": false,
+        "repo": "websockets",
+        "requested": "python-websockets/websockets",
+        "supporting_label": "homepage",
+        "supporting_url": "https://github.com/python-websockets/websockets",
+        "url": "https://github.com/python-websockets/websockets"
+      }
+    },
+    {
+      "canonical_name": "wrapt",
+      "category": "runtime:transitive",
+      "confidence": "verified",
+      "consulted_at_utc": "2026-10-30T14:16:11Z",
+      "display_name": "wrapt",
+      "frozen_repo_urls": [
+        [
+          "homepage",
+          "https://github.com/GrahamDumpleton/wrapt"
+        ],
+        [
+          "bug tracker",
+          "https://github.com/GrahamDumpleton/wrapt/issues/"
+        ]
+      ],
+      "frozen_version": "2.5.2",
+      "method": "frozen-metadata+current-pypi",
+      "notes": [
+        "two independent sources agree on the same repository",
+        "repo URL taken from metadata label 'homepage'"
+      ],
+      "pypi_repo_urls": [
+        [
+          "homepage",
+          "https://github.com/GrahamDumpleton/wrapt"
+        ],
+        [
+          "bug tracker",
+          "https://github.com/GrahamDumpleton/wrapt/issues/"
+        ]
+      ],
+      "resolved": {
+        "canonical": "grahamdumpleton/wrapt",
+        "evidence": {
+          "archived": false,
+          "description": "A Python module for decorators, wrappers and monkey patching.",
+          "fork": false,
+          "html_url": "https://github.com/GrahamDumpleton/wrapt",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "GrahamDumpleton/wrapt",
+          "resolved_full_name": "GrahamDumpleton/wrapt"
+        },
+        "full_name": "GrahamDumpleton/wrapt",
+        "owner": "GrahamDumpleton",
+        "redirect": false,
+        "repo": "wrapt",
+        "requested": "GrahamDumpleton/wrapt",
+        "supporting_label": "homepage",
+        "supporting_url": "https://github.com/GrahamDumpleton/wrapt",
+        "url": "https://github.com/GrahamDumpleton/wrapt"
+      },
+      "sources": [
+        "wheel-metadata",
+        "pypi-current"
+      ],
+      "src_frozen": {
+        "canonical": "grahamdumpleton/wrapt",
+        "evidence": {
+          "archived": false,
+          "description": "A Python module for decorators, wrappers and monkey patching.",
+          "fork": false,
+          "html_url": "https://github.com/GrahamDumpleton/wrapt",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "GrahamDumpleton/wrapt",
+          "resolved_full_name": "GrahamDumpleton/wrapt"
+        },
+        "full_name": "GrahamDumpleton/wrapt",
+        "owner": "GrahamDumpleton",
+        "redirect": false,
+        "repo": "wrapt",
+        "requested": "GrahamDumpleton/wrapt",
+        "supporting_label": "homepage",
+        "supporting_url": "https://github.com/GrahamDumpleton/wrapt",
+        "url": "https://github.com/GrahamDumpleton/wrapt"
+      },
+      "src_pypi": {
+        "canonical": "grahamdumpleton/wrapt",
+        "evidence": {
+          "archived": false,
+          "description": "A Python module for decorators, wrappers and monkey patching.",
+          "fork": false,
+          "html_url": "https://github.com/GrahamDumpleton/wrapt",
+          "requested_at_utc": "2026-10-30T14:16:11Z",
+          "requested_repo": "GrahamDumpleton/wrapt",
+          "resolved_full_name": "GrahamDumpleton/wrapt"
+        },
+        "full_name": "GrahamDumpleton/wrapt",
+        "owner": "GrahamDumpleton",
+        "redirect": false,
+        "repo": "wrapt",
+        "requested": "GrahamDumpleton/wrapt",
+        "supporting_label": "homepage",
+        "supporting_url": "https://github.com/GrahamDumpleton/wrapt",
+        "url": "https://github.com/GrahamDumpleton/wrapt"
+      }
+    }
+  ],
+  "schema": "deudamundi.research.repo-attribution/1",
+  "shared_repositories": {
+    "psycopg/psycopg": [
+      "psycopg",
+      "psycopg-binary"
+    ],
+    "pydantic/pydantic": [
+      "pydantic",
+      "pydantic-core"
+    ]
+  },
+  "step": "3 - source repository per runtime dependency",
+  "universe": {
+    "build_tooling_excluded": [
+      "pip",
+      "setuptools",
+      "wheel"
+    ],
+    "count": 37,
+    "direct": [
+      "alembic",
+      "apscheduler",
+      "fastapi",
+      "httpx",
+      "psycopg",
+      "pydantic-settings",
+      "redis",
+      "slowapi",
+      "sqlalchemy",
+      "uvicorn"
+    ],
+    "root_excluded": "deudamundi-api",
+    "source": "research/dependencies/graph/nodes.csv + pip-inspect.json (frozen)",
+    "transitive": [
+      "annotated-types",
+      "anyio",
+      "certifi",
+      "click",
+      "deprecated",
+      "h11",
+      "httpcore",
+      "httptools",
+      "idna",
+      "limits",
+      "mako",
+      "markupsafe",
+      "packaging",
+      "psycopg-binary",
+      "pydantic",
+      "pydantic-core",
+      "pyjwt",
+      "python-dotenv",
+      "pyyaml",
+      "starlette",
+      "typing-extensions",
+      "typing-inspection",
+      "tzlocal",
+      "uvloop",
+      "watchfiles",
+      "websockets",
+      "wrapt"
+    ]
+  }
+}

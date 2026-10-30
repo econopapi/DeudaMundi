@@ -1,0 +1,9 @@
+{
+  "archived": false,
+  "description": "A Python module for decorators, wrappers and monkey patching.",
+  "fork": false,
+  "html_url": "https://github.com/GrahamDumpleton/wrapt",
+  "requested_at_utc": "2026-10-30T14:16:11Z",
+  "requested_repo": "GrahamDumpleton/wrapt",
+  "resolved_full_name": "GrahamDumpleton/wrapt"
+}

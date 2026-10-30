@@ -1,0 +1,9 @@
+{
+  "archived": false,
+  "description": "Ultra fast asyncio event loop.",
+  "fork": false,
+  "html_url": "https://github.com/MagicStack/uvloop",
+  "requested_at_utc": "2026-10-30T14:16:11Z",
+  "requested_repo": "MagicStack/uvloop",
+  "resolved_full_name": "MagicStack/uvloop"
+}

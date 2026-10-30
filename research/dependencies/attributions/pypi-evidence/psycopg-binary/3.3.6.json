@@ -1,0 +1,1670 @@
+{
+ "body": {
+  "info": {
+   "author": null,
+   "author_email": "Daniele Varrazzo <daniele.varrazzo@gmail.com>",
+   "bugtrack_url": null,
+   "classifiers": [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "Operating System :: MacOS :: MacOS X",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: POSIX",
+    "Programming Language :: Cython",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Programming Language :: Python :: 3.15",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Topic :: Database",
+    "Topic :: Database :: Front-Ends",
+    "Topic :: Software Development",
+    "Topic :: Software Development :: Libraries :: Python Modules"
+   ],
+   "description": "Psycopg 3: PostgreSQL database adapter for Python - binary package\n==================================================================\n\nThis distribution package is an optional component of `Psycopg 3`__: it\ncontains the optional optimization package `psycopg_binary`__.\n\n.. __: https://pypi.org/project/psycopg/\n.. __: https://www.psycopg.org/psycopg3/docs/basic/install.html\n       #binary-installation\n\nYou shouldn't install this package directly: use instead ::\n\n    pip install \"psycopg[binary]\"\n\nto install a version of the optimization package matching the ``psycopg``\nversion installed.\n\nInstalling this package requires pip >= 20.3 or newer installed.\n\nThis package is not available for every platform: check out `Binary\ninstallation`__ in the documentation.\n\n.. __: https://www.psycopg.org/psycopg3/docs/basic/install.html\n       #binary-installation\n\nPlease read `the project readme`__ and `the installation documentation`__ for\nmore details.\n\n.. __: https://github.com/psycopg/psycopg#readme\n.. __: https://www.psycopg.org/psycopg3/docs/basic/install.html\n\n\nCopyright (C) 2020 The Psycopg Team\n",
+   "description_content_type": "text/x-rst",
+   "docs_url": null,
+   "download_url": null,
+   "downloads": {
+    "last_day": -1,
+    "last_month": -1,
+    "last_week": -1
+   },
+   "dynamic": [
+    "License-File"
+   ],
+   "home_page": null,
+   "keywords": null,
+   "license": null,
+   "license_expression": "LGPL-3.0-only",
+   "license_files": [
+    "LICENSE.txt"
+   ],
+   "maintainer": null,
+   "maintainer_email": null,
+   "name": "psycopg-binary",
+   "package_url": "https://pypi.org/project/psycopg-binary/",
+   "platform": null,
+   "project_url": "https://pypi.org/project/psycopg-binary/",
+   "project_urls": {
+    "Changes": "https://psycopg.org/psycopg3/docs/news.html",
+    "Code": "https://github.com/psycopg/psycopg",
+    "Documentation": "https://psycopg.org/psycopg3/docs/",
+    "Funding": "https://github.com/sponsors/dvarrazzo",
+    "Homepage": "https://psycopg.org/",
+    "Issue Tracker": "https://github.com/psycopg/psycopg/issues"
+   },
+   "provides_extra": null,
+   "release_url": "https://pypi.org/project/psycopg-binary/3.3.6/",
+   "requires_dist": null,
+   "requires_python": ">=3.10",
+   "summary": "PostgreSQL database adapter for Python -- C optimisation distribution",
+   "version": "3.3.6",
+   "yanked": false,
+   "yanked_reason": null
+  },
+  "last_serial": 41207272,
+  "ownership": {
+   "organization": null,
+   "roles": [
+    {
+     "role": "Owner",
+     "user": "piro"
+    }
+   ]
+  },
+  "urls": [
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "0a1fb529c1e27ca41655413e669c964bd0d7069e8cc2ab32b192fc98baf37fd5"
+    },
+    "digests": {
+     "blake2b_256": "529200350a66de0af05e41d01aa3134e3970045e816afed3f99d58ec1abe15b2",
+     "md5": "9ad01b5de5124c9e25607fd688d4d312",
+     "sha256": "7beb3e41c9a1e509f3ed85263386588cbe3e975aa67be21f79f44fd35ffaeefc"
+    },
+    "downloads": -1,
+    "filename": "psycopg_binary-3.3.6-cp310-cp310-macosx_10_9_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "9ad01b5de5124c9e25607fd688d4d312",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp310",
+    "requires_python": ">=3.10",
+    "size": 4728682,
+    "upload_time": "2026-09-18T13:15:36",
+    "upload_time_iso_8601": "2026-09-18T13:15:36.605603Z",
+    "url": "https://files.pythonhosted.org/packages/52/92/00350a66de0af05e41d01aa3134e3970045e816afed3f99d58ec1abe15b2/psycopg_binary-3.3.6-cp310-cp310-macosx_10_9_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "0a1fb529c1e27ca41655413e669c964bd0d7069e8cc2ab32b192fc98baf37fd5"
+    },
+    "digests": {
+     "blake2b_256": "91fcafa9c7fd316a469af7ede6ebb020eac482f5d827fae57d5310c9bc0c41ae",
+     "md5": "de119c0495f7e5a2c58e617229520dd5",
+     "sha256": "aa73160077345ec21b3f51e8e24b3de2e99586217e497629326eb9b2ea88c52e"
+    },
+    "downloads": -1,
+    "filename": "psycopg_binary-3.3.6-cp310-cp310-macosx_11_0_arm64.whl",
+    "has_sig": false,
+    "md5_digest": "de119c0495f7e5a2c58e617229520dd5",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp310",
+    "requires_python": ">=3.10",
+    "size": 4777111,
+    "upload_time": "2026-09-18T13:15:46",
+    "upload_time_iso_8601": "2026-09-18T13:15:46.566812Z",
+    "url": "https://files.pythonhosted.org/packages/91/fc/afa9c7fd316a469af7ede6ebb020eac482f5d827fae57d5310c9bc0c41ae/psycopg_binary-3.3.6-cp310-cp310-macosx_11_0_arm64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "0a1fb529c1e27ca41655413e669c964bd0d7069e8cc2ab32b192fc98baf37fd5"
+    },
+    "digests": {
+     "blake2b_256": "f2447c1e015f1bc56b36ff1369f09e852b2d83ccefd5a669a42633a916cdedc4",
+     "md5": "30ac95f7aba623b694d850c0b937f1d2",
+     "sha256": "f87dbdc42e78ee0f7ea180c03f8c78e80a949e373066629bd90fefff10552dff"
+    },
+    "downloads": -1,
+    "filename": "psycopg_binary-3.3.6-cp310-cp310-manylinux2014_ppc64le.manylinux_2_17_ppc64le.whl",
+    "has_sig": false,
+    "md5_digest": "30ac95f7aba623b694d850c0b937f1d2",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp310",
+    "requires_python": ">=3.10",
+    "size": 5592755,
+    "upload_time": "2026-09-18T13:15:52",
+    "upload_time_iso_8601": "2026-09-18T13:15:52.886993Z",
+    "url": "https://files.pythonhosted.org/packages/f2/44/7c1e015f1bc56b36ff1369f09e852b2d83ccefd5a669a42633a916cdedc4/psycopg_binary-3.3.6-cp310-cp310-manylinux2014_ppc64le.manylinux_2_17_ppc64le.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "0a1fb529c1e27ca41655413e669c964bd0d7069e8cc2ab32b192fc98baf37fd5"
+    },
+    "digests": {
+     "blake2b_256": "3bae314a251ca918cdac380bce1b87839ade9355382ea749e6ef3ba75ba0c09f",
+     "md5": "ac4cc169eb54a6cc6bfbe7d3eb60d260",
+     "sha256": "a9348c5b43a3bb5ef8c2e89d5237c9c87eeafb01d338c84a7aebbc5cd0313299"
+    },
+    "downloads": -1,
+    "filename": "psycopg_binary-3.3.6-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "ac4cc169eb54a6cc6bfbe7d3eb60d260",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp310",
+    "requires_python": ">=3.10",
+    "size": 5267949,
+    "upload_time": "2026-09-18T13:16:00",
+    "upload_time_iso_8601": "2026-09-18T13:16:00.530792Z",
+    "url": "https://files.pythonhosted.org/packages/3b/ae/314a251ca918cdac380bce1b87839ade9355382ea749e6ef3ba75ba0c09f/psycopg_binary-3.3.6-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "0a1fb529c1e27ca41655413e669c964bd0d7069e8cc2ab32b192fc98baf37fd5"
+    },
+    "digests": {
+     "blake2b_256": "b69f3bb0cfe9bb0f31ca57cf486ddc8c9ac51251aed8181bf88ff870b2623105",
+     "md5": "a84af9532529a418176b7774dc88fc4e",
+     "sha256": "0a52991594ac4db888c7d39bccef331797e30cb31a95cae02cf2607f83a42dc2"
+    },
+    "downloads": -1,
+    "filename": "psycopg_binary-3.3.6-cp310-cp310-manylinux_2_27_aarch64.manylinux_2_28_aarch64.whl",
+    "has_sig": false,
+    "md5_digest": "a84af9532529a418176b7774dc88fc4e",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp310",
+    "requires_python": ">=3.10",
+    "size": 6862403,
+    "upload_time": "2026-09-18T13:16:10",
+    "upload_time_iso_8601": "2026-09-18T13:16:10.385633Z",
+    "url": "https://files.pythonhosted.org/packages/b6/9f/3bb0cfe9bb0f31ca57cf486ddc8c9ac51251aed8181bf88ff870b2623105/psycopg_binary-3.3.6-cp310-cp310-manylinux_2_27_aarch64.manylinux_2_28_aarch64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "0a1fb529c1e27ca41655413e669c964bd0d7069e8cc2ab32b192fc98baf37fd5"
+    },
+    "digests": {
+     "blake2b_256": "c4d67032c10309c3155e9b24300fdcc9a1afa539cfd20ce52fdef74a46f10161",
+     "md5": "5fa30183a9e6495e71ba9e1dcf8cb746",
+     "sha256": "5ea8beeb5541780b4b50b462eeacbc4f594ce3b911dc20c81c75f267876f71d2"
+    },
+    "downloads": -1,
+    "filename": "psycopg_binary-3.3.6-cp310-cp310-manylinux_2_38_riscv64.manylinux_2_39_riscv64.whl",
+    "has_sig": false,
+    "md5_digest": "5fa30183a9e6495e71ba9e1dcf8cb746",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp310",
+    "requires_python": ">=3.10",
+    "size": 5107271,
+    "upload_time": "2026-09-18T13:16:16",
+    "upload_time_iso_8601": "2026-09-18T13:16:16.843953Z",
+    "url": "https://files.pythonhosted.org/packages/c4/d6/7032c10309c3155e9b24300fdcc9a1afa539cfd20ce52fdef74a46f10161/psycopg_binary-3.3.6-cp310-cp310-manylinux_2_38_riscv64.manylinux_2_39_riscv64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "0a1fb529c1e27ca41655413e669c964bd0d7069e8cc2ab32b192fc98baf37fd5"
+    },
+    "digests": {
+     "blake2b_256": "61cc79add2cf92684cf1a81da134b32caa662c25c72d0cc905d181ef4455f834",
+     "md5": "abbfbe7e886ba8e04121d94909042684",
+     "sha256": "198a48e68cc99ccac03ba95ac857e73aa66f3bf6be77019fafb0832a05f7ad03"
+    },
+    "downloads": -1,
+    "filename": "psycopg_binary-3.3.6-cp310-cp310-musllinux_1_2_aarch64.whl",
+    "has_sig": false,
+    "md5_digest": "abbfbe7e886ba8e04121d94909042684",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp310",
+    "requires_python": ">=3.10",
+    "size": 4627984,
+    "upload_time": "2026-09-18T13:16:23",
+    "upload_time_iso_8601": "2026-09-18T13:16:23.889302Z",
+    "url": "https://files.pythonhosted.org/packages/61/cc/79add2cf92684cf1a81da134b32caa662c25c72d0cc905d181ef4455f834/psycopg_binary-3.3.6-cp310-cp310-musllinux_1_2_aarch64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "0a1fb529c1e27ca41655413e669c964bd0d7069e8cc2ab32b192fc98baf37fd5"
+    },
+    "digests": {
+     "blake2b_256": "c9486dfb14f9350c14af6a2edb3c31262051b8cd94e2186e4b831e46dbbe8cd9",
+     "md5": "5263298e97f711de080ac5d05b0b8e3a",
+     "sha256": "fa34eb47969297471db7b7f193622c7e3ee839ec05abd05f1fe104d5b1b1dcf4"
+    },
+    "downloads": -1,
+    "filename": "psycopg_binary-3.3.6-cp310-cp310-musllinux_1_2_ppc64le.whl",
+    "has_sig": false,
+    "md5_digest": "5263298e97f711de080ac5d05b0b8e3a",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp310",
+    "requires_python": ">=3.10",
+    "size": 4322054,
+    "upload_time": "2026-09-18T13:16:29",
+    "upload_time_iso_8601": "2026-09-18T13:16:29.330723Z",
+    "url": "https://files.pythonhosted.org/packages/c9/48/6dfb14f9350c14af6a2edb3c31262051b8cd94e2186e4b831e46dbbe8cd9/psycopg_binary-3.3.6-cp310-cp310-musllinux_1_2_ppc64le.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "0a1fb529c1e27ca41655413e669c964bd0d7069e8cc2ab32b192fc98baf37fd5"
+    },
+    "digests": {
+     "blake2b_256": "29352982338716a91cbb4dfc866be015be4457ee8106a445aabf3d1fb6a270e0",
+     "md5": "98df9611542a0a08cb0e85d1b8e96da7",
+     "sha256": "b979a42815410432420275412633960807178b1ce26591a16ce06e78a5bd4bb2"
+    },
+    "downloads": -1,
+    "filename": "psycopg_binary-3.3.6-cp310-cp310-musllinux_1_2_riscv64.whl",
+    "has_sig": false,
+    "md5_digest": "98df9611542a0a08cb0e85d1b8e96da7",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp310",
+    "requires_python": ">=3.10",
+    "size": 4048471,
+    "upload_time": "2026-09-18T13:16:34",
+    "upload_time_iso_8601": "2026-09-18T13:16:34.119057Z",
+    "url": "https://files.pythonhosted.org/packages/29/35/2982338716a91cbb4dfc866be015be4457ee8106a445aabf3d1fb6a270e0/psycopg_binary-3.3.6-cp310-cp310-musllinux_1_2_riscv64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "0a1fb529c1e27ca41655413e669c964bd0d7069e8cc2ab32b192fc98baf37fd5"
+    },
+    "digests": {
+     "blake2b_256": "24e1171b1db1542c5f76a678b7ee0a7800bebc9735a0a03417c76cf948bfd63c",
+     "md5": "ea3e39a2c60697512547f4aa8dfd0451",
+     "sha256": "889e42acec10450185e0cdfb396f375e2c1a8d7737c114830a7fde4654f59e30"
+    },
+    "downloads": -1,
+    "filename": "psycopg_binary-3.3.6-cp310-cp310-musllinux_1_2_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "ea3e39a2c60697512547f4aa8dfd0451",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp310",
+    "requires_python": ">=3.10",
+    "size": 4353931,
+    "upload_time": "2026-09-18T13:16:38",
+    "upload_time_iso_8601": "2026-09-18T13:16:38.692598Z",
+    "url": "https://files.pythonhosted.org/packages/24/e1/171b1db1542c5f76a678b7ee0a7800bebc9735a0a03417c76cf948bfd63c/psycopg_binary-3.3.6-cp310-cp310-musllinux_1_2_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "f2c36698ee3d46dc3bdc90d87baa7001914abc3535b20bd6f260d4e422b88463"
+    },
+    "digests": {
+     "blake2b_256": "08894424e62a944eef40bd9326ada4ae23802b28eab6502af91e84ef7bba74fb",
+     "md5": "b63354a2434ad5a12ad48925ef0fca28",
+     "sha256": "cbd5f73073ed19c378d4c35499db1e3e703a5b1a324e521204065967bfaa7a18"
+    },
+    "downloads": -1,
+    "filename": "psycopg_binary-3.3.6-cp310-cp310-win_amd64.whl",
+    "has_sig": false,
+    "md5_digest": "b63354a2434ad5a12ad48925ef0fca28",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp310",
+    "requires_python": ">=3.10",
+    "size": 3674362,
+    "upload_time": "2026-09-18T13:16:44",
+    "upload_time_iso_8601": "2026-09-18T13:16:44.454670Z",
+    "url": "https://files.pythonhosted.org/packages/08/89/4424e62a944eef40bd9326ada4ae23802b28eab6502af91e84ef7bba74fb/psycopg_binary-3.3.6-cp310-cp310-win_amd64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "0a1fb529c1e27ca41655413e669c964bd0d7069e8cc2ab32b192fc98baf37fd5"
+    },
+    "digests": {
+     "blake2b_256": "7086b71166048974d49c6d136b2ed1c0e5bec0b974d8c4de5cbce7e86a9e412a",
+     "md5": "18c14469f4cc9a969ba8b85186dbbc85",
+     "sha256": "be4f9b3c9338ac5dd217c5847e21521b396c8117f78dc420d495a5c49bbef874"
+    },
+    "downloads": -1,
+    "filename": "psycopg_binary-3.3.6-cp311-cp311-macosx_10_9_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "18c14469f4cc9a969ba8b85186dbbc85",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp311",
+    "requires_python": ">=3.10",
+    "size": 4728002,
+    "upload_time": "2026-09-18T13:16:53",
+    "upload_time_iso_8601": "2026-09-18T13:16:53.393554Z",
+    "url": "https://files.pythonhosted.org/packages/70/86/b71166048974d49c6d136b2ed1c0e5bec0b974d8c4de5cbce7e86a9e412a/psycopg_binary-3.3.6-cp311-cp311-macosx_10_9_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "0a1fb529c1e27ca41655413e669c964bd0d7069e8cc2ab32b192fc98baf37fd5"
+    },
+    "digests": {
+     "blake2b_256": "121d1e06c0de7ed5aed898acb87544eac6ef0bc7d752a67ec6e5d6b835e9b40c",
+     "md5": "4fb3e33ba4ad951132f08d6bcc223099",
+     "sha256": "f0535693ce476a722b718b002d5d2c27d47e71ca945276ac194409c98e74c492"
+    },
+    "downloads": -1,
+    "filename": "psycopg_binary-3.3.6-cp311-cp311-macosx_11_0_arm64.whl",
+    "has_sig": false,
+    "md5_digest": "4fb3e33ba4ad951132f08d6bcc223099",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp311",
+    "requires_python": ">=3.10",
+    "size": 4775403,
+    "upload_time": "2026-09-18T13:16:58",
+    "upload_time_iso_8601": "2026-09-18T13:16:58.939454Z",
+    "url": "https://files.pythonhosted.org/packages/12/1d/1e06c0de7ed5aed898acb87544eac6ef0bc7d752a67ec6e5d6b835e9b40c/psycopg_binary-3.3.6-cp311-cp311-macosx_11_0_arm64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "0a1fb529c1e27ca41655413e669c964bd0d7069e8cc2ab32b192fc98baf37fd5"
+    },
+    "digests": {
+     "blake2b_256": "84022ffcbc43f8e4bbc38e5286a22013bcac01898d13cd38325f60dd5428a8af",
+     "md5": "c7ff75c9c17d3fd6f7a48cecc966220d",
+     "sha256": "3c9e663b2e800e3218994cf948c11bcc2844e6491b34aa80d089baf6531827bf"
+    },
+    "downloads": -1,
+    "filename": "psycopg_binary-3.3.6-cp311-cp311-manylinux2014_ppc64le.manylinux_2_17_ppc64le.whl",
+    "has_sig": false,
+    "md5_digest": "c7ff75c9c17d3fd6f7a48cecc966220d",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp311",
+    "requires_python": ">=3.10",
+    "size": 5594145,
+    "upload_time": "2026-09-18T13:17:08",
+    "upload_time_iso_8601": "2026-09-18T13:17:08.515342Z",
+    "url": "https://files.pythonhosted.org/packages/84/02/2ffcbc43f8e4bbc38e5286a22013bcac01898d13cd38325f60dd5428a8af/psycopg_binary-3.3.6-cp311-cp311-manylinux2014_ppc64le.manylinux_2_17_ppc64le.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "0a1fb529c1e27ca41655413e669c964bd0d7069e8cc2ab32b192fc98baf37fd5"
+    },
+    "digests": {
+     "blake2b_256": "e125031dae2c7d2e7e77dcf5b1962c1e0684fa548d7af0ff6707b6b5e6054ca7",
+     "md5": "28c6df318c7cb7378b967491fc8809ea",
+     "sha256": "a2e44a342d2aee40508e28a563d8961c39d9bbd8cae36d8578f0a3c6658aab0f"
+    },
+    "downloads": -1,
+    "filename": "psycopg_binary-3.3.6-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "28c6df318c7cb7378b967491fc8809ea",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp311",
+    "requires_python": ">=3.10",
+    "size": 5267985,
+    "upload_time": "2026-09-18T13:17:16",
+    "upload_time_iso_8601": "2026-09-18T13:17:16.240175Z",
+    "url": "https://files.pythonhosted.org/packages/e1/25/031dae2c7d2e7e77dcf5b1962c1e0684fa548d7af0ff6707b6b5e6054ca7/psycopg_binary-3.3.6-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "0a1fb529c1e27ca41655413e669c964bd0d7069e8cc2ab32b192fc98baf37fd5"
+    },
+    "digests": {
+     "blake2b_256": "8ce594c89ada3c003a4d858178f3bba49a35e0297ef2aad659b80eb5e380e690",
+     "md5": "9974048602a83f9d1f1632f90679e01d",
+     "sha256": "5f598f19fa9a91540b5cee17932ffd227b7b53a481605bcc4573c0eafa647300"
+    },
+    "downloads": -1,
+    "filename": "psycopg_binary-3.3.6-cp311-cp311-manylinux_2_27_aarch64.manylinux_2_28_aarch64.whl",
+    "has_sig": false,
+    "md5_digest": "9974048602a83f9d1f1632f90679e01d",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp311",
+    "requires_python": ">=3.10",
+    "size": 6860986,
+    "upload_time": "2026-09-18T13:17:23",
+    "upload_time_iso_8601": "2026-09-18T13:17:23.348808Z",
+    "url": "https://files.pythonhosted.org/packages/8c/e5/94c89ada3c003a4d858178f3bba49a35e0297ef2aad659b80eb5e380e690/psycopg_binary-3.3.6-cp311-cp311-manylinux_2_27_aarch64.manylinux_2_28_aarch64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "0a1fb529c1e27ca41655413e669c964bd0d7069e8cc2ab32b192fc98baf37fd5"
+    },
+    "digests": {
+     "blake2b_256": "9da081bf499d095adee8413bd19822a6872fbfa21663ec78014a68d83a8db83c",
+     "md5": "bbaf7db546e5b567ec78dd0175b806d6",
+     "sha256": "6ff05561e4a067d35507dc5c90f1deb2ec1c9703ac5cccc1bc26e08a197f9c5a"
+    },
+    "downloads": -1,
+    "filename": "psycopg_binary-3.3.6-cp311-cp311-manylinux_2_38_riscv64.manylinux_2_39_riscv64.whl",
+    "has_sig": false,
+    "md5_digest": "bbaf7db546e5b567ec78dd0175b806d6",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp311",
+    "requires_python": ">=3.10",
+    "size": 5106702,
+    "upload_time": "2026-09-18T13:17:28",
+    "upload_time_iso_8601": "2026-09-18T13:17:28.847502Z",
+    "url": "https://files.pythonhosted.org/packages/9d/a0/81bf499d095adee8413bd19822a6872fbfa21663ec78014a68d83a8db83c/psycopg_binary-3.3.6-cp311-cp311-manylinux_2_38_riscv64.manylinux_2_39_riscv64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "0a1fb529c1e27ca41655413e669c964bd0d7069e8cc2ab32b192fc98baf37fd5"
+    },
+    "digests": {
+     "blake2b_256": "007599d56da64c27bd985fd82c6ecbf7976b724ac638fdd1654ef995323a1a26",
+     "md5": "737acff1aefcc42cc159a182fe2e103a",
+     "sha256": "566dd827f17728efdf7d88a5b066f815170f6fdad13967ae952842d90e6aaa9f"
+    },
+    "downloads": -1,
+    "filename": "psycopg_binary-3.3.6-cp311-cp311-musllinux_1_2_aarch64.whl",
+    "has_sig": false,
+    "md5_digest": "737acff1aefcc42cc159a182fe2e103a",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp311",
+    "requires_python": ">=3.10",
+    "size": 4627090,
+    "upload_time": "2026-09-18T13:17:36",
+    "upload_time_iso_8601": "2026-09-18T13:17:36.668487Z",
+    "url": "https://files.pythonhosted.org/packages/00/75/99d56da64c27bd985fd82c6ecbf7976b724ac638fdd1654ef995323a1a26/psycopg_binary-3.3.6-cp311-cp311-musllinux_1_2_aarch64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "0a1fb529c1e27ca41655413e669c964bd0d7069e8cc2ab32b192fc98baf37fd5"
+    },
+    "digests": {
+     "blake2b_256": "3e0c0222171d11233332c6a24b1cef1578215f0ffddf3642eb8dd8c4448ad69f",
+     "md5": "6214e214f095f49ad207a01ad7d8c822",
+     "sha256": "9b2f11794e017ce340934e35de46181c46ef71ec75ea3d85dd75cd836761c01e"
+    },
+    "downloads": -1,
+    "filename": "psycopg_binary-3.3.6-cp311-cp311-musllinux_1_2_ppc64le.whl",
+    "has_sig": false,
+    "md5_digest": "6214e214f095f49ad207a01ad7d8c822",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp311",
+    "requires_python": ">=3.10",
+    "size": 4320353,
+    "upload_time": "2026-09-18T13:17:42",
+    "upload_time_iso_8601": "2026-09-18T13:17:42.526717Z",
+    "url": "https://files.pythonhosted.org/packages/3e/0c/0222171d11233332c6a24b1cef1578215f0ffddf3642eb8dd8c4448ad69f/psycopg_binary-3.3.6-cp311-cp311-musllinux_1_2_ppc64le.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "0a1fb529c1e27ca41655413e669c964bd0d7069e8cc2ab32b192fc98baf37fd5"
+    },
+    "digests": {
+     "blake2b_256": "626fe1cc2a28dd1228c67c969ba6fd37cd8726b312e2ff51380f847ddb38ccde",
+     "md5": "3207a547a049531d9155512eae6add0f",
+     "sha256": "910ace140e3e7b7596898d083f37a8fe90c5c40684252ad4e682364b2cd3deba"
+    },
+    "downloads": -1,
+    "filename": "psycopg_binary-3.3.6-cp311-cp311-musllinux_1_2_riscv64.whl",
+    "has_sig": false,
+    "md5_digest": "3207a547a049531d9155512eae6add0f",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp311",
+    "requires_python": ">=3.10",
+    "size": 4047253,
+    "upload_time": "2026-09-18T13:17:47",
+    "upload_time_iso_8601": "2026-09-18T13:17:47.068539Z",
+    "url": "https://files.pythonhosted.org/packages/62/6f/e1cc2a28dd1228c67c969ba6fd37cd8726b312e2ff51380f847ddb38ccde/psycopg_binary-3.3.6-cp311-cp311-musllinux_1_2_riscv64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "0a1fb529c1e27ca41655413e669c964bd0d7069e8cc2ab32b192fc98baf37fd5"
+    },
+    "digests": {
+     "blake2b_256": "d8fd38b64790ce7a515b1dbd2bab3d119637a858aeb22c380cf4859bc4ce0e42",
+     "md5": "ddb4f80c2fe4c3d595ba76c965edbc62",
+     "sha256": "37e517c146b185f9c0c6e8d0a0ebbdeeeb67896af28466e032bc810d0c7dc7a7"
+    },
+    "downloads": -1,
+    "filename": "psycopg_binary-3.3.6-cp311-cp311-musllinux_1_2_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "ddb4f80c2fe4c3d595ba76c965edbc62",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp311",
+    "requires_python": ">=3.10",
+    "size": 4353208,
+    "upload_time": "2026-09-18T13:17:52",
+    "upload_time_iso_8601": "2026-09-18T13:17:52.410454Z",
+    "url": "https://files.pythonhosted.org/packages/d8/fd/38b64790ce7a515b1dbd2bab3d119637a858aeb22c380cf4859bc4ce0e42/psycopg_binary-3.3.6-cp311-cp311-musllinux_1_2_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "f2c36698ee3d46dc3bdc90d87baa7001914abc3535b20bd6f260d4e422b88463"
+    },
+    "digests": {
+     "blake2b_256": "f7dc45386530ceb2a8c789a226de9b9b34eca8fccf1feba2e4ef68a6aca50c56",
+     "md5": "ddcb9cfd10254ea34cedb3ceae0742e3",
+     "sha256": "c7f92daa0d2a1c76f07264abddf8cbabd30152a2f09c3270e50f0c7efdf5dcac"
+    },
+    "downloads": -1,
+    "filename": "psycopg_binary-3.3.6-cp311-cp311-win_amd64.whl",
+    "has_sig": false,
+    "md5_digest": "ddcb9cfd10254ea34cedb3ceae0742e3",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp311",
+    "requires_python": ">=3.10",
+    "size": 3675638,
+    "upload_time": "2026-09-18T13:17:58",
+    "upload_time_iso_8601": "2026-09-18T13:17:58.112075Z",
+    "url": "https://files.pythonhosted.org/packages/f7/dc/45386530ceb2a8c789a226de9b9b34eca8fccf1feba2e4ef68a6aca50c56/psycopg_binary-3.3.6-cp311-cp311-win_amd64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "0a1fb529c1e27ca41655413e669c964bd0d7069e8cc2ab32b192fc98baf37fd5"
+    },
+    "digests": {
+     "blake2b_256": "e6012cdd1824e58b4467ee0b9498664cd28c42d8794db6b1e35b6bcb834f0044",
+     "md5": "353d733321d7c166d5fa937b055979df",
+     "sha256": "3f84dab25e0385692ee13274c68678377e0b1a70ab9d14e56264cbf61f60c62d"
+    },
+    "downloads": -1,
+    "filename": "psycopg_binary-3.3.6-cp312-cp312-macosx_10_13_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "353d733321d7c166d5fa937b055979df",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp312",
+    "requires_python": ">=3.10",
+    "size": 4707086,
+    "upload_time": "2026-09-18T13:18:05",
+    "upload_time_iso_8601": "2026-09-18T13:18:05.138969Z",
+    "url": "https://files.pythonhosted.org/packages/e6/01/2cdd1824e58b4467ee0b9498664cd28c42d8794db6b1e35b6bcb834f0044/psycopg_binary-3.3.6-cp312-cp312-macosx_10_13_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "0a1fb529c1e27ca41655413e669c964bd0d7069e8cc2ab32b192fc98baf37fd5"
+    },
+    "digests": {
+     "blake2b_256": "f676de9948ac06895261c84d5b9fbe283d8f3c5bc9f070691b8d9eaa1b51e322",
+     "md5": "1ae87d4611b0a1f173cee16778bcc645",
+     "sha256": "612382ac3ed13651c7fa44b5fee9fbf7baaa2ddbc6f500391672682c5f1df9e0"
+    },
+    "downloads": -1,
+    "filename": "psycopg_binary-3.3.6-cp312-cp312-macosx_11_0_arm64.whl",
+    "has_sig": false,
+    "md5_digest": "1ae87d4611b0a1f173cee16778bcc645",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp312",
+    "requires_python": ">=3.10",
+    "size": 4769607,
+    "upload_time": "2026-09-18T13:18:12",
+    "upload_time_iso_8601": "2026-09-18T13:18:12.830414Z",
+    "url": "https://files.pythonhosted.org/packages/f6/76/de9948ac06895261c84d5b9fbe283d8f3c5bc9f070691b8d9eaa1b51e322/psycopg_binary-3.3.6-cp312-cp312-macosx_11_0_arm64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "0a1fb529c1e27ca41655413e669c964bd0d7069e8cc2ab32b192fc98baf37fd5"
+    },
+    "digests": {
+     "blake2b_256": "76a972436c9915ee4905964689e7f0e182ce7767cc0a0390b3ce703be8177625",
+     "md5": "be9e15ae2af32ad27a15dc571093f344",
+     "sha256": "366db6e97e66b37211475f20c4c1324a2dc0dd825e46d4e87f9d599304d276f9"
+    },
+    "downloads": -1,
+    "filename": "psycopg_binary-3.3.6-cp312-cp312-manylinux2014_ppc64le.manylinux_2_17_ppc64le.whl",
+    "has_sig": false,
+    "md5_digest": "be9e15ae2af32ad27a15dc571093f344",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp312",
+    "requires_python": ">=3.10",
+    "size": 5554134,
+    "upload_time": "2026-09-18T13:18:21",
+    "upload_time_iso_8601": "2026-09-18T13:18:21.175087Z",
+    "url": "https://files.pythonhosted.org/packages/76/a9/72436c9915ee4905964689e7f0e182ce7767cc0a0390b3ce703be8177625/psycopg_binary-3.3.6-cp312-cp312-manylinux2014_ppc64le.manylinux_2_17_ppc64le.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "0a1fb529c1e27ca41655413e669c964bd0d7069e8cc2ab32b192fc98baf37fd5"
+    },
+    "digests": {
+     "blake2b_256": "0a42948bb3d2617795093512613fd96ba380e922992c7908fbc073858147d196",
+     "md5": "32568b51d82106df38d5e721d6ff0ad4",
+     "sha256": "1679a1cb93fbe5a6d1fd58d82cbddcc6fcb8c61446ba7cae6eb2a7b19bc585de"
+    },
+    "downloads": -1,
+    "filename": "psycopg_binary-3.3.6-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "32568b51d82106df38d5e721d6ff0ad4",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp312",
+    "requires_python": ">=3.10",
+    "size": 5235723,
+    "upload_time": "2026-09-18T13:18:27",
+    "upload_time_iso_8601": "2026-09-18T13:18:27.071369Z",
+    "url": "https://files.pythonhosted.org/packages/0a/42/948bb3d2617795093512613fd96ba380e922992c7908fbc073858147d196/psycopg_binary-3.3.6-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "0a1fb529c1e27ca41655413e669c964bd0d7069e8cc2ab32b192fc98baf37fd5"
+    },
+    "digests": {
+     "blake2b_256": "994793e823ff1b0088400703410939c9bda3e63ed9c850b3ee088e8769f4c10b",
+     "md5": "10694cb513cbbda1fe2590ec050d37da",
+     "sha256": "37d40450659401600e6d043ff586c89a71a69f33cbb8bcdba6cdb2569beecdbe"
+    },
+    "downloads": -1,
+    "filename": "psycopg_binary-3.3.6-cp312-cp312-manylinux_2_27_aarch64.manylinux_2_28_aarch64.whl",
+    "has_sig": false,
+    "md5_digest": "10694cb513cbbda1fe2590ec050d37da",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp312",
+    "requires_python": ">=3.10",
+    "size": 6833587,
+    "upload_time": "2026-09-18T13:18:33",
+    "upload_time_iso_8601": "2026-09-18T13:18:33.794969Z",
+    "url": "https://files.pythonhosted.org/packages/99/47/93e823ff1b0088400703410939c9bda3e63ed9c850b3ee088e8769f4c10b/psycopg_binary-3.3.6-cp312-cp312-manylinux_2_27_aarch64.manylinux_2_28_aarch64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "0a1fb529c1e27ca41655413e669c964bd0d7069e8cc2ab32b192fc98baf37fd5"
+    },
+    "digests": {
+     "blake2b_256": "5e2decc69c847795aa704041a9f5667a6b0938a088cf1853636d762a6938e493",
+     "md5": "40e4234281715ae82208e8bf8681437e",
+     "sha256": "a5165300324efd5a772c48a88ab3a928513ab3979fca76553e62ee815f7b2b9c"
+    },
+    "downloads": -1,
+    "filename": "psycopg_binary-3.3.6-cp312-cp312-manylinux_2_38_riscv64.manylinux_2_39_riscv64.whl",
+    "has_sig": false,
+    "md5_digest": "40e4234281715ae82208e8bf8681437e",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp312",
+    "requires_python": ">=3.10",
+    "size": 5070013,
+    "upload_time": "2026-09-18T13:18:39",
+    "upload_time_iso_8601": "2026-09-18T13:18:39.628259Z",
+    "url": "https://files.pythonhosted.org/packages/5e/2d/ecc69c847795aa704041a9f5667a6b0938a088cf1853636d762a6938e493/psycopg_binary-3.3.6-cp312-cp312-manylinux_2_38_riscv64.manylinux_2_39_riscv64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "0a1fb529c1e27ca41655413e669c964bd0d7069e8cc2ab32b192fc98baf37fd5"
+    },
+    "digests": {
+     "blake2b_256": "92366126f0dac21713dcae91404f2a76da18598a6252339a8c669c46370d43b2",
+     "md5": "6623cb3bcdebb8660e1436a56a71c568",
+     "sha256": "d636338c8f21b0df2f84657b00bc34f9313f826ef93f1155bc743607e4a0c5eb"
+    },
+    "downloads": -1,
+    "filename": "psycopg_binary-3.3.6-cp312-cp312-musllinux_1_2_aarch64.whl",
+    "has_sig": false,
+    "md5_digest": "6623cb3bcdebb8660e1436a56a71c568",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp312",
+    "requires_python": ">=3.10",
+    "size": 4597367,
+    "upload_time": "2026-09-18T13:18:45",
+    "upload_time_iso_8601": "2026-09-18T13:18:45.023065Z",
+    "url": "https://files.pythonhosted.org/packages/92/36/6126f0dac21713dcae91404f2a76da18598a6252339a8c669c46370d43b2/psycopg_binary-3.3.6-cp312-cp312-musllinux_1_2_aarch64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "0a1fb529c1e27ca41655413e669c964bd0d7069e8cc2ab32b192fc98baf37fd5"
+    },
+    "digests": {
+     "blake2b_256": "4d297ecfc04243b46c89ffd49924e9c5634ea904ef96c7d0f37e4073623584c1",
+     "md5": "c06de7440e712374a5cc96b8ce365346",
+     "sha256": "a4ee3bdd5468a725f2a4d9aab8a74b6d0279f768c8b5d3aeb102c5307ff3d59c"
+    },
+    "downloads": -1,
+    "filename": "psycopg_binary-3.3.6-cp312-cp312-musllinux_1_2_ppc64le.whl",
+    "has_sig": false,
+    "md5_digest": "c06de7440e712374a5cc96b8ce365346",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp312",
+    "requires_python": ">=3.10",
+    "size": 4275419,
+    "upload_time": "2026-09-18T13:18:49",
+    "upload_time_iso_8601": "2026-09-18T13:18:49.299166Z",
+    "url": "https://files.pythonhosted.org/packages/4d/29/7ecfc04243b46c89ffd49924e9c5634ea904ef96c7d0f37e4073623584c1/psycopg_binary-3.3.6-cp312-cp312-musllinux_1_2_ppc64le.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "0a1fb529c1e27ca41655413e669c964bd0d7069e8cc2ab32b192fc98baf37fd5"
+    },
+    "digests": {
+     "blake2b_256": "6e902f46d2e0de79706ac170df0a3637fe63c4498fc04f131f6049520b78b806",
+     "md5": "85cc2accf6054d227725d075cbaa3da8",
+     "sha256": "289aadd6a00e151203c081f708348ec89f1e483c9b510ef4ac3981f847f01f79"
+    },
+    "downloads": -1,
+    "filename": "psycopg_binary-3.3.6-cp312-cp312-musllinux_1_2_riscv64.whl",
+    "has_sig": false,
+    "md5_digest": "85cc2accf6054d227725d075cbaa3da8",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp312",
+    "requires_python": ">=3.10",
+    "size": 4007358,
+    "upload_time": "2026-09-18T13:18:53",
+    "upload_time_iso_8601": "2026-09-18T13:18:53.944376Z",
+    "url": "https://files.pythonhosted.org/packages/6e/90/2f46d2e0de79706ac170df0a3637fe63c4498fc04f131f6049520b78b806/psycopg_binary-3.3.6-cp312-cp312-musllinux_1_2_riscv64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "0a1fb529c1e27ca41655413e669c964bd0d7069e8cc2ab32b192fc98baf37fd5"
+    },
+    "digests": {
+     "blake2b_256": "03486744e91291b751a8cf12d63d719977974bb94c84ceba913e7ddb2e478e51",
+     "md5": "69a74382d1f5a9151ff390eeebb8c478",
+     "sha256": "f21d057f3e5f5491067e5b292498073b73847d48799b099803fef100775fcc52"
+    },
+    "downloads": -1,
+    "filename": "psycopg_binary-3.3.6-cp312-cp312-musllinux_1_2_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "69a74382d1f5a9151ff390eeebb8c478",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp312",
+    "requires_python": ">=3.10",
+    "size": 4320156,
+    "upload_time": "2026-09-18T13:18:59",
+    "upload_time_iso_8601": "2026-09-18T13:18:59.258322Z",
+    "url": "https://files.pythonhosted.org/packages/03/48/6744e91291b751a8cf12d63d719977974bb94c84ceba913e7ddb2e478e51/psycopg_binary-3.3.6-cp312-cp312-musllinux_1_2_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "f2c36698ee3d46dc3bdc90d87baa7001914abc3535b20bd6f260d4e422b88463"
+    },
+    "digests": {
+     "blake2b_256": "1a9b94ff7fce53a64d5b286e2ec454e0a025cf3d6e6b4a9189bef16aa5de98b2",
+     "md5": "5ad0c3263ff2b8634522cba51c2d6ee5",
+     "sha256": "e23a66a763fbe83fcc210bc77c27e5a5ea380ebf091c06f34d8561b695e5a40f"
+    },
+    "downloads": -1,
+    "filename": "psycopg_binary-3.3.6-cp312-cp312-win_amd64.whl",
+    "has_sig": false,
+    "md5_digest": "5ad0c3263ff2b8634522cba51c2d6ee5",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp312",
+    "requires_python": ">=3.10",
+    "size": 3658864,
+    "upload_time": "2026-09-18T13:19:06",
+    "upload_time_iso_8601": "2026-09-18T13:19:06.503989Z",
+    "url": "https://files.pythonhosted.org/packages/1a/9b/94ff7fce53a64d5b286e2ec454e0a025cf3d6e6b4a9189bef16aa5de98b2/psycopg_binary-3.3.6-cp312-cp312-win_amd64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "0a1fb529c1e27ca41655413e669c964bd0d7069e8cc2ab32b192fc98baf37fd5"
+    },
+    "digests": {
+     "blake2b_256": "b4c3c072584b69ad44a747b448cfc9766fecb8aae56e372a017e2ef668790057",
+     "md5": "f67cc8d581176ec2212064188bbc2bc5",
+     "sha256": "5ad8f35e67cc16d1fad1fa8c88972dc9b3a3141ea67897399904edab96a301b6"
+    },
+    "downloads": -1,
+    "filename": "psycopg_binary-3.3.6-cp313-cp313-macosx_10_13_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "f67cc8d581176ec2212064188bbc2bc5",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp313",
+    "requires_python": ">=3.10",
+    "size": 4712284,
+    "upload_time": "2026-09-18T13:19:13",
+    "upload_time_iso_8601": "2026-09-18T13:19:13.451748Z",
+    "url": "https://files.pythonhosted.org/packages/b4/c3/c072584b69ad44a747b448cfc9766fecb8aae56e372a017e2ef668790057/psycopg_binary-3.3.6-cp313-cp313-macosx_10_13_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "0a1fb529c1e27ca41655413e669c964bd0d7069e8cc2ab32b192fc98baf37fd5"
+    },
+    "digests": {
+     "blake2b_256": "0ab94283b785339e8e2318d03048994b093d650ea6289fabaa806b765dc0d449",
+     "md5": "5915510d1760d6661e29e122332016eb",
+     "sha256": "373704aea331d3f3e3402c125a1543f5875e2986ebb54f97d1647942161f803f"
+    },
+    "downloads": -1,
+    "filename": "psycopg_binary-3.3.6-cp313-cp313-macosx_11_0_arm64.whl",
+    "has_sig": false,
+    "md5_digest": "5915510d1760d6661e29e122332016eb",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp313",
+    "requires_python": ">=3.10",
+    "size": 4772031,
+    "upload_time": "2026-09-18T13:19:18",
+    "upload_time_iso_8601": "2026-09-18T13:19:18.524279Z",
+    "url": "https://files.pythonhosted.org/packages/0a/b9/4283b785339e8e2318d03048994b093d650ea6289fabaa806b765dc0d449/psycopg_binary-3.3.6-cp313-cp313-macosx_11_0_arm64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "0a1fb529c1e27ca41655413e669c964bd0d7069e8cc2ab32b192fc98baf37fd5"
+    },
+    "digests": {
+     "blake2b_256": "6f727a1321d359246769fff1affffbd0132785a28f7f63c18524c15a502398f4",
+     "md5": "0d5f8771a1afb749d08740aec76427fc",
+     "sha256": "b82491019b884d62318b5f30706c3d7e6d4e5a6cb7eabcb3edc0c1b0fdaceae9"
+    },
+    "downloads": -1,
+    "filename": "psycopg_binary-3.3.6-cp313-cp313-manylinux2014_ppc64le.manylinux_2_17_ppc64le.whl",
+    "has_sig": false,
+    "md5_digest": "0d5f8771a1afb749d08740aec76427fc",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp313",
+    "requires_python": ">=3.10",
+    "size": 5556392,
+    "upload_time": "2026-09-18T13:19:24",
+    "upload_time_iso_8601": "2026-09-18T13:19:24.418448Z",
+    "url": "https://files.pythonhosted.org/packages/6f/72/7a1321d359246769fff1affffbd0132785a28f7f63c18524c15a502398f4/psycopg_binary-3.3.6-cp313-cp313-manylinux2014_ppc64le.manylinux_2_17_ppc64le.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "0a1fb529c1e27ca41655413e669c964bd0d7069e8cc2ab32b192fc98baf37fd5"
+    },
+    "digests": {
+     "blake2b_256": "deb0c6f8a0585a5dacbea74e130bcfc66629390e8f5bbc79d2a8e806e8952150",
+     "md5": "30c65b0802a3af191305cac26a3d509d",
+     "sha256": "cec5ea900390897d0b46130f60bc2883bf19c314f9044235217c8be88b0ef269"
+    },
+    "downloads": -1,
+    "filename": "psycopg_binary-3.3.6-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "30c65b0802a3af191305cac26a3d509d",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp313",
+    "requires_python": ">=3.10",
+    "size": 5237855,
+    "upload_time": "2026-09-18T13:19:31",
+    "upload_time_iso_8601": "2026-09-18T13:19:31.257334Z",
+    "url": "https://files.pythonhosted.org/packages/de/b0/c6f8a0585a5dacbea74e130bcfc66629390e8f5bbc79d2a8e806e8952150/psycopg_binary-3.3.6-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "0a1fb529c1e27ca41655413e669c964bd0d7069e8cc2ab32b192fc98baf37fd5"
+    },
+    "digests": {
+     "blake2b_256": "e2fcc3a7a8bbef7e945ec584ac61d460a612363ea398511cd0e220242b1d69f1",
+     "md5": "0bbd366f2b4e6806f8021ea4ed0a8d30",
+     "sha256": "98c02090d88f2ebc0ec1e8da538f77d225ce0fffecf372aa39262e62a1b054ef"
+    },
+    "downloads": -1,
+    "filename": "psycopg_binary-3.3.6-cp313-cp313-manylinux_2_27_aarch64.manylinux_2_28_aarch64.whl",
+    "has_sig": false,
+    "md5_digest": "0bbd366f2b4e6806f8021ea4ed0a8d30",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp313",
+    "requires_python": ">=3.10",
+    "size": 6833856,
+    "upload_time": "2026-09-18T13:19:43",
+    "upload_time_iso_8601": "2026-09-18T13:19:43.622938Z",
+    "url": "https://files.pythonhosted.org/packages/e2/fc/c3a7a8bbef7e945ec584ac61d460a612363ea398511cd0e220242b1d69f1/psycopg_binary-3.3.6-cp313-cp313-manylinux_2_27_aarch64.manylinux_2_28_aarch64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "0a1fb529c1e27ca41655413e669c964bd0d7069e8cc2ab32b192fc98baf37fd5"
+    },
+    "digests": {
+     "blake2b_256": "a9f28e80b921db728ebb68fc105bd7c4277f908210ad755bd6481d5ea7add740",
+     "md5": "22dc05b0ea43398ecfd5c32d70ffeb06",
+     "sha256": "ee2c4728c691245e24501fcd7a97b5b381236b9985bc445bba88cdce7d1b5784"
+    },
+    "downloads": -1,
+    "filename": "psycopg_binary-3.3.6-cp313-cp313-manylinux_2_38_riscv64.manylinux_2_39_riscv64.whl",
+    "has_sig": false,
+    "md5_digest": "22dc05b0ea43398ecfd5c32d70ffeb06",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp313",
+    "requires_python": ">=3.10",
+    "size": 5070730,
+    "upload_time": "2026-09-18T13:19:49",
+    "upload_time_iso_8601": "2026-09-18T13:19:49.968145Z",
+    "url": "https://files.pythonhosted.org/packages/a9/f2/8e80b921db728ebb68fc105bd7c4277f908210ad755bd6481d5ea7add740/psycopg_binary-3.3.6-cp313-cp313-manylinux_2_38_riscv64.manylinux_2_39_riscv64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "0a1fb529c1e27ca41655413e669c964bd0d7069e8cc2ab32b192fc98baf37fd5"
+    },
+    "digests": {
+     "blake2b_256": "546a5b313e0c5348244f0e973aff3258bf86766656256d5ece8d541a53e35b4a",
+     "md5": "86b3e39055688b28a9ddd14a10cc9d92",
+     "sha256": "f19cc87343eaa55255e76b31259a570072ac95d6ae82c92dd34b97691f5e49dc"
+    },
+    "downloads": -1,
+    "filename": "psycopg_binary-3.3.6-cp313-cp313-musllinux_1_2_aarch64.whl",
+    "has_sig": false,
+    "md5_digest": "86b3e39055688b28a9ddd14a10cc9d92",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp313",
+    "requires_python": ">=3.10",
+    "size": 4598089,
+    "upload_time": "2026-09-18T13:19:56",
+    "upload_time_iso_8601": "2026-09-18T13:19:56.426280Z",
+    "url": "https://files.pythonhosted.org/packages/54/6a/5b313e0c5348244f0e973aff3258bf86766656256d5ece8d541a53e35b4a/psycopg_binary-3.3.6-cp313-cp313-musllinux_1_2_aarch64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "0a1fb529c1e27ca41655413e669c964bd0d7069e8cc2ab32b192fc98baf37fd5"
+    },
+    "digests": {
+     "blake2b_256": "32e9db7f76ec24bf6699e92bf604e5c4bae10664a681a8999ef42aa0faf0f2c6",
+     "md5": "9138449aee309e295dc35fc5a8336e23",
+     "sha256": "fdccb3a0e184b03e9baa673b15a809cf36c339c85dbda0ebc25a698846dfbee8"
+    },
+    "downloads": -1,
+    "filename": "psycopg_binary-3.3.6-cp313-cp313-musllinux_1_2_ppc64le.whl",
+    "has_sig": false,
+    "md5_digest": "9138449aee309e295dc35fc5a8336e23",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp313",
+    "requires_python": ">=3.10",
+    "size": 4278481,
+    "upload_time": "2026-09-18T13:20:04",
+    "upload_time_iso_8601": "2026-09-18T13:20:04.681712Z",
+    "url": "https://files.pythonhosted.org/packages/32/e9/db7f76ec24bf6699e92bf604e5c4bae10664a681a8999ef42aa0faf0f2c6/psycopg_binary-3.3.6-cp313-cp313-musllinux_1_2_ppc64le.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "0a1fb529c1e27ca41655413e669c964bd0d7069e8cc2ab32b192fc98baf37fd5"
+    },
+    "digests": {
+     "blake2b_256": "618372c67013656f4d6b547caabffb193e91d57e63f90eefdcc6d045c400e97d",
+     "md5": "cc20354a83d75040014541c02dcaad53",
+     "sha256": "9892188bb15e5803beb51afe8a25add6b56be391a53058e8bca03b74e1e6bf22"
+    },
+    "downloads": -1,
+    "filename": "psycopg_binary-3.3.6-cp313-cp313-musllinux_1_2_riscv64.whl",
+    "has_sig": false,
+    "md5_digest": "cc20354a83d75040014541c02dcaad53",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp313",
+    "requires_python": ">=3.10",
+    "size": 4009229,
+    "upload_time": "2026-09-18T13:20:11",
+    "upload_time_iso_8601": "2026-09-18T13:20:11.905459Z",
+    "url": "https://files.pythonhosted.org/packages/61/83/72c67013656f4d6b547caabffb193e91d57e63f90eefdcc6d045c400e97d/psycopg_binary-3.3.6-cp313-cp313-musllinux_1_2_riscv64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "0a1fb529c1e27ca41655413e669c964bd0d7069e8cc2ab32b192fc98baf37fd5"
+    },
+    "digests": {
+     "blake2b_256": "82355e4500df2c999eb0faed8b184e6958b834172128274f06167a5deef4c19c",
+     "md5": "8ae8066fcb8ae0782bb94ee9f03bdf0e",
+     "sha256": "3af90f92769d8cc10f94515ee7a0aef36ea85ca733a0ce22858f6e0953f41138"
+    },
+    "downloads": -1,
+    "filename": "psycopg_binary-3.3.6-cp313-cp313-musllinux_1_2_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "8ae8066fcb8ae0782bb94ee9f03bdf0e",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp313",
+    "requires_python": ">=3.10",
+    "size": 4321467,
+    "upload_time": "2026-09-18T13:20:17",
+    "upload_time_iso_8601": "2026-09-18T13:20:17.949468Z",
+    "url": "https://files.pythonhosted.org/packages/82/35/5e4500df2c999eb0faed8b184e6958b834172128274f06167a5deef4c19c/psycopg_binary-3.3.6-cp313-cp313-musllinux_1_2_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "f2c36698ee3d46dc3bdc90d87baa7001914abc3535b20bd6f260d4e422b88463"
+    },
+    "digests": {
+     "blake2b_256": "557fe350e1cf498ba2565c3f87b12f429d2012eb86b76c2b3845a19ee5fbb4d6",
+     "md5": "1041fcc1472b297cad16fa010a12eff8",
+     "sha256": "0ebfad5d131de9f892ae9e70cc7616207768b6714b66a52d4612b8ceaf78b372"
+    },
+    "downloads": -1,
+    "filename": "psycopg_binary-3.3.6-cp313-cp313-win_amd64.whl",
+    "has_sig": false,
+    "md5_digest": "1041fcc1472b297cad16fa010a12eff8",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp313",
+    "requires_python": ">=3.10",
+    "size": 3658179,
+    "upload_time": "2026-09-18T13:20:22",
+    "upload_time_iso_8601": "2026-09-18T13:20:22.691628Z",
+    "url": "https://files.pythonhosted.org/packages/55/7f/e350e1cf498ba2565c3f87b12f429d2012eb86b76c2b3845a19ee5fbb4d6/psycopg_binary-3.3.6-cp313-cp313-win_amd64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "0a1fb529c1e27ca41655413e669c964bd0d7069e8cc2ab32b192fc98baf37fd5"
+    },
+    "digests": {
+     "blake2b_256": "6db960711317c284a442511644ea7185b56ebe627606d6741e732cd16108c47b",
+     "md5": "3fc3d0a7b80b28a85d74d6d7cea3a535",
+     "sha256": "b3f75dee0f9afafabe4edc52c4842f1e1878ed2069bd05b22d6fe961e97e4dba"
+    },
+    "downloads": -1,
+    "filename": "psycopg_binary-3.3.6-cp314-cp314-macosx_10_15_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "3fc3d0a7b80b28a85d74d6d7cea3a535",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.10",
+    "size": 4720512,
+    "upload_time": "2026-09-18T13:20:29",
+    "upload_time_iso_8601": "2026-09-18T13:20:29.278857Z",
+    "url": "https://files.pythonhosted.org/packages/6d/b9/60711317c284a442511644ea7185b56ebe627606d6741e732cd16108c47b/psycopg_binary-3.3.6-cp314-cp314-macosx_10_15_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "0a1fb529c1e27ca41655413e669c964bd0d7069e8cc2ab32b192fc98baf37fd5"
+    },
+    "digests": {
+     "blake2b_256": "63da28befc84454cbc6374550de7746f591f8fe1b6165c1fce249652cc8291c4",
+     "md5": "0c8eeb91318559b5ee24d321096360ef",
+     "sha256": "5927b7ba63153cd8e9862987290a2b783a5c590daf2a4ef981700cc3569166d4"
+    },
+    "downloads": -1,
+    "filename": "psycopg_binary-3.3.6-cp314-cp314-macosx_11_0_arm64.whl",
+    "has_sig": false,
+    "md5_digest": "0c8eeb91318559b5ee24d321096360ef",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.10",
+    "size": 4782318,
+    "upload_time": "2026-09-18T13:20:35",
+    "upload_time_iso_8601": "2026-09-18T13:20:35.401854Z",
+    "url": "https://files.pythonhosted.org/packages/63/da/28befc84454cbc6374550de7746f591f8fe1b6165c1fce249652cc8291c4/psycopg_binary-3.3.6-cp314-cp314-macosx_11_0_arm64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "0a1fb529c1e27ca41655413e669c964bd0d7069e8cc2ab32b192fc98baf37fd5"
+    },
+    "digests": {
+     "blake2b_256": "a48a0d21c2c833cdc0d4244c77e858e0ed37fa2abec2623be4fd686f617109ce",
+     "md5": "e383a80c2f52a0de1b898482771aa739",
+     "sha256": "0bf08b749cc144f33b44a91b78e3f71c60eb07963746a0df5a100b36ce3d7475"
+    },
+    "downloads": -1,
+    "filename": "psycopg_binary-3.3.6-cp314-cp314-manylinux2014_ppc64le.manylinux_2_17_ppc64le.whl",
+    "has_sig": false,
+    "md5_digest": "e383a80c2f52a0de1b898482771aa739",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.10",
+    "size": 5567460,
+    "upload_time": "2026-09-18T13:20:41",
+    "upload_time_iso_8601": "2026-09-18T13:20:41.902223Z",
+    "url": "https://files.pythonhosted.org/packages/a4/8a/0d21c2c833cdc0d4244c77e858e0ed37fa2abec2623be4fd686f617109ce/psycopg_binary-3.3.6-cp314-cp314-manylinux2014_ppc64le.manylinux_2_17_ppc64le.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "0a1fb529c1e27ca41655413e669c964bd0d7069e8cc2ab32b192fc98baf37fd5"
+    },
+    "digests": {
+     "blake2b_256": "496d7692d0d4e656b6cc9868d8acc2e3b42f17a0db4a625400a6d093cb0533a1",
+     "md5": "a195eabceb350463d14106711fc3eb75",
+     "sha256": "31cd942c23f613276b81a6e6598cefa12960058b0f46e1e874b540c793f6aca5"
+    },
+    "downloads": -1,
+    "filename": "psycopg_binary-3.3.6-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "a195eabceb350463d14106711fc3eb75",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.10",
+    "size": 5246902,
+    "upload_time": "2026-09-18T13:20:47",
+    "upload_time_iso_8601": "2026-09-18T13:20:47.661404Z",
+    "url": "https://files.pythonhosted.org/packages/49/6d/7692d0d4e656b6cc9868d8acc2e3b42f17a0db4a625400a6d093cb0533a1/psycopg_binary-3.3.6-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "0a1fb529c1e27ca41655413e669c964bd0d7069e8cc2ab32b192fc98baf37fd5"
+    },
+    "digests": {
+     "blake2b_256": "d4c1b8a1f18fb1b7558a17f57f7cb3fc8bc93189feea2958925950b3acb15743",
+     "md5": "8fd17625752b6f8a38560f36069faff2",
+     "sha256": "4690cf67738f0e0e49a32aeec99bf0e4595cc2b4f1af984a4345394b1dcff91a"
+    },
+    "downloads": -1,
+    "filename": "psycopg_binary-3.3.6-cp314-cp314-manylinux_2_27_aarch64.manylinux_2_28_aarch64.whl",
+    "has_sig": false,
+    "md5_digest": "8fd17625752b6f8a38560f36069faff2",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.10",
+    "size": 6847192,
+    "upload_time": "2026-09-18T13:20:56",
+    "upload_time_iso_8601": "2026-09-18T13:20:56.874786Z",
+    "url": "https://files.pythonhosted.org/packages/d4/c1/b8a1f18fb1b7558a17f57f7cb3fc8bc93189feea2958925950b3acb15743/psycopg_binary-3.3.6-cp314-cp314-manylinux_2_27_aarch64.manylinux_2_28_aarch64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "0a1fb529c1e27ca41655413e669c964bd0d7069e8cc2ab32b192fc98baf37fd5"
+    },
+    "digests": {
+     "blake2b_256": "a576404f33519167c65cca88ec4998776f1dbebccc301ee977f0e62c47fb0826",
+     "md5": "9fe832bd5dc966e03d13c1aebd6f3892",
+     "sha256": "ad1c785e784cfd87e8436c6b7702f2d321fc39601bbaf29bc63a41a867091638"
+    },
+    "downloads": -1,
+    "filename": "psycopg_binary-3.3.6-cp314-cp314-manylinux_2_38_riscv64.manylinux_2_39_riscv64.whl",
+    "has_sig": false,
+    "md5_digest": "9fe832bd5dc966e03d13c1aebd6f3892",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.10",
+    "size": 5079573,
+    "upload_time": "2026-09-18T13:21:04",
+    "upload_time_iso_8601": "2026-09-18T13:21:04.155517Z",
+    "url": "https://files.pythonhosted.org/packages/a5/76/404f33519167c65cca88ec4998776f1dbebccc301ee977f0e62c47fb0826/psycopg_binary-3.3.6-cp314-cp314-manylinux_2_38_riscv64.manylinux_2_39_riscv64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "0a1fb529c1e27ca41655413e669c964bd0d7069e8cc2ab32b192fc98baf37fd5"
+    },
+    "digests": {
+     "blake2b_256": "f0d979e8fbc8f37262a415f3550f0bcc5f98037442bf3d12ef6cbae2056655ae",
+     "md5": "1b15edf3ff60c6aeac66e453a8a5dd0f",
+     "sha256": "79a2a1c3449f6c3409427078ed1cec10de79f3023cb5f2504f0597d350ad46c7"
+    },
+    "downloads": -1,
+    "filename": "psycopg_binary-3.3.6-cp314-cp314-musllinux_1_2_aarch64.whl",
+    "has_sig": false,
+    "md5_digest": "1b15edf3ff60c6aeac66e453a8a5dd0f",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.10",
+    "size": 4613633,
+    "upload_time": "2026-09-18T13:21:10",
+    "upload_time_iso_8601": "2026-09-18T13:21:10.664103Z",
+    "url": "https://files.pythonhosted.org/packages/f0/d9/79e8fbc8f37262a415f3550f0bcc5f98037442bf3d12ef6cbae2056655ae/psycopg_binary-3.3.6-cp314-cp314-musllinux_1_2_aarch64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "0a1fb529c1e27ca41655413e669c964bd0d7069e8cc2ab32b192fc98baf37fd5"
+    },
+    "digests": {
+     "blake2b_256": "d44796225db74be7d2ce04b3a58678b53cda610225055edf5faa775c9f501d8b",
+     "md5": "4ca6a12c6841159007701c6b1dae67f6",
+     "sha256": "86147cb5d140341c3363fb5bacce31f8d5543902a46699d3c536b101bbceaf9e"
+    },
+    "downloads": -1,
+    "filename": "psycopg_binary-3.3.6-cp314-cp314-musllinux_1_2_ppc64le.whl",
+    "has_sig": false,
+    "md5_digest": "4ca6a12c6841159007701c6b1dae67f6",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.10",
+    "size": 4293375,
+    "upload_time": "2026-09-18T13:21:16",
+    "upload_time_iso_8601": "2026-09-18T13:21:16.027382Z",
+    "url": "https://files.pythonhosted.org/packages/d4/47/96225db74be7d2ce04b3a58678b53cda610225055edf5faa775c9f501d8b/psycopg_binary-3.3.6-cp314-cp314-musllinux_1_2_ppc64le.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "0a1fb529c1e27ca41655413e669c964bd0d7069e8cc2ab32b192fc98baf37fd5"
+    },
+    "digests": {
+     "blake2b_256": "2ad218e9c779a5efd565250329adaf529ecc2b8b2ed5be5cb0f6ccee208cbfd9",
+     "md5": "af307c73024866c94d90742079a80850",
+     "sha256": "7308c93cf0b19bbaf8e6ff0a6ad50d3c442385739245fe15a8d593bf841734a6"
+    },
+    "downloads": -1,
+    "filename": "psycopg_binary-3.3.6-cp314-cp314-musllinux_1_2_riscv64.whl",
+    "has_sig": false,
+    "md5_digest": "af307c73024866c94d90742079a80850",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.10",
+    "size": 4019883,
+    "upload_time": "2026-09-18T13:21:21",
+    "upload_time_iso_8601": "2026-09-18T13:21:21.587332Z",
+    "url": "https://files.pythonhosted.org/packages/2a/d2/18e9c779a5efd565250329adaf529ecc2b8b2ed5be5cb0f6ccee208cbfd9/psycopg_binary-3.3.6-cp314-cp314-musllinux_1_2_riscv64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "0a1fb529c1e27ca41655413e669c964bd0d7069e8cc2ab32b192fc98baf37fd5"
+    },
+    "digests": {
+     "blake2b_256": "ef280cc654afc6c2cda982767f5679d3646b30b1ec86545bdaa9402202d6776c",
+     "md5": "b4169b998918d5608b0f975ac51d3f58",
+     "sha256": "05a83ac9fd52b9bca7cb5ab04b3691163170bd16f53defa27216ea3aa07ee781"
+    },
+    "downloads": -1,
+    "filename": "psycopg_binary-3.3.6-cp314-cp314-musllinux_1_2_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "b4169b998918d5608b0f975ac51d3f58",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.10",
+    "size": 4332607,
+    "upload_time": "2026-09-18T13:21:27",
+    "upload_time_iso_8601": "2026-09-18T13:21:27.630931Z",
+    "url": "https://files.pythonhosted.org/packages/ef/28/0cc654afc6c2cda982767f5679d3646b30b1ec86545bdaa9402202d6776c/psycopg_binary-3.3.6-cp314-cp314-musllinux_1_2_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "f2c36698ee3d46dc3bdc90d87baa7001914abc3535b20bd6f260d4e422b88463"
+    },
+    "digests": {
+     "blake2b_256": "f13e0a753a74fbd7aef120f286c016e09d3cc3f1daf7688f4a145d27281260b2",
+     "md5": "9dd06b2725f167b0c5cbafa4828f2d3a",
+     "sha256": "1fbd30e537dab22cafdf080608f10148fe2a5f3a61294ddb5113caac8a623840"
+    },
+    "downloads": -1,
+    "filename": "psycopg_binary-3.3.6-cp314-cp314-win_amd64.whl",
+    "has_sig": false,
+    "md5_digest": "9dd06b2725f167b0c5cbafa4828f2d3a",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.10",
+    "size": 3755671,
+    "upload_time": "2026-09-18T13:21:33",
+    "upload_time_iso_8601": "2026-09-18T13:21:33.855505Z",
+    "url": "https://files.pythonhosted.org/packages/f1/3e/0a753a74fbd7aef120f286c016e09d3cc3f1daf7688f4a145d27281260b2/psycopg_binary-3.3.6-cp314-cp314-win_amd64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "0a1fb529c1e27ca41655413e669c964bd0d7069e8cc2ab32b192fc98baf37fd5"
+    },
+    "digests": {
+     "blake2b_256": "0eb1a372b9c02aea50148e71c9853e19efca8fa5ae2010a8e27243b9b8f790c0",
+     "md5": "d37086f6d56283e11610559e00625c9b",
+     "sha256": "bf8c8481d026b85dd70c5fa7dde85b2333aed0b32a2602bcd38a900cbd78a49c"
+    },
+    "downloads": -1,
+    "filename": "psycopg_binary-3.3.6-cp315-cp315-macosx_10_15_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "d37086f6d56283e11610559e00625c9b",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp315",
+    "requires_python": ">=3.10",
+    "size": 4719571,
+    "upload_time": "2026-09-18T13:21:41",
+    "upload_time_iso_8601": "2026-09-18T13:21:41.437200Z",
+    "url": "https://files.pythonhosted.org/packages/0e/b1/a372b9c02aea50148e71c9853e19efca8fa5ae2010a8e27243b9b8f790c0/psycopg_binary-3.3.6-cp315-cp315-macosx_10_15_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "0a1fb529c1e27ca41655413e669c964bd0d7069e8cc2ab32b192fc98baf37fd5"
+    },
+    "digests": {
+     "blake2b_256": "657c811e3828c6b82e2f10c6c9cdd963cfc66f3e024026e5a69ac18530bad984",
+     "md5": "6d293ae3c4d97b5dbe3a559c3a773a25",
+     "sha256": "b599defe9190b17e9907c8b4d114c181e702c87efcd1b8a0ad40971cdcc4634a"
+    },
+    "downloads": -1,
+    "filename": "psycopg_binary-3.3.6-cp315-cp315-macosx_11_0_arm64.whl",
+    "has_sig": false,
+    "md5_digest": "6d293ae3c4d97b5dbe3a559c3a773a25",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp315",
+    "requires_python": ">=3.10",
+    "size": 4781230,
+    "upload_time": "2026-09-18T13:21:49",
+    "upload_time_iso_8601": "2026-09-18T13:21:49.516078Z",
+    "url": "https://files.pythonhosted.org/packages/65/7c/811e3828c6b82e2f10c6c9cdd963cfc66f3e024026e5a69ac18530bad984/psycopg_binary-3.3.6-cp315-cp315-macosx_11_0_arm64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "0a1fb529c1e27ca41655413e669c964bd0d7069e8cc2ab32b192fc98baf37fd5"
+    },
+    "digests": {
+     "blake2b_256": "3e159a784eed813ea9e97c294af3ead63d02b7b203502c66380336c50065e441",
+     "md5": "8a781915abdba3cd5691d7fc3e2f2e3a",
+     "sha256": "b8ece331509f7a975b90501f41e83ad905e4141753fedf3f2711b2bc70a8efbc"
+    },
+    "downloads": -1,
+    "filename": "psycopg_binary-3.3.6-cp315-cp315-manylinux2014_ppc64le.manylinux_2_17_ppc64le.whl",
+    "has_sig": false,
+    "md5_digest": "8a781915abdba3cd5691d7fc3e2f2e3a",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp315",
+    "requires_python": ">=3.10",
+    "size": 5566111,
+    "upload_time": "2026-09-18T13:21:58",
+    "upload_time_iso_8601": "2026-09-18T13:21:58.089183Z",
+    "url": "https://files.pythonhosted.org/packages/3e/15/9a784eed813ea9e97c294af3ead63d02b7b203502c66380336c50065e441/psycopg_binary-3.3.6-cp315-cp315-manylinux2014_ppc64le.manylinux_2_17_ppc64le.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "0a1fb529c1e27ca41655413e669c964bd0d7069e8cc2ab32b192fc98baf37fd5"
+    },
+    "digests": {
+     "blake2b_256": "681647194e002007c27337b11e49bf459c4b19727463f9aff2e1a90917bcc806",
+     "md5": "04cf406e9d7f71b61d4af4ffa1a35f75",
+     "sha256": "c61617eaae0112ca154da87ffb99b73af2c74067acac28dfb9a4455b019dff2e"
+    },
+    "downloads": -1,
+    "filename": "psycopg_binary-3.3.6-cp315-cp315-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "04cf406e9d7f71b61d4af4ffa1a35f75",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp315",
+    "requires_python": ">=3.10",
+    "size": 5249963,
+    "upload_time": "2026-09-18T13:22:06",
+    "upload_time_iso_8601": "2026-09-18T13:22:06.695998Z",
+    "url": "https://files.pythonhosted.org/packages/68/16/47194e002007c27337b11e49bf459c4b19727463f9aff2e1a90917bcc806/psycopg_binary-3.3.6-cp315-cp315-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "0a1fb529c1e27ca41655413e669c964bd0d7069e8cc2ab32b192fc98baf37fd5"
+    },
+    "digests": {
+     "blake2b_256": "53845dcf9f310b11f0675cd860c6b2c70f58ce61798a3ee3f6f962b53fa358ca",
+     "md5": "68d6a2c490f576d97d97f8a85268168c",
+     "sha256": "c6d19cb4999d03231e8730a5f66c8f5068bc3b532677eb39dab0f600bff3e312"
+    },
+    "downloads": -1,
+    "filename": "psycopg_binary-3.3.6-cp315-cp315-manylinux_2_27_aarch64.manylinux_2_28_aarch64.whl",
+    "has_sig": false,
+    "md5_digest": "68d6a2c490f576d97d97f8a85268168c",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp315",
+    "requires_python": ">=3.10",
+    "size": 6847925,
+    "upload_time": "2026-09-18T13:22:13",
+    "upload_time_iso_8601": "2026-09-18T13:22:13.088027Z",
+    "url": "https://files.pythonhosted.org/packages/53/84/5dcf9f310b11f0675cd860c6b2c70f58ce61798a3ee3f6f962b53fa358ca/psycopg_binary-3.3.6-cp315-cp315-manylinux_2_27_aarch64.manylinux_2_28_aarch64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "0a1fb529c1e27ca41655413e669c964bd0d7069e8cc2ab32b192fc98baf37fd5"
+    },
+    "digests": {
+     "blake2b_256": "f3061957a06dc22963c418c27b284929579de84f29c37ad1abe6dc6ee9e8cf25",
+     "md5": "63fa0831df73b2379ad65cec7f2d703a",
+     "sha256": "e8cbb54454dbf1bbf2ff08dd7693e8d94ac94b1a20f70f4b3b813d52ecb5cbc1"
+    },
+    "downloads": -1,
+    "filename": "psycopg_binary-3.3.6-cp315-cp315-manylinux_2_38_riscv64.manylinux_2_39_riscv64.whl",
+    "has_sig": false,
+    "md5_digest": "63fa0831df73b2379ad65cec7f2d703a",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp315",
+    "requires_python": ">=3.10",
+    "size": 5087720,
+    "upload_time": "2026-09-18T13:22:17",
+    "upload_time_iso_8601": "2026-09-18T13:22:17.959532Z",
+    "url": "https://files.pythonhosted.org/packages/f3/06/1957a06dc22963c418c27b284929579de84f29c37ad1abe6dc6ee9e8cf25/psycopg_binary-3.3.6-cp315-cp315-manylinux_2_38_riscv64.manylinux_2_39_riscv64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "0a1fb529c1e27ca41655413e669c964bd0d7069e8cc2ab32b192fc98baf37fd5"
+    },
+    "digests": {
+     "blake2b_256": "2143ac07d042bae99b57bf123bb473632f29af544008094da0ffd285ab8011e2",
+     "md5": "66a850ca89a1fb37ad4b9d25c76ed593",
+     "sha256": "dc75da5a20951049f7b773145f998f69d181adad9c58a0ff36e0cf1d73c10e10"
+    },
+    "downloads": -1,
+    "filename": "psycopg_binary-3.3.6-cp315-cp315-musllinux_1_2_aarch64.whl",
+    "has_sig": false,
+    "md5_digest": "66a850ca89a1fb37ad4b9d25c76ed593",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp315",
+    "requires_python": ">=3.10",
+    "size": 4613412,
+    "upload_time": "2026-09-18T13:22:26",
+    "upload_time_iso_8601": "2026-09-18T13:22:26.719388Z",
+    "url": "https://files.pythonhosted.org/packages/21/43/ac07d042bae99b57bf123bb473632f29af544008094da0ffd285ab8011e2/psycopg_binary-3.3.6-cp315-cp315-musllinux_1_2_aarch64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "0a1fb529c1e27ca41655413e669c964bd0d7069e8cc2ab32b192fc98baf37fd5"
+    },
+    "digests": {
+     "blake2b_256": "aab1019156fbeafcefb4cccc9d109de4699493bceb8313c7545c8349e089dfbc",
+     "md5": "1c5759043353172b719c06b7dda765e0",
+     "sha256": "955e3dd94da361e052d2e49acf591017158dc8f8ed2c8a42c2e3943403c39dc2"
+    },
+    "downloads": -1,
+    "filename": "psycopg_binary-3.3.6-cp315-cp315-musllinux_1_2_ppc64le.whl",
+    "has_sig": false,
+    "md5_digest": "1c5759043353172b719c06b7dda765e0",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp315",
+    "requires_python": ">=3.10",
+    "size": 4292618,
+    "upload_time": "2026-09-18T13:22:33",
+    "upload_time_iso_8601": "2026-09-18T13:22:33.042091Z",
+    "url": "https://files.pythonhosted.org/packages/aa/b1/019156fbeafcefb4cccc9d109de4699493bceb8313c7545c8349e089dfbc/psycopg_binary-3.3.6-cp315-cp315-musllinux_1_2_ppc64le.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "0a1fb529c1e27ca41655413e669c964bd0d7069e8cc2ab32b192fc98baf37fd5"
+    },
+    "digests": {
+     "blake2b_256": "5d0f62113dc6b1df65983a1f2fc816c04b1edfa22f2ae9d4abee74ed267f4a96",
+     "md5": "4e00e59004196c84f4b24ad7890bf94e",
+     "sha256": "c7753871eb57e6a5f4646f6168590c6653073dea5e9e720b201c8875332df4c8"
+    },
+    "downloads": -1,
+    "filename": "psycopg_binary-3.3.6-cp315-cp315-musllinux_1_2_riscv64.whl",
+    "has_sig": false,
+    "md5_digest": "4e00e59004196c84f4b24ad7890bf94e",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp315",
+    "requires_python": ">=3.10",
+    "size": 4027121,
+    "upload_time": "2026-09-18T13:22:38",
+    "upload_time_iso_8601": "2026-09-18T13:22:38.334006Z",
+    "url": "https://files.pythonhosted.org/packages/5d/0f/62113dc6b1df65983a1f2fc816c04b1edfa22f2ae9d4abee74ed267f4a96/psycopg_binary-3.3.6-cp315-cp315-musllinux_1_2_riscv64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "0a1fb529c1e27ca41655413e669c964bd0d7069e8cc2ab32b192fc98baf37fd5"
+    },
+    "digests": {
+     "blake2b_256": "5dd5cf0cbd1ea5a7d8167fe2c6953efde19101f7b193bd61a23e6d622ad6854c",
+     "md5": "d7a059ced125178fe0058d241a9d8f0a",
+     "sha256": "303732e798fe6729f8e12021b9c96107df8e95ecec4dd487c67b98ec2a59435e"
+    },
+    "downloads": -1,
+    "filename": "psycopg_binary-3.3.6-cp315-cp315-musllinux_1_2_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "d7a059ced125178fe0058d241a9d8f0a",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp315",
+    "requires_python": ">=3.10",
+    "size": 4336388,
+    "upload_time": "2026-09-18T13:22:45",
+    "upload_time_iso_8601": "2026-09-18T13:22:45.576012Z",
+    "url": "https://files.pythonhosted.org/packages/5d/d5/cf0cbd1ea5a7d8167fe2c6953efde19101f7b193bd61a23e6d622ad6854c/psycopg_binary-3.3.6-cp315-cp315-musllinux_1_2_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "f2c36698ee3d46dc3bdc90d87baa7001914abc3535b20bd6f260d4e422b88463"
+    },
+    "digests": {
+     "blake2b_256": "9833e2a5b36edf8aa422f6fa4b894756eb33dc93b36df5f65121280bb8b929c4",
+     "md5": "14a7280f24d0ba2d8a09f667c297bb28",
+     "sha256": "2f122603f36050937982abf9668d8bc4769a79f7c93a65013b1c49f1cab7b56b"
+    },
+    "downloads": -1,
+    "filename": "psycopg_binary-3.3.6-cp315-cp315-win_amd64.whl",
+    "has_sig": false,
+    "md5_digest": "14a7280f24d0ba2d8a09f667c297bb28",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp315",
+    "requires_python": ">=3.10",
+    "size": 3756154,
+    "upload_time": "2026-09-18T13:22:51",
+    "upload_time_iso_8601": "2026-09-18T13:22:51.283084Z",
+    "url": "https://files.pythonhosted.org/packages/98/33/e2a5b36edf8aa422f6fa4b894756eb33dc93b36df5f65121280bb8b929c4/psycopg_binary-3.3.6-cp315-cp315-win_amd64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   }
+  ],
+  "vulnerabilities": []
+ },
+ "http_status": 200,
+ "requested_at_utc": "2026-10-30T14:16:11Z",
+ "url": "https://pypi.org/pypi/psycopg-binary/3.3.6/json"
+}

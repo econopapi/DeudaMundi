@@ -1,0 +1,123 @@
+{
+ "body": {
+  "info": {
+   "author": "Laurent Savaete",
+   "author_email": "laurent@where.tf",
+   "bugtrack_url": null,
+   "classifiers": [
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9"
+   ],
+   "description": "# SlowApi\n\nA rate limiting library for Starlette and FastAPI adapted from [flask-limiter](http://github.com/alisaifee/flask-limiter).\n\nThis package is used in various production setups, handling millions of requests per month, and seems to behave as expected.\nThere might be some API changes when changing the code to be fully `async`, but we will notify users via appropriate `semver` version changes.\n\nThe documentation is on [read the docs](https://slowapi.readthedocs.io/en/latest/).\n\n# Quick start\n\n## Installation\n\n`slowapi` is available from [pypi](https://pypi.org/project/slowapi/) so you can install it as usual:\n\n```\n$ pip install slowapi\n```\n\n# Features\n\nMost feature are coming from FlaskLimiter and the underlying [limits](https://limits.readthedocs.io/).\n\nSupported now:\n\n- Single and multiple `limit` decorator on endpoint functions to apply limits\n- redis, memcached and memory backends to track your limits (memory as a fallback)\n- support for sync and async HTTP endpoints\n- Support for shared limits across a set of routes\n- The library aims to support all [currently supported versions](https://devguide.python.org/versions/) of python\n\n# Limitations and known issues\n\n- The `request` argument must be explicitly passed to your endpoint, or `slowapi` won't be able to hook into it. In other words, write:\n\n```python\n    @limiter.limit(\"5/minute\")\n    async def myendpoint(request: Request)\n        pass\n```\n\nand not:\n\n```python\n    @limiter.limit(\"5/minute\")\n    async def myendpoint()\n        pass\n```\n\n- `websocket` endpoints are not supported yet.\n\n# Developing and contributing\n\nPRs are more than welcome! Please include tests for your changes :)\n\nThe package uses [poetry](https://python-poetry.org) to manage dependencies. To setup your dev env:\n\n```bash\n$ poetry install\n```\n\nTo run the tests:\n\n```bash\n$ pytest\n```\n\n## Publishing a new release\n\n- bump `version` in `pyproject.toml\n- `poetry publish --build` to build and publish the package to pypi\n\n# Credits\n\nCredits go to [flask-limiter](https://github.com/alisaifee/flask-limiter) of which SlowApi is a (still partial) adaptation to Starlette and FastAPI.\nIt's also important to mention that the actual rate limiting work is done by [limits](https://github.com/alisaifee/limits/), `slowapi` is just a wrapper around it.\n",
+   "description_content_type": "text/markdown",
+   "docs_url": null,
+   "download_url": null,
+   "downloads": {
+    "last_day": -1,
+    "last_month": -1,
+    "last_week": -1
+   },
+   "dynamic": null,
+   "home_page": "https://github.com/laurents/slowapi",
+   "keywords": null,
+   "license": "MIT",
+   "license_expression": null,
+   "license_files": null,
+   "maintainer": null,
+   "maintainer_email": null,
+   "name": "slowapi",
+   "package_url": "https://pypi.org/project/slowapi/",
+   "platform": null,
+   "project_url": "https://pypi.org/project/slowapi/",
+   "project_urls": {
+    "Documentation": "https://slowapi.readthedocs.io/en/latest/",
+    "Homepage": "https://github.com/laurents/slowapi",
+    "Repository": "https://github.com/laurents/slowapi"
+   },
+   "provides_extra": null,
+   "release_url": "https://pypi.org/project/slowapi/0.1.10/",
+   "requires_dist": [
+    "limits>=2.3",
+    "redis<4.0.0,>=3.4.1; extra == \"redis\""
+   ],
+   "requires_python": "<4.0,>=3.7",
+   "summary": "A rate limiting extension for Starlette and Fastapi",
+   "version": "0.1.10",
+   "yanked": false,
+   "yanked_reason": null
+  },
+  "last_serial": 38001576,
+  "ownership": {
+   "organization": null,
+   "roles": [
+    {
+     "role": "Owner",
+     "user": "laurents"
+    },
+    {
+     "role": "Maintainer",
+     "user": "twcurrie"
+    }
+   ]
+  },
+  "urls": [
+   {
+    "comment_text": "",
+    "core-metadata": {
+     "sha256": "346b6a289c4d98e7d552d1d7467bd4d90ed911e8931174c4182b3f14275b99cd"
+    },
+    "digests": {
+     "blake2b_256": "c48b1d359f38706b4097d9a943bf8bd22599f537de4cbaff1e622d3e3936e164",
+     "md5": "360b0ba689f48a84246b2830c699d658",
+     "sha256": "3acb61561dc9d687e3d3669362ff6a439de9ba44e2fed3a9c165da26b4b83e28"
+    },
+    "downloads": -1,
+    "filename": "slowapi-0.1.10-py3-none-any.whl",
+    "has_sig": false,
+    "md5_digest": "360b0ba689f48a84246b2830c699d658",
+    "packagetype": "bdist_wheel",
+    "python_version": "py3",
+    "requires_python": "<4.0,>=3.7",
+    "size": 14921,
+    "upload_time": "2026-06-13T11:59:30",
+    "upload_time_iso_8601": "2026-06-13T11:59:30.485445Z",
+    "url": "https://files.pythonhosted.org/packages/c4/8b/1d359f38706b4097d9a943bf8bd22599f537de4cbaff1e622d3e3936e164/slowapi-0.1.10-py3-none-any.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": "",
+    "core-metadata": false,
+    "digests": {
+     "blake2b_256": "b95224527cf25a8b508926aff53350b0136561dfe86c7125f61526653666e1b2",
+     "md5": "72ac01c9db9b3caa15765b220330f2e1",
+     "sha256": "d320d5bc04d9f171a77fb16700faf3036d85b00f420f22924c8a225f95bd14f9"
+    },
+    "downloads": -1,
+    "filename": "slowapi-0.1.10.tar.gz",
+    "has_sig": false,
+    "md5_digest": "72ac01c9db9b3caa15765b220330f2e1",
+    "packagetype": "sdist",
+    "python_version": "source",
+    "requires_python": "<4.0,>=3.7",
+    "size": 13841,
+    "upload_time": "2026-06-13T11:59:31",
+    "upload_time_iso_8601": "2026-06-13T11:59:31.571979Z",
+    "url": "https://files.pythonhosted.org/packages/b9/52/24527cf25a8b508926aff53350b0136561dfe86c7125f61526653666e1b2/slowapi-0.1.10.tar.gz",
+    "yanked": false,
+    "yanked_reason": null
+   }
+  ],
+  "vulnerabilities": []
+ },
+ "http_status": 200,
+ "requested_at_utc": "2026-10-30T14:16:11Z",
+ "url": "https://pypi.org/pypi/slowapi/0.1.10/json"
+}

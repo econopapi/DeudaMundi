@@ -1,0 +1,9 @@
+{
+  "archived": false,
+  "description": "Rate limiting using various strategies and storage backends such as redis, memcached & mongodb",
+  "fork": false,
+  "html_url": "https://github.com/alisaifee/limits",
+  "requested_at_utc": "2026-10-30T14:16:11Z",
+  "requested_repo": "alisaifee/limits",
+  "resolved_full_name": "alisaifee/limits"
+}

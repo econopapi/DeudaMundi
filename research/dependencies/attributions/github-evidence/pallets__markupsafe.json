@@ -1,0 +1,9 @@
+{
+  "archived": false,
+  "description": "Safely add untrusted strings to HTML/XML markup.",
+  "fork": false,
+  "html_url": "https://github.com/pallets/markupsafe",
+  "requested_at_utc": "2026-10-30T14:16:11Z",
+  "requested_repo": "pallets/markupsafe",
+  "resolved_full_name": "pallets/markupsafe"
+}

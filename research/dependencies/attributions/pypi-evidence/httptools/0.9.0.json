@@ -1,0 +1,2910 @@
+{
+ "body": {
+  "info": {
+   "author": null,
+   "author_email": "Yury Selivanov <yury@magic.io>",
+   "bugtrack_url": null,
+   "classifiers": [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Web Environment",
+    "Intended Audience :: Developers",
+    "Operating System :: MacOS :: MacOS X",
+    "Operating System :: POSIX",
+    "Programming Language :: Python :: 3"
+   ],
+   "description": "![Tests](https://github.com/MagicStack/httptools/workflows/Tests/badge.svg)\n\nhttptools is a Python binding for the nodejs HTTP parser.\n\nThe package is available on PyPI: `pip install httptools`.\n\n\n# APIs\n\nhttptools contains two classes `httptools.HttpRequestParser`,\n`httptools.HttpResponseParser` (fulfilled through\n[llhttp](https://github.com/nodejs/llhttp)) and a function for\nparsing URLs `httptools.parse_url` (through\n[http-parse](https://github.com/nodejs/http-parser) for now).\nSee unittests for examples.\n\n\n```python\n\nclass HttpRequestParser:\n\n    def __init__(self, protocol):\n        \"\"\"HttpRequestParser\n\n        protocol -- a Python object with the following methods\n        (all optional):\n\n          - on_message_begin()\n          - on_url(url: bytes)\n          - on_header(name: bytes, value: bytes)\n          - on_headers_complete()\n          - on_body(body: bytes)\n          - on_message_complete()\n          - on_chunk_header()\n          - on_chunk_complete()\n          - on_status(status: bytes)\n        \"\"\"\n\n    def get_http_version(self) -> str:\n        \"\"\"Return an HTTP protocol version.\"\"\"\n\n    def should_keep_alive(self) -> bool:\n        \"\"\"Return ``True`` if keep-alive mode is preferred.\"\"\"\n\n    def should_upgrade(self) -> bool:\n        \"\"\"Return ``True`` if the parsed request is a valid Upgrade request.\n\tThe method exposes a flag set just before on_headers_complete.\n\tCalling this method earlier will only yield `False`.\n\t\"\"\"\n\n    def feed_data(self, data: bytes):\n        \"\"\"Feed data to the parser.\n\n        Will eventually trigger callbacks on the ``protocol``\n        object.\n\n        On HTTP upgrade, this method will raise an\n        ``HttpParserUpgrade`` exception, with its sole argument\n        set to the offset of the non-HTTP data in ``data``.\n        \"\"\"\n\n    def get_method(self) -> bytes:\n        \"\"\"Return HTTP request method (GET, HEAD, etc)\"\"\"\n\n\nclass HttpResponseParser:\n\n    \"\"\"Has all methods except ``get_method()`` that\n    HttpRequestParser has.\"\"\"\n\n    def get_status_code(self) -> int:\n        \"\"\"Return the status code of the HTTP response\"\"\"\n\n\ndef parse_url(url: bytes):\n    \"\"\"Parse URL strings into a structured Python object.\n\n    Returns an instance of ``httptools.URL`` class with the\n    following attributes:\n\n      - schema: bytes\n      - host: bytes\n      - port: int\n      - path: bytes\n      - query: bytes\n      - fragment: bytes\n      - userinfo: bytes\n    \"\"\"\n```\n\n\n# Development\n\n1. Clone this repository with\n   `git clone --recursive git@github.com:MagicStack/httptools.git`\n\n2. Create a virtual environment with Python 3:\n   `python3 -m venv envname`\n\n3. Activate the environment with `source envname/bin/activate`\n\n4. Run `make` and `make test`.\n\n\n# License\n\nMIT.\n",
+   "description_content_type": "text/markdown",
+   "docs_url": null,
+   "download_url": null,
+   "downloads": {
+    "last_day": -1,
+    "last_month": -1,
+    "last_week": -1
+   },
+   "dynamic": [
+    "License-File",
+    "Platform"
+   ],
+   "home_page": null,
+   "keywords": null,
+   "license": null,
+   "license_expression": "MIT",
+   "license_files": [
+    "LICENSE",
+    "vendor/http-parser/LICENSE-MIT",
+    "vendor/llhttp/LICENSE"
+   ],
+   "maintainer": null,
+   "maintainer_email": null,
+   "name": "httptools",
+   "package_url": "https://pypi.org/project/httptools/",
+   "platform": "macOS",
+   "project_url": "https://pypi.org/project/httptools/",
+   "project_urls": {
+    "Homepage": "https://github.com/MagicStack/httptools"
+   },
+   "provides_extra": null,
+   "release_url": "https://pypi.org/project/httptools/0.9.0/",
+   "requires_dist": null,
+   "requires_python": ">=3.9",
+   "summary": "A collection of framework independent HTTP protocol utils.",
+   "version": "0.9.0",
+   "yanked": false,
+   "yanked_reason": null
+  },
+  "last_serial": 42034415,
+  "ownership": {
+   "organization": null,
+   "roles": [
+    {
+     "role": "Owner",
+     "user": "Elvis.Pranskevichus"
+    },
+    {
+     "role": "Owner",
+     "user": "yselivanov"
+    },
+    {
+     "role": "Maintainer",
+     "user": "edgedb-ci"
+    }
+   ]
+  },
+  "urls": [
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "8a743396f45465204e2b44b43cb57ec4a343c423f52604bbaf1777fd438698c9"
+    },
+    "digests": {
+     "blake2b_256": "f56ebd4f866032541728bdfaa33277856c68e608343205d8772027988ab00bab",
+     "md5": "2dc13b4d980f20c023a9477723fafdc3",
+     "sha256": "eacf0f45ca3ff84c01481c60c15da9ee56711f7292f66663df0f57af61e011c2"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp310-cp310-macosx_11_0_arm64.whl",
+    "has_sig": false,
+    "md5_digest": "2dc13b4d980f20c023a9477723fafdc3",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp310",
+    "requires_python": ">=3.9",
+    "size": 119786,
+    "upload_time": "2026-10-09T19:53:47",
+    "upload_time_iso_8601": "2026-10-09T19:53:47.604308Z",
+    "url": "https://files.pythonhosted.org/packages/f5/6e/bd4f866032541728bdfaa33277856c68e608343205d8772027988ab00bab/httptools-0.9.0-cp310-cp310-macosx_11_0_arm64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "8a743396f45465204e2b44b43cb57ec4a343c423f52604bbaf1777fd438698c9"
+    },
+    "digests": {
+     "blake2b_256": "8ff14a98e04117cf5d74a2079d759a68c1f29dc734636c05e34af7605e039191",
+     "md5": "245f7227d2d3c0a0342490b5e7b2bb9c",
+     "sha256": "f0ef48ce353f6b6a52232ba23d0983d4c2c84c84a778899404e34b4718509bf2"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp310-cp310-macosx_11_0_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "245f7227d2d3c0a0342490b5e7b2bb9c",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp310",
+    "requires_python": ">=3.9",
+    "size": 115361,
+    "upload_time": "2026-10-09T19:53:49",
+    "upload_time_iso_8601": "2026-10-09T19:53:49.280066Z",
+    "url": "https://files.pythonhosted.org/packages/8f/f1/4a98e04117cf5d74a2079d759a68c1f29dc734636c05e34af7605e039191/httptools-0.9.0-cp310-cp310-macosx_11_0_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "8a743396f45465204e2b44b43cb57ec4a343c423f52604bbaf1777fd438698c9"
+    },
+    "digests": {
+     "blake2b_256": "a616b0400f48db7a4d4cdfa9301331d55cfd1c872c7f7b593d8be0897a517e55",
+     "md5": "5fd0a117f61283cd7181f5c2917937bf",
+     "sha256": "4a85401b0c3f893cf5695c1199e8679fbf673f7f78c2f6c11d6b1850f8c7e358"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp310-cp310-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "5fd0a117f61283cd7181f5c2917937bf",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp310",
+    "requires_python": ">=3.9",
+    "size": 487031,
+    "upload_time": "2026-10-09T19:53:50",
+    "upload_time_iso_8601": "2026-10-09T19:53:50.900902Z",
+    "url": "https://files.pythonhosted.org/packages/a6/16/b0400f48db7a4d4cdfa9301331d55cfd1c872c7f7b593d8be0897a517e55/httptools-0.9.0-cp310-cp310-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "8a743396f45465204e2b44b43cb57ec4a343c423f52604bbaf1777fd438698c9"
+    },
+    "digests": {
+     "blake2b_256": "4968a07f16edaecc4830078b4f839f5bbda3be8da961bf79f8e28aa6eb69191e",
+     "md5": "5da052c8d25d10c8786cbb2b2693843d",
+     "sha256": "ecf7037e491c220cd73987838c1ac3958d787bb098c3be0bfaf7f04204a6162c"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp310-cp310-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+    "has_sig": false,
+    "md5_digest": "5da052c8d25d10c8786cbb2b2693843d",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp310",
+    "requires_python": ">=3.9",
+    "size": 486897,
+    "upload_time": "2026-10-09T19:53:52",
+    "upload_time_iso_8601": "2026-10-09T19:53:52.724744Z",
+    "url": "https://files.pythonhosted.org/packages/49/68/a07f16edaecc4830078b4f839f5bbda3be8da961bf79f8e28aa6eb69191e/httptools-0.9.0-cp310-cp310-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "8a743396f45465204e2b44b43cb57ec4a343c423f52604bbaf1777fd438698c9"
+    },
+    "digests": {
+     "blake2b_256": "d04706aff715edb56e0439817e52db2b50a39a8a32b6ff9d91412406ea26cf4c",
+     "md5": "0640e5bde4231e6f07effcca97e42405",
+     "sha256": "563e4568217dc907a91843f38c737be865222c0400a38cdcd0d26ce92b3db271"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp310-cp310-manylinux2014_ppc64le.manylinux_2_17_ppc64le.manylinux_2_28_ppc64le.whl",
+    "has_sig": false,
+    "md5_digest": "0640e5bde4231e6f07effcca97e42405",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp310",
+    "requires_python": ">=3.9",
+    "size": 512626,
+    "upload_time": "2026-10-09T19:53:54",
+    "upload_time_iso_8601": "2026-10-09T19:53:54.528806Z",
+    "url": "https://files.pythonhosted.org/packages/d0/47/06aff715edb56e0439817e52db2b50a39a8a32b6ff9d91412406ea26cf4c/httptools-0.9.0-cp310-cp310-manylinux2014_ppc64le.manylinux_2_17_ppc64le.manylinux_2_28_ppc64le.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "8a743396f45465204e2b44b43cb57ec4a343c423f52604bbaf1777fd438698c9"
+    },
+    "digests": {
+     "blake2b_256": "a60e6c199ce5c8f4682dd541573194adfe12935ca5ffbfd7845dd01ffbbdd283",
+     "md5": "d364b3a9a50f0d99224e0dbd59e992a8",
+     "sha256": "cbbfcd5d15056fbd1edd5e725cf3feeb47c7cbccbe205927ebab422cc229f417"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp310-cp310-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl",
+    "has_sig": false,
+    "md5_digest": "d364b3a9a50f0d99224e0dbd59e992a8",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp310",
+    "requires_python": ">=3.9",
+    "size": 449273,
+    "upload_time": "2026-10-09T19:53:56",
+    "upload_time_iso_8601": "2026-10-09T19:53:56.101738Z",
+    "url": "https://files.pythonhosted.org/packages/a6/0e/6c199ce5c8f4682dd541573194adfe12935ca5ffbfd7845dd01ffbbdd283/httptools-0.9.0-cp310-cp310-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "8a743396f45465204e2b44b43cb57ec4a343c423f52604bbaf1777fd438698c9"
+    },
+    "digests": {
+     "blake2b_256": "98236e7cd2490b88d5567ac17fcc0e5aa2b06d4f6e2183cccbbee1b222adb0ce",
+     "md5": "13574d9190252761304f85104469529d",
+     "sha256": "5332a020a60bbe32ede4bda1a62b3d56c4831d309cdf0932842c0fca8ad6aaa3"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp310-cp310-musllinux_1_2_aarch64.whl",
+    "has_sig": false,
+    "md5_digest": "13574d9190252761304f85104469529d",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp310",
+    "requires_python": ">=3.9",
+    "size": 470973,
+    "upload_time": "2026-10-09T19:53:58",
+    "upload_time_iso_8601": "2026-10-09T19:53:58.471224Z",
+    "url": "https://files.pythonhosted.org/packages/98/23/6e7cd2490b88d5567ac17fcc0e5aa2b06d4f6e2183cccbbee1b222adb0ce/httptools-0.9.0-cp310-cp310-musllinux_1_2_aarch64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "8a743396f45465204e2b44b43cb57ec4a343c423f52604bbaf1777fd438698c9"
+    },
+    "digests": {
+     "blake2b_256": "6753a7945c1b4b4d24b3249d47ec28817ff8e313f8206c8abb6ce4e391f21d88",
+     "md5": "a0f147f940c59622665a21996a801d3a",
+     "sha256": "48c705bd0b1afb6253ed71eca9f9ba7ac7d47838e5fed1ef7891d67f21ecd4de"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp310-cp310-musllinux_1_2_ppc64le.whl",
+    "has_sig": false,
+    "md5_digest": "a0f147f940c59622665a21996a801d3a",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp310",
+    "requires_python": ">=3.9",
+    "size": 495861,
+    "upload_time": "2026-10-09T19:54:00",
+    "upload_time_iso_8601": "2026-10-09T19:54:00.320345Z",
+    "url": "https://files.pythonhosted.org/packages/67/53/a7945c1b4b4d24b3249d47ec28817ff8e313f8206c8abb6ce4e391f21d88/httptools-0.9.0-cp310-cp310-musllinux_1_2_ppc64le.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "8a743396f45465204e2b44b43cb57ec4a343c423f52604bbaf1777fd438698c9"
+    },
+    "digests": {
+     "blake2b_256": "24f155b6709cc242e40aefc48eae6e9c7c908848c017c98d2661b4b33e335077",
+     "md5": "a7d1a7b0bc6717b7745cd833fb8ad717",
+     "sha256": "ead1a40543a033a6732a9e1e515944979a19db3737ce77363fc0660e38554344"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp310-cp310-musllinux_1_2_riscv64.whl",
+    "has_sig": false,
+    "md5_digest": "a7d1a7b0bc6717b7745cd833fb8ad717",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp310",
+    "requires_python": ">=3.9",
+    "size": 444182,
+    "upload_time": "2026-10-09T19:54:02",
+    "upload_time_iso_8601": "2026-10-09T19:54:02.369091Z",
+    "url": "https://files.pythonhosted.org/packages/24/f1/55b6709cc242e40aefc48eae6e9c7c908848c017c98d2661b4b33e335077/httptools-0.9.0-cp310-cp310-musllinux_1_2_riscv64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "8a743396f45465204e2b44b43cb57ec4a343c423f52604bbaf1777fd438698c9"
+    },
+    "digests": {
+     "blake2b_256": "889b046a3dbe803a631603eea9d64b0c0fa2285553975c18c4f158b15b27e02d",
+     "md5": "c4ae7e32182337607d9c34a9588bbda1",
+     "sha256": "310266a2db1377ffae3bdf6556ab4973f4f94508a8ce37b2f6bb096a89bcefa1"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp310-cp310-musllinux_1_2_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "c4ae7e32182337607d9c34a9588bbda1",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp310",
+    "requires_python": ">=3.9",
+    "size": 473538,
+    "upload_time": "2026-10-09T19:54:04",
+    "upload_time_iso_8601": "2026-10-09T19:54:04.093380Z",
+    "url": "https://files.pythonhosted.org/packages/88/9b/046a3dbe803a631603eea9d64b0c0fa2285553975c18c4f158b15b27e02d/httptools-0.9.0-cp310-cp310-musllinux_1_2_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "623cd71bd31f5a87a9aa677a49ae85785c60ee456ee76d5493ac867ad1a3f97e"
+    },
+    "digests": {
+     "blake2b_256": "c848c013bb37d2c21e464db23499e7369565f41299675f745104e0406d3d0ad6",
+     "md5": "eaa1877d38e1209fefd9ea2dbc446517",
+     "sha256": "ae9bb62a7902e2ab65782447cd3eeb753510feace4e3ea03937a85489b01b16b"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp310-cp310-win32.whl",
+    "has_sig": false,
+    "md5_digest": "eaa1877d38e1209fefd9ea2dbc446517",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp310",
+    "requires_python": ">=3.9",
+    "size": 86276,
+    "upload_time": "2026-10-09T19:54:05",
+    "upload_time_iso_8601": "2026-10-09T19:54:05.662442Z",
+    "url": "https://files.pythonhosted.org/packages/c8/48/c013bb37d2c21e464db23499e7369565f41299675f745104e0406d3d0ad6/httptools-0.9.0-cp310-cp310-win32.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "623cd71bd31f5a87a9aa677a49ae85785c60ee456ee76d5493ac867ad1a3f97e"
+    },
+    "digests": {
+     "blake2b_256": "f66368b4ee7f944191a64360f51af9ba4cd5ed59f751f8825d877c32019582ba",
+     "md5": "6b9741d179be6348ecd49d91cb1a6981",
+     "sha256": "5cc5d3a29f9ec86ce406e5ec09c241dd8dc4d30e838f74f68d728b89131a3acf"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp310-cp310-win_amd64.whl",
+    "has_sig": false,
+    "md5_digest": "6b9741d179be6348ecd49d91cb1a6981",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp310",
+    "requires_python": ">=3.9",
+    "size": 92640,
+    "upload_time": "2026-10-09T19:54:07",
+    "upload_time_iso_8601": "2026-10-09T19:54:07.083201Z",
+    "url": "https://files.pythonhosted.org/packages/f6/63/68b4ee7f944191a64360f51af9ba4cd5ed59f751f8825d877c32019582ba/httptools-0.9.0-cp310-cp310-win_amd64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "623cd71bd31f5a87a9aa677a49ae85785c60ee456ee76d5493ac867ad1a3f97e"
+    },
+    "digests": {
+     "blake2b_256": "fee886b1e6f43d13accfe72ac95aa72840b584d9c48012cdc52cfc24daa06051",
+     "md5": "36f6fedeaae520e10e892f4228599d01",
+     "sha256": "cb3e7a4fd0168e362673a980380bf4fd6ae3b1555150e60c5390b4b10d9c50c4"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp310-cp310-win_arm64.whl",
+    "has_sig": false,
+    "md5_digest": "36f6fedeaae520e10e892f4228599d01",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp310",
+    "requires_python": ">=3.9",
+    "size": 89519,
+    "upload_time": "2026-10-09T19:54:08",
+    "upload_time_iso_8601": "2026-10-09T19:54:08.379772Z",
+    "url": "https://files.pythonhosted.org/packages/fe/e8/86b1e6f43d13accfe72ac95aa72840b584d9c48012cdc52cfc24daa06051/httptools-0.9.0-cp310-cp310-win_arm64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "8a743396f45465204e2b44b43cb57ec4a343c423f52604bbaf1777fd438698c9"
+    },
+    "digests": {
+     "blake2b_256": "44851b1e9e6f2f769dc48610f5e71b9a7d50d5a9532985fbd1f1a8b579f62b0e",
+     "md5": "ff3379b60f252ca9090ab5ae7d1354e2",
+     "sha256": "0fd73d0bbf700a30dd87e4412adf41cfa71542a533d6b390c7244bbb8a1152bb"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp311-cp311-macosx_11_0_arm64.whl",
+    "has_sig": false,
+    "md5_digest": "ff3379b60f252ca9090ab5ae7d1354e2",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp311",
+    "requires_python": ">=3.9",
+    "size": 119077,
+    "upload_time": "2026-10-09T19:54:10",
+    "upload_time_iso_8601": "2026-10-09T19:54:10.012605Z",
+    "url": "https://files.pythonhosted.org/packages/44/85/1b1e9e6f2f769dc48610f5e71b9a7d50d5a9532985fbd1f1a8b579f62b0e/httptools-0.9.0-cp311-cp311-macosx_11_0_arm64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "8a743396f45465204e2b44b43cb57ec4a343c423f52604bbaf1777fd438698c9"
+    },
+    "digests": {
+     "blake2b_256": "e43072d0caf79e54eb1356527c870daac40f8d06f86cd078fdf73c6bf3f7d100",
+     "md5": "0db4636cdac505118b101a6a8b4342cd",
+     "sha256": "d2b095129b9a98eb46a271ee9631089529c4e40354576b4aa74e24de9d2bf2f7"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp311-cp311-macosx_11_0_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "0db4636cdac505118b101a6a8b4342cd",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp311",
+    "requires_python": ">=3.9",
+    "size": 114529,
+    "upload_time": "2026-10-09T19:54:11",
+    "upload_time_iso_8601": "2026-10-09T19:54:11.350064Z",
+    "url": "https://files.pythonhosted.org/packages/e4/30/72d0caf79e54eb1356527c870daac40f8d06f86cd078fdf73c6bf3f7d100/httptools-0.9.0-cp311-cp311-macosx_11_0_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "8a743396f45465204e2b44b43cb57ec4a343c423f52604bbaf1777fd438698c9"
+    },
+    "digests": {
+     "blake2b_256": "f70b6498fe8218db1ed5f785010c303bfef50516d0988e64988bb8f9f59d70ab",
+     "md5": "c139e967f8c48fbb752dce2b36ff0c13",
+     "sha256": "b68fb053b37c258a473ab67f4965c3b439500dc160fe364667035a6833eaf50a"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp311-cp311-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "c139e967f8c48fbb752dce2b36ff0c13",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp311",
+    "requires_python": ">=3.9",
+    "size": 499139,
+    "upload_time": "2026-10-09T19:54:13",
+    "upload_time_iso_8601": "2026-10-09T19:54:13.002045Z",
+    "url": "https://files.pythonhosted.org/packages/f7/0b/6498fe8218db1ed5f785010c303bfef50516d0988e64988bb8f9f59d70ab/httptools-0.9.0-cp311-cp311-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "8a743396f45465204e2b44b43cb57ec4a343c423f52604bbaf1777fd438698c9"
+    },
+    "digests": {
+     "blake2b_256": "2ea981795025aa1ac0ca5346917571756c3e77ae3d0aa11d70fee11b5f89f713",
+     "md5": "b108ed4ba5f79d8a92d6b198285db574",
+     "sha256": "6e2780e33a58a93f27cc3bb74a55bae6f9a8278a1dbabdff392940d30d381671"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp311-cp311-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+    "has_sig": false,
+    "md5_digest": "b108ed4ba5f79d8a92d6b198285db574",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp311",
+    "requires_python": ">=3.9",
+    "size": 498141,
+    "upload_time": "2026-10-09T19:54:14",
+    "upload_time_iso_8601": "2026-10-09T19:54:14.725085Z",
+    "url": "https://files.pythonhosted.org/packages/2e/a9/81795025aa1ac0ca5346917571756c3e77ae3d0aa11d70fee11b5f89f713/httptools-0.9.0-cp311-cp311-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "8a743396f45465204e2b44b43cb57ec4a343c423f52604bbaf1777fd438698c9"
+    },
+    "digests": {
+     "blake2b_256": "5be9f9070a752f6efb42381c0c63fec08385bfbc6d63be15191c424f6d740575",
+     "md5": "b8bb5841ae790e379f3edf1b43744bfa",
+     "sha256": "272db0c51e8b71e953c1f2ecbe63402b819680e4564be2ef285cfd4584ee8355"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp311-cp311-manylinux2014_ppc64le.manylinux_2_17_ppc64le.manylinux_2_28_ppc64le.whl",
+    "has_sig": false,
+    "md5_digest": "b8bb5841ae790e379f3edf1b43744bfa",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp311",
+    "requires_python": ">=3.9",
+    "size": 524457,
+    "upload_time": "2026-10-09T19:54:16",
+    "upload_time_iso_8601": "2026-10-09T19:54:16.424252Z",
+    "url": "https://files.pythonhosted.org/packages/5b/e9/f9070a752f6efb42381c0c63fec08385bfbc6d63be15191c424f6d740575/httptools-0.9.0-cp311-cp311-manylinux2014_ppc64le.manylinux_2_17_ppc64le.manylinux_2_28_ppc64le.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "8a743396f45465204e2b44b43cb57ec4a343c423f52604bbaf1777fd438698c9"
+    },
+    "digests": {
+     "blake2b_256": "0a29201ca4636ebe7cb2c931d6545ed4be0acd5fb90f7351ea0458b5ab7319ec",
+     "md5": "623fb26c178e566cc465af9c7f4420cb",
+     "sha256": "22ab1b10b06d357f01092e60f5e6856a0d479ed79b0ec2166a339ea26c699be2"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp311-cp311-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl",
+    "has_sig": false,
+    "md5_digest": "623fb26c178e566cc465af9c7f4420cb",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp311",
+    "requires_python": ">=3.9",
+    "size": 455418,
+    "upload_time": "2026-10-09T19:54:18",
+    "upload_time_iso_8601": "2026-10-09T19:54:18.024724Z",
+    "url": "https://files.pythonhosted.org/packages/0a/29/201ca4636ebe7cb2c931d6545ed4be0acd5fb90f7351ea0458b5ab7319ec/httptools-0.9.0-cp311-cp311-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "8a743396f45465204e2b44b43cb57ec4a343c423f52604bbaf1777fd438698c9"
+    },
+    "digests": {
+     "blake2b_256": "24972cc1ad7a28243e35002dcd9c4dd98074bc47c9a0a72be12de01fff10e2a5",
+     "md5": "e168e086b39d99a4fd572a476ed43649",
+     "sha256": "8a59c749a73fbdbc8e63b895a3079825fa085d752e75bc0a500042cb8a801e48"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp311-cp311-musllinux_1_2_aarch64.whl",
+    "has_sig": false,
+    "md5_digest": "e168e086b39d99a4fd572a476ed43649",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp311",
+    "requires_python": ">=3.9",
+    "size": 483407,
+    "upload_time": "2026-10-09T19:54:20",
+    "upload_time_iso_8601": "2026-10-09T19:54:20.032838Z",
+    "url": "https://files.pythonhosted.org/packages/24/97/2cc1ad7a28243e35002dcd9c4dd98074bc47c9a0a72be12de01fff10e2a5/httptools-0.9.0-cp311-cp311-musllinux_1_2_aarch64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "8a743396f45465204e2b44b43cb57ec4a343c423f52604bbaf1777fd438698c9"
+    },
+    "digests": {
+     "blake2b_256": "8898c7ca6a34d92010561eb5af95bf0d2b667ce4ea3e83ff7fda68da52e037bf",
+     "md5": "9c69a1f7e927f97df49f54438a2a2e4f",
+     "sha256": "f6ac1414556b910a879c108d79736f77e797871f9919ed0d2c3cf8cf3ecca986"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp311-cp311-musllinux_1_2_ppc64le.whl",
+    "has_sig": false,
+    "md5_digest": "9c69a1f7e927f97df49f54438a2a2e4f",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp311",
+    "requires_python": ">=3.9",
+    "size": 506748,
+    "upload_time": "2026-10-09T19:54:21",
+    "upload_time_iso_8601": "2026-10-09T19:54:21.886721Z",
+    "url": "https://files.pythonhosted.org/packages/88/98/c7ca6a34d92010561eb5af95bf0d2b667ce4ea3e83ff7fda68da52e037bf/httptools-0.9.0-cp311-cp311-musllinux_1_2_ppc64le.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "8a743396f45465204e2b44b43cb57ec4a343c423f52604bbaf1777fd438698c9"
+    },
+    "digests": {
+     "blake2b_256": "ef626aec88e4d1da59005184f1038f5abfaad6143499fbf4baa46c2fed8e5b59",
+     "md5": "b154bfbfec1cc3aea64738255d9ef581",
+     "sha256": "13873eb8aef5972fcfee614f63d47064312ad4efbfe65ade15b8a3b77f8c8659"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp311-cp311-musllinux_1_2_riscv64.whl",
+    "has_sig": false,
+    "md5_digest": "b154bfbfec1cc3aea64738255d9ef581",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp311",
+    "requires_python": ">=3.9",
+    "size": 450253,
+    "upload_time": "2026-10-09T19:54:23",
+    "upload_time_iso_8601": "2026-10-09T19:54:23.863701Z",
+    "url": "https://files.pythonhosted.org/packages/ef/62/6aec88e4d1da59005184f1038f5abfaad6143499fbf4baa46c2fed8e5b59/httptools-0.9.0-cp311-cp311-musllinux_1_2_riscv64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "8a743396f45465204e2b44b43cb57ec4a343c423f52604bbaf1777fd438698c9"
+    },
+    "digests": {
+     "blake2b_256": "5a064be91efa577ccae9a16694a413bb8a7c30cb0ec2dc972627b64e108517b8",
+     "md5": "ee9f2eaf206d8c2dec58b7c16358fd02",
+     "sha256": "5042aa1c7e2b1a24c17dab31d8770b63a5101c9abc25f832c6aef6b201e1ca4f"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp311-cp311-musllinux_1_2_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "ee9f2eaf206d8c2dec58b7c16358fd02",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp311",
+    "requires_python": ">=3.9",
+    "size": 485588,
+    "upload_time": "2026-10-09T19:54:25",
+    "upload_time_iso_8601": "2026-10-09T19:54:25.592953Z",
+    "url": "https://files.pythonhosted.org/packages/5a/06/4be91efa577ccae9a16694a413bb8a7c30cb0ec2dc972627b64e108517b8/httptools-0.9.0-cp311-cp311-musllinux_1_2_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "623cd71bd31f5a87a9aa677a49ae85785c60ee456ee76d5493ac867ad1a3f97e"
+    },
+    "digests": {
+     "blake2b_256": "10eb3224a5e3145b784e7344a370a8cc9a0d448035a913ddece6e4c35067315f",
+     "md5": "3fedb007684ff16f482ece0efd28cc51",
+     "sha256": "a4d1ecad62e83cc65b411ea0125972cf3af98821e8117129947fd1e3a113f8d2"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp311-cp311-win32.whl",
+    "has_sig": false,
+    "md5_digest": "3fedb007684ff16f482ece0efd28cc51",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp311",
+    "requires_python": ">=3.9",
+    "size": 85785,
+    "upload_time": "2026-10-09T19:54:28",
+    "upload_time_iso_8601": "2026-10-09T19:54:28.216812Z",
+    "url": "https://files.pythonhosted.org/packages/10/eb/3224a5e3145b784e7344a370a8cc9a0d448035a913ddece6e4c35067315f/httptools-0.9.0-cp311-cp311-win32.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "623cd71bd31f5a87a9aa677a49ae85785c60ee456ee76d5493ac867ad1a3f97e"
+    },
+    "digests": {
+     "blake2b_256": "9c41214e2da998e6348eb68fd0883ffa9774c83ab7a5da12d97595aafb07d0ba",
+     "md5": "c755ad2aa692ee857ec3337c26f73efd",
+     "sha256": "c4fa57d3c31889722f64bfa785545a5e603a893b6f29ac1a41bfa830abeaefd5"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp311-cp311-win_amd64.whl",
+    "has_sig": false,
+    "md5_digest": "c755ad2aa692ee857ec3337c26f73efd",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp311",
+    "requires_python": ">=3.9",
+    "size": 92421,
+    "upload_time": "2026-10-09T19:54:29",
+    "upload_time_iso_8601": "2026-10-09T19:54:29.574410Z",
+    "url": "https://files.pythonhosted.org/packages/9c/41/214e2da998e6348eb68fd0883ffa9774c83ab7a5da12d97595aafb07d0ba/httptools-0.9.0-cp311-cp311-win_amd64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "623cd71bd31f5a87a9aa677a49ae85785c60ee456ee76d5493ac867ad1a3f97e"
+    },
+    "digests": {
+     "blake2b_256": "96afd8fc6b8581045899a780018842a3db0365c4b8ca46519a528e9b8bc6095e",
+     "md5": "d0b291ed26f37b8fef79a3517ed21836",
+     "sha256": "ecfeee649184ffd800955068be9a6b579a0f33fc3c98535d685d5779cb59347f"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp311-cp311-win_arm64.whl",
+    "has_sig": false,
+    "md5_digest": "d0b291ed26f37b8fef79a3517ed21836",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp311",
+    "requires_python": ">=3.9",
+    "size": 89093,
+    "upload_time": "2026-10-09T19:54:31",
+    "upload_time_iso_8601": "2026-10-09T19:54:31.269112Z",
+    "url": "https://files.pythonhosted.org/packages/96/af/d8fc6b8581045899a780018842a3db0365c4b8ca46519a528e9b8bc6095e/httptools-0.9.0-cp311-cp311-win_arm64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "8a743396f45465204e2b44b43cb57ec4a343c423f52604bbaf1777fd438698c9"
+    },
+    "digests": {
+     "blake2b_256": "daed0916b8b7ebd1deeaf22acba71b68c57b4b6b69aa1918f3812dea208b4276",
+     "md5": "48b9f167657f213ba72d8677d4dbc74a",
+     "sha256": "f9ccc9884241efceb4547a92955d128574c864681f11b7ea3ecbde295fafbe8b"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp312-cp312-macosx_11_0_arm64.whl",
+    "has_sig": false,
+    "md5_digest": "48b9f167657f213ba72d8677d4dbc74a",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp312",
+    "requires_python": ">=3.9",
+    "size": 119039,
+    "upload_time": "2026-10-09T19:54:32",
+    "upload_time_iso_8601": "2026-10-09T19:54:32.556009Z",
+    "url": "https://files.pythonhosted.org/packages/da/ed/0916b8b7ebd1deeaf22acba71b68c57b4b6b69aa1918f3812dea208b4276/httptools-0.9.0-cp312-cp312-macosx_11_0_arm64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "8a743396f45465204e2b44b43cb57ec4a343c423f52604bbaf1777fd438698c9"
+    },
+    "digests": {
+     "blake2b_256": "c20b9b6de4a01a563a904d0826c9069c824b330e1816df26c9bdf93f60b50857",
+     "md5": "05ae2a531c3b2ff93c872ba3efd86607",
+     "sha256": "45b3002392948dcf578029c89f6318e1289a993a1a5ec38a4161560fab60f811"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp312-cp312-macosx_11_0_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "05ae2a531c3b2ff93c872ba3efd86607",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp312",
+    "requires_python": ">=3.9",
+    "size": 115051,
+    "upload_time": "2026-10-09T19:54:33",
+    "upload_time_iso_8601": "2026-10-09T19:54:33.908066Z",
+    "url": "https://files.pythonhosted.org/packages/c2/0b/9b6de4a01a563a904d0826c9069c824b330e1816df26c9bdf93f60b50857/httptools-0.9.0-cp312-cp312-macosx_11_0_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "8a743396f45465204e2b44b43cb57ec4a343c423f52604bbaf1777fd438698c9"
+    },
+    "digests": {
+     "blake2b_256": "853f642113e9882f53158ecddf58003d25f18ded2c210ed23bf6eb663d4d51c3",
+     "md5": "aeb4cc47f3fe75120dafb558da2b23d6",
+     "sha256": "3e3201fe4d46e0d15d7ff9fafc94a605da9eb82d2c5b9837f0368acb325481f1"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "aeb4cc47f3fe75120dafb558da2b23d6",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp312",
+    "requires_python": ">=3.9",
+    "size": 552848,
+    "upload_time": "2026-10-09T19:54:35",
+    "upload_time_iso_8601": "2026-10-09T19:54:35.434509Z",
+    "url": "https://files.pythonhosted.org/packages/85/3f/642113e9882f53158ecddf58003d25f18ded2c210ed23bf6eb663d4d51c3/httptools-0.9.0-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "8a743396f45465204e2b44b43cb57ec4a343c423f52604bbaf1777fd438698c9"
+    },
+    "digests": {
+     "blake2b_256": "954c3ecc59c99c28652d8d08d9b5be65770a14d2cadc616dad94224cee2b0e7e",
+     "md5": "341008c1ff8a0774728df8a994ed3a40",
+     "sha256": "58a1b0ec4cbb930e69669f9771715b2c7898d3cdf064d9811f7a66afef96b544"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp312-cp312-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+    "has_sig": false,
+    "md5_digest": "341008c1ff8a0774728df8a994ed3a40",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp312",
+    "requires_python": ">=3.9",
+    "size": 549181,
+    "upload_time": "2026-10-09T19:54:37",
+    "upload_time_iso_8601": "2026-10-09T19:54:37.099124Z",
+    "url": "https://files.pythonhosted.org/packages/95/4c/3ecc59c99c28652d8d08d9b5be65770a14d2cadc616dad94224cee2b0e7e/httptools-0.9.0-cp312-cp312-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "8a743396f45465204e2b44b43cb57ec4a343c423f52604bbaf1777fd438698c9"
+    },
+    "digests": {
+     "blake2b_256": "43ce21f5b2759590b7054e38d3b704a3c6b853c3395c370b3d6f16c45aea0fc0",
+     "md5": "e763843c7e5bafde96aba26cc3c10d96",
+     "sha256": "4c58dc91aefb31adad500aa68054334f429b840b36dd29e34e834101044cb2ef"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp312-cp312-manylinux2014_ppc64le.manylinux_2_17_ppc64le.manylinux_2_28_ppc64le.whl",
+    "has_sig": false,
+    "md5_digest": "e763843c7e5bafde96aba26cc3c10d96",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp312",
+    "requires_python": ">=3.9",
+    "size": 569121,
+    "upload_time": "2026-10-09T19:54:38",
+    "upload_time_iso_8601": "2026-10-09T19:54:38.772475Z",
+    "url": "https://files.pythonhosted.org/packages/43/ce/21f5b2759590b7054e38d3b704a3c6b853c3395c370b3d6f16c45aea0fc0/httptools-0.9.0-cp312-cp312-manylinux2014_ppc64le.manylinux_2_17_ppc64le.manylinux_2_28_ppc64le.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "8a743396f45465204e2b44b43cb57ec4a343c423f52604bbaf1777fd438698c9"
+    },
+    "digests": {
+     "blake2b_256": "52c37c523aa8d0fa7a57010a3e1bbdebc209585009076465f3d1ae6a3f54b814",
+     "md5": "1654a870593462b9179c3bab7c3e6b15",
+     "sha256": "6b900073e7b8481ef1aaf4f6c1789d210a1db01a9da8789821578cfeb4c2d540"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp312-cp312-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl",
+    "has_sig": false,
+    "md5_digest": "1654a870593462b9179c3bab7c3e6b15",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp312",
+    "requires_python": ">=3.9",
+    "size": 487649,
+    "upload_time": "2026-10-09T19:54:40",
+    "upload_time_iso_8601": "2026-10-09T19:54:40.398921Z",
+    "url": "https://files.pythonhosted.org/packages/52/c3/7c523aa8d0fa7a57010a3e1bbdebc209585009076465f3d1ae6a3f54b814/httptools-0.9.0-cp312-cp312-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "8a743396f45465204e2b44b43cb57ec4a343c423f52604bbaf1777fd438698c9"
+    },
+    "digests": {
+     "blake2b_256": "94e2d90d60002692b8afcbc06fb49ca3a4365b32abed6c40fb2b612c67721a00",
+     "md5": "ac6788928f8dc6646e6ccd1ccb28162e",
+     "sha256": "6c12d0393a903b58bc5f5a7406d6c5290acfb8284290d68547ce620c06f7d133"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp312-cp312-musllinux_1_2_aarch64.whl",
+    "has_sig": false,
+    "md5_digest": "ac6788928f8dc6646e6ccd1ccb28162e",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp312",
+    "requires_python": ">=3.9",
+    "size": 529583,
+    "upload_time": "2026-10-09T19:54:42",
+    "upload_time_iso_8601": "2026-10-09T19:54:42.296859Z",
+    "url": "https://files.pythonhosted.org/packages/94/e2/d90d60002692b8afcbc06fb49ca3a4365b32abed6c40fb2b612c67721a00/httptools-0.9.0-cp312-cp312-musllinux_1_2_aarch64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "8a743396f45465204e2b44b43cb57ec4a343c423f52604bbaf1777fd438698c9"
+    },
+    "digests": {
+     "blake2b_256": "46c019172874cde0344a20c85877a0b2d0dcfca31111729ad8a79e8b4ac4e207",
+     "md5": "63172a4206835b975b9e52df708b2a09",
+     "sha256": "29b0d823e3c1e7cd1093a5dc889245db693ef13ada624cd66e2262421ef38867"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp312-cp312-musllinux_1_2_ppc64le.whl",
+    "has_sig": false,
+    "md5_digest": "63172a4206835b975b9e52df708b2a09",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp312",
+    "requires_python": ">=3.9",
+    "size": 552414,
+    "upload_time": "2026-10-09T19:54:44",
+    "upload_time_iso_8601": "2026-10-09T19:54:44.190784Z",
+    "url": "https://files.pythonhosted.org/packages/46/c0/19172874cde0344a20c85877a0b2d0dcfca31111729ad8a79e8b4ac4e207/httptools-0.9.0-cp312-cp312-musllinux_1_2_ppc64le.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "8a743396f45465204e2b44b43cb57ec4a343c423f52604bbaf1777fd438698c9"
+    },
+    "digests": {
+     "blake2b_256": "1bb802ea7910f69e5371986b025fb3b410592106df54e977a5732fd1d95917b5",
+     "md5": "6d420a07bb4e5a6da7cdd8eff19ca96e",
+     "sha256": "6ebd39ee26db460cfe5ab8b71a15d1149b289139a0d3981522757d6af620887e"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp312-cp312-musllinux_1_2_riscv64.whl",
+    "has_sig": false,
+    "md5_digest": "6d420a07bb4e5a6da7cdd8eff19ca96e",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp312",
+    "requires_python": ">=3.9",
+    "size": 482400,
+    "upload_time": "2026-10-09T19:54:46",
+    "upload_time_iso_8601": "2026-10-09T19:54:46.064770Z",
+    "url": "https://files.pythonhosted.org/packages/1b/b8/02ea7910f69e5371986b025fb3b410592106df54e977a5732fd1d95917b5/httptools-0.9.0-cp312-cp312-musllinux_1_2_riscv64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "8a743396f45465204e2b44b43cb57ec4a343c423f52604bbaf1777fd438698c9"
+    },
+    "digests": {
+     "blake2b_256": "de97f05eac916d44cbbfe43668a6a40ab93e7fd8f94d5120d1ce2d8e55c69871",
+     "md5": "f61695b110be2d02e05f4adab7a0f261",
+     "sha256": "4efbee349138a3fee7a4cc3a95abd2d499fae70dd5bff9fed9138d6f570f4283"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp312-cp312-musllinux_1_2_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "f61695b110be2d02e05f4adab7a0f261",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp312",
+    "requires_python": ">=3.9",
+    "size": 536148,
+    "upload_time": "2026-10-09T19:54:47",
+    "upload_time_iso_8601": "2026-10-09T19:54:47.695948Z",
+    "url": "https://files.pythonhosted.org/packages/de/97/f05eac916d44cbbfe43668a6a40ab93e7fd8f94d5120d1ce2d8e55c69871/httptools-0.9.0-cp312-cp312-musllinux_1_2_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "623cd71bd31f5a87a9aa677a49ae85785c60ee456ee76d5493ac867ad1a3f97e"
+    },
+    "digests": {
+     "blake2b_256": "b6e99435dfcb7f1a1d6ebdc79a902164dfca70e33774c80bb60d25c630c31ef1",
+     "md5": "10cc27b32ab39a509dc327ef502d6010",
+     "sha256": "36fac804b8cfd6b935ae64f71349f833d2b6298404626d017a2c57bb942bc643"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp312-cp312-win32.whl",
+    "has_sig": false,
+    "md5_digest": "10cc27b32ab39a509dc327ef502d6010",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp312",
+    "requires_python": ">=3.9",
+    "size": 86274,
+    "upload_time": "2026-10-09T19:54:49",
+    "upload_time_iso_8601": "2026-10-09T19:54:49.100191Z",
+    "url": "https://files.pythonhosted.org/packages/b6/e9/9435dfcb7f1a1d6ebdc79a902164dfca70e33774c80bb60d25c630c31ef1/httptools-0.9.0-cp312-cp312-win32.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "623cd71bd31f5a87a9aa677a49ae85785c60ee456ee76d5493ac867ad1a3f97e"
+    },
+    "digests": {
+     "blake2b_256": "8b69813f1bf90be507d4166c437be1a413574d0e0abf36e2fec10c266661b0ee",
+     "md5": "12a533b9a94b63a0eec27be2d4d40c80",
+     "sha256": "7e32b83bd8c2f8b6fa726ef34e63e21c4d7eddc277d40d4ef7245ea3ed28e5b6"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp312-cp312-win_amd64.whl",
+    "has_sig": false,
+    "md5_digest": "12a533b9a94b63a0eec27be2d4d40c80",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp312",
+    "requires_python": ">=3.9",
+    "size": 92446,
+    "upload_time": "2026-10-09T19:54:50",
+    "upload_time_iso_8601": "2026-10-09T19:54:50.498930Z",
+    "url": "https://files.pythonhosted.org/packages/8b/69/813f1bf90be507d4166c437be1a413574d0e0abf36e2fec10c266661b0ee/httptools-0.9.0-cp312-cp312-win_amd64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "623cd71bd31f5a87a9aa677a49ae85785c60ee456ee76d5493ac867ad1a3f97e"
+    },
+    "digests": {
+     "blake2b_256": "aee01d29e328c4cafe843403341e1455e0aec18b0e6910fbb14f12b36b563f19",
+     "md5": "f0199b9c4ccbb26683c6546637787b3a",
+     "sha256": "813a32f94991b9627795528053c73a57d2ce3eb98ede89f0e1c7a31095938e81"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp312-cp312-win_arm64.whl",
+    "has_sig": false,
+    "md5_digest": "f0199b9c4ccbb26683c6546637787b3a",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp312",
+    "requires_python": ">=3.9",
+    "size": 88676,
+    "upload_time": "2026-10-09T19:54:51",
+    "upload_time_iso_8601": "2026-10-09T19:54:51.844707Z",
+    "url": "https://files.pythonhosted.org/packages/ae/e0/1d29e328c4cafe843403341e1455e0aec18b0e6910fbb14f12b36b563f19/httptools-0.9.0-cp312-cp312-win_arm64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "8a743396f45465204e2b44b43cb57ec4a343c423f52604bbaf1777fd438698c9"
+    },
+    "digests": {
+     "blake2b_256": "9c04223994f8589750d2a36ceb43203e739cf75bd9e12c226680d73567766908",
+     "md5": "f5de50a992b879bee64d2d00742853e0",
+     "sha256": "4fb995082fe41ec410b33c48b54fb1d44abb8a6ee762c31e8c42519e8c3a30a9"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp313-cp313-macosx_11_0_arm64.whl",
+    "has_sig": false,
+    "md5_digest": "f5de50a992b879bee64d2d00742853e0",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp313",
+    "requires_python": ">=3.9",
+    "size": 117115,
+    "upload_time": "2026-10-09T19:54:53",
+    "upload_time_iso_8601": "2026-10-09T19:54:53.356245Z",
+    "url": "https://files.pythonhosted.org/packages/9c/04/223994f8589750d2a36ceb43203e739cf75bd9e12c226680d73567766908/httptools-0.9.0-cp313-cp313-macosx_11_0_arm64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "8a743396f45465204e2b44b43cb57ec4a343c423f52604bbaf1777fd438698c9"
+    },
+    "digests": {
+     "blake2b_256": "31d8b4407836e567a862ce79d78a628d785db99aba52e63496d68c60eed0d475",
+     "md5": "11c89b13535c99b213df01f4074fb145",
+     "sha256": "b9cd15cb7cf0d5cc41f649fd789aae12c56c3b83eff593f8e095c1d4555ad5c3"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp313-cp313-macosx_11_0_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "11c89b13535c99b213df01f4074fb145",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp313",
+    "requires_python": ">=3.9",
+    "size": 113225,
+    "upload_time": "2026-10-09T19:54:54",
+    "upload_time_iso_8601": "2026-10-09T19:54:54.810834Z",
+    "url": "https://files.pythonhosted.org/packages/31/d8/b4407836e567a862ce79d78a628d785db99aba52e63496d68c60eed0d475/httptools-0.9.0-cp313-cp313-macosx_11_0_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "8a743396f45465204e2b44b43cb57ec4a343c423f52604bbaf1777fd438698c9"
+    },
+    "digests": {
+     "blake2b_256": "79f60caa51b077492a7306bdbd9dfb907a2246985f0aed1fe2d086255921848b",
+     "md5": "dddb0d233a5450014ba69c098e54ddf9",
+     "sha256": "088de1738e1af624466a01c35d652dbe6fb825be887c76d68aa850621d81db88"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp313-cp313-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "dddb0d233a5450014ba69c098e54ddf9",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp313",
+    "requires_python": ">=3.9",
+    "size": 520112,
+    "upload_time": "2026-10-09T19:54:56",
+    "upload_time_iso_8601": "2026-10-09T19:54:56.300333Z",
+    "url": "https://files.pythonhosted.org/packages/79/f6/0caa51b077492a7306bdbd9dfb907a2246985f0aed1fe2d086255921848b/httptools-0.9.0-cp313-cp313-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "8a743396f45465204e2b44b43cb57ec4a343c423f52604bbaf1777fd438698c9"
+    },
+    "digests": {
+     "blake2b_256": "fada7a47b7c2106bb10e6d4c04a139d045257a4f93c672fae6f0b9e92b1f7bc2",
+     "md5": "82247953870f3f14806cefa62aad73fd",
+     "sha256": "6b1ac7f1bc6c0dbf90684b77571a51a21b2463909fd916ce0ac9bfc4d566dc75"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp313-cp313-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+    "has_sig": false,
+    "md5_digest": "82247953870f3f14806cefa62aad73fd",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp313",
+    "requires_python": ">=3.9",
+    "size": 516079,
+    "upload_time": "2026-10-09T19:54:57",
+    "upload_time_iso_8601": "2026-10-09T19:54:57.938516Z",
+    "url": "https://files.pythonhosted.org/packages/fa/da/7a47b7c2106bb10e6d4c04a139d045257a4f93c672fae6f0b9e92b1f7bc2/httptools-0.9.0-cp313-cp313-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "8a743396f45465204e2b44b43cb57ec4a343c423f52604bbaf1777fd438698c9"
+    },
+    "digests": {
+     "blake2b_256": "0f4d417b42d2663acf4f5aeb2718dc894ec2be4e3dcfd8caa2d3bf9ee2dce511",
+     "md5": "4dc23a7fa807466afbbb4862212b24ae",
+     "sha256": "b9430f65db521db7962ad951571d446171213686f96c998a54dc18ed574821e2"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp313-cp313-manylinux2014_ppc64le.manylinux_2_17_ppc64le.manylinux_2_28_ppc64le.whl",
+    "has_sig": false,
+    "md5_digest": "4dc23a7fa807466afbbb4862212b24ae",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp313",
+    "requires_python": ">=3.9",
+    "size": 535040,
+    "upload_time": "2026-10-09T19:54:59",
+    "upload_time_iso_8601": "2026-10-09T19:54:59.769704Z",
+    "url": "https://files.pythonhosted.org/packages/0f/4d/417b42d2663acf4f5aeb2718dc894ec2be4e3dcfd8caa2d3bf9ee2dce511/httptools-0.9.0-cp313-cp313-manylinux2014_ppc64le.manylinux_2_17_ppc64le.manylinux_2_28_ppc64le.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "8a743396f45465204e2b44b43cb57ec4a343c423f52604bbaf1777fd438698c9"
+    },
+    "digests": {
+     "blake2b_256": "cbde8df4c09a33ddaf50f697719f20201cf93631ef4b50cec05e42acf179a7c1",
+     "md5": "fcdd997a70ada4d3bfbeb3f8ce24d7a4",
+     "sha256": "52fe0176682a25b15370f23f5b0f1366a84771df89144fb0cd979cb72a94b5ca"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp313-cp313-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl",
+    "has_sig": false,
+    "md5_digest": "fcdd997a70ada4d3bfbeb3f8ce24d7a4",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp313",
+    "requires_python": ">=3.9",
+    "size": 462799,
+    "upload_time": "2026-10-09T19:55:01",
+    "upload_time_iso_8601": "2026-10-09T19:55:01.673349Z",
+    "url": "https://files.pythonhosted.org/packages/cb/de/8df4c09a33ddaf50f697719f20201cf93631ef4b50cec05e42acf179a7c1/httptools-0.9.0-cp313-cp313-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "8a743396f45465204e2b44b43cb57ec4a343c423f52604bbaf1777fd438698c9"
+    },
+    "digests": {
+     "blake2b_256": "e8901bfe91e3fca29c541d85d7ba8ed92a406d4dd13608c281baf7ec75369fec",
+     "md5": "c58f32cf4019966cca25157391488bfd",
+     "sha256": "757e3f79cb865a7db94e0db5f4d0ed3284a69e39d53568f433982ea13c60cac1"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp313-cp313-musllinux_1_2_aarch64.whl",
+    "has_sig": false,
+    "md5_digest": "c58f32cf4019966cca25157391488bfd",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp313",
+    "requires_python": ">=3.9",
+    "size": 497596,
+    "upload_time": "2026-10-09T19:55:03",
+    "upload_time_iso_8601": "2026-10-09T19:55:03.201282Z",
+    "url": "https://files.pythonhosted.org/packages/e8/90/1bfe91e3fca29c541d85d7ba8ed92a406d4dd13608c281baf7ec75369fec/httptools-0.9.0-cp313-cp313-musllinux_1_2_aarch64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "8a743396f45465204e2b44b43cb57ec4a343c423f52604bbaf1777fd438698c9"
+    },
+    "digests": {
+     "blake2b_256": "b0af2bbd5af0dd7a0e0c3b63bfefafd87a07041eb13d7cd710fbf30708b70773",
+     "md5": "969fbdc8445673e6cfad668a1d7abfdd",
+     "sha256": "6ff5f0ed70783dcb9562dbd20edca51c3d4d277f128223709e3da6b75986d1d4"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp313-cp313-musllinux_1_2_ppc64le.whl",
+    "has_sig": false,
+    "md5_digest": "969fbdc8445673e6cfad668a1d7abfdd",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp313",
+    "requires_python": ">=3.9",
+    "size": 517110,
+    "upload_time": "2026-10-09T19:55:05",
+    "upload_time_iso_8601": "2026-10-09T19:55:05.011497Z",
+    "url": "https://files.pythonhosted.org/packages/b0/af/2bbd5af0dd7a0e0c3b63bfefafd87a07041eb13d7cd710fbf30708b70773/httptools-0.9.0-cp313-cp313-musllinux_1_2_ppc64le.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "8a743396f45465204e2b44b43cb57ec4a343c423f52604bbaf1777fd438698c9"
+    },
+    "digests": {
+     "blake2b_256": "d47a9f165817c3e27df9098f3d50a675417d8721253f1073434f48a3f9d9a6c2",
+     "md5": "6810a06f74ac915bc1d1d58643dfdbb7",
+     "sha256": "c0f537e5e8152e8d9cae82804024790cb973061abd3b7ef8f66f46e2b5c7bb51"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp313-cp313-musllinux_1_2_riscv64.whl",
+    "has_sig": false,
+    "md5_digest": "6810a06f74ac915bc1d1d58643dfdbb7",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp313",
+    "requires_python": ">=3.9",
+    "size": 459198,
+    "upload_time": "2026-10-09T19:55:06",
+    "upload_time_iso_8601": "2026-10-09T19:55:06.985081Z",
+    "url": "https://files.pythonhosted.org/packages/d4/7a/9f165817c3e27df9098f3d50a675417d8721253f1073434f48a3f9d9a6c2/httptools-0.9.0-cp313-cp313-musllinux_1_2_riscv64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "8a743396f45465204e2b44b43cb57ec4a343c423f52604bbaf1777fd438698c9"
+    },
+    "digests": {
+     "blake2b_256": "9320b93279e334946c359d39aaf405241c6fd60f9e60da709bc4156731a4413c",
+     "md5": "df3fb949c118ec8086217183dc41d6e4",
+     "sha256": "1a7f1df31829c258158be01bb04eb668c4fba7df1ddf2262131a972962e651b6"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp313-cp313-musllinux_1_2_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "df3fb949c118ec8086217183dc41d6e4",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp313",
+    "requires_python": ">=3.9",
+    "size": 502996,
+    "upload_time": "2026-10-09T19:55:08",
+    "upload_time_iso_8601": "2026-10-09T19:55:08.733912Z",
+    "url": "https://files.pythonhosted.org/packages/93/20/b93279e334946c359d39aaf405241c6fd60f9e60da709bc4156731a4413c/httptools-0.9.0-cp313-cp313-musllinux_1_2_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "623cd71bd31f5a87a9aa677a49ae85785c60ee456ee76d5493ac867ad1a3f97e"
+    },
+    "digests": {
+     "blake2b_256": "86c9ac3657943d40c5a9949b72565ee03151e480fb18c062c7c13c0c0276df6f",
+     "md5": "72400abb22a2172a07cee7c758489a40",
+     "sha256": "714bf348f468532d86bed670837e7d5ddff3834dd7f5d3c08066da400c86f088"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp313-cp313-win32.whl",
+    "has_sig": false,
+    "md5_digest": "72400abb22a2172a07cee7c758489a40",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp313",
+    "requires_python": ">=3.9",
+    "size": 85878,
+    "upload_time": "2026-10-09T19:55:10",
+    "upload_time_iso_8601": "2026-10-09T19:55:10.275705Z",
+    "url": "https://files.pythonhosted.org/packages/86/c9/ac3657943d40c5a9949b72565ee03151e480fb18c062c7c13c0c0276df6f/httptools-0.9.0-cp313-cp313-win32.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "623cd71bd31f5a87a9aa677a49ae85785c60ee456ee76d5493ac867ad1a3f97e"
+    },
+    "digests": {
+     "blake2b_256": "7469d23079cd4bc16d11e49c3f51c2540c018736f26701a2a73183cae9255a1c",
+     "md5": "431fd59b4106011adee6fb65be94f4a6",
+     "sha256": "805b0f2618e5d4c3e28f45b731eb1a0539691ae4a2f97b4ce014de0bf96a1ff5"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp313-cp313-win_amd64.whl",
+    "has_sig": false,
+    "md5_digest": "431fd59b4106011adee6fb65be94f4a6",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp313",
+    "requires_python": ">=3.9",
+    "size": 91549,
+    "upload_time": "2026-10-09T19:55:11",
+    "upload_time_iso_8601": "2026-10-09T19:55:11.701076Z",
+    "url": "https://files.pythonhosted.org/packages/74/69/d23079cd4bc16d11e49c3f51c2540c018736f26701a2a73183cae9255a1c/httptools-0.9.0-cp313-cp313-win_amd64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "623cd71bd31f5a87a9aa677a49ae85785c60ee456ee76d5493ac867ad1a3f97e"
+    },
+    "digests": {
+     "blake2b_256": "0bed5ff678a774b721f054c095f04d84fc536e7369ea4f4c9af3813a518d95b6",
+     "md5": "cddfd2f66e9555965f0221265a32bfdf",
+     "sha256": "bfdabac0c6d3d6a5be8c2a100a001c92c14a39bbafd5999545a675c493626e64"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp313-cp313-win_arm64.whl",
+    "has_sig": false,
+    "md5_digest": "cddfd2f66e9555965f0221265a32bfdf",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp313",
+    "requires_python": ">=3.9",
+    "size": 88043,
+    "upload_time": "2026-10-09T19:55:13",
+    "upload_time_iso_8601": "2026-10-09T19:55:13.046973Z",
+    "url": "https://files.pythonhosted.org/packages/0b/ed/5ff678a774b721f054c095f04d84fc536e7369ea4f4c9af3813a518d95b6/httptools-0.9.0-cp313-cp313-win_arm64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "8a743396f45465204e2b44b43cb57ec4a343c423f52604bbaf1777fd438698c9"
+    },
+    "digests": {
+     "blake2b_256": "31390965023968452245ece67b161adbf7c5652f8d0697ac69312f9d21849411",
+     "md5": "de10f38636fbf23494541a07e4637fc0",
+     "sha256": "1a4050a651e1f2faf05eb028ce9f2168abbcee9e24b209f5c1f2eb96d8c569e4"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp314-cp314-macosx_11_0_arm64.whl",
+    "has_sig": false,
+    "md5_digest": "de10f38636fbf23494541a07e4637fc0",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.9",
+    "size": 118142,
+    "upload_time": "2026-10-09T19:55:14",
+    "upload_time_iso_8601": "2026-10-09T19:55:14.491100Z",
+    "url": "https://files.pythonhosted.org/packages/31/39/0965023968452245ece67b161adbf7c5652f8d0697ac69312f9d21849411/httptools-0.9.0-cp314-cp314-macosx_11_0_arm64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "8a743396f45465204e2b44b43cb57ec4a343c423f52604bbaf1777fd438698c9"
+    },
+    "digests": {
+     "blake2b_256": "3139a6ec662d81059e505e953af709797038e83e489014df721e506f4fd0d3c5",
+     "md5": "eeb29342cebc394542068a55073a9510",
+     "sha256": "130635fea6e611a6b2026120037965ddb88b3dafd11bb64e264b101a70a76630"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp314-cp314-macosx_11_0_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "eeb29342cebc394542068a55073a9510",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.9",
+    "size": 113943,
+    "upload_time": "2026-10-09T19:55:15",
+    "upload_time_iso_8601": "2026-10-09T19:55:15.887080Z",
+    "url": "https://files.pythonhosted.org/packages/31/39/a6ec662d81059e505e953af709797038e83e489014df721e506f4fd0d3c5/httptools-0.9.0-cp314-cp314-macosx_11_0_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "8a743396f45465204e2b44b43cb57ec4a343c423f52604bbaf1777fd438698c9"
+    },
+    "digests": {
+     "blake2b_256": "72044ecb7251a6c55bef61b157bb93fd44678943c35702a5966e4d5ebda2d450",
+     "md5": "8484fff8f46a2e2d04aeadcab0323372",
+     "sha256": "18d800aaa2d6bff7d889df810d1b19a5fde72b1f6c0ca96e8d9f28a692fe5460"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp314-cp314-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "8484fff8f46a2e2d04aeadcab0323372",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.9",
+    "size": 514397,
+    "upload_time": "2026-10-09T19:55:17",
+    "upload_time_iso_8601": "2026-10-09T19:55:17.480806Z",
+    "url": "https://files.pythonhosted.org/packages/72/04/4ecb7251a6c55bef61b157bb93fd44678943c35702a5966e4d5ebda2d450/httptools-0.9.0-cp314-cp314-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "8a743396f45465204e2b44b43cb57ec4a343c423f52604bbaf1777fd438698c9"
+    },
+    "digests": {
+     "blake2b_256": "315a0c26c98ee06f0f39608de715e7ca868baec942171a77feace5a0ba548ca6",
+     "md5": "362b85b2e7104972ddc6607d2be2c0e0",
+     "sha256": "c0e45def4d9ce7073e2226535572442d9d6efb4047c7a5fd8960807e877ce70a"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp314-cp314-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+    "has_sig": false,
+    "md5_digest": "362b85b2e7104972ddc6607d2be2c0e0",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.9",
+    "size": 514383,
+    "upload_time": "2026-10-09T19:55:19",
+    "upload_time_iso_8601": "2026-10-09T19:55:19.221358Z",
+    "url": "https://files.pythonhosted.org/packages/31/5a/0c26c98ee06f0f39608de715e7ca868baec942171a77feace5a0ba548ca6/httptools-0.9.0-cp314-cp314-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "8a743396f45465204e2b44b43cb57ec4a343c423f52604bbaf1777fd438698c9"
+    },
+    "digests": {
+     "blake2b_256": "d46c0f85d4f1f579c49aea6e4946dd304e9f33a680382b5117970ab887885bc7",
+     "md5": "288f8f5435ae0b085d6a85771a0699e9",
+     "sha256": "1f6da814aeecbc6cb8872d6d3e85ed16e8ab1653f9557cea8658725ce212348a"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp314-cp314-manylinux2014_ppc64le.manylinux_2_17_ppc64le.manylinux_2_28_ppc64le.whl",
+    "has_sig": false,
+    "md5_digest": "288f8f5435ae0b085d6a85771a0699e9",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.9",
+    "size": 534993,
+    "upload_time": "2026-10-09T19:55:20",
+    "upload_time_iso_8601": "2026-10-09T19:55:20.992826Z",
+    "url": "https://files.pythonhosted.org/packages/d4/6c/0f85d4f1f579c49aea6e4946dd304e9f33a680382b5117970ab887885bc7/httptools-0.9.0-cp314-cp314-manylinux2014_ppc64le.manylinux_2_17_ppc64le.manylinux_2_28_ppc64le.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "8a743396f45465204e2b44b43cb57ec4a343c423f52604bbaf1777fd438698c9"
+    },
+    "digests": {
+     "blake2b_256": "3b3297a836533b7bc9e269fc6d075c2d27669ca9786bf43f229158b9b4b15021",
+     "md5": "cee16717c56e11590f1aa668504cf9fd",
+     "sha256": "8e1e037bb57dbc549c6fe20370b763ea74bdb09413cdcf857e4f14d9e4e2fb13"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp314-cp314-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl",
+    "has_sig": false,
+    "md5_digest": "cee16717c56e11590f1aa668504cf9fd",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.9",
+    "size": 461494,
+    "upload_time": "2026-10-09T19:55:22",
+    "upload_time_iso_8601": "2026-10-09T19:55:22.785908Z",
+    "url": "https://files.pythonhosted.org/packages/3b/32/97a836533b7bc9e269fc6d075c2d27669ca9786bf43f229158b9b4b15021/httptools-0.9.0-cp314-cp314-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "8a743396f45465204e2b44b43cb57ec4a343c423f52604bbaf1777fd438698c9"
+    },
+    "digests": {
+     "blake2b_256": "67cfa2d5e8dc3bad9b0b966bb546170234b4614275346cccbc01f6cdb6fce3b3",
+     "md5": "84965ca7186ef1a4af642e275842af89",
+     "sha256": "cd3e55223a77d6e08d5730ebacb4930ecca5d2ce7c57e7ba10833be7e52903f1"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp314-cp314-musllinux_1_2_aarch64.whl",
+    "has_sig": false,
+    "md5_digest": "84965ca7186ef1a4af642e275842af89",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.9",
+    "size": 495859,
+    "upload_time": "2026-10-09T19:55:24",
+    "upload_time_iso_8601": "2026-10-09T19:55:24.900970Z",
+    "url": "https://files.pythonhosted.org/packages/67/cf/a2d5e8dc3bad9b0b966bb546170234b4614275346cccbc01f6cdb6fce3b3/httptools-0.9.0-cp314-cp314-musllinux_1_2_aarch64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "8a743396f45465204e2b44b43cb57ec4a343c423f52604bbaf1777fd438698c9"
+    },
+    "digests": {
+     "blake2b_256": "bdd97472c4ca2aa1cfe6d0f9923380784b034cb77addc88589f2e5c92fd3b4df",
+     "md5": "2c3fcc14c8253c8aa18880ae152d9b1c",
+     "sha256": "beb2c8a34cc90fb4d862b7284eafdb322030d6a8b2ee5eb6a744f84205beedc3"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp314-cp314-musllinux_1_2_ppc64le.whl",
+    "has_sig": false,
+    "md5_digest": "2c3fcc14c8253c8aa18880ae152d9b1c",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.9",
+    "size": 516303,
+    "upload_time": "2026-10-09T19:55:26",
+    "upload_time_iso_8601": "2026-10-09T19:55:26.840824Z",
+    "url": "https://files.pythonhosted.org/packages/bd/d9/7472c4ca2aa1cfe6d0f9923380784b034cb77addc88589f2e5c92fd3b4df/httptools-0.9.0-cp314-cp314-musllinux_1_2_ppc64le.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "8a743396f45465204e2b44b43cb57ec4a343c423f52604bbaf1777fd438698c9"
+    },
+    "digests": {
+     "blake2b_256": "c1ddf9be002ba859714cc306fe86204b7cb12bac091be66a7e23d7bb25d259bb",
+     "md5": "21385e80c5a90b144a713c8c7902c3f3",
+     "sha256": "0cc339a807c156d840b54f8bf050ba0fc265eb81692c24bca8535b52fbd797c6"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp314-cp314-musllinux_1_2_riscv64.whl",
+    "has_sig": false,
+    "md5_digest": "21385e80c5a90b144a713c8c7902c3f3",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.9",
+    "size": 458188,
+    "upload_time": "2026-10-09T19:55:28",
+    "upload_time_iso_8601": "2026-10-09T19:55:28.571867Z",
+    "url": "https://files.pythonhosted.org/packages/c1/dd/f9be002ba859714cc306fe86204b7cb12bac091be66a7e23d7bb25d259bb/httptools-0.9.0-cp314-cp314-musllinux_1_2_riscv64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "8a743396f45465204e2b44b43cb57ec4a343c423f52604bbaf1777fd438698c9"
+    },
+    "digests": {
+     "blake2b_256": "897aed8bb5344071afd12c87e57e8839fa65abc3895b92a5d065be79ecacb919",
+     "md5": "8ff00b65489f2d9297b2fe664062944d",
+     "sha256": "b6ee42112d785a913dd63ec0335435a3dddbea5040c151252db815b0095cf066"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp314-cp314-musllinux_1_2_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "8ff00b65489f2d9297b2fe664062944d",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.9",
+    "size": 498356,
+    "upload_time": "2026-10-09T19:55:30",
+    "upload_time_iso_8601": "2026-10-09T19:55:30.301181Z",
+    "url": "https://files.pythonhosted.org/packages/89/7a/ed8bb5344071afd12c87e57e8839fa65abc3895b92a5d065be79ecacb919/httptools-0.9.0-cp314-cp314-musllinux_1_2_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "8a743396f45465204e2b44b43cb57ec4a343c423f52604bbaf1777fd438698c9"
+    },
+    "digests": {
+     "blake2b_256": "940cf9e8148ca684b41b4b5d0ced0860530b9a9bcb7c38bf727d83dcbfea42d0",
+     "md5": "6712383068b50ffd10b89e37b853b9e8",
+     "sha256": "80eae881cfb69383303e9a4d7961a478025b89c24f38f2e69b30c516fa0d57f2"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp314-cp314t-macosx_11_0_arm64.whl",
+    "has_sig": false,
+    "md5_digest": "6712383068b50ffd10b89e37b853b9e8",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.9",
+    "size": 123684,
+    "upload_time": "2026-10-09T19:55:36",
+    "upload_time_iso_8601": "2026-10-09T19:55:36.445999Z",
+    "url": "https://files.pythonhosted.org/packages/94/0c/f9e8148ca684b41b4b5d0ced0860530b9a9bcb7c38bf727d83dcbfea42d0/httptools-0.9.0-cp314-cp314t-macosx_11_0_arm64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "8a743396f45465204e2b44b43cb57ec4a343c423f52604bbaf1777fd438698c9"
+    },
+    "digests": {
+     "blake2b_256": "3d543c1d910e8f0bc9ee0ba7867b687e3272c8ae4a7da2df2fbf1b2bce77f0f9",
+     "md5": "3270661587139e13d21c19d49fb1ac3b",
+     "sha256": "b2ab3aad55d75d0b8df8d8a1b5920baaec9b161112cd5e95984848b4d2cd3dfe"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp314-cp314t-macosx_11_0_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "3270661587139e13d21c19d49fb1ac3b",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.9",
+    "size": 118378,
+    "upload_time": "2026-10-09T19:55:37",
+    "upload_time_iso_8601": "2026-10-09T19:55:37.851271Z",
+    "url": "https://files.pythonhosted.org/packages/3d/54/3c1d910e8f0bc9ee0ba7867b687e3272c8ae4a7da2df2fbf1b2bce77f0f9/httptools-0.9.0-cp314-cp314t-macosx_11_0_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "8a743396f45465204e2b44b43cb57ec4a343c423f52604bbaf1777fd438698c9"
+    },
+    "digests": {
+     "blake2b_256": "d4ce3b9694880da927ae69b5629b8847cfe73d14584be2aa974a92ed2675b7da",
+     "md5": "4b3a166d4cf7edcaddf6513e7d04c4ed",
+     "sha256": "db735a23ecb0f0450d2b24e0a05fb00a8a35c9db172919c4d3e023e7c7ee4c9b"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp314-cp314t-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "4b3a166d4cf7edcaddf6513e7d04c4ed",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.9",
+    "size": 591295,
+    "upload_time": "2026-10-09T19:55:39",
+    "upload_time_iso_8601": "2026-10-09T19:55:39.501315Z",
+    "url": "https://files.pythonhosted.org/packages/d4/ce/3b9694880da927ae69b5629b8847cfe73d14584be2aa974a92ed2675b7da/httptools-0.9.0-cp314-cp314t-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "8a743396f45465204e2b44b43cb57ec4a343c423f52604bbaf1777fd438698c9"
+    },
+    "digests": {
+     "blake2b_256": "3c891ff2835b6adf5c08a477d3a199e72b71e7f26df55ceaaed7d7364d745a1d",
+     "md5": "665821fe46d15731cf65e87e15bbe9e4",
+     "sha256": "995b52f7c260ac7023640221f27472303968753cb6fc6fce1ddfb0e9db59a398"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp314-cp314t-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+    "has_sig": false,
+    "md5_digest": "665821fe46d15731cf65e87e15bbe9e4",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.9",
+    "size": 603709,
+    "upload_time": "2026-10-09T19:55:41",
+    "upload_time_iso_8601": "2026-10-09T19:55:41.404868Z",
+    "url": "https://files.pythonhosted.org/packages/3c/89/1ff2835b6adf5c08a477d3a199e72b71e7f26df55ceaaed7d7364d745a1d/httptools-0.9.0-cp314-cp314t-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "8a743396f45465204e2b44b43cb57ec4a343c423f52604bbaf1777fd438698c9"
+    },
+    "digests": {
+     "blake2b_256": "24404f59a0d9dca6d60002e7cb5dbf1441b558ced5a65b5b4131d57cbbd7c806",
+     "md5": "24f8d007c634f03b018eb90386cbda6b",
+     "sha256": "3af4e45ff455fce5511fdf2653c1ce428ef09c56fe37a83eb4d924c2d474f31e"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp314-cp314t-manylinux2014_ppc64le.manylinux_2_17_ppc64le.manylinux_2_28_ppc64le.whl",
+    "has_sig": false,
+    "md5_digest": "24f8d007c634f03b018eb90386cbda6b",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.9",
+    "size": 607379,
+    "upload_time": "2026-10-09T19:55:43",
+    "upload_time_iso_8601": "2026-10-09T19:55:43.119732Z",
+    "url": "https://files.pythonhosted.org/packages/24/40/4f59a0d9dca6d60002e7cb5dbf1441b558ced5a65b5b4131d57cbbd7c806/httptools-0.9.0-cp314-cp314t-manylinux2014_ppc64le.manylinux_2_17_ppc64le.manylinux_2_28_ppc64le.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "8a743396f45465204e2b44b43cb57ec4a343c423f52604bbaf1777fd438698c9"
+    },
+    "digests": {
+     "blake2b_256": "bf19381d444a3ba704cd5c67eb4617ae7a08e920a8239c688f23ba0de07a270b",
+     "md5": "bf0be0edda873d6f475008c847455e37",
+     "sha256": "ce8e723b4637034b76f5382a30a6b725518c332273e8d62a6c7d46e90837c947"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp314-cp314t-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl",
+    "has_sig": false,
+    "md5_digest": "bf0be0edda873d6f475008c847455e37",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.9",
+    "size": 530031,
+    "upload_time": "2026-10-09T19:55:44",
+    "upload_time_iso_8601": "2026-10-09T19:55:44.850098Z",
+    "url": "https://files.pythonhosted.org/packages/bf/19/381d444a3ba704cd5c67eb4617ae7a08e920a8239c688f23ba0de07a270b/httptools-0.9.0-cp314-cp314t-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "8a743396f45465204e2b44b43cb57ec4a343c423f52604bbaf1777fd438698c9"
+    },
+    "digests": {
+     "blake2b_256": "e2c5c9ba7758bf266240f598934510af4a800edafd9c8eb1fcf15feac0427063",
+     "md5": "f8ec4370b0daccfe504708f787983d5b",
+     "sha256": "465bc1526debf53a3be92022a16ca0c38f891ea3b5c1587af4f52e44020f8a07"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp314-cp314t-musllinux_1_2_aarch64.whl",
+    "has_sig": false,
+    "md5_digest": "f8ec4370b0daccfe504708f787983d5b",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.9",
+    "size": 575129,
+    "upload_time": "2026-10-09T19:55:46",
+    "upload_time_iso_8601": "2026-10-09T19:55:46.536096Z",
+    "url": "https://files.pythonhosted.org/packages/e2/c5/c9ba7758bf266240f598934510af4a800edafd9c8eb1fcf15feac0427063/httptools-0.9.0-cp314-cp314t-musllinux_1_2_aarch64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "8a743396f45465204e2b44b43cb57ec4a343c423f52604bbaf1777fd438698c9"
+    },
+    "digests": {
+     "blake2b_256": "db87c17f3a53616a3849681f7c8e913ce966487b95038504bbb035c38f5f2fbe",
+     "md5": "d8d276007a6a1b09f8596c360c4a9fa1",
+     "sha256": "8463b34ebde3f000627e9dbd8a545f995ad49fbf7ff9dd5abc0cd507da98a603"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp314-cp314t-musllinux_1_2_ppc64le.whl",
+    "has_sig": false,
+    "md5_digest": "d8d276007a6a1b09f8596c360c4a9fa1",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.9",
+    "size": 582996,
+    "upload_time": "2026-10-09T19:55:48",
+    "upload_time_iso_8601": "2026-10-09T19:55:48.545920Z",
+    "url": "https://files.pythonhosted.org/packages/db/87/c17f3a53616a3849681f7c8e913ce966487b95038504bbb035c38f5f2fbe/httptools-0.9.0-cp314-cp314t-musllinux_1_2_ppc64le.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "8a743396f45465204e2b44b43cb57ec4a343c423f52604bbaf1777fd438698c9"
+    },
+    "digests": {
+     "blake2b_256": "88e3cb33ba1348ddfa5853f96021f4c38674ac383b92c944492cf7638bd6bfd0",
+     "md5": "b0667eea4080df5b6d30640ec3b7b638",
+     "sha256": "f9489c1d87160c126f73b004742fe8654fa1ce37ed89e9e01330a1c10aaecde4"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp314-cp314t-musllinux_1_2_riscv64.whl",
+    "has_sig": false,
+    "md5_digest": "b0667eea4080df5b6d30640ec3b7b638",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.9",
+    "size": 526150,
+    "upload_time": "2026-10-09T19:55:50",
+    "upload_time_iso_8601": "2026-10-09T19:55:50.261681Z",
+    "url": "https://files.pythonhosted.org/packages/88/e3/cb33ba1348ddfa5853f96021f4c38674ac383b92c944492cf7638bd6bfd0/httptools-0.9.0-cp314-cp314t-musllinux_1_2_riscv64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "8a743396f45465204e2b44b43cb57ec4a343c423f52604bbaf1777fd438698c9"
+    },
+    "digests": {
+     "blake2b_256": "e900af0e2f33ba5be60803a492ad377e798714d0c970e76015e313849b351ef7",
+     "md5": "5bbe2823a17113c84171abf9021d5a3e",
+     "sha256": "06bfe7fad972a417269d8a5fc53b87e4eca970354abf5e9e24336fd06d64292e"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp314-cp314t-musllinux_1_2_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "5bbe2823a17113c84171abf9021d5a3e",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.9",
+    "size": 571731,
+    "upload_time": "2026-10-09T19:55:52",
+    "upload_time_iso_8601": "2026-10-09T19:55:52.422125Z",
+    "url": "https://files.pythonhosted.org/packages/e9/00/af0e2f33ba5be60803a492ad377e798714d0c970e76015e313849b351ef7/httptools-0.9.0-cp314-cp314t-musllinux_1_2_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "623cd71bd31f5a87a9aa677a49ae85785c60ee456ee76d5493ac867ad1a3f97e"
+    },
+    "digests": {
+     "blake2b_256": "b635e67e9c9dd3da036ebfcbd273eec44bd39213f952d638858b09b9f3ecaf3f",
+     "md5": "5c842c794a415ea7f6bc3254cef0cf43",
+     "sha256": "c42424213c28804f8d0e20f5692106cfb57bf72e1dbc4092b8481fb2f9e4c707"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp314-cp314t-win32.whl",
+    "has_sig": false,
+    "md5_digest": "5c842c794a415ea7f6bc3254cef0cf43",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.9",
+    "size": 94622,
+    "upload_time": "2026-10-09T19:55:53",
+    "upload_time_iso_8601": "2026-10-09T19:55:53.982993Z",
+    "url": "https://files.pythonhosted.org/packages/b6/35/e67e9c9dd3da036ebfcbd273eec44bd39213f952d638858b09b9f3ecaf3f/httptools-0.9.0-cp314-cp314t-win32.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "623cd71bd31f5a87a9aa677a49ae85785c60ee456ee76d5493ac867ad1a3f97e"
+    },
+    "digests": {
+     "blake2b_256": "c55caf620c73de59b5f3d431ae778c7412d30bba7bf56ca8b4140107a8ac0e54",
+     "md5": "6d80d5322039b9ad3ee755231b3bbc25",
+     "sha256": "bb1533541c729ad422f870a780d8b4af924f9817d45b5f580390418cda72eaa2"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp314-cp314t-win_amd64.whl",
+    "has_sig": false,
+    "md5_digest": "6d80d5322039b9ad3ee755231b3bbc25",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.9",
+    "size": 101934,
+    "upload_time": "2026-10-09T19:55:55",
+    "upload_time_iso_8601": "2026-10-09T19:55:55.417113Z",
+    "url": "https://files.pythonhosted.org/packages/c5/5c/af620c73de59b5f3d431ae778c7412d30bba7bf56ca8b4140107a8ac0e54/httptools-0.9.0-cp314-cp314t-win_amd64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "623cd71bd31f5a87a9aa677a49ae85785c60ee456ee76d5493ac867ad1a3f97e"
+    },
+    "digests": {
+     "blake2b_256": "9090fc6019b5179d13007c6c3039346ea2696cf2e94369d6ca96e57f23b01989",
+     "md5": "b47379cf97357a87be3edb4e068ed596",
+     "sha256": "6f9549ca354a1d6d6167c458a1f1b12147726b968f02dd64b6a5801dba91ae0f"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp314-cp314t-win_arm64.whl",
+    "has_sig": false,
+    "md5_digest": "b47379cf97357a87be3edb4e068ed596",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.9",
+    "size": 97211,
+    "upload_time": "2026-10-09T19:55:56",
+    "upload_time_iso_8601": "2026-10-09T19:55:56.878038Z",
+    "url": "https://files.pythonhosted.org/packages/90/90/fc6019b5179d13007c6c3039346ea2696cf2e94369d6ca96e57f23b01989/httptools-0.9.0-cp314-cp314t-win_arm64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "623cd71bd31f5a87a9aa677a49ae85785c60ee456ee76d5493ac867ad1a3f97e"
+    },
+    "digests": {
+     "blake2b_256": "048d3f1390c901d4a266ad9d5b988c47c4883e322e6f6cc021c592b9a050fb19",
+     "md5": "65eecfc9ae8e5bb97c7cb178801db559",
+     "sha256": "d1e329a1866981efe0201d05a374617f6c6cf14434a501d78ab22793d1ab1fa6"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp314-cp314-win32.whl",
+    "has_sig": false,
+    "md5_digest": "65eecfc9ae8e5bb97c7cb178801db559",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.9",
+    "size": 88479,
+    "upload_time": "2026-10-09T19:55:32",
+    "upload_time_iso_8601": "2026-10-09T19:55:32.071115Z",
+    "url": "https://files.pythonhosted.org/packages/04/8d/3f1390c901d4a266ad9d5b988c47c4883e322e6f6cc021c592b9a050fb19/httptools-0.9.0-cp314-cp314-win32.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "623cd71bd31f5a87a9aa677a49ae85785c60ee456ee76d5493ac867ad1a3f97e"
+    },
+    "digests": {
+     "blake2b_256": "99057de70a4eea3b52d31a95fe64eb5775ccdead01e4913e4741b4424e9ef180",
+     "md5": "e71e535643f111a0f704159fb0fdb16b",
+     "sha256": "edd5aa045fa3cc57143db018dd32ce7962bd5b525d05230709015d7e570100aa"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp314-cp314-win_amd64.whl",
+    "has_sig": false,
+    "md5_digest": "e71e535643f111a0f704159fb0fdb16b",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.9",
+    "size": 94809,
+    "upload_time": "2026-10-09T19:55:33",
+    "upload_time_iso_8601": "2026-10-09T19:55:33.423030Z",
+    "url": "https://files.pythonhosted.org/packages/99/05/7de70a4eea3b52d31a95fe64eb5775ccdead01e4913e4741b4424e9ef180/httptools-0.9.0-cp314-cp314-win_amd64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "623cd71bd31f5a87a9aa677a49ae85785c60ee456ee76d5493ac867ad1a3f97e"
+    },
+    "digests": {
+     "blake2b_256": "e8797f6c354a8f8f74381fd473f365d2db3cd976ee8d1422b8dd7455dfc52b62",
+     "md5": "793814b719e64d26482876206b3d7261",
+     "sha256": "6ff0145b34610e57c9fae20df4e133c8d54266447387de6fcc0bdabfe4db4569"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp314-cp314-win_arm64.whl",
+    "has_sig": false,
+    "md5_digest": "793814b719e64d26482876206b3d7261",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.9",
+    "size": 91508,
+    "upload_time": "2026-10-09T19:55:34",
+    "upload_time_iso_8601": "2026-10-09T19:55:34.764599Z",
+    "url": "https://files.pythonhosted.org/packages/e8/79/7f6c354a8f8f74381fd473f365d2db3cd976ee8d1422b8dd7455dfc52b62/httptools-0.9.0-cp314-cp314-win_arm64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "8a743396f45465204e2b44b43cb57ec4a343c423f52604bbaf1777fd438698c9"
+    },
+    "digests": {
+     "blake2b_256": "d277e226b16a2f291f2a4ce25a24a3297e98749d80b8a713b8f3b11d8a82e904",
+     "md5": "1428510d716ea26629909cac6005d82f",
+     "sha256": "d3906b5c549ff2ad2473cb711e1fc65d76715c2726a402108fbf55eab6c6b49d"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp315-cp315-macosx_11_0_arm64.whl",
+    "has_sig": false,
+    "md5_digest": "1428510d716ea26629909cac6005d82f",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp315",
+    "requires_python": ">=3.9",
+    "size": 117817,
+    "upload_time": "2026-10-09T19:55:58",
+    "upload_time_iso_8601": "2026-10-09T19:55:58.295512Z",
+    "url": "https://files.pythonhosted.org/packages/d2/77/e226b16a2f291f2a4ce25a24a3297e98749d80b8a713b8f3b11d8a82e904/httptools-0.9.0-cp315-cp315-macosx_11_0_arm64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "8a743396f45465204e2b44b43cb57ec4a343c423f52604bbaf1777fd438698c9"
+    },
+    "digests": {
+     "blake2b_256": "ff08050ad8985ec34064e4401e6e5aeca7238685bc218eaff20025f7c04b0723",
+     "md5": "80a06ba0459481cbc07beb2ee3fe934a",
+     "sha256": "cb2bb3ac0af7fdab2311b895c9eb95442b45deb14cc949b9e65545e74aa0be69"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp315-cp315-macosx_11_0_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "80a06ba0459481cbc07beb2ee3fe934a",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp315",
+    "requires_python": ">=3.9",
+    "size": 113669,
+    "upload_time": "2026-10-09T19:55:59",
+    "upload_time_iso_8601": "2026-10-09T19:55:59.915810Z",
+    "url": "https://files.pythonhosted.org/packages/ff/08/050ad8985ec34064e4401e6e5aeca7238685bc218eaff20025f7c04b0723/httptools-0.9.0-cp315-cp315-macosx_11_0_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "8a743396f45465204e2b44b43cb57ec4a343c423f52604bbaf1777fd438698c9"
+    },
+    "digests": {
+     "blake2b_256": "520faf812488a4963ce59d97b73a00c72bba49f5eebca1a13ab6f114372b5e82",
+     "md5": "702444689344798f30921af88468b409",
+     "sha256": "63d38e9a9a10a20fb57593742e63c6b1e78dd7f6ef5472de8e0b1e4cf4f3db26"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp315-cp315-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "702444689344798f30921af88468b409",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp315",
+    "requires_python": ">=3.9",
+    "size": 515633,
+    "upload_time": "2026-10-09T19:56:01",
+    "upload_time_iso_8601": "2026-10-09T19:56:01.529102Z",
+    "url": "https://files.pythonhosted.org/packages/52/0f/af812488a4963ce59d97b73a00c72bba49f5eebca1a13ab6f114372b5e82/httptools-0.9.0-cp315-cp315-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "8a743396f45465204e2b44b43cb57ec4a343c423f52604bbaf1777fd438698c9"
+    },
+    "digests": {
+     "blake2b_256": "506d73c987b84e0d02fa6c4109c7ce6ea00518d0aa3005fb92b75553ffd5ddf8",
+     "md5": "1754063dfe99c0e4b6718d13f7b764f9",
+     "sha256": "eae4e9c7a0785a1a715de0a74fb822ab40084c060f444f18f075d05e322aa7ef"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp315-cp315-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+    "has_sig": false,
+    "md5_digest": "1754063dfe99c0e4b6718d13f7b764f9",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp315",
+    "requires_python": ">=3.9",
+    "size": 516049,
+    "upload_time": "2026-10-09T19:56:03",
+    "upload_time_iso_8601": "2026-10-09T19:56:03.327616Z",
+    "url": "https://files.pythonhosted.org/packages/50/6d/73c987b84e0d02fa6c4109c7ce6ea00518d0aa3005fb92b75553ffd5ddf8/httptools-0.9.0-cp315-cp315-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "8a743396f45465204e2b44b43cb57ec4a343c423f52604bbaf1777fd438698c9"
+    },
+    "digests": {
+     "blake2b_256": "c4f974cc01fba5a0ea05501eb39eddba4baa00c10e4d1caebdb78f23eaacafe5",
+     "md5": "e5328e97d83e6de8d0aa48a78278e4ef",
+     "sha256": "0adc974916efe1fbf89d0363a86dcb2c746727643e362ff398de1a4b50b6bc77"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp315-cp315-manylinux2014_ppc64le.manylinux_2_17_ppc64le.manylinux_2_28_ppc64le.whl",
+    "has_sig": false,
+    "md5_digest": "e5328e97d83e6de8d0aa48a78278e4ef",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp315",
+    "requires_python": ">=3.9",
+    "size": 534832,
+    "upload_time": "2026-10-09T19:56:05",
+    "upload_time_iso_8601": "2026-10-09T19:56:05.068595Z",
+    "url": "https://files.pythonhosted.org/packages/c4/f9/74cc01fba5a0ea05501eb39eddba4baa00c10e4d1caebdb78f23eaacafe5/httptools-0.9.0-cp315-cp315-manylinux2014_ppc64le.manylinux_2_17_ppc64le.manylinux_2_28_ppc64le.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "8a743396f45465204e2b44b43cb57ec4a343c423f52604bbaf1777fd438698c9"
+    },
+    "digests": {
+     "blake2b_256": "8ca2a7bb90643c059e8136c2a5fdfb0d7e1a18b2c5c4f1a78f2de14b1303184d",
+     "md5": "9f95d5d1ebc47964d7dc8ea64cb4cfae",
+     "sha256": "050f84b7ec46a6efe0e5f521cf8729e3397c1cef4384f62ed8d5d68ca0045776"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp315-cp315-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl",
+    "has_sig": false,
+    "md5_digest": "9f95d5d1ebc47964d7dc8ea64cb4cfae",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp315",
+    "requires_python": ">=3.9",
+    "size": 466489,
+    "upload_time": "2026-10-09T19:56:06",
+    "upload_time_iso_8601": "2026-10-09T19:56:06.757161Z",
+    "url": "https://files.pythonhosted.org/packages/8c/a2/a7bb90643c059e8136c2a5fdfb0d7e1a18b2c5c4f1a78f2de14b1303184d/httptools-0.9.0-cp315-cp315-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "8a743396f45465204e2b44b43cb57ec4a343c423f52604bbaf1777fd438698c9"
+    },
+    "digests": {
+     "blake2b_256": "5e19bb3f18e05cbad9628e7f1254176c475e05ac79c72697ec7c144fc2cc877f",
+     "md5": "159f496fbb8c4adf7d897611103a16da",
+     "sha256": "9b4da5789d7cf576c7e81f0088c632f6ee3786d87d17f08e90e703c22ce15633"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp315-cp315-musllinux_1_2_aarch64.whl",
+    "has_sig": false,
+    "md5_digest": "159f496fbb8c4adf7d897611103a16da",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp315",
+    "requires_python": ">=3.9",
+    "size": 497146,
+    "upload_time": "2026-10-09T19:56:08",
+    "upload_time_iso_8601": "2026-10-09T19:56:08.641217Z",
+    "url": "https://files.pythonhosted.org/packages/5e/19/bb3f18e05cbad9628e7f1254176c475e05ac79c72697ec7c144fc2cc877f/httptools-0.9.0-cp315-cp315-musllinux_1_2_aarch64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "8a743396f45465204e2b44b43cb57ec4a343c423f52604bbaf1777fd438698c9"
+    },
+    "digests": {
+     "blake2b_256": "25e690e2433d7a947bec66a5ad22e948626a26672ff62aa3ebf949899f687a3e",
+     "md5": "ac72820a49a239a52e6e0254a9764408",
+     "sha256": "f78f7ae1c2e5aabf29583fc0d302d8081a663776f84578025662eb6f5d63a921"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp315-cp315-musllinux_1_2_ppc64le.whl",
+    "has_sig": false,
+    "md5_digest": "ac72820a49a239a52e6e0254a9764408",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp315",
+    "requires_python": ">=3.9",
+    "size": 516153,
+    "upload_time": "2026-10-09T19:56:10",
+    "upload_time_iso_8601": "2026-10-09T19:56:10.415899Z",
+    "url": "https://files.pythonhosted.org/packages/25/e6/90e2433d7a947bec66a5ad22e948626a26672ff62aa3ebf949899f687a3e/httptools-0.9.0-cp315-cp315-musllinux_1_2_ppc64le.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "8a743396f45465204e2b44b43cb57ec4a343c423f52604bbaf1777fd438698c9"
+    },
+    "digests": {
+     "blake2b_256": "d0c786373edd9d800eb723b8b68d3fce0e31d3e3211f9d7b0eaf8c3deadfada0",
+     "md5": "1cf64d9f8a5a43649ccf59a7da5cfaf8",
+     "sha256": "b2cc6991f16f6d666d48e4b57318104e7b29109e32e2f6b86e9d44c4e6a27f4e"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp315-cp315-musllinux_1_2_riscv64.whl",
+    "has_sig": false,
+    "md5_digest": "1cf64d9f8a5a43649ccf59a7da5cfaf8",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp315",
+    "requires_python": ">=3.9",
+    "size": 463141,
+    "upload_time": "2026-10-09T19:56:12",
+    "upload_time_iso_8601": "2026-10-09T19:56:12.406336Z",
+    "url": "https://files.pythonhosted.org/packages/d0/c7/86373edd9d800eb723b8b68d3fce0e31d3e3211f9d7b0eaf8c3deadfada0/httptools-0.9.0-cp315-cp315-musllinux_1_2_riscv64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "8a743396f45465204e2b44b43cb57ec4a343c423f52604bbaf1777fd438698c9"
+    },
+    "digests": {
+     "blake2b_256": "65468dc41d9ebf78fa56f609f251ed8ac5a9f66513b0ce712040bd7ada7b19cc",
+     "md5": "ec2bff4567f95846ee6d6d8f8a1dd66f",
+     "sha256": "dbc9fd1521e573045d71b6afab7398439c5cc259e8cb9d416fe62d485c4899c6"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp315-cp315-musllinux_1_2_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "ec2bff4567f95846ee6d6d8f8a1dd66f",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp315",
+    "requires_python": ">=3.9",
+    "size": 499125,
+    "upload_time": "2026-10-09T19:56:14",
+    "upload_time_iso_8601": "2026-10-09T19:56:14.109078Z",
+    "url": "https://files.pythonhosted.org/packages/65/46/8dc41d9ebf78fa56f609f251ed8ac5a9f66513b0ce712040bd7ada7b19cc/httptools-0.9.0-cp315-cp315-musllinux_1_2_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "8a743396f45465204e2b44b43cb57ec4a343c423f52604bbaf1777fd438698c9"
+    },
+    "digests": {
+     "blake2b_256": "3e3a9ba59ec76d45bf8eb7ad3a18f2c6e9074fa4ce5cbbd3900fffb8d840f9e7",
+     "md5": "772dd619f5aa39418d241f476a9ed262",
+     "sha256": "02bc5b3dcb6394b9d825fd62a7bfa0b2943063a3c89abc4492ad45e334a20eb5"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp315-cp315t-macosx_11_0_arm64.whl",
+    "has_sig": false,
+    "md5_digest": "772dd619f5aa39418d241f476a9ed262",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp315",
+    "requires_python": ">=3.9",
+    "size": 123063,
+    "upload_time": "2026-10-09T19:56:20",
+    "upload_time_iso_8601": "2026-10-09T19:56:20.023347Z",
+    "url": "https://files.pythonhosted.org/packages/3e/3a/9ba59ec76d45bf8eb7ad3a18f2c6e9074fa4ce5cbbd3900fffb8d840f9e7/httptools-0.9.0-cp315-cp315t-macosx_11_0_arm64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "8a743396f45465204e2b44b43cb57ec4a343c423f52604bbaf1777fd438698c9"
+    },
+    "digests": {
+     "blake2b_256": "182d49eb389bda75a8ef0d04bf025dfb8412a3646637051c8a88bdeea700e343",
+     "md5": "e6fe6d4645b7b162052e5a6c2f337982",
+     "sha256": "fc1a4f9d18d32a6e0a0a0a382986a60a2126f5144dd08715be7adb8df18e8a46"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp315-cp315t-macosx_11_0_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "e6fe6d4645b7b162052e5a6c2f337982",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp315",
+    "requires_python": ">=3.9",
+    "size": 117328,
+    "upload_time": "2026-10-09T19:56:21",
+    "upload_time_iso_8601": "2026-10-09T19:56:21.439206Z",
+    "url": "https://files.pythonhosted.org/packages/18/2d/49eb389bda75a8ef0d04bf025dfb8412a3646637051c8a88bdeea700e343/httptools-0.9.0-cp315-cp315t-macosx_11_0_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "8a743396f45465204e2b44b43cb57ec4a343c423f52604bbaf1777fd438698c9"
+    },
+    "digests": {
+     "blake2b_256": "a06b2d6439378fd3d1f9c06272b35d61f4519e2d9bf9967611df069fa6c23044",
+     "md5": "1c9d746bdbc007eea8a14e0d9fb02f9f",
+     "sha256": "df3867518b205be3648e2fbd522bf380c851b5c2500588047505afdd786b6669"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp315-cp315t-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "1c9d746bdbc007eea8a14e0d9fb02f9f",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp315",
+    "requires_python": ">=3.9",
+    "size": 588680,
+    "upload_time": "2026-10-09T19:56:23",
+    "upload_time_iso_8601": "2026-10-09T19:56:23.056724Z",
+    "url": "https://files.pythonhosted.org/packages/a0/6b/2d6439378fd3d1f9c06272b35d61f4519e2d9bf9967611df069fa6c23044/httptools-0.9.0-cp315-cp315t-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "8a743396f45465204e2b44b43cb57ec4a343c423f52604bbaf1777fd438698c9"
+    },
+    "digests": {
+     "blake2b_256": "08653fb50e861bbb6103ca58fd88b4127d346fc909eb9f06d250455033a3f698",
+     "md5": "897599dc224f4ccb1cb8d71813273b36",
+     "sha256": "26e1d9629f3bf70d23f0d22238152aec51c837a7c9e384cb74f356fdccad7eb3"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp315-cp315t-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+    "has_sig": false,
+    "md5_digest": "897599dc224f4ccb1cb8d71813273b36",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp315",
+    "requires_python": ">=3.9",
+    "size": 600031,
+    "upload_time": "2026-10-09T19:56:25",
+    "upload_time_iso_8601": "2026-10-09T19:56:25.216284Z",
+    "url": "https://files.pythonhosted.org/packages/08/65/3fb50e861bbb6103ca58fd88b4127d346fc909eb9f06d250455033a3f698/httptools-0.9.0-cp315-cp315t-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "8a743396f45465204e2b44b43cb57ec4a343c423f52604bbaf1777fd438698c9"
+    },
+    "digests": {
+     "blake2b_256": "909b40d33d4098fde007845804b1c923ddf5a27fd48aca1c8080bdbdac6c16fa",
+     "md5": "023c3524615c7a2258c4bee3aff10820",
+     "sha256": "050f7ab098121873c8f13e35857f97ab60a76185c8302bde9a384939bb7c3b96"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp315-cp315t-manylinux2014_ppc64le.manylinux_2_17_ppc64le.manylinux_2_28_ppc64le.whl",
+    "has_sig": false,
+    "md5_digest": "023c3524615c7a2258c4bee3aff10820",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp315",
+    "requires_python": ">=3.9",
+    "size": 604407,
+    "upload_time": "2026-10-09T19:56:27",
+    "upload_time_iso_8601": "2026-10-09T19:56:27.040043Z",
+    "url": "https://files.pythonhosted.org/packages/90/9b/40d33d4098fde007845804b1c923ddf5a27fd48aca1c8080bdbdac6c16fa/httptools-0.9.0-cp315-cp315t-manylinux2014_ppc64le.manylinux_2_17_ppc64le.manylinux_2_28_ppc64le.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "8a743396f45465204e2b44b43cb57ec4a343c423f52604bbaf1777fd438698c9"
+    },
+    "digests": {
+     "blake2b_256": "1737472afc9000aca3c7dd61a9b8ac6f3e2765900e3614f8d7f13e772c9c5438",
+     "md5": "f5e982661525b9a31c04d4228c7a2904",
+     "sha256": "8d90d10e9b6594c28f27896a68fab97fd784c43804e9fe419dab8e8dcfcf4b02"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp315-cp315t-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl",
+    "has_sig": false,
+    "md5_digest": "f5e982661525b9a31c04d4228c7a2904",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp315",
+    "requires_python": ">=3.9",
+    "size": 529459,
+    "upload_time": "2026-10-09T19:56:28",
+    "upload_time_iso_8601": "2026-10-09T19:56:28.944174Z",
+    "url": "https://files.pythonhosted.org/packages/17/37/472afc9000aca3c7dd61a9b8ac6f3e2765900e3614f8d7f13e772c9c5438/httptools-0.9.0-cp315-cp315t-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "8a743396f45465204e2b44b43cb57ec4a343c423f52604bbaf1777fd438698c9"
+    },
+    "digests": {
+     "blake2b_256": "88f99956910fb1d181578249cd2cc966c0c46ad3c558b43ac2b79af50f94589f",
+     "md5": "cbcfd670c306c5914f3f0bfd9722e9fb",
+     "sha256": "b928ab0ecaa664e8caecc529dcb8bc881b6b35bb2b74bf9a39ae25f982ee8812"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp315-cp315t-musllinux_1_2_aarch64.whl",
+    "has_sig": false,
+    "md5_digest": "cbcfd670c306c5914f3f0bfd9722e9fb",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp315",
+    "requires_python": ">=3.9",
+    "size": 570845,
+    "upload_time": "2026-10-09T19:56:30",
+    "upload_time_iso_8601": "2026-10-09T19:56:30.602693Z",
+    "url": "https://files.pythonhosted.org/packages/88/f9/9956910fb1d181578249cd2cc966c0c46ad3c558b43ac2b79af50f94589f/httptools-0.9.0-cp315-cp315t-musllinux_1_2_aarch64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "8a743396f45465204e2b44b43cb57ec4a343c423f52604bbaf1777fd438698c9"
+    },
+    "digests": {
+     "blake2b_256": "308cd1c160a3cc2c18e41a6f763c3aad979530dfb295039449312b8814e19753",
+     "md5": "bab9d40c2e5090c2a529d9b1b7dc3d36",
+     "sha256": "2319858018eedd0c0b2f950a620413c0a9d1352607be4267eb28209eca8b1e3f"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp315-cp315t-musllinux_1_2_ppc64le.whl",
+    "has_sig": false,
+    "md5_digest": "bab9d40c2e5090c2a529d9b1b7dc3d36",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp315",
+    "requires_python": ">=3.9",
+    "size": 579194,
+    "upload_time": "2026-10-09T19:56:32",
+    "upload_time_iso_8601": "2026-10-09T19:56:32.353058Z",
+    "url": "https://files.pythonhosted.org/packages/30/8c/d1c160a3cc2c18e41a6f763c3aad979530dfb295039449312b8814e19753/httptools-0.9.0-cp315-cp315t-musllinux_1_2_ppc64le.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "8a743396f45465204e2b44b43cb57ec4a343c423f52604bbaf1777fd438698c9"
+    },
+    "digests": {
+     "blake2b_256": "903c3f7cc49925928a8c82f4141d504b8b8c2901c4b35cb88800211828312561",
+     "md5": "a69edc9e332854538a0513ca86fc6695",
+     "sha256": "931f45f84e15daafec5f82cc92e6710569e1f50933f3253d206eab4132bec678"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp315-cp315t-musllinux_1_2_riscv64.whl",
+    "has_sig": false,
+    "md5_digest": "a69edc9e332854538a0513ca86fc6695",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp315",
+    "requires_python": ">=3.9",
+    "size": 524950,
+    "upload_time": "2026-10-09T19:56:34",
+    "upload_time_iso_8601": "2026-10-09T19:56:34.103002Z",
+    "url": "https://files.pythonhosted.org/packages/90/3c/3f7cc49925928a8c82f4141d504b8b8c2901c4b35cb88800211828312561/httptools-0.9.0-cp315-cp315t-musllinux_1_2_riscv64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "8a743396f45465204e2b44b43cb57ec4a343c423f52604bbaf1777fd438698c9"
+    },
+    "digests": {
+     "blake2b_256": "19988e2154e99b8e8818fad3e6c5dd7cf21c050f6314b1bd8072e8dc29f49eb5",
+     "md5": "a18225dafda89bf894da5ab791783098",
+     "sha256": "f67db0ba2bedafec15b8e5330d40da1e1c7921559fa715af021252bfef81a6f8"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp315-cp315t-musllinux_1_2_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "a18225dafda89bf894da5ab791783098",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp315",
+    "requires_python": ">=3.9",
+    "size": 568603,
+    "upload_time": "2026-10-09T19:56:35",
+    "upload_time_iso_8601": "2026-10-09T19:56:35.876463Z",
+    "url": "https://files.pythonhosted.org/packages/19/98/8e2154e99b8e8818fad3e6c5dd7cf21c050f6314b1bd8072e8dc29f49eb5/httptools-0.9.0-cp315-cp315t-musllinux_1_2_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "623cd71bd31f5a87a9aa677a49ae85785c60ee456ee76d5493ac867ad1a3f97e"
+    },
+    "digests": {
+     "blake2b_256": "79a386fe9fef3a1bfab5db62262f8880c294cbf8a8d94cffe2a2aa8b4aeed40c",
+     "md5": "fd2732ab303079918d4b4adbdbafb0c2",
+     "sha256": "2095207b75a83c9e947346da9c127fb7e4fb29f41589df2643764f06b750989c"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp315-cp315t-win32.whl",
+    "has_sig": false,
+    "md5_digest": "fd2732ab303079918d4b4adbdbafb0c2",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp315",
+    "requires_python": ">=3.9",
+    "size": 94042,
+    "upload_time": "2026-10-09T19:56:37",
+    "upload_time_iso_8601": "2026-10-09T19:56:37.441409Z",
+    "url": "https://files.pythonhosted.org/packages/79/a3/86fe9fef3a1bfab5db62262f8880c294cbf8a8d94cffe2a2aa8b4aeed40c/httptools-0.9.0-cp315-cp315t-win32.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "623cd71bd31f5a87a9aa677a49ae85785c60ee456ee76d5493ac867ad1a3f97e"
+    },
+    "digests": {
+     "blake2b_256": "544df2d88782251467325a62ec4ad704249bb1b09c21aacb997181a9f4421f30",
+     "md5": "60227b271b93bbd3494b9f5f6e42b7a1",
+     "sha256": "bca180cbe84e4fba7807eb408a8655295f697928512324517e30a091ede522a8"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp315-cp315t-win_amd64.whl",
+    "has_sig": false,
+    "md5_digest": "60227b271b93bbd3494b9f5f6e42b7a1",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp315",
+    "requires_python": ">=3.9",
+    "size": 100837,
+    "upload_time": "2026-10-09T19:56:38",
+    "upload_time_iso_8601": "2026-10-09T19:56:38.831804Z",
+    "url": "https://files.pythonhosted.org/packages/54/4d/f2d88782251467325a62ec4ad704249bb1b09c21aacb997181a9f4421f30/httptools-0.9.0-cp315-cp315t-win_amd64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "623cd71bd31f5a87a9aa677a49ae85785c60ee456ee76d5493ac867ad1a3f97e"
+    },
+    "digests": {
+     "blake2b_256": "004b5e96c4e0d171f959a0064971c3fced9cea5a19e5fab7a8e7d57aceb80506",
+     "md5": "7ffe6fbf30c4a531152fc779dd4e36db",
+     "sha256": "4a4d8c2c7e73ba5967be74d7c3a5ff81fde815ee1b48d9c5c0f14de8463a847b"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp315-cp315t-win_arm64.whl",
+    "has_sig": false,
+    "md5_digest": "7ffe6fbf30c4a531152fc779dd4e36db",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp315",
+    "requires_python": ">=3.9",
+    "size": 95947,
+    "upload_time": "2026-10-09T19:56:40",
+    "upload_time_iso_8601": "2026-10-09T19:56:40.562684Z",
+    "url": "https://files.pythonhosted.org/packages/00/4b/5e96c4e0d171f959a0064971c3fced9cea5a19e5fab7a8e7d57aceb80506/httptools-0.9.0-cp315-cp315t-win_arm64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "623cd71bd31f5a87a9aa677a49ae85785c60ee456ee76d5493ac867ad1a3f97e"
+    },
+    "digests": {
+     "blake2b_256": "7a4138db94fda8b266dcde50722a4fcef825b189380a220e02c682518bc1b430",
+     "md5": "617fac1477822c8feeec0812d96bc63a",
+     "sha256": "34266cec8c1d4e3e91fcca7efe38971d6bdda64a7944f2a46ab576da15173680"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp315-cp315-win32.whl",
+    "has_sig": false,
+    "md5_digest": "617fac1477822c8feeec0812d96bc63a",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp315",
+    "requires_python": ">=3.9",
+    "size": 88370,
+    "upload_time": "2026-10-09T19:56:15",
+    "upload_time_iso_8601": "2026-10-09T19:56:15.873101Z",
+    "url": "https://files.pythonhosted.org/packages/7a/41/38db94fda8b266dcde50722a4fcef825b189380a220e02c682518bc1b430/httptools-0.9.0-cp315-cp315-win32.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "623cd71bd31f5a87a9aa677a49ae85785c60ee456ee76d5493ac867ad1a3f97e"
+    },
+    "digests": {
+     "blake2b_256": "4acd347f12eb16e20972dcdacbca907f2c52d72a36542199a5bf3ca342c92098",
+     "md5": "7e17d9a7e604f6b4d73446f229e9d03d",
+     "sha256": "b5a3f5f70967a1aa2bc47fec42a1e19d2fb38c61700e3ee62b63a4af4f4fd001"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp315-cp315-win_amd64.whl",
+    "has_sig": false,
+    "md5_digest": "7e17d9a7e604f6b4d73446f229e9d03d",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp315",
+    "requires_python": ">=3.9",
+    "size": 94617,
+    "upload_time": "2026-10-09T19:56:17",
+    "upload_time_iso_8601": "2026-10-09T19:56:17.257539Z",
+    "url": "https://files.pythonhosted.org/packages/4a/cd/347f12eb16e20972dcdacbca907f2c52d72a36542199a5bf3ca342c92098/httptools-0.9.0-cp315-cp315-win_amd64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "623cd71bd31f5a87a9aa677a49ae85785c60ee456ee76d5493ac867ad1a3f97e"
+    },
+    "digests": {
+     "blake2b_256": "f308086ba2f53989d504a05f4669b03673a04fc72554bc37d4696c3c6132be75",
+     "md5": "6b38916c14814681d4a19b3a4ba70764",
+     "sha256": "e0acbd474d0af4afacc6e66c4273f8a19e25f8af4379fc816388095ea6b01371"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp315-cp315-win_arm64.whl",
+    "has_sig": false,
+    "md5_digest": "6b38916c14814681d4a19b3a4ba70764",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp315",
+    "requires_python": ">=3.9",
+    "size": 91358,
+    "upload_time": "2026-10-09T19:56:18",
+    "upload_time_iso_8601": "2026-10-09T19:56:18.641690Z",
+    "url": "https://files.pythonhosted.org/packages/f3/08/086ba2f53989d504a05f4669b03673a04fc72554bc37d4696c3c6132be75/httptools-0.9.0-cp315-cp315-win_arm64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "8a743396f45465204e2b44b43cb57ec4a343c423f52604bbaf1777fd438698c9"
+    },
+    "digests": {
+     "blake2b_256": "050db0bcde33ee3bbf8bb26e5de01f87799f76ac285d540b7eb03a59c00a5fbd",
+     "md5": "d8b76f86ec05f5f6ed0c420ad841d72a",
+     "sha256": "3238e198429cb8909ec42951b82d6a33fe0fdfcf86371732f8f09311c5b8ac32"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp39-cp39-macosx_11_0_arm64.whl",
+    "has_sig": false,
+    "md5_digest": "d8b76f86ec05f5f6ed0c420ad841d72a",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp39",
+    "requires_python": ">=3.9",
+    "size": 120795,
+    "upload_time": "2026-10-09T19:56:42",
+    "upload_time_iso_8601": "2026-10-09T19:56:42.260809Z",
+    "url": "https://files.pythonhosted.org/packages/05/0d/b0bcde33ee3bbf8bb26e5de01f87799f76ac285d540b7eb03a59c00a5fbd/httptools-0.9.0-cp39-cp39-macosx_11_0_arm64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "8a743396f45465204e2b44b43cb57ec4a343c423f52604bbaf1777fd438698c9"
+    },
+    "digests": {
+     "blake2b_256": "7834ed68ca82327556df87613e096ecfbdb042fd1133f128f4345b3670377db3",
+     "md5": "8e6b98ebbdb75d793524644290a8b4db",
+     "sha256": "289f213d2a3dde2e8312c415ffecec5a01698589ec6249ec4e8fb3b47c0444ba"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp39-cp39-macosx_11_0_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "8e6b98ebbdb75d793524644290a8b4db",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp39",
+    "requires_python": ">=3.9",
+    "size": 116505,
+    "upload_time": "2026-10-09T19:56:43",
+    "upload_time_iso_8601": "2026-10-09T19:56:43.685627Z",
+    "url": "https://files.pythonhosted.org/packages/78/34/ed68ca82327556df87613e096ecfbdb042fd1133f128f4345b3670377db3/httptools-0.9.0-cp39-cp39-macosx_11_0_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "8a743396f45465204e2b44b43cb57ec4a343c423f52604bbaf1777fd438698c9"
+    },
+    "digests": {
+     "blake2b_256": "4de04beb92287998634b9f77391aa4f72057df3cc65aefe1ae45d8c983595953",
+     "md5": "6c5952616c4da3652972e54b6f51302d",
+     "sha256": "a3ed60ea9a7c352c590182c67404599e6b5a0c901e75ae4cceee9a9fd6bfa455"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp39-cp39-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "6c5952616c4da3652972e54b6f51302d",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp39",
+    "requires_python": ">=3.9",
+    "size": 487883,
+    "upload_time": "2026-10-09T19:56:45",
+    "upload_time_iso_8601": "2026-10-09T19:56:45.402481Z",
+    "url": "https://files.pythonhosted.org/packages/4d/e0/4beb92287998634b9f77391aa4f72057df3cc65aefe1ae45d8c983595953/httptools-0.9.0-cp39-cp39-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "8a743396f45465204e2b44b43cb57ec4a343c423f52604bbaf1777fd438698c9"
+    },
+    "digests": {
+     "blake2b_256": "9a5c5f2a1bb780be06350b3ba4d0af3f8bedb2b87b0d4a728858c31eb5ef53b5",
+     "md5": "0042083edd1fccc1271402c322c1ec43",
+     "sha256": "c195a69df0ab2541252ab5b1d76e3c182e5688ac2a9b708e5e6f66aaeda91e9a"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp39-cp39-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+    "has_sig": false,
+    "md5_digest": "0042083edd1fccc1271402c322c1ec43",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp39",
+    "requires_python": ">=3.9",
+    "size": 487564,
+    "upload_time": "2026-10-09T19:56:47",
+    "upload_time_iso_8601": "2026-10-09T19:56:47.080733Z",
+    "url": "https://files.pythonhosted.org/packages/9a/5c/5f2a1bb780be06350b3ba4d0af3f8bedb2b87b0d4a728858c31eb5ef53b5/httptools-0.9.0-cp39-cp39-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "8a743396f45465204e2b44b43cb57ec4a343c423f52604bbaf1777fd438698c9"
+    },
+    "digests": {
+     "blake2b_256": "c574c0545d1790949949c1b42ea702e4bd44a653172287381a1723b911f1b76f",
+     "md5": "5bf4735ffcd72f2d2cee79a38a65826a",
+     "sha256": "bbf7377fbd41b7c87d47820e25b9876724963681c2a1d6f6ff2adb4db46ac174"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp39-cp39-manylinux2014_ppc64le.manylinux_2_17_ppc64le.manylinux_2_28_ppc64le.whl",
+    "has_sig": false,
+    "md5_digest": "5bf4735ffcd72f2d2cee79a38a65826a",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp39",
+    "requires_python": ">=3.9",
+    "size": 513669,
+    "upload_time": "2026-10-09T19:56:48",
+    "upload_time_iso_8601": "2026-10-09T19:56:48.800619Z",
+    "url": "https://files.pythonhosted.org/packages/c5/74/c0545d1790949949c1b42ea702e4bd44a653172287381a1723b911f1b76f/httptools-0.9.0-cp39-cp39-manylinux2014_ppc64le.manylinux_2_17_ppc64le.manylinux_2_28_ppc64le.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "8a743396f45465204e2b44b43cb57ec4a343c423f52604bbaf1777fd438698c9"
+    },
+    "digests": {
+     "blake2b_256": "ad88dce0462e801ab4736a709787abc793986ba70fa4fbbfc46746109e445e33",
+     "md5": "6e315f8b046d4363be5e6202fc0f5652",
+     "sha256": "f1734bd6f588975ffc246211e8b96c11933344087ca280d2cbcbf35cf835d7a9"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp39-cp39-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl",
+    "has_sig": false,
+    "md5_digest": "6e315f8b046d4363be5e6202fc0f5652",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp39",
+    "requires_python": ">=3.9",
+    "size": 451044,
+    "upload_time": "2026-10-09T19:56:50",
+    "upload_time_iso_8601": "2026-10-09T19:56:50.471442Z",
+    "url": "https://files.pythonhosted.org/packages/ad/88/dce0462e801ab4736a709787abc793986ba70fa4fbbfc46746109e445e33/httptools-0.9.0-cp39-cp39-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "8a743396f45465204e2b44b43cb57ec4a343c423f52604bbaf1777fd438698c9"
+    },
+    "digests": {
+     "blake2b_256": "f9cd6e4d9573e0517f1195e591ba58ab5140540c9d44caad5f86f5c72fe2f9d7",
+     "md5": "aaec5bae9f8cc58af6facf7655affd68",
+     "sha256": "268d18601feb5367885c6ebf6f402c18fc25a324cee215784adafe0a1eef925f"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp39-cp39-musllinux_1_2_aarch64.whl",
+    "has_sig": false,
+    "md5_digest": "aaec5bae9f8cc58af6facf7655affd68",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp39",
+    "requires_python": ">=3.9",
+    "size": 471760,
+    "upload_time": "2026-10-09T19:56:52",
+    "upload_time_iso_8601": "2026-10-09T19:56:52.228682Z",
+    "url": "https://files.pythonhosted.org/packages/f9/cd/6e4d9573e0517f1195e591ba58ab5140540c9d44caad5f86f5c72fe2f9d7/httptools-0.9.0-cp39-cp39-musllinux_1_2_aarch64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "8a743396f45465204e2b44b43cb57ec4a343c423f52604bbaf1777fd438698c9"
+    },
+    "digests": {
+     "blake2b_256": "05f5c1b18b2f1f19d373f1935545b2ddebce0ec762e640f24686e3794a18d398",
+     "md5": "7a316e6471b22de86542f5316808c927",
+     "sha256": "1b95775f6292d72cb452c33e5c0f8b8551807c29a10e3c1671fef7f61361370a"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp39-cp39-musllinux_1_2_ppc64le.whl",
+    "has_sig": false,
+    "md5_digest": "7a316e6471b22de86542f5316808c927",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp39",
+    "requires_python": ">=3.9",
+    "size": 496346,
+    "upload_time": "2026-10-09T19:56:54",
+    "upload_time_iso_8601": "2026-10-09T19:56:54.120538Z",
+    "url": "https://files.pythonhosted.org/packages/05/f5/c1b18b2f1f19d373f1935545b2ddebce0ec762e640f24686e3794a18d398/httptools-0.9.0-cp39-cp39-musllinux_1_2_ppc64le.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "8a743396f45465204e2b44b43cb57ec4a343c423f52604bbaf1777fd438698c9"
+    },
+    "digests": {
+     "blake2b_256": "be46f97a04b5b0cd137d9dcc2cdf76af3a8b7d0d92740e36789d44a52a3b782a",
+     "md5": "e2c31fd60edd7835f5705bb21706e045",
+     "sha256": "581b27663c6e9f4df68068f32fe6d1cd7647b31fac90237221a66f8821c342eb"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp39-cp39-musllinux_1_2_riscv64.whl",
+    "has_sig": false,
+    "md5_digest": "e2c31fd60edd7835f5705bb21706e045",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp39",
+    "requires_python": ">=3.9",
+    "size": 445632,
+    "upload_time": "2026-10-09T19:56:55",
+    "upload_time_iso_8601": "2026-10-09T19:56:55.793848Z",
+    "url": "https://files.pythonhosted.org/packages/be/46/f97a04b5b0cd137d9dcc2cdf76af3a8b7d0d92740e36789d44a52a3b782a/httptools-0.9.0-cp39-cp39-musllinux_1_2_riscv64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "8a743396f45465204e2b44b43cb57ec4a343c423f52604bbaf1777fd438698c9"
+    },
+    "digests": {
+     "blake2b_256": "0510c040839b86bf4bfc06a5a8e4290dc2cdff5dc586e7db7b930ec1f893ea04",
+     "md5": "c9a2754c9a2b5e7de16db00e351bb3bc",
+     "sha256": "c271bfb832be5c5c020b4e2fcbc1e70a0b990adba6de874b0bba1184b89cdea3"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp39-cp39-musllinux_1_2_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "c9a2754c9a2b5e7de16db00e351bb3bc",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp39",
+    "requires_python": ">=3.9",
+    "size": 474550,
+    "upload_time": "2026-10-09T19:56:57",
+    "upload_time_iso_8601": "2026-10-09T19:56:57.681989Z",
+    "url": "https://files.pythonhosted.org/packages/05/10/c040839b86bf4bfc06a5a8e4290dc2cdff5dc586e7db7b930ec1f893ea04/httptools-0.9.0-cp39-cp39-musllinux_1_2_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "623cd71bd31f5a87a9aa677a49ae85785c60ee456ee76d5493ac867ad1a3f97e"
+    },
+    "digests": {
+     "blake2b_256": "d40f84cfb128799fc6cc9321cf18bc852a521dbfc12f1bd33afbdacf2a42d9d3",
+     "md5": "cd286d2e76fbadcfdc23c76e2939a941",
+     "sha256": "d20ba5c84cf0592afb2713336f07e2b6ced082e4ae803ceada153a85613efc9f"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp39-cp39-win32.whl",
+    "has_sig": false,
+    "md5_digest": "cd286d2e76fbadcfdc23c76e2939a941",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp39",
+    "requires_python": ">=3.9",
+    "size": 86827,
+    "upload_time": "2026-10-09T19:56:59",
+    "upload_time_iso_8601": "2026-10-09T19:56:59.506331Z",
+    "url": "https://files.pythonhosted.org/packages/d4/0f/84cfb128799fc6cc9321cf18bc852a521dbfc12f1bd33afbdacf2a42d9d3/httptools-0.9.0-cp39-cp39-win32.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "623cd71bd31f5a87a9aa677a49ae85785c60ee456ee76d5493ac867ad1a3f97e"
+    },
+    "digests": {
+     "blake2b_256": "06145093b455c29910ff4757102478a4fd68d3d49d922b7ff592946593bc0898",
+     "md5": "91bbd1effde9d13b9121592c1a616208",
+     "sha256": "1b01c0fcd6725a8d79a164ecdc4116866282479d68bb3d6d74a909bf994656c4"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp39-cp39-win_amd64.whl",
+    "has_sig": false,
+    "md5_digest": "91bbd1effde9d13b9121592c1a616208",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp39",
+    "requires_python": ">=3.9",
+    "size": 93415,
+    "upload_time": "2026-10-09T19:57:01",
+    "upload_time_iso_8601": "2026-10-09T19:57:01.148966Z",
+    "url": "https://files.pythonhosted.org/packages/06/14/5093b455c29910ff4757102478a4fd68d3d49d922b7ff592946593bc0898/httptools-0.9.0-cp39-cp39-win_amd64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "623cd71bd31f5a87a9aa677a49ae85785c60ee456ee76d5493ac867ad1a3f97e"
+    },
+    "digests": {
+     "blake2b_256": "64d3584c843111672ba3c3f613c62ea79c21c2dd11e9d5c2a6d620bb39115f38",
+     "md5": "81b47ddd3c213c9868872a706a1b53f2",
+     "sha256": "6f8b41299b203ce8f627db670cfea82067d9638853dbeaf86dccd93878879b85"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0-cp39-cp39-win_arm64.whl",
+    "has_sig": false,
+    "md5_digest": "81b47ddd3c213c9868872a706a1b53f2",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp39",
+    "requires_python": ">=3.9",
+    "size": 90073,
+    "upload_time": "2026-10-09T19:57:02",
+    "upload_time_iso_8601": "2026-10-09T19:57:02.563145Z",
+    "url": "https://files.pythonhosted.org/packages/64/d3/584c843111672ba3c3f613c62ea79c21c2dd11e9d5c2a6d620bb39115f38/httptools-0.9.0-cp39-cp39-win_arm64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": false,
+    "digests": {
+     "blake2b_256": "3aecdeed52912ab7ca6c0b12859330c571c60c61d7267b341b28951fcbf13694",
+     "md5": "f73cb6169f0c4457ed8d3a3a57b6de30",
+     "sha256": "d484ebb7e3a3f3597b0f645fbd1b85633674ca808c1f5ba11c2caf7c66f5c8b6"
+    },
+    "downloads": -1,
+    "filename": "httptools-0.9.0.tar.gz",
+    "has_sig": false,
+    "md5_digest": "f73cb6169f0c4457ed8d3a3a57b6de30",
+    "packagetype": "sdist",
+    "python_version": "source",
+    "requires_python": ">=3.9",
+    "size": 282523,
+    "upload_time": "2026-10-09T19:57:04",
+    "upload_time_iso_8601": "2026-10-09T19:57:04.301718Z",
+    "url": "https://files.pythonhosted.org/packages/3a/ec/deed52912ab7ca6c0b12859330c571c60c61d7267b341b28951fcbf13694/httptools-0.9.0.tar.gz",
+    "yanked": false,
+    "yanked_reason": null
+   }
+  ],
+  "vulnerabilities": []
+ },
+ "http_status": 200,
+ "requested_at_utc": "2026-10-30T14:16:11Z",
+ "url": "https://pypi.org/pypi/httptools/0.9.0/json"
+}

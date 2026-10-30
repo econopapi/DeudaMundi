@@ -1,0 +1,9 @@
+{
+  "archived": false,
+  "description": "(Python Distribution) A carefully curated collection of Root Certificates for validating the trustworthiness of SSL certificates while verifying the identity of TLS hosts.",
+  "fork": false,
+  "html_url": "https://github.com/certifi/python-certifi",
+  "requested_at_utc": "2026-10-30T14:16:11Z",
+  "requested_repo": "certifi/python-certifi",
+  "resolved_full_name": "certifi/python-certifi"
+}

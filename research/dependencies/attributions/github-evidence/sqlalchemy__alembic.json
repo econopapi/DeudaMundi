@@ -1,0 +1,9 @@
+{
+  "archived": false,
+  "description": "A database migrations tool for SQLAlchemy.",
+  "fork": false,
+  "html_url": "https://github.com/sqlalchemy/alembic",
+  "requested_at_utc": "2026-10-30T14:16:11Z",
+  "requested_repo": "sqlalchemy/alembic",
+  "resolved_full_name": "sqlalchemy/alembic"
+}

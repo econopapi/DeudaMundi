@@ -1,0 +1,9 @@
+{
+  "archived": false,
+  "description": "A Python module that tries to figure out what your local timezone is",
+  "fork": false,
+  "html_url": "https://github.com/regebro/tzlocal",
+  "requested_at_utc": "2026-10-30T14:16:11Z",
+  "requested_repo": "regebro/tzlocal",
+  "resolved_full_name": "regebro/tzlocal"
+}

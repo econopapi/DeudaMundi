@@ -1,0 +1,879 @@
+{
+ "body": {
+  "info": {
+   "author": null,
+   "author_email": "Samuel Colvin <s@muelcolvin.com>",
+   "bugtrack_url": null,
+   "classifiers": [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Console",
+    "Environment :: MacOS X",
+    "Framework :: AnyIO",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Information Technology",
+    "Intended Audience :: System Administrators",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: MacOS",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: POSIX :: Linux",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Programming Language :: Python :: 3.15",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: System :: Filesystems"
+   ],
+   "description": "# watchfiles\n\n[![CI](https://github.com/samuelcolvin/watchfiles/actions/workflows/ci.yml/badge.svg)](https://github.com/samuelcolvin/watchfiles/actions/workflows/ci.yml?query=branch%3Amain)\n[![Coverage](https://codecov.io/gh/samuelcolvin/watchfiles/branch/main/graph/badge.svg)](https://codecov.io/gh/samuelcolvin/watchfiles)\n[![pypi](https://img.shields.io/pypi/v/watchfiles.svg)](https://pypi.python.org/pypi/watchfiles)\n[![CondaForge](https://img.shields.io/conda/v/conda-forge/watchfiles.svg)](https://anaconda.org/conda-forge/watchfiles)\n[![license](https://img.shields.io/github/license/samuelcolvin/watchfiles.svg)](https://github.com/samuelcolvin/watchfiles/blob/main/LICENSE)\n\nSimple, modern and high performance file watching and code reload in python.\n\n---\n\n**Documentation**: [watchfiles.helpmanual.io](https://watchfiles.helpmanual.io)\n\n**Source Code**: [github.com/samuelcolvin/watchfiles](https://github.com/samuelcolvin/watchfiles)\n\n---\n\nUnderlying file system notifications are handled by the [Notify](https://github.com/notify-rs/notify) rust library.\n\nThis package was previously named \"watchgod\",\nsee [the migration guide](https://watchfiles.helpmanual.io/migrating/) for more information.\n\n## Installation\n\n**watchfiles** requires Python 3.10 - 3.15.\n\n```bash\npip install watchfiles\n```\n\nBinaries are available for most architectures on Linux, MacOS and Windows ([learn more](https://watchfiles.helpmanual.io/#installation)).\n\nOtherwise, you can install from source which requires Rust stable to be installed.\n\n## Usage\n\nHere are some examples of what **watchfiles** can do:\n\n### `watch` Usage\n\n```py\nfrom watchfiles import watch\n\nfor changes in watch('./path/to/dir'):\n    print(changes)\n```\nSee [`watch` docs](https://watchfiles.helpmanual.io/api/watch/#watchfiles.watch) for more details.\n\n### `awatch` Usage\n\n```py\nimport asyncio\nfrom watchfiles import awatch\n\nasync def main():\n    async for changes in awatch('/path/to/dir'):\n        print(changes)\n\nasyncio.run(main())\n```\nSee [`awatch` docs](https://watchfiles.helpmanual.io/api/watch/#watchfiles.awatch) for more details.\n\n### `run_process` Usage\n\n```py\nfrom watchfiles import run_process\n\ndef foobar(a, b, c):\n    ...\n\nif __name__ == '__main__':\n    run_process('./path/to/dir', target=foobar, args=(1, 2, 3))\n```\nSee [`run_process` docs](https://watchfiles.helpmanual.io/api/run_process/#watchfiles.run_process) for more details.\n\n### `arun_process` Usage\n\n```py\nimport asyncio\nfrom watchfiles import arun_process\n\ndef foobar(a, b, c):\n    ...\n\nasync def main():\n    await arun_process('./path/to/dir', target=foobar, args=(1, 2, 3))\n\nif __name__ == '__main__':\n    asyncio.run(main())\n```\nSee [`arun_process` docs](https://watchfiles.helpmanual.io/api/run_process/#watchfiles.arun_process) for more details.\n\n## CLI\n\n**watchfiles** also comes with a CLI for running and reloading code. To run `some command` when files in `src` change:\n\n```\nwatchfiles \"some command\" src\n```\n\nFor more information, see [the CLI docs](https://watchfiles.helpmanual.io/cli/).\n\nOr run\n\n```bash\nwatchfiles --help\n```\n\n",
+   "description_content_type": "text/markdown; charset=UTF-8; variant=GFM",
+   "docs_url": null,
+   "download_url": null,
+   "downloads": {
+    "last_day": -1,
+    "last_month": -1,
+    "last_week": -1
+   },
+   "dynamic": null,
+   "home_page": "https://github.com/samuelcolvin/watchfiles",
+   "keywords": null,
+   "license": "MIT",
+   "license_expression": null,
+   "license_files": [
+    "LICENSE"
+   ],
+   "maintainer": null,
+   "maintainer_email": null,
+   "name": "watchfiles",
+   "package_url": "https://pypi.org/project/watchfiles/",
+   "platform": null,
+   "project_url": "https://pypi.org/project/watchfiles/",
+   "project_urls": {
+    "Changelog": "https://github.com/samuelcolvin/watchfiles/releases",
+    "Documentation": "https://watchfiles.helpmanual.io",
+    "Funding": "https://github.com/sponsors/samuelcolvin",
+    "Homepage": "https://github.com/samuelcolvin/watchfiles",
+    "Source": "https://github.com/samuelcolvin/watchfiles"
+   },
+   "provides_extra": null,
+   "release_url": "https://pypi.org/project/watchfiles/1.3.0/",
+   "requires_dist": [
+    "anyio>=3.0.0"
+   ],
+   "requires_python": ">=3.10",
+   "summary": "Simple, modern and high performance file watching and code reload in python.",
+   "version": "1.3.0",
+   "yanked": false,
+   "yanked_reason": null
+  },
+  "last_serial": 41285120,
+  "ownership": {
+   "organization": null,
+   "roles": [
+    {
+     "role": "Owner",
+     "user": "samuelcolvin"
+    }
+   ]
+  },
+  "urls": [
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "1fba87d08d66f10f7515e4817abd4ac7f27abf3300cb33b7ad3f79762987a502"
+    },
+    "digests": {
+     "blake2b_256": "68fac0b840d5d8bafe640925408ce11095948c8945bb61be1e67d0ab629b872a",
+     "md5": "2028b976db4e5eaea4e48bfe152a928c",
+     "sha256": "000b9688fc8133037a8b075c8ebf98f32844ff8964dda61e85c1db547dafc441"
+    },
+    "downloads": -1,
+    "filename": "watchfiles-1.3.0-cp310-abi3-macosx_10_12_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "2028b976db4e5eaea4e48bfe152a928c",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp310",
+    "requires_python": ">=3.10",
+    "size": 399703,
+    "upload_time": "2026-09-21T09:08:13",
+    "upload_time_iso_8601": "2026-09-21T09:08:13.518274Z",
+    "url": "https://files.pythonhosted.org/packages/68/fa/c0b840d5d8bafe640925408ce11095948c8945bb61be1e67d0ab629b872a/watchfiles-1.3.0-cp310-abi3-macosx_10_12_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "1fba87d08d66f10f7515e4817abd4ac7f27abf3300cb33b7ad3f79762987a502"
+    },
+    "digests": {
+     "blake2b_256": "c78a894799b485fe9473ad10422a0d9668e53fb78e3a2b5cc6061159572844ad",
+     "md5": "4e71d9621df4ede0397940347aa872e2",
+     "sha256": "bbc1198edfdc90fda0600f825aa94150f428dfcbf8138746f55998e0e660d64c"
+    },
+    "downloads": -1,
+    "filename": "watchfiles-1.3.0-cp310-abi3-macosx_11_0_arm64.whl",
+    "has_sig": false,
+    "md5_digest": "4e71d9621df4ede0397940347aa872e2",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp310",
+    "requires_python": ">=3.10",
+    "size": 397647,
+    "upload_time": "2026-09-21T09:08:15",
+    "upload_time_iso_8601": "2026-09-21T09:08:15.160503Z",
+    "url": "https://files.pythonhosted.org/packages/c7/8a/894799b485fe9473ad10422a0d9668e53fb78e3a2b5cc6061159572844ad/watchfiles-1.3.0-cp310-abi3-macosx_11_0_arm64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "1fba87d08d66f10f7515e4817abd4ac7f27abf3300cb33b7ad3f79762987a502"
+    },
+    "digests": {
+     "blake2b_256": "5a61f277cd5ead05f5d37b98b41fbdd0c943ee0c04d49738f62e902cb291cf43",
+     "md5": "eb281409a3191567fdc52aeb50d699a6",
+     "sha256": "4af9c464d410e8c44b58ddf1cbec7c3a02c1cb2c6c80df9c74659ba2fbda0ab5"
+    },
+    "downloads": -1,
+    "filename": "watchfiles-1.3.0-cp310-abi3-manylinux_2_17_aarch64.manylinux2014_aarch64.whl",
+    "has_sig": false,
+    "md5_digest": "eb281409a3191567fdc52aeb50d699a6",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp310",
+    "requires_python": ">=3.10",
+    "size": 454994,
+    "upload_time": "2026-09-21T09:08:16",
+    "upload_time_iso_8601": "2026-09-21T09:08:16.587664Z",
+    "url": "https://files.pythonhosted.org/packages/5a/61/f277cd5ead05f5d37b98b41fbdd0c943ee0c04d49738f62e902cb291cf43/watchfiles-1.3.0-cp310-abi3-manylinux_2_17_aarch64.manylinux2014_aarch64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "1fba87d08d66f10f7515e4817abd4ac7f27abf3300cb33b7ad3f79762987a502"
+    },
+    "digests": {
+     "blake2b_256": "4666ea4c01382975e53b1ac1b0a0ea1b353416b8127fb6e04f5c1c313119aab6",
+     "md5": "b518cd83990b8a4e7af7c2ed1712b470",
+     "sha256": "eb94e40b9a0db19636b5e3fed0a9803452ecc7381df13b385272abb779ee83ca"
+    },
+    "downloads": -1,
+    "filename": "watchfiles-1.3.0-cp310-abi3-manylinux_2_17_armv7l.manylinux2014_armv7l.whl",
+    "has_sig": false,
+    "md5_digest": "b518cd83990b8a4e7af7c2ed1712b470",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp310",
+    "requires_python": ">=3.10",
+    "size": 460105,
+    "upload_time": "2026-09-21T09:08:17",
+    "upload_time_iso_8601": "2026-09-21T09:08:17.961747Z",
+    "url": "https://files.pythonhosted.org/packages/46/66/ea4c01382975e53b1ac1b0a0ea1b353416b8127fb6e04f5c1c313119aab6/watchfiles-1.3.0-cp310-abi3-manylinux_2_17_armv7l.manylinux2014_armv7l.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "1fba87d08d66f10f7515e4817abd4ac7f27abf3300cb33b7ad3f79762987a502"
+    },
+    "digests": {
+     "blake2b_256": "31c31a501b597817096c9831c255f6270c124ce0e2faeb74124be24dcc93b86d",
+     "md5": "c4131a8ed61ccc33cced8bfe873a2380",
+     "sha256": "7398930a2b76b9dc67a4e6b8bfc7baf30946892a86f417a3920c07bdd6febc30"
+    },
+    "downloads": -1,
+    "filename": "watchfiles-1.3.0-cp310-abi3-manylinux_2_17_i686.manylinux2014_i686.whl",
+    "has_sig": false,
+    "md5_digest": "c4131a8ed61ccc33cced8bfe873a2380",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp310",
+    "requires_python": ">=3.10",
+    "size": 493761,
+    "upload_time": "2026-09-21T09:08:19",
+    "upload_time_iso_8601": "2026-09-21T09:08:19.327033Z",
+    "url": "https://files.pythonhosted.org/packages/31/c3/1a501b597817096c9831c255f6270c124ce0e2faeb74124be24dcc93b86d/watchfiles-1.3.0-cp310-abi3-manylinux_2_17_i686.manylinux2014_i686.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "1fba87d08d66f10f7515e4817abd4ac7f27abf3300cb33b7ad3f79762987a502"
+    },
+    "digests": {
+     "blake2b_256": "5a1677352d05e152c7786a016e9f1decdb4507e8aa5bcf3343c72142a0413d14",
+     "md5": "c42f07272e4818e4a6110e9202e01bba",
+     "sha256": "025b108f2d5cc2799cb941f79380df3e8b22bfb589c218e801767fe78d598c95"
+    },
+    "downloads": -1,
+    "filename": "watchfiles-1.3.0-cp310-abi3-manylinux_2_17_ppc64le.manylinux2014_ppc64le.whl",
+    "has_sig": false,
+    "md5_digest": "c42f07272e4818e4a6110e9202e01bba",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp310",
+    "requires_python": ">=3.10",
+    "size": 577500,
+    "upload_time": "2026-09-21T09:08:20",
+    "upload_time_iso_8601": "2026-09-21T09:08:20.723518Z",
+    "url": "https://files.pythonhosted.org/packages/5a/16/77352d05e152c7786a016e9f1decdb4507e8aa5bcf3343c72142a0413d14/watchfiles-1.3.0-cp310-abi3-manylinux_2_17_ppc64le.manylinux2014_ppc64le.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "1fba87d08d66f10f7515e4817abd4ac7f27abf3300cb33b7ad3f79762987a502"
+    },
+    "digests": {
+     "blake2b_256": "95fe81001c55b24466fe9911135e50269fd3a29f43e446627a92adfab54553b6",
+     "md5": "7c5e288227351c2ac1071bad3cc73cb3",
+     "sha256": "be9ef3cd403d756a304a0a08a112163c63da7ec72c8c9d083c98818291ff8f29"
+    },
+    "downloads": -1,
+    "filename": "watchfiles-1.3.0-cp310-abi3-manylinux_2_17_s390x.manylinux2014_s390x.whl",
+    "has_sig": false,
+    "md5_digest": "7c5e288227351c2ac1071bad3cc73cb3",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp310",
+    "requires_python": ">=3.10",
+    "size": 469209,
+    "upload_time": "2026-09-21T09:08:22",
+    "upload_time_iso_8601": "2026-09-21T09:08:22.346203Z",
+    "url": "https://files.pythonhosted.org/packages/95/fe/81001c55b24466fe9911135e50269fd3a29f43e446627a92adfab54553b6/watchfiles-1.3.0-cp310-abi3-manylinux_2_17_s390x.manylinux2014_s390x.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "1fba87d08d66f10f7515e4817abd4ac7f27abf3300cb33b7ad3f79762987a502"
+    },
+    "digests": {
+     "blake2b_256": "8acfe3ad894ed5909a7c44b0707e89bc25d19a3d78b3a7aec846119443b6ae56",
+     "md5": "40361a33df1a98321c9de0fb13a729a2",
+     "sha256": "b5768b49e426fd5b550b012c866db347cdf15c398ef98dc557b6e6b72fa74cd1"
+    },
+    "downloads": -1,
+    "filename": "watchfiles-1.3.0-cp310-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "40361a33df1a98321c9de0fb13a729a2",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp310",
+    "requires_python": ">=3.10",
+    "size": 458353,
+    "upload_time": "2026-09-21T09:08:23",
+    "upload_time_iso_8601": "2026-09-21T09:08:23.700623Z",
+    "url": "https://files.pythonhosted.org/packages/8a/cf/e3ad894ed5909a7c44b0707e89bc25d19a3d78b3a7aec846119443b6ae56/watchfiles-1.3.0-cp310-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "1fba87d08d66f10f7515e4817abd4ac7f27abf3300cb33b7ad3f79762987a502"
+    },
+    "digests": {
+     "blake2b_256": "7ff52f106829e6e2bc91ad74614730f6df484202b9a4d20d927dbf2f08d37d44",
+     "md5": "19ea9a0b9e0ef80534a94cc1e19d9cf2",
+     "sha256": "d36c72fcdc08f143d87316a4c4c3b064e340da2c7383d39803950740ed418935"
+    },
+    "downloads": -1,
+    "filename": "watchfiles-1.3.0-cp310-abi3-manylinux_2_31_riscv64.whl",
+    "has_sig": false,
+    "md5_digest": "19ea9a0b9e0ef80534a94cc1e19d9cf2",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp310",
+    "requires_python": ">=3.10",
+    "size": 468707,
+    "upload_time": "2026-09-21T09:08:25",
+    "upload_time_iso_8601": "2026-09-21T09:08:25.167168Z",
+    "url": "https://files.pythonhosted.org/packages/7f/f5/2f106829e6e2bc91ad74614730f6df484202b9a4d20d927dbf2f08d37d44/watchfiles-1.3.0-cp310-abi3-manylinux_2_31_riscv64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "1fba87d08d66f10f7515e4817abd4ac7f27abf3300cb33b7ad3f79762987a502"
+    },
+    "digests": {
+     "blake2b_256": "15372741ab776b978669c1f3bba1e573f1a184f727ab8b4d3a6d9c61090800ed",
+     "md5": "1ebe142eb2115e66ad45733d7eb4166e",
+     "sha256": "f0c9865240e065a2247f4b5248528ae3d01e0e8ae071462c250c884dc16e3ee3"
+    },
+    "downloads": -1,
+    "filename": "watchfiles-1.3.0-cp310-abi3-musllinux_1_1_aarch64.whl",
+    "has_sig": false,
+    "md5_digest": "1ebe142eb2115e66ad45733d7eb4166e",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp310",
+    "requires_python": ">=3.10",
+    "size": 632510,
+    "upload_time": "2026-09-21T09:08:26",
+    "upload_time_iso_8601": "2026-09-21T09:08:26.532237Z",
+    "url": "https://files.pythonhosted.org/packages/15/37/2741ab776b978669c1f3bba1e573f1a184f727ab8b4d3a6d9c61090800ed/watchfiles-1.3.0-cp310-abi3-musllinux_1_1_aarch64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "1fba87d08d66f10f7515e4817abd4ac7f27abf3300cb33b7ad3f79762987a502"
+    },
+    "digests": {
+     "blake2b_256": "4864db4a4684275fe9b696ee5118c194705c1423b3d42181c3f8ee70194d5c73",
+     "md5": "ffaa616588d576a719c193ab1531bfc3",
+     "sha256": "380f513d26cc2e598266b88d66456e07d67ef4be8f0f435a1154d9c44b43d509"
+    },
+    "downloads": -1,
+    "filename": "watchfiles-1.3.0-cp310-abi3-musllinux_1_1_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "ffaa616588d576a719c193ab1531bfc3",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp310",
+    "requires_python": ">=3.10",
+    "size": 661723,
+    "upload_time": "2026-09-21T09:08:28",
+    "upload_time_iso_8601": "2026-09-21T09:08:28.004294Z",
+    "url": "https://files.pythonhosted.org/packages/48/64/db4a4684275fe9b696ee5118c194705c1423b3d42181c3f8ee70194d5c73/watchfiles-1.3.0-cp310-abi3-musllinux_1_1_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "3b30e7c9377f43cb59b408185ae7707ec55d5b746395bdaa32a45819ea49d78b"
+    },
+    "digests": {
+     "blake2b_256": "528095ddb24f6a2f595c031c24432ab7b8aa7d6d1ada0c6d63a552166e06e8d1",
+     "md5": "4a19d9afa8a53fd11548dcc7d4c07e85",
+     "sha256": "509d9f74d2bec5c1f4cd868ddcfe0c9601f7ea53066dfcb19d8ede742c4de661"
+    },
+    "downloads": -1,
+    "filename": "watchfiles-1.3.0-cp310-abi3-win32.whl",
+    "has_sig": false,
+    "md5_digest": "4a19d9afa8a53fd11548dcc7d4c07e85",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp310",
+    "requires_python": ">=3.10",
+    "size": 277761,
+    "upload_time": "2026-09-21T09:08:29",
+    "upload_time_iso_8601": "2026-09-21T09:08:29.335122Z",
+    "url": "https://files.pythonhosted.org/packages/52/80/95ddb24f6a2f595c031c24432ab7b8aa7d6d1ada0c6d63a552166e06e8d1/watchfiles-1.3.0-cp310-abi3-win32.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "3b30e7c9377f43cb59b408185ae7707ec55d5b746395bdaa32a45819ea49d78b"
+    },
+    "digests": {
+     "blake2b_256": "48a11c4a1b3c8030cd03206232612be8a6e8799093490c220b0fcb935d02b75a",
+     "md5": "efcfb58fdde6aa2d8f2636141cd0a6ad",
+     "sha256": "1acabde19b67e673274e89a04d613b7fb1f122e2c4b8ec9a581e59c149264b61"
+    },
+    "downloads": -1,
+    "filename": "watchfiles-1.3.0-cp310-abi3-win_amd64.whl",
+    "has_sig": false,
+    "md5_digest": "efcfb58fdde6aa2d8f2636141cd0a6ad",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp310",
+    "requires_python": ">=3.10",
+    "size": 290643,
+    "upload_time": "2026-09-21T09:08:30",
+    "upload_time_iso_8601": "2026-09-21T09:08:30.450417Z",
+    "url": "https://files.pythonhosted.org/packages/48/a1/1c4a1b3c8030cd03206232612be8a6e8799093490c220b0fcb935d02b75a/watchfiles-1.3.0-cp310-abi3-win_amd64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "3b30e7c9377f43cb59b408185ae7707ec55d5b746395bdaa32a45819ea49d78b"
+    },
+    "digests": {
+     "blake2b_256": "82e0d2db577c632d26d08078c4390dd870b8555c4e558df25d22270f0166c71f",
+     "md5": "d439fb594d15d3fc3ba735b98ec516ff",
+     "sha256": "d978cc1dd7ba44f5590d7de74f7a9c8be7262d9e469c2c0efb8bbfc2574321dc"
+    },
+    "downloads": -1,
+    "filename": "watchfiles-1.3.0-cp310-abi3-win_arm64.whl",
+    "has_sig": false,
+    "md5_digest": "d439fb594d15d3fc3ba735b98ec516ff",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp310",
+    "requires_python": ">=3.10",
+    "size": 285510,
+    "upload_time": "2026-09-21T09:08:31",
+    "upload_time_iso_8601": "2026-09-21T09:08:31.561615Z",
+    "url": "https://files.pythonhosted.org/packages/82/e0/d2db577c632d26d08078c4390dd870b8555c4e558df25d22270f0166c71f/watchfiles-1.3.0-cp310-abi3-win_arm64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "1fba87d08d66f10f7515e4817abd4ac7f27abf3300cb33b7ad3f79762987a502"
+    },
+    "digests": {
+     "blake2b_256": "4f55a122743607939429ab6a7272672f49303aa02bbd34c3f06676765a3861de",
+     "md5": "8a5d56b8de7c1ed0ff90a57620bce5b3",
+     "sha256": "e0204f90677b7fb8d3a824279a71a01166bea9f6e53923b8056592d87b33b0b6"
+    },
+    "downloads": -1,
+    "filename": "watchfiles-1.3.0-cp314-cp314t-macosx_10_12_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "8a5d56b8de7c1ed0ff90a57620bce5b3",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.10",
+    "size": 395978,
+    "upload_time": "2026-09-21T09:08:32",
+    "upload_time_iso_8601": "2026-09-21T09:08:32.747558Z",
+    "url": "https://files.pythonhosted.org/packages/4f/55/a122743607939429ab6a7272672f49303aa02bbd34c3f06676765a3861de/watchfiles-1.3.0-cp314-cp314t-macosx_10_12_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "1fba87d08d66f10f7515e4817abd4ac7f27abf3300cb33b7ad3f79762987a502"
+    },
+    "digests": {
+     "blake2b_256": "3e9d0ee1b0ea42acfe72afa2484f0222e2386dd09992e9034a81e63cc3cdab0a",
+     "md5": "87ead5443d5da1c536664e8b5f935409",
+     "sha256": "7c1125e99f84934a92996ae343501285617373acd66f16b59fd5654b27ad8d80"
+    },
+    "downloads": -1,
+    "filename": "watchfiles-1.3.0-cp314-cp314t-macosx_11_0_arm64.whl",
+    "has_sig": false,
+    "md5_digest": "87ead5443d5da1c536664e8b5f935409",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.10",
+    "size": 387997,
+    "upload_time": "2026-09-21T09:08:33",
+    "upload_time_iso_8601": "2026-09-21T09:08:33.953887Z",
+    "url": "https://files.pythonhosted.org/packages/3e/9d/0ee1b0ea42acfe72afa2484f0222e2386dd09992e9034a81e63cc3cdab0a/watchfiles-1.3.0-cp314-cp314t-macosx_11_0_arm64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "1fba87d08d66f10f7515e4817abd4ac7f27abf3300cb33b7ad3f79762987a502"
+    },
+    "digests": {
+     "blake2b_256": "b7f24319c6b683e8bd28465dfc53c750617a2a07f072eb2e3ab0182ccf812229",
+     "md5": "ee80204863463b12384e51cf6576597b",
+     "sha256": "a85e243c87109d9f48a2e0d10d6abdee8768cc114848b32281ec83d7f81d86ef"
+    },
+    "downloads": -1,
+    "filename": "watchfiles-1.3.0-cp314-cp314t-manylinux_2_17_aarch64.manylinux2014_aarch64.whl",
+    "has_sig": false,
+    "md5_digest": "ee80204863463b12384e51cf6576597b",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.10",
+    "size": 448067,
+    "upload_time": "2026-09-21T09:08:35",
+    "upload_time_iso_8601": "2026-09-21T09:08:35.104372Z",
+    "url": "https://files.pythonhosted.org/packages/b7/f2/4319c6b683e8bd28465dfc53c750617a2a07f072eb2e3ab0182ccf812229/watchfiles-1.3.0-cp314-cp314t-manylinux_2_17_aarch64.manylinux2014_aarch64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "1fba87d08d66f10f7515e4817abd4ac7f27abf3300cb33b7ad3f79762987a502"
+    },
+    "digests": {
+     "blake2b_256": "b7719f37ac192a51a24de3a2d7fe9aac1e99b2b2668300674ff7a9f85d95beb1",
+     "md5": "5a595873a7e8ec8b457a502f87c37088",
+     "sha256": "dd538c71766c59c732e2c5cedc39323c99c11897b99f93eac773438e54af206a"
+    },
+    "downloads": -1,
+    "filename": "watchfiles-1.3.0-cp314-cp314t-manylinux_2_17_armv7l.manylinux2014_armv7l.whl",
+    "has_sig": false,
+    "md5_digest": "5a595873a7e8ec8b457a502f87c37088",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.10",
+    "size": 452881,
+    "upload_time": "2026-09-21T09:08:36",
+    "upload_time_iso_8601": "2026-09-21T09:08:36.238974Z",
+    "url": "https://files.pythonhosted.org/packages/b7/71/9f37ac192a51a24de3a2d7fe9aac1e99b2b2668300674ff7a9f85d95beb1/watchfiles-1.3.0-cp314-cp314t-manylinux_2_17_armv7l.manylinux2014_armv7l.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "1fba87d08d66f10f7515e4817abd4ac7f27abf3300cb33b7ad3f79762987a502"
+    },
+    "digests": {
+     "blake2b_256": "34071224667c32a4a96876ddd642da69733cbfe6a15897db0865aec5a882cebc",
+     "md5": "c8331acbcdff1944c8448e466df98bb0",
+     "sha256": "da213822ec9082b62cadf3008e07a8c690ec7a3c89f6dc5e55a8cf07b56a1b26"
+    },
+    "downloads": -1,
+    "filename": "watchfiles-1.3.0-cp314-cp314t-manylinux_2_17_i686.manylinux2014_i686.whl",
+    "has_sig": false,
+    "md5_digest": "c8331acbcdff1944c8448e466df98bb0",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.10",
+    "size": 484802,
+    "upload_time": "2026-09-21T09:08:37",
+    "upload_time_iso_8601": "2026-09-21T09:08:37.717956Z",
+    "url": "https://files.pythonhosted.org/packages/34/07/1224667c32a4a96876ddd642da69733cbfe6a15897db0865aec5a882cebc/watchfiles-1.3.0-cp314-cp314t-manylinux_2_17_i686.manylinux2014_i686.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "1fba87d08d66f10f7515e4817abd4ac7f27abf3300cb33b7ad3f79762987a502"
+    },
+    "digests": {
+     "blake2b_256": "bd4d7f29cd87e1f826df86fc0418d0b8f370ca0311c29c618406dc492aad9951",
+     "md5": "c8b46eff756d86962ad931087d24485e",
+     "sha256": "d4593392e87669836670f87d62fc754059eaeb0e6157af44060a46558cebe5a3"
+    },
+    "downloads": -1,
+    "filename": "watchfiles-1.3.0-cp314-cp314t-manylinux_2_17_ppc64le.manylinux2014_ppc64le.whl",
+    "has_sig": false,
+    "md5_digest": "c8b46eff756d86962ad931087d24485e",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.10",
+    "size": 567522,
+    "upload_time": "2026-09-21T09:08:38",
+    "upload_time_iso_8601": "2026-09-21T09:08:38.940856Z",
+    "url": "https://files.pythonhosted.org/packages/bd/4d/7f29cd87e1f826df86fc0418d0b8f370ca0311c29c618406dc492aad9951/watchfiles-1.3.0-cp314-cp314t-manylinux_2_17_ppc64le.manylinux2014_ppc64le.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "1fba87d08d66f10f7515e4817abd4ac7f27abf3300cb33b7ad3f79762987a502"
+    },
+    "digests": {
+     "blake2b_256": "e3ac3aa1f84abd4dbbfbae99a817dd931f77b439261c911189cad4c30fdfd470",
+     "md5": "9a01d7087e828b79dc4703b1af59d18e",
+     "sha256": "26b81bc515a0f03f66a69a6fea86eea54c8eca4173c46dd7222569f79dd2f977"
+    },
+    "downloads": -1,
+    "filename": "watchfiles-1.3.0-cp314-cp314t-manylinux_2_17_s390x.manylinux2014_s390x.whl",
+    "has_sig": false,
+    "md5_digest": "9a01d7087e828b79dc4703b1af59d18e",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.10",
+    "size": 461997,
+    "upload_time": "2026-09-21T09:08:40",
+    "upload_time_iso_8601": "2026-09-21T09:08:40.142501Z",
+    "url": "https://files.pythonhosted.org/packages/e3/ac/3aa1f84abd4dbbfbae99a817dd931f77b439261c911189cad4c30fdfd470/watchfiles-1.3.0-cp314-cp314t-manylinux_2_17_s390x.manylinux2014_s390x.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "1fba87d08d66f10f7515e4817abd4ac7f27abf3300cb33b7ad3f79762987a502"
+    },
+    "digests": {
+     "blake2b_256": "821c27c66764d5b0dbb70a36770a32eca217eba739c28b24e8583a035087a3d7",
+     "md5": "6d77ba2dcf1b18da60b407679ab53151",
+     "sha256": "ca39661934749df580d89f3dde266f2af7c6968f4c21c72ce2dc387d299e6aa7"
+    },
+    "downloads": -1,
+    "filename": "watchfiles-1.3.0-cp314-cp314t-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "6d77ba2dcf1b18da60b407679ab53151",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.10",
+    "size": 451856,
+    "upload_time": "2026-09-21T09:08:41",
+    "upload_time_iso_8601": "2026-09-21T09:08:41.305638Z",
+    "url": "https://files.pythonhosted.org/packages/82/1c/27c66764d5b0dbb70a36770a32eca217eba739c28b24e8583a035087a3d7/watchfiles-1.3.0-cp314-cp314t-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "1fba87d08d66f10f7515e4817abd4ac7f27abf3300cb33b7ad3f79762987a502"
+    },
+    "digests": {
+     "blake2b_256": "1eb3a45827084d953c1d0dd3d75abf85dcac26a0f5d115ad2fe0b7e9e931573b",
+     "md5": "2c65f174e6a6cb3823ec104c75fc0d21",
+     "sha256": "04c5500faa725d69a99b0f63750e80795e455bb951849e9c98a811b4324997c4"
+    },
+    "downloads": -1,
+    "filename": "watchfiles-1.3.0-cp314-cp314t-manylinux_2_31_riscv64.whl",
+    "has_sig": false,
+    "md5_digest": "2c65f174e6a6cb3823ec104c75fc0d21",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.10",
+    "size": 459889,
+    "upload_time": "2026-09-21T09:08:42",
+    "upload_time_iso_8601": "2026-09-21T09:08:42.580731Z",
+    "url": "https://files.pythonhosted.org/packages/1e/b3/a45827084d953c1d0dd3d75abf85dcac26a0f5d115ad2fe0b7e9e931573b/watchfiles-1.3.0-cp314-cp314t-manylinux_2_31_riscv64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "1fba87d08d66f10f7515e4817abd4ac7f27abf3300cb33b7ad3f79762987a502"
+    },
+    "digests": {
+     "blake2b_256": "7a3d07740d23ce2bb23419bb24055c435a9abe5fe03efdaea1ba0720b831aab6",
+     "md5": "319ff2b5038f3d38ea0c98e111fa39da",
+     "sha256": "ec3cd4bb181a7b6329134204c2277c7144ab5f62cce9c5335d6f901ee7ce8d6a"
+    },
+    "downloads": -1,
+    "filename": "watchfiles-1.3.0-cp314-cp314t-musllinux_1_1_aarch64.whl",
+    "has_sig": false,
+    "md5_digest": "319ff2b5038f3d38ea0c98e111fa39da",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.10",
+    "size": 624482,
+    "upload_time": "2026-09-21T09:08:44",
+    "upload_time_iso_8601": "2026-09-21T09:08:44.064900Z",
+    "url": "https://files.pythonhosted.org/packages/7a/3d/07740d23ce2bb23419bb24055c435a9abe5fe03efdaea1ba0720b831aab6/watchfiles-1.3.0-cp314-cp314t-musllinux_1_1_aarch64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "1fba87d08d66f10f7515e4817abd4ac7f27abf3300cb33b7ad3f79762987a502"
+    },
+    "digests": {
+     "blake2b_256": "91469540f8123eaec86df989f26d7704cad0448d9fb7271763a4f8f9fe23617d",
+     "md5": "8cb8088c433ba76ac8fc29aa1ce8cdab",
+     "sha256": "e5871d4a7f788a9f64fb06f5793389d29d171e5c32d37c3ebfd520b017cc7694"
+    },
+    "downloads": -1,
+    "filename": "watchfiles-1.3.0-cp314-cp314t-musllinux_1_1_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "8cb8088c433ba76ac8fc29aa1ce8cdab",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.10",
+    "size": 653724,
+    "upload_time": "2026-09-21T09:08:45",
+    "upload_time_iso_8601": "2026-09-21T09:08:45.257209Z",
+    "url": "https://files.pythonhosted.org/packages/91/46/9540f8123eaec86df989f26d7704cad0448d9fb7271763a4f8f9fe23617d/watchfiles-1.3.0-cp314-cp314t-musllinux_1_1_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "3b30e7c9377f43cb59b408185ae7707ec55d5b746395bdaa32a45819ea49d78b"
+    },
+    "digests": {
+     "blake2b_256": "259db9deb52f1e4528ffe44338c5ebab95c32ed79203082da661de50288e130a",
+     "md5": "d1186f8dd493952e04823bc8c178fbbd",
+     "sha256": "81c989d7267bfb7b676cd32c83bec97914e396870983cbf493e29415037bff5e"
+    },
+    "downloads": -1,
+    "filename": "watchfiles-1.3.0-cp314-cp314t-win32.whl",
+    "has_sig": false,
+    "md5_digest": "d1186f8dd493952e04823bc8c178fbbd",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.10",
+    "size": 270863,
+    "upload_time": "2026-09-21T09:08:46",
+    "upload_time_iso_8601": "2026-09-21T09:08:46.518908Z",
+    "url": "https://files.pythonhosted.org/packages/25/9d/b9deb52f1e4528ffe44338c5ebab95c32ed79203082da661de50288e130a/watchfiles-1.3.0-cp314-cp314t-win32.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "3b30e7c9377f43cb59b408185ae7707ec55d5b746395bdaa32a45819ea49d78b"
+    },
+    "digests": {
+     "blake2b_256": "59598b1881afccbafda06248be4185e28034dd73c80c85e4da24f2cb0c1321eb",
+     "md5": "0c6dba83914dd5aec38c1fe989c00771",
+     "sha256": "d754e049006e81a9be49dc78ba7802081cee426e968cbc63ee19e164fa2d0e39"
+    },
+    "downloads": -1,
+    "filename": "watchfiles-1.3.0-cp314-cp314t-win_amd64.whl",
+    "has_sig": false,
+    "md5_digest": "0c6dba83914dd5aec38c1fe989c00771",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.10",
+    "size": 286879,
+    "upload_time": "2026-09-21T09:08:47",
+    "upload_time_iso_8601": "2026-09-21T09:08:47.874709Z",
+    "url": "https://files.pythonhosted.org/packages/59/59/8b1881afccbafda06248be4185e28034dd73c80c85e4da24f2cb0c1321eb/watchfiles-1.3.0-cp314-cp314t-win_amd64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "3b30e7c9377f43cb59b408185ae7707ec55d5b746395bdaa32a45819ea49d78b"
+    },
+    "digests": {
+     "blake2b_256": "46dd41c12ae9745d5d72f709333287679d71cbba68ad7678fed872207bba94f4",
+     "md5": "41122e0f88dc5d8db5308addb85a6782",
+     "sha256": "a5b631db08fd3032db57ec6a92d1777cd60f88803287e4e941a4858c53aab1e0"
+    },
+    "downloads": -1,
+    "filename": "watchfiles-1.3.0-cp314-cp314t-win_arm64.whl",
+    "has_sig": false,
+    "md5_digest": "41122e0f88dc5d8db5308addb85a6782",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.10",
+    "size": 276924,
+    "upload_time": "2026-09-21T09:08:48",
+    "upload_time_iso_8601": "2026-09-21T09:08:48.976545Z",
+    "url": "https://files.pythonhosted.org/packages/46/dd/41c12ae9745d5d72f709333287679d71cbba68ad7678fed872207bba94f4/watchfiles-1.3.0-cp314-cp314t-win_arm64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "1fba87d08d66f10f7515e4817abd4ac7f27abf3300cb33b7ad3f79762987a502"
+    },
+    "digests": {
+     "blake2b_256": "cdeb289fec71eba51d6c3ef3a28c81f7213f4e860084ffae5abc866933c564f0",
+     "md5": "936bc089200b7c4748ce335db256395c",
+     "sha256": "45726c6b5a8d67c8087eb2933c4398948546d04206ef40f629dc4881d65d23d1"
+    },
+    "downloads": -1,
+    "filename": "watchfiles-1.3.0-pp311-pypy311_pp73-macosx_10_12_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "936bc089200b7c4748ce335db256395c",
+    "packagetype": "bdist_wheel",
+    "python_version": "pp311",
+    "requires_python": ">=3.10",
+    "size": 396932,
+    "upload_time": "2026-09-21T09:08:50",
+    "upload_time_iso_8601": "2026-09-21T09:08:50.217656Z",
+    "url": "https://files.pythonhosted.org/packages/cd/eb/289fec71eba51d6c3ef3a28c81f7213f4e860084ffae5abc866933c564f0/watchfiles-1.3.0-pp311-pypy311_pp73-macosx_10_12_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "1fba87d08d66f10f7515e4817abd4ac7f27abf3300cb33b7ad3f79762987a502"
+    },
+    "digests": {
+     "blake2b_256": "92cca3c3f557992a20a5bb24607f0da44d39cf6d6ba3f8f6ed7cb31f6c73371a",
+     "md5": "aa82e78ac5a8741f6d78ed55a14b495e",
+     "sha256": "6398d250994baff581147ccba846223076fe6492ca93c0d1b3588fcf5355eb5c"
+    },
+    "downloads": -1,
+    "filename": "watchfiles-1.3.0-pp311-pypy311_pp73-macosx_11_0_arm64.whl",
+    "has_sig": false,
+    "md5_digest": "aa82e78ac5a8741f6d78ed55a14b495e",
+    "packagetype": "bdist_wheel",
+    "python_version": "pp311",
+    "requires_python": ">=3.10",
+    "size": 394852,
+    "upload_time": "2026-09-21T09:08:51",
+    "upload_time_iso_8601": "2026-09-21T09:08:51.412883Z",
+    "url": "https://files.pythonhosted.org/packages/92/cc/a3c3f557992a20a5bb24607f0da44d39cf6d6ba3f8f6ed7cb31f6c73371a/watchfiles-1.3.0-pp311-pypy311_pp73-macosx_11_0_arm64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "1fba87d08d66f10f7515e4817abd4ac7f27abf3300cb33b7ad3f79762987a502"
+    },
+    "digests": {
+     "blake2b_256": "5565d45763a5e1108a65af85a217af2930ebf1081c73fd8169d3f75e586992bb",
+     "md5": "af239fe744a9bb5006d8ae961bc7dbc0",
+     "sha256": "591de392458bca26f6130fea4e667c06b657e873ad334ea06fad5a79f5086cef"
+    },
+    "downloads": -1,
+    "filename": "watchfiles-1.3.0-pp311-pypy311_pp73-manylinux_2_17_aarch64.manylinux2014_aarch64.whl",
+    "has_sig": false,
+    "md5_digest": "af239fe744a9bb5006d8ae961bc7dbc0",
+    "packagetype": "bdist_wheel",
+    "python_version": "pp311",
+    "requires_python": ">=3.10",
+    "size": 451789,
+    "upload_time": "2026-09-21T09:08:53",
+    "upload_time_iso_8601": "2026-09-21T09:08:53.144172Z",
+    "url": "https://files.pythonhosted.org/packages/55/65/d45763a5e1108a65af85a217af2930ebf1081c73fd8169d3f75e586992bb/watchfiles-1.3.0-pp311-pypy311_pp73-manylinux_2_17_aarch64.manylinux2014_aarch64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "1fba87d08d66f10f7515e4817abd4ac7f27abf3300cb33b7ad3f79762987a502"
+    },
+    "digests": {
+     "blake2b_256": "0296165c6e540bf765ca1115062017adf861d0816525f02464ba71313fe7cf92",
+     "md5": "1624a19c7b7717be2513533cb69573be",
+     "sha256": "5ec46a1ff4c1d81405a5fc645abdbff5e4e9388f7c9a6cdb392316a7c29b884f"
+    },
+    "downloads": -1,
+    "filename": "watchfiles-1.3.0-pp311-pypy311_pp73-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "1624a19c7b7717be2513533cb69573be",
+    "packagetype": "bdist_wheel",
+    "python_version": "pp311",
+    "requires_python": ">=3.10",
+    "size": 456919,
+    "upload_time": "2026-09-21T09:08:54",
+    "upload_time_iso_8601": "2026-09-21T09:08:54.372402Z",
+    "url": "https://files.pythonhosted.org/packages/02/96/165c6e540bf765ca1115062017adf861d0816525f02464ba71313fe7cf92/watchfiles-1.3.0-pp311-pypy311_pp73-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": false,
+    "digests": {
+     "blake2b_256": "b368e6aa0b77d217b31f8f486ec0cdfe5e00e6e38dc0be657e7d85819b9faf0a",
+     "md5": "9866746a64a64a81e56b7ec4d584e0f0",
+     "sha256": "99aee4a07847c06820765fd7b1b49ceac4f3f711ccb7d104655a33231de1c207"
+    },
+    "downloads": -1,
+    "filename": "watchfiles-1.3.0.tar.gz",
+    "has_sig": false,
+    "md5_digest": "9866746a64a64a81e56b7ec4d584e0f0",
+    "packagetype": "sdist",
+    "python_version": "source",
+    "requires_python": ">=3.10",
+    "size": 108119,
+    "upload_time": "2026-09-21T09:08:55",
+    "upload_time_iso_8601": "2026-09-21T09:08:55.664410Z",
+    "url": "https://files.pythonhosted.org/packages/b3/68/e6aa0b77d217b31f8f486ec0cdfe5e00e6e38dc0be657e7d85819b9faf0a/watchfiles-1.3.0.tar.gz",
+    "yanked": false,
+    "yanked_reason": null
+   }
+  ],
+  "vulnerabilities": []
+ },
+ "http_status": 200,
+ "requested_at_utc": "2026-10-30T14:16:11Z",
+ "url": "https://pypi.org/pypi/watchfiles/1.3.0/json"
+}

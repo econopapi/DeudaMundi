@@ -1,0 +1,129 @@
+{
+ "body": {
+  "info": {
+   "author": null,
+   "author_email": "Laurent LAPORTE <laurent.laporte.pro@gmail.com>",
+   "bugtrack_url": null,
+   "classifiers": [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Web Environment",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Typing :: Typed"
+   ],
+   "description": "# Deprecated Decorator\n\n![Deprecated: a price tag reading \"@deprecated, best before: next major\"](https://raw.githubusercontent.com/laurent-laporte-pro/deprecated/master/docs/source/_static/logo.svg)\n\nPython `@deprecated` decorator to deprecate old python classes, functions or methods.\n\n[![license](https://img.shields.io/badge/license-MIT-blue?logo=opensourceinitiative&logoColor=white)](https://raw.githubusercontent.com/laurent-laporte-pro/deprecated/master/LICENSE.md)\n[![GitHub release](https://img.shields.io/github/v/release/laurent-laporte-pro/deprecated?logo=github&logoColor=white)](https://github.com/laurent-laporte-pro/deprecated/releases/latest)\n[![PyPI](https://img.shields.io/pypi/v/deprecated?logo=pypi&logoColor=white)](https://pypi.org/project/Deprecated/)\n[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/laurent-laporte-pro/deprecated/python-package.yml?logo=github&logoColor=white)](https://github.com/laurent-laporte-pro/deprecated/actions/workflows/python-package.yml)\n[![Coveralls branch](https://img.shields.io/coverallsCoverage/github/laurent-laporte-pro/deprecated?logo=coveralls&logoColor=white)](https://coveralls.io/github/laurent-laporte-pro/deprecated?branch=master)\n[![Read the Docs (version)](https://img.shields.io/readthedocs/deprecated/latest?logo=readthedocs&logoColor=white)](https://deprecated.readthedocs.io/en/latest/?badge=latest)\n\nRemoving a function from a library breaks the code of its users. Deprecating it first gives\nthem time to migrate: the Deprecated library marks classes, functions, methods and parameters\nas deprecated, emits a warning that points at the calling code, and can document the deprecation\nin the docstring.\n\n## Installation\n\n```shell\npip install Deprecated\n```\n\nDeprecated requires Python 3.12+ and [wrapt](https://pypi.org/project/wrapt/).\n\n## Usage\n\nDecorate a deprecated function, method or class with `@deprecated`:\n\n```python\nfrom deprecated import deprecated\n\n\n@deprecated(reason=\"use new_function\", version=\"2.1.0\")\ndef some_old_function(x, y):\n    return x + y\n\n\nsome_old_function(1, 2)\n```\n\nEach call emits a warning located at the calling line:\n\n```text\nexample.py:9: DeprecationWarning: Call to deprecated function (or staticmethod) some_old_function. (use new_function) -- Deprecated since version 2.1.0.\n```\n\n`@deprecated` can also be used without arguments, and accepts other options:\n`category` (e.g. `FutureWarning` instead of `DeprecationWarning`), `action` (a local warning\nfilter, e.g. `\"error\"`) and `extra_stacklevel` (for wrappers of deprecated functions).\n\nTo deprecate a *parameter* rather than the whole function, use `@deprecated_params`:\n\n```python\nfrom deprecated import deprecated_params\n\n\n@deprecated_params(\"color\", reason=\"'color' is ignored, use 'style'\")\ndef draw(shape, color=None, style=None):\n    ...\n```\n\nCalling `draw(\"circle\", color=\"red\")` emits `DeprecationWarning: 'color' is ignored, use 'style'`.\n\n## Documenting the life cycle\n\nThe Deprecated library can also document the life cycle of your functions and classes:\nthe `@deprecated`, `@versionadded` and `@versionchanged` decorators update the docstring,\naccording to your docstring format:\n\n- `deprecated.sphinx`: reStructuredText directives (`.. deprecated:: 1.2.0`),\n- `deprecated.google`: Google style sections (`Deprecated:`),\n- `deprecated.numpy`: NumPy style sections (`Deprecated` underlined with hyphens).\n\n```python\nfrom deprecated.google import deprecated\nfrom deprecated.google import versionadded\n\n\n@deprecated(reason=\"use another function\", version=\"1.2.0\")\n@versionadded(version=\"1.0.0\")\ndef some_old_function(x, y):\n    \"\"\"Add two numbers.\n\n    Args:\n        x: first number.\n        y: second number.\n    \"\"\"\n    return x + y\n```\n\nThe docstring of `some_old_function` ends with:\n\n```text\nVersion added:\n    1.0.0\n\nDeprecated:\n    1.2.0: use another function\n```\n\n## Why not `warnings.deprecated`?\n\nSince Python 3.13, [`warnings.deprecated`](https://docs.python.org/3/library/warnings.html#warnings.deprecated)\n([PEP 702](https://peps.python.org/pep-0702/)) emits a runtime warning and lets the type\ncheckers report the use of deprecated objects. Deprecated complements it with version numbers,\ndocstring updates (Sphinx, Google, NumPy), local warning filters and deprecated parameters.\nBoth can be combined, see the [white paper](https://deprecated.readthedocs.io/en/latest/white_paper.html).\n\nSee the [documentation](https://deprecated.readthedocs.io/en/latest/) for more details.\n\n## Authors\n\nDeprecated was started by [Marcos CARDOSO](https://github.com/vrcmarcos), building on the\nrecipes shared in [this Stack Overflow discussion](https://stackoverflow.com/questions/2536307)\nby [Leandro REGUEIRO](https://stackoverflow.com/users/1336250/leandro-regueiro),\n[Patrizio BERTONI](https://stackoverflow.com/users/1315480/patrizio-bertoni) and\n[Eric WIESER](https://stackoverflow.com/users/102441/eric).\n\n[Laurent LAPORTE](https://github.com/laurent-laporte-pro) has been the main author and\nmaintainer of the library for many years.\n",
+   "description_content_type": "text/markdown",
+   "docs_url": null,
+   "download_url": null,
+   "downloads": {
+    "last_day": -1,
+    "last_month": -1,
+    "last_week": -1
+   },
+   "dynamic": null,
+   "home_page": null,
+   "keywords": "decorator, deprecate, deprecated, deprecation, warn, warning",
+   "license": null,
+   "license_expression": "MIT",
+   "license_files": [
+    "LICENSE.md"
+   ],
+   "maintainer": null,
+   "maintainer_email": "Laurent LAPORTE <laurent.laporte.pro@gmail.com>",
+   "name": "Deprecated",
+   "package_url": "https://pypi.org/project/Deprecated/",
+   "platform": null,
+   "project_url": "https://pypi.org/project/Deprecated/",
+   "project_urls": {
+    "Bug Tracker": "https://github.com/laurent-laporte-pro/deprecated/issues",
+    "Changelog": "https://github.com/laurent-laporte-pro/deprecated/blob/master/CHANGELOG.md",
+    "Documentation": "https://deprecated.readthedocs.io/en/latest/",
+    "Homepage": "https://github.com/laurent-laporte-pro/deprecated",
+    "Source": "https://github.com/laurent-laporte-pro/deprecated"
+   },
+   "provides_extra": null,
+   "release_url": "https://pypi.org/project/Deprecated/3.0.1/",
+   "requires_dist": [
+    "wrapt<3,>=1.16"
+   ],
+   "requires_python": ">=3.12",
+   "summary": "Python @deprecated decorator to deprecate old python classes, functions or methods.",
+   "version": "3.0.1",
+   "yanked": false,
+   "yanked_reason": null
+  },
+  "last_serial": 42964292,
+  "ownership": {
+   "organization": null,
+   "roles": [
+    {
+     "role": "Owner",
+     "user": "laurent-laporte-pro"
+    },
+    {
+     "role": "Owner",
+     "user": "tantale"
+    }
+   ]
+  },
+  "urls": [
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "f51c5aff754a4becbc9ab9739829c5914de430644c325acf02ad77c4102ca009"
+    },
+    "digests": {
+     "blake2b_256": "82f007de837adfa09d592747b82fd74316e88285d2d7057551f30e4b5ef81bd8",
+     "md5": "3c2a7d2d08f947b64391e473c4e9289b",
+     "sha256": "eda314c115e8bc0fe52b90a6869e19240ac3cedb7449adfdba5981cf9ef693e1"
+    },
+    "downloads": -1,
+    "filename": "deprecated-3.0.1-py3-none-any.whl",
+    "has_sig": false,
+    "md5_digest": "3c2a7d2d08f947b64391e473c4e9289b",
+    "packagetype": "bdist_wheel",
+    "python_version": "py3",
+    "requires_python": ">=3.12",
+    "size": 22191,
+    "upload_time": "2026-10-30T11:15:38",
+    "upload_time_iso_8601": "2026-10-30T11:15:38.080961Z",
+    "url": "https://files.pythonhosted.org/packages/82/f0/07de837adfa09d592747b82fd74316e88285d2d7057551f30e4b5ef81bd8/deprecated-3.0.1-py3-none-any.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": false,
+    "digests": {
+     "blake2b_256": "6146f6958cdfa8a801fc845e981a8a958dba2e74a386b026a8fd5cae58423f1f",
+     "md5": "ee36966ce5fd255333f5fd1264560b1c",
+     "sha256": "2f5a9fecc9961e26462846cf1e57f73a612b1d0b79c27dceeed8de647beadcee"
+    },
+    "downloads": -1,
+    "filename": "deprecated-3.0.1.tar.gz",
+    "has_sig": false,
+    "md5_digest": "ee36966ce5fd255333f5fd1264560b1c",
+    "packagetype": "sdist",
+    "python_version": "source",
+    "requires_python": ">=3.12",
+    "size": 1074378,
+    "upload_time": "2026-10-30T11:15:39",
+    "upload_time_iso_8601": "2026-10-30T11:15:39.954557Z",
+    "url": "https://files.pythonhosted.org/packages/61/46/f6958cdfa8a801fc845e981a8a958dba2e74a386b026a8fd5cae58423f1f/deprecated-3.0.1.tar.gz",
+    "yanked": false,
+    "yanked_reason": null
+   }
+  ],
+  "vulnerabilities": []
+ },
+ "http_status": 200,
+ "requested_at_utc": "2026-10-30T14:16:11Z",
+ "url": "https://pypi.org/pypi/deprecated/3.0.1/json"
+}

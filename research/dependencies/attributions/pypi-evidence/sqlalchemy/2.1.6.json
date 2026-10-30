@@ -1,0 +1,1873 @@
+{
+ "body": {
+  "info": {
+   "author": null,
+   "author_email": "Mike Bayer <mike_mp@zzzcomputing.com>",
+   "bugtrack_url": null,
+   "classifiers": [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Programming Language :: Python :: 3.15",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Programming Language :: Python :: Implementation :: PyPy",
+    "Topic :: Database :: Front-Ends"
+   ],
+   "description": "SQLAlchemy\n==========\n\n|PyPI| |Python| |Downloads|\n\n.. |PyPI| image:: https://img.shields.io/pypi/v/sqlalchemy\n    :target: https://pypi.org/project/sqlalchemy\n    :alt: PyPI\n\n.. |Python| image:: https://img.shields.io/pypi/pyversions/sqlalchemy\n    :target: https://pypi.org/project/sqlalchemy\n    :alt: PyPI - Python Version\n\n.. |Downloads| image:: https://static.pepy.tech/badge/sqlalchemy/month\n    :target: https://pepy.tech/project/sqlalchemy\n    :alt: PyPI - Downloads\n\n\nThe Python SQL Toolkit and Object Relational Mapper\n\nIntroduction\n-------------\n\nSQLAlchemy is the Python SQL toolkit and Object Relational Mapper\nthat gives application developers the full power and\nflexibility of SQL. SQLAlchemy provides a full suite\nof well known enterprise-level persistence patterns,\ndesigned for efficient and high-performing database\naccess, adapted into a simple and Pythonic domain\nlanguage.\n\nMajor SQLAlchemy features include:\n\n* An industrial strength ORM, built\n  from the core on the identity map, unit of work,\n  and data mapper patterns.   These patterns\n  allow transparent persistence of objects\n  using a declarative configuration system.\n  Domain models\n  can be constructed and manipulated naturally,\n  and changes are synchronized with the\n  current transaction automatically.\n* A relationally-oriented query system, exposing\n  the full range of SQL's capabilities\n  explicitly, including joins, subqueries,\n  correlation, and most everything else,\n  in terms of the object model.\n  Writing queries with the ORM uses the same\n  techniques of relational composition you use\n  when writing SQL.  While you can drop into\n  literal SQL at any time, it's virtually never\n  needed.\n* A comprehensive and flexible system\n  of eager loading for related collections and objects.\n  Collections are cached within a session,\n  and can be loaded on individual access, all\n  at once using joins, or by query per collection\n  across the full result set.\n* A Core SQL construction system and DBAPI\n  interaction layer.  The SQLAlchemy Core is\n  separate from the ORM and is a full database\n  abstraction layer in its own right, and includes\n  an extensible Python-based SQL expression\n  language, schema metadata, connection pooling,\n  type coercion, and custom types.\n* Primary and foreign key constraints may be composite and natural. Surrogate\n  integer primary keys are of course still the\n  norm, but SQLAlchemy never assumes or hardcodes\n  to this model.\n* Database introspection and generation.  Database\n  schemas can be \"reflected\" in one step into\n  Python structures representing database metadata;\n  those same structures can then generate\n  CREATE statements right back out - all within\n  the Core, independent of the ORM.\n\nSQLAlchemy's philosophy:\n\n* SQL databases behave less and less like object\n  collections the more size and performance start to\n  matter; object collections behave less and less like\n  tables and rows the more abstraction starts to matter.\n  SQLAlchemy aims to accommodate both of these\n  principles.\n* An ORM doesn't need to hide the \"R\".   A relational\n  database provides rich, set-based functionality\n  that should be fully exposed.   SQLAlchemy's\n  ORM provides an open-ended set of patterns\n  that allow a developer to construct a custom\n  mediation layer between a domain model and\n  a relational schema, turning the so-called\n  \"object relational impedance\" issue into\n  a distant memory.\n* The developer, in all cases, makes all decisions\n  regarding the design, structure, and naming conventions\n  of both the object model as well as the relational\n  schema.   SQLAlchemy only provides the means\n  to automate the execution of these decisions.\n* With SQLAlchemy, there's no such thing as\n  \"the ORM generated a bad query\" - you\n  retain full control over the structure of\n  queries, including how joins are organized,\n  how subqueries and correlation is used, what\n  columns are requested.  Everything SQLAlchemy\n  does is ultimately the result of a developer-initiated \n  decision.\n* Don't use an ORM if the problem doesn't need one.\n  SQLAlchemy consists of a Core and separate ORM\n  component.   The Core offers a full SQL expression\n  language that allows Pythonic construction\n  of SQL constructs that render directly to SQL\n  strings for a target database, returning\n  result sets that are essentially enhanced DBAPI\n  cursors.\n* Transactions should be the norm.  With SQLAlchemy's\n  ORM, nothing goes to permanent storage until\n  commit() is called.  SQLAlchemy encourages applications\n  to create a consistent means of delineating\n  the start and end of a series of operations.\n* Never render a literal value in a SQL statement.\n  Bound parameters are used to the greatest degree\n  possible, allowing query optimizers to cache\n  query plans effectively and making SQL injection\n  attacks a non-issue.\n\nDocumentation\n-------------\n\nLatest documentation is at:\n\nhttps://www.sqlalchemy.org/docs/\n\nInstallation / Requirements\n---------------------------\n\nFull documentation for installation is at\n`Installation <https://www.sqlalchemy.org/docs/intro.html#installation>`_.\n\nGetting Help / Development / Bug reporting\n------------------------------------------\n\nPlease refer to the `SQLAlchemy Community Guide <https://www.sqlalchemy.org/support.html>`_.\n\nCode of Conduct\n---------------\n\nAbove all, SQLAlchemy places great emphasis on polite, thoughtful, and\nconstructive communication between users and developers.\nPlease see our current Code of Conduct at\n`Code of Conduct <https://www.sqlalchemy.org/codeofconduct.html>`_.\n\nLicense\n-------\n\nSQLAlchemy is distributed under the `MIT license\n<https://www.opensource.org/licenses/mit-license.php>`_.\n\n",
+   "description_content_type": "text/x-rst",
+   "docs_url": null,
+   "download_url": null,
+   "downloads": {
+    "last_day": -1,
+    "last_month": -1,
+    "last_week": -1
+   },
+   "dynamic": [
+    "License-File"
+   ],
+   "home_page": null,
+   "keywords": null,
+   "license": null,
+   "license_expression": "MIT",
+   "license_files": [
+    "LICENSE",
+    "AUTHORS"
+   ],
+   "maintainer": null,
+   "maintainer_email": null,
+   "name": "SQLAlchemy",
+   "package_url": "https://pypi.org/project/SQLAlchemy/",
+   "platform": null,
+   "project_url": "https://pypi.org/project/SQLAlchemy/",
+   "project_urls": {
+    "Changelog": "https://docs.sqlalchemy.org/latest/changelog/index.html",
+    "Discussions": "https://github.com/sqlalchemy/sqlalchemy/discussions",
+    "Documentation": "https://docs.sqlalchemy.org",
+    "Homepage": "https://www.sqlalchemy.org",
+    "Issue Tracker": "https://github.com/sqlalchemy/sqlalchemy/issues",
+    "Source Code": "https://github.com/sqlalchemy/sqlalchemy"
+   },
+   "provides_extra": [
+    "asyncio",
+    "mypy",
+    "mssql",
+    "mssql-pymssql",
+    "mssql-pyodbc",
+    "mssql-python",
+    "mysql",
+    "mysql-connector",
+    "mariadb-connector",
+    "oracle",
+    "oracle-cxoracle",
+    "oracle-oracledb",
+    "postgresql",
+    "postgresql-pg8000",
+    "postgresql-asyncpg",
+    "postgresql-psycopg2binary",
+    "postgresql-psycopg2cffi",
+    "postgresql-psycopg",
+    "postgresql-psycopgbinary",
+    "pymysql",
+    "cymysql",
+    "aiomysql",
+    "aioodbc",
+    "asyncmy",
+    "aiosqlite",
+    "sqlcipher"
+   ],
+   "release_url": "https://pypi.org/project/SQLAlchemy/2.1.6/",
+   "requires_dist": [
+    "typing-extensions>=4.6.0",
+    "greenlet>=1; extra == \"asyncio\"",
+    "mypy>=2.4; extra == \"mypy\"",
+    "types-greenlet>=2; extra == \"mypy\"",
+    "pyodbc; extra == \"mssql\"",
+    "pymssql; extra == \"mssql-pymssql\"",
+    "pyodbc; extra == \"mssql-pyodbc\"",
+    "mssql-python>=1.9.0; extra == \"mssql-python\"",
+    "mysqlclient>=1.4.0; extra == \"mysql\"",
+    "mysql-connector-python; extra == \"mysql-connector\"",
+    "mariadb!=1.1.10,!=1.1.2,!=1.1.5,>=1.0.1; extra == \"mariadb-connector\"",
+    "oracledb>=2.0.1; extra == \"oracle\"",
+    "cx_oracle>=8; extra == \"oracle-cxoracle\"",
+    "oracledb>=2.0.1; extra == \"oracle-oracledb\"",
+    "psycopg!=3.1.15,>=3.0.7; extra == \"postgresql\"",
+    "pg8000>=1.29.3; extra == \"postgresql-pg8000\"",
+    "sqlalchemy[asyncio]; extra == \"postgresql-asyncpg\"",
+    "asyncpg; extra == \"postgresql-asyncpg\"",
+    "psycopg2-binary; extra == \"postgresql-psycopg2binary\"",
+    "psycopg2cffi; extra == \"postgresql-psycopg2cffi\"",
+    "psycopg!=3.1.15,>=3.0.7; extra == \"postgresql-psycopg\"",
+    "psycopg[binary]!=3.1.15,>=3.0.7; extra == \"postgresql-psycopgbinary\"",
+    "pymysql; extra == \"pymysql\"",
+    "cymysql; extra == \"cymysql\"",
+    "sqlalchemy[asyncio]; extra == \"aiomysql\"",
+    "aiomysql; extra == \"aiomysql\"",
+    "sqlalchemy[asyncio]; extra == \"aioodbc\"",
+    "aioodbc; extra == \"aioodbc\"",
+    "sqlalchemy[asyncio]; extra == \"asyncmy\"",
+    "asyncmy>=0.2.12; extra == \"asyncmy\"",
+    "sqlalchemy[asyncio]; extra == \"aiosqlite\"",
+    "aiosqlite; extra == \"aiosqlite\"",
+    "sqlcipher3_binary; extra == \"sqlcipher\""
+   ],
+   "requires_python": ">=3.11",
+   "summary": "Database Abstraction Library",
+   "version": "2.1.6",
+   "yanked": false,
+   "yanked_reason": null
+  },
+  "last_serial": 42559042,
+  "ownership": {
+   "organization": "sqlalchemy",
+   "roles": [
+    {
+     "role": "Owner",
+     "user": "CaselIT"
+    },
+    {
+     "role": "Owner",
+     "user": "zzzeek"
+    }
+   ]
+  },
+  "urls": [
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "f174fb2a052ac3679f399ba9e73b5bd5a8bd1f69a78b1460aebc90eb7ebdda50"
+    },
+    "digests": {
+     "blake2b_256": "4be1fca57b09555d90ed6f8ca043245d5205cb2269122acdf8eeee32176711d2",
+     "md5": "9b4993988c30bd538be197e72b3f4c95",
+     "sha256": "e4e4a43cde0dcdff974304ddb48246d6a094e618b6ee9642827ddbfe9fbebadb"
+    },
+    "downloads": -1,
+    "filename": "sqlalchemy-2.1.6-cp311-cp311-macosx_11_0_arm64.whl",
+    "has_sig": false,
+    "md5_digest": "9b4993988c30bd538be197e72b3f4c95",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp311",
+    "requires_python": ">=3.11",
+    "size": 2471480,
+    "upload_time": "2026-10-21T18:34:54",
+    "upload_time_iso_8601": "2026-10-21T18:34:54.083837Z",
+    "url": "https://files.pythonhosted.org/packages/4b/e1/fca57b09555d90ed6f8ca043245d5205cb2269122acdf8eeee32176711d2/sqlalchemy-2.1.6-cp311-cp311-macosx_11_0_arm64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "f174fb2a052ac3679f399ba9e73b5bd5a8bd1f69a78b1460aebc90eb7ebdda50"
+    },
+    "digests": {
+     "blake2b_256": "bf3be593c3cbb51713e6e646409a5de893c1b6432e45339c7741a6a2edfbd09b",
+     "md5": "6bd0c55b9393dafb90922f1c2a3daea4",
+     "sha256": "9b6b5fdcdb6891025117f76f48d7d0f89245d66fab6519f3b856294bab317387"
+    },
+    "downloads": -1,
+    "filename": "sqlalchemy-2.1.6-cp311-cp311-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+    "has_sig": false,
+    "md5_digest": "6bd0c55b9393dafb90922f1c2a3daea4",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp311",
+    "requires_python": ">=3.11",
+    "size": 4636734,
+    "upload_time": "2026-10-21T18:51:15",
+    "upload_time_iso_8601": "2026-10-21T18:51:15.747057Z",
+    "url": "https://files.pythonhosted.org/packages/bf/3b/e593c3cbb51713e6e646409a5de893c1b6432e45339c7741a6a2edfbd09b/sqlalchemy-2.1.6-cp311-cp311-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "f174fb2a052ac3679f399ba9e73b5bd5a8bd1f69a78b1460aebc90eb7ebdda50"
+    },
+    "digests": {
+     "blake2b_256": "4b698a1e812d3937f8367b64cf0ddcd2559cf9b0619c4061ebf08ff8084b949b",
+     "md5": "3752893b4a62ae9ac9516611fb54d4ef",
+     "sha256": "3d877b2c46298825e8f32059e8d912d0d100af0e9fefe31fb2abb52192817afb"
+    },
+    "downloads": -1,
+    "filename": "sqlalchemy-2.1.6-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "3752893b4a62ae9ac9516611fb54d4ef",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp311",
+    "requires_python": ">=3.11",
+    "size": 4658995,
+    "upload_time": "2026-10-21T19:13:58",
+    "upload_time_iso_8601": "2026-10-21T19:13:58.837615Z",
+    "url": "https://files.pythonhosted.org/packages/4b/69/8a1e812d3937f8367b64cf0ddcd2559cf9b0619c4061ebf08ff8084b949b/sqlalchemy-2.1.6-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "f174fb2a052ac3679f399ba9e73b5bd5a8bd1f69a78b1460aebc90eb7ebdda50"
+    },
+    "digests": {
+     "blake2b_256": "9cd47d42a5f4efdb859fa36e85168fcc3c824197193439ff7fac2b595bc94e14",
+     "md5": "adf1470ca59a2c03b9b73636de1a9315",
+     "sha256": "ed6596fb63c574fd3dc4d9ea58a7b9c6e7235dc3d74a0bd3791559d5a618e947"
+    },
+    "downloads": -1,
+    "filename": "sqlalchemy-2.1.6-cp311-cp311-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl",
+    "has_sig": false,
+    "md5_digest": "adf1470ca59a2c03b9b73636de1a9315",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp311",
+    "requires_python": ">=3.11",
+    "size": 4389012,
+    "upload_time": "2026-10-21T19:10:55",
+    "upload_time_iso_8601": "2026-10-21T19:10:55.617294Z",
+    "url": "https://files.pythonhosted.org/packages/9c/d4/7d42a5f4efdb859fa36e85168fcc3c824197193439ff7fac2b595bc94e14/sqlalchemy-2.1.6-cp311-cp311-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "f174fb2a052ac3679f399ba9e73b5bd5a8bd1f69a78b1460aebc90eb7ebdda50"
+    },
+    "digests": {
+     "blake2b_256": "4e716395a7d168ce7f25d2c3f9b6f51d1ca775482c8510d96bfe75fe880ab91a",
+     "md5": "3382a83f9ae686c90c7b7b0fbf1cb685",
+     "sha256": "b16a8960ad9cdc923b90dbf431a4739fc81a07b53374ff74b7bdad3be31ce189"
+    },
+    "downloads": -1,
+    "filename": "sqlalchemy-2.1.6-cp311-cp311-musllinux_1_2_aarch64.whl",
+    "has_sig": false,
+    "md5_digest": "3382a83f9ae686c90c7b7b0fbf1cb685",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp311",
+    "requires_python": ">=3.11",
+    "size": 4574669,
+    "upload_time": "2026-10-21T18:51:17",
+    "upload_time_iso_8601": "2026-10-21T18:51:17.529322Z",
+    "url": "https://files.pythonhosted.org/packages/4e/71/6395a7d168ce7f25d2c3f9b6f51d1ca775482c8510d96bfe75fe880ab91a/sqlalchemy-2.1.6-cp311-cp311-musllinux_1_2_aarch64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "f174fb2a052ac3679f399ba9e73b5bd5a8bd1f69a78b1460aebc90eb7ebdda50"
+    },
+    "digests": {
+     "blake2b_256": "54b4d9b221dd36f82d0e34413837deee25fef45cc13dc4e0483c7ef26b1c34f7",
+     "md5": "df489ba93d776756d92fb242cde541f0",
+     "sha256": "9245bcbcc3056d440f82e43fb34f94c15361c86b62e14cd9d7880c8e0cf370f6"
+    },
+    "downloads": -1,
+    "filename": "sqlalchemy-2.1.6-cp311-cp311-musllinux_1_2_riscv64.whl",
+    "has_sig": false,
+    "md5_digest": "df489ba93d776756d92fb242cde541f0",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp311",
+    "requires_python": ">=3.11",
+    "size": 4385919,
+    "upload_time": "2026-10-21T19:10:57",
+    "upload_time_iso_8601": "2026-10-21T19:10:57.390157Z",
+    "url": "https://files.pythonhosted.org/packages/54/b4/d9b221dd36f82d0e34413837deee25fef45cc13dc4e0483c7ef26b1c34f7/sqlalchemy-2.1.6-cp311-cp311-musllinux_1_2_riscv64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "f174fb2a052ac3679f399ba9e73b5bd5a8bd1f69a78b1460aebc90eb7ebdda50"
+    },
+    "digests": {
+     "blake2b_256": "c0b69a8a6f4c2e4035c0c3edc689de4e672ee1324a1fca22f7d9b775b3b87f33",
+     "md5": "8553dca8c327f3b70886923c44df4a95",
+     "sha256": "a909a8eb82ce5a2f1566ebd685a79f3cfd9e049d57e3a0d3e24d56da04913e73"
+    },
+    "downloads": -1,
+    "filename": "sqlalchemy-2.1.6-cp311-cp311-musllinux_1_2_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "8553dca8c327f3b70886923c44df4a95",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp311",
+    "requires_python": ">=3.11",
+    "size": 4629217,
+    "upload_time": "2026-10-21T19:14:00",
+    "upload_time_iso_8601": "2026-10-21T19:14:00.971048Z",
+    "url": "https://files.pythonhosted.org/packages/c0/b6/9a8a6f4c2e4035c0c3edc689de4e672ee1324a1fca22f7d9b775b3b87f33/sqlalchemy-2.1.6-cp311-cp311-musllinux_1_2_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "abac8285ee6ac1507aafb2118e4de07340aca76fa7e9c1150489cb51d691c2f0"
+    },
+    "digests": {
+     "blake2b_256": "dbd395332d026013398e9bf6edb608305cff4070d95aeeeadec6217018d4e1e6",
+     "md5": "b6f64ae7ac01076779416f1202774722",
+     "sha256": "69eeb530ce74be5e202a98ce35aa58b0776c24e64923c4873c25fa56f8e423bc"
+    },
+    "downloads": -1,
+    "filename": "sqlalchemy-2.1.6-cp311-cp311-win32.whl",
+    "has_sig": false,
+    "md5_digest": "b6f64ae7ac01076779416f1202774722",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp311",
+    "requires_python": ">=3.11",
+    "size": 2387737,
+    "upload_time": "2026-10-21T17:08:09",
+    "upload_time_iso_8601": "2026-10-21T17:08:09.582146Z",
+    "url": "https://files.pythonhosted.org/packages/db/d3/95332d026013398e9bf6edb608305cff4070d95aeeeadec6217018d4e1e6/sqlalchemy-2.1.6-cp311-cp311-win32.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "abac8285ee6ac1507aafb2118e4de07340aca76fa7e9c1150489cb51d691c2f0"
+    },
+    "digests": {
+     "blake2b_256": "6178ed22f1e9f3597b004da38e853dd0c443908e19e74ceee623e45ed18b967f",
+     "md5": "9173402e7fb993144bf47855ab9ae957",
+     "sha256": "f0f22627d6436bd120c6dde0936b12fe75498d1e2e9214ec9863be17f9b80997"
+    },
+    "downloads": -1,
+    "filename": "sqlalchemy-2.1.6-cp311-cp311-win_amd64.whl",
+    "has_sig": false,
+    "md5_digest": "9173402e7fb993144bf47855ab9ae957",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp311",
+    "requires_python": ">=3.11",
+    "size": 2438496,
+    "upload_time": "2026-10-21T17:08:11",
+    "upload_time_iso_8601": "2026-10-21T17:08:11.502367Z",
+    "url": "https://files.pythonhosted.org/packages/61/78/ed22f1e9f3597b004da38e853dd0c443908e19e74ceee623e45ed18b967f/sqlalchemy-2.1.6-cp311-cp311-win_amd64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "abac8285ee6ac1507aafb2118e4de07340aca76fa7e9c1150489cb51d691c2f0"
+    },
+    "digests": {
+     "blake2b_256": "1288d0ccaa6f65d4de6929eb94b1fc474f1b82175b7251242d72cf76d77823a5",
+     "md5": "26a0fd04f181c27986a0e9387452c82e",
+     "sha256": "8f9d12a8be271c7a83ded1cb7d85921f1b7f65c655c8dae972130a190211bb57"
+    },
+    "downloads": -1,
+    "filename": "sqlalchemy-2.1.6-cp311-cp311-win_arm64.whl",
+    "has_sig": false,
+    "md5_digest": "26a0fd04f181c27986a0e9387452c82e",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp311",
+    "requires_python": ">=3.11",
+    "size": 2403090,
+    "upload_time": "2026-10-21T18:48:30",
+    "upload_time_iso_8601": "2026-10-21T18:48:30.486002Z",
+    "url": "https://files.pythonhosted.org/packages/12/88/d0ccaa6f65d4de6929eb94b1fc474f1b82175b7251242d72cf76d77823a5/sqlalchemy-2.1.6-cp311-cp311-win_arm64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "f174fb2a052ac3679f399ba9e73b5bd5a8bd1f69a78b1460aebc90eb7ebdda50"
+    },
+    "digests": {
+     "blake2b_256": "361c33a77ef74758261e5a2206456713e43d0a72c98ef431fe68fa88ed03b428",
+     "md5": "eae4a81024f68c92f06a45bfa9b9030f",
+     "sha256": "80009748a5ce0c51a9947542935f9709a1c48b65c69f4a1e56d3072f99e750f2"
+    },
+    "downloads": -1,
+    "filename": "sqlalchemy-2.1.6-cp312-cp312-macosx_11_0_arm64.whl",
+    "has_sig": false,
+    "md5_digest": "eae4a81024f68c92f06a45bfa9b9030f",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp312",
+    "requires_python": ">=3.11",
+    "size": 2474582,
+    "upload_time": "2026-10-21T18:34:56",
+    "upload_time_iso_8601": "2026-10-21T18:34:56.139171Z",
+    "url": "https://files.pythonhosted.org/packages/36/1c/33a77ef74758261e5a2206456713e43d0a72c98ef431fe68fa88ed03b428/sqlalchemy-2.1.6-cp312-cp312-macosx_11_0_arm64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "f174fb2a052ac3679f399ba9e73b5bd5a8bd1f69a78b1460aebc90eb7ebdda50"
+    },
+    "digests": {
+     "blake2b_256": "070545e6e2bae7c11e7dbaeb0e9205d92b1b12583b7e199eb2503a7a603f3b9f",
+     "md5": "48090da0ba40aaf320f8d282cb98a9a6",
+     "sha256": "1b5885ad1226c8eeea6aeabb4c4036e43202e1bd70cc7a50ece98bcd6ebe5566"
+    },
+    "downloads": -1,
+    "filename": "sqlalchemy-2.1.6-cp312-cp312-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+    "has_sig": false,
+    "md5_digest": "48090da0ba40aaf320f8d282cb98a9a6",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp312",
+    "requires_python": ">=3.11",
+    "size": 4676310,
+    "upload_time": "2026-10-21T18:51:19",
+    "upload_time_iso_8601": "2026-10-21T18:51:19.131315Z",
+    "url": "https://files.pythonhosted.org/packages/07/05/45e6e2bae7c11e7dbaeb0e9205d92b1b12583b7e199eb2503a7a603f3b9f/sqlalchemy-2.1.6-cp312-cp312-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "f174fb2a052ac3679f399ba9e73b5bd5a8bd1f69a78b1460aebc90eb7ebdda50"
+    },
+    "digests": {
+     "blake2b_256": "add88fbe61673b1bb9f5e98d9a9b28455d408ed8bbf6efaf0b03db13357c763d",
+     "md5": "c4f86a93fd7ed2a382484ac6c3bf258c",
+     "sha256": "d5e4b4dcf85d7f289def0e3167f15aaad101b7744a065fb2019476edf306712c"
+    },
+    "downloads": -1,
+    "filename": "sqlalchemy-2.1.6-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "c4f86a93fd7ed2a382484ac6c3bf258c",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp312",
+    "requires_python": ">=3.11",
+    "size": 4728961,
+    "upload_time": "2026-10-21T19:14:02",
+    "upload_time_iso_8601": "2026-10-21T19:14:02.762156Z",
+    "url": "https://files.pythonhosted.org/packages/ad/d8/8fbe61673b1bb9f5e98d9a9b28455d408ed8bbf6efaf0b03db13357c763d/sqlalchemy-2.1.6-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "f174fb2a052ac3679f399ba9e73b5bd5a8bd1f69a78b1460aebc90eb7ebdda50"
+    },
+    "digests": {
+     "blake2b_256": "c2e4642e3dbd106866d7f726b7c5479f9c9539f1cf010a2e7b8fe17ee8b8de43",
+     "md5": "5424f1d127ba3dc0adfc2035d6e433d6",
+     "sha256": "c314bf9026d865c2b2f67f3b853b4e2edcbe7ed46b67ef11b4a40f0af6aa17b8"
+    },
+    "downloads": -1,
+    "filename": "sqlalchemy-2.1.6-cp312-cp312-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl",
+    "has_sig": false,
+    "md5_digest": "5424f1d127ba3dc0adfc2035d6e433d6",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp312",
+    "requires_python": ">=3.11",
+    "size": 4377450,
+    "upload_time": "2026-10-21T19:10:58",
+    "upload_time_iso_8601": "2026-10-21T19:10:58.992409Z",
+    "url": "https://files.pythonhosted.org/packages/c2/e4/642e3dbd106866d7f726b7c5479f9c9539f1cf010a2e7b8fe17ee8b8de43/sqlalchemy-2.1.6-cp312-cp312-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "f174fb2a052ac3679f399ba9e73b5bd5a8bd1f69a78b1460aebc90eb7ebdda50"
+    },
+    "digests": {
+     "blake2b_256": "2cd8bcaf98d9f1ac842df7287003a0db36c0f33af9bdb07f1f716d8ab8d6c709",
+     "md5": "190d98b4c5c972a0e71bf55334e31c3b",
+     "sha256": "35348ffcbf686055ea7fd02ba4eb76060ed76761648720c63170c5c8bccd85de"
+    },
+    "downloads": -1,
+    "filename": "sqlalchemy-2.1.6-cp312-cp312-musllinux_1_2_aarch64.whl",
+    "has_sig": false,
+    "md5_digest": "190d98b4c5c972a0e71bf55334e31c3b",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp312",
+    "requires_python": ">=3.11",
+    "size": 4599619,
+    "upload_time": "2026-10-21T18:51:20",
+    "upload_time_iso_8601": "2026-10-21T18:51:20.955622Z",
+    "url": "https://files.pythonhosted.org/packages/2c/d8/bcaf98d9f1ac842df7287003a0db36c0f33af9bdb07f1f716d8ab8d6c709/sqlalchemy-2.1.6-cp312-cp312-musllinux_1_2_aarch64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "f174fb2a052ac3679f399ba9e73b5bd5a8bd1f69a78b1460aebc90eb7ebdda50"
+    },
+    "digests": {
+     "blake2b_256": "44ac13226c429b8a87890433fb7dabf8a8b15725e8efdb2e673fdda336bd61cf",
+     "md5": "f69513aa9f64bf9acd37a29bddc4a2d0",
+     "sha256": "eafb738fbcba39d12543730eacb65e2d5d627965959b3cc6bd6f797b2d52cc0f"
+    },
+    "downloads": -1,
+    "filename": "sqlalchemy-2.1.6-cp312-cp312-musllinux_1_2_riscv64.whl",
+    "has_sig": false,
+    "md5_digest": "f69513aa9f64bf9acd37a29bddc4a2d0",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp312",
+    "requires_python": ">=3.11",
+    "size": 4370497,
+    "upload_time": "2026-10-21T19:11:00",
+    "upload_time_iso_8601": "2026-10-21T19:11:00.827781Z",
+    "url": "https://files.pythonhosted.org/packages/44/ac/13226c429b8a87890433fb7dabf8a8b15725e8efdb2e673fdda336bd61cf/sqlalchemy-2.1.6-cp312-cp312-musllinux_1_2_riscv64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "f174fb2a052ac3679f399ba9e73b5bd5a8bd1f69a78b1460aebc90eb7ebdda50"
+    },
+    "digests": {
+     "blake2b_256": "b55ed9330f73b6e39f08baed5bd6ea410fd8ee78b8bb1549d0d6a5f555a73db5",
+     "md5": "6bb42f77649f4796d12c451dcc7e9611",
+     "sha256": "9b197f5d2bcd61b939d2f04b77e86ef24bda266518f3e1526bf666deb20d3ddd"
+    },
+    "downloads": -1,
+    "filename": "sqlalchemy-2.1.6-cp312-cp312-musllinux_1_2_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "6bb42f77649f4796d12c451dcc7e9611",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp312",
+    "requires_python": ">=3.11",
+    "size": 4676118,
+    "upload_time": "2026-10-21T19:14:04",
+    "upload_time_iso_8601": "2026-10-21T19:14:04.705627Z",
+    "url": "https://files.pythonhosted.org/packages/b5/5e/d9330f73b6e39f08baed5bd6ea410fd8ee78b8bb1549d0d6a5f555a73db5/sqlalchemy-2.1.6-cp312-cp312-musllinux_1_2_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "abac8285ee6ac1507aafb2118e4de07340aca76fa7e9c1150489cb51d691c2f0"
+    },
+    "digests": {
+     "blake2b_256": "62a3811e0702c62666d222cae8e7ece846661833896ed8a4c1081840dd49a513",
+     "md5": "f516ee3bf2dae141e1c76cbe43a3c473",
+     "sha256": "991fa7c6756505e3dc5aad678db5fb0110d9816c2185bc3e2c520de46cfc8c5d"
+    },
+    "downloads": -1,
+    "filename": "sqlalchemy-2.1.6-cp312-cp312-win32.whl",
+    "has_sig": false,
+    "md5_digest": "f516ee3bf2dae141e1c76cbe43a3c473",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp312",
+    "requires_python": ">=3.11",
+    "size": 2384827,
+    "upload_time": "2026-10-21T17:08:13",
+    "upload_time_iso_8601": "2026-10-21T17:08:13.393859Z",
+    "url": "https://files.pythonhosted.org/packages/62/a3/811e0702c62666d222cae8e7ece846661833896ed8a4c1081840dd49a513/sqlalchemy-2.1.6-cp312-cp312-win32.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "abac8285ee6ac1507aafb2118e4de07340aca76fa7e9c1150489cb51d691c2f0"
+    },
+    "digests": {
+     "blake2b_256": "06ee5609e83ebc921663b3250d053a61b355db72ad3cbbde73e7105024e8bf10",
+     "md5": "57bc49acc5a2ab0a53f012855a8ff107",
+     "sha256": "7ea80b33e57f918509eb91cd074324bff0f9aae40d238121cdc369f449c20649"
+    },
+    "downloads": -1,
+    "filename": "sqlalchemy-2.1.6-cp312-cp312-win_amd64.whl",
+    "has_sig": false,
+    "md5_digest": "57bc49acc5a2ab0a53f012855a8ff107",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp312",
+    "requires_python": ">=3.11",
+    "size": 2437524,
+    "upload_time": "2026-10-21T17:08:15",
+    "upload_time_iso_8601": "2026-10-21T17:08:15.047185Z",
+    "url": "https://files.pythonhosted.org/packages/06/ee/5609e83ebc921663b3250d053a61b355db72ad3cbbde73e7105024e8bf10/sqlalchemy-2.1.6-cp312-cp312-win_amd64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "abac8285ee6ac1507aafb2118e4de07340aca76fa7e9c1150489cb51d691c2f0"
+    },
+    "digests": {
+     "blake2b_256": "73aa5b3164be28000eecb4629c07522686ea0fa2a340ebf529801fc861518469",
+     "md5": "357b15775c51f5e9802b62e18d07872d",
+     "sha256": "84b359a458611d40061f536b1363733b0af7a71425e4b17d0abb7e543d00e979"
+    },
+    "downloads": -1,
+    "filename": "sqlalchemy-2.1.6-cp312-cp312-win_arm64.whl",
+    "has_sig": false,
+    "md5_digest": "357b15775c51f5e9802b62e18d07872d",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp312",
+    "requires_python": ">=3.11",
+    "size": 2396919,
+    "upload_time": "2026-10-21T18:48:32",
+    "upload_time_iso_8601": "2026-10-21T18:48:32.037553Z",
+    "url": "https://files.pythonhosted.org/packages/73/aa/5b3164be28000eecb4629c07522686ea0fa2a340ebf529801fc861518469/sqlalchemy-2.1.6-cp312-cp312-win_arm64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "f174fb2a052ac3679f399ba9e73b5bd5a8bd1f69a78b1460aebc90eb7ebdda50"
+    },
+    "digests": {
+     "blake2b_256": "d7dbecf1cf1f5c8cb7661081dcb0561633c174213d7af5fccc17ab48cbe9812a",
+     "md5": "03c657170e07c5bc124a484a6fc79d58",
+     "sha256": "0534d3f41295a74d9fe2e0838e06ce6329a0855b2965df5f5d1c4d3f6f1406d0"
+    },
+    "downloads": -1,
+    "filename": "sqlalchemy-2.1.6-cp313-cp313-macosx_11_0_arm64.whl",
+    "has_sig": false,
+    "md5_digest": "03c657170e07c5bc124a484a6fc79d58",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp313",
+    "requires_python": ">=3.11",
+    "size": 2468626,
+    "upload_time": "2026-10-21T18:49:33",
+    "upload_time_iso_8601": "2026-10-21T18:49:33.602478Z",
+    "url": "https://files.pythonhosted.org/packages/d7/db/ecf1cf1f5c8cb7661081dcb0561633c174213d7af5fccc17ab48cbe9812a/sqlalchemy-2.1.6-cp313-cp313-macosx_11_0_arm64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "f174fb2a052ac3679f399ba9e73b5bd5a8bd1f69a78b1460aebc90eb7ebdda50"
+    },
+    "digests": {
+     "blake2b_256": "9b981cccefb4fc94f4efd621604063acbbea4e3d530c27151fd7249d68adabf2",
+     "md5": "ca0a1c5c9244c2584752ebb7c983766e",
+     "sha256": "650f97996a4c529f4930969f3ba11bcdb57ff160ed1cb87ea0174393bf4f5f73"
+    },
+    "downloads": -1,
+    "filename": "sqlalchemy-2.1.6-cp313-cp313-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+    "has_sig": false,
+    "md5_digest": "ca0a1c5c9244c2584752ebb7c983766e",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp313",
+    "requires_python": ">=3.11",
+    "size": 4602545,
+    "upload_time": "2026-10-21T18:54:18",
+    "upload_time_iso_8601": "2026-10-21T18:54:18.766637Z",
+    "url": "https://files.pythonhosted.org/packages/9b/98/1cccefb4fc94f4efd621604063acbbea4e3d530c27151fd7249d68adabf2/sqlalchemy-2.1.6-cp313-cp313-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "f174fb2a052ac3679f399ba9e73b5bd5a8bd1f69a78b1460aebc90eb7ebdda50"
+    },
+    "digests": {
+     "blake2b_256": "d3b01817d7406ed92c8647a1d1db965a1bc2dd5a3f80d18e4d28ad62daf9bd72",
+     "md5": "2fd54b17670495c0926efd3bc93066eb",
+     "sha256": "0bada6bd29ae58a0581bf6977c0a43dfd67388fd09129f1475c37eca370cccd8"
+    },
+    "downloads": -1,
+    "filename": "sqlalchemy-2.1.6-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "2fd54b17670495c0926efd3bc93066eb",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp313",
+    "requires_python": ">=3.11",
+    "size": 4655491,
+    "upload_time": "2026-10-21T19:05:20",
+    "upload_time_iso_8601": "2026-10-21T19:05:20.434880Z",
+    "url": "https://files.pythonhosted.org/packages/d3/b0/1817d7406ed92c8647a1d1db965a1bc2dd5a3f80d18e4d28ad62daf9bd72/sqlalchemy-2.1.6-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "f174fb2a052ac3679f399ba9e73b5bd5a8bd1f69a78b1460aebc90eb7ebdda50"
+    },
+    "digests": {
+     "blake2b_256": "415c0bdaa1676fb182b93e3c87c09cafd08a734ef29820aac6312b87a88f8537",
+     "md5": "71b7b90af75d69a247207d661f6704b7",
+     "sha256": "96f5fcdfb7e89b6d895e2ddc165f67b3126a585dfdf2a95b0c1f3fcf3380d7d4"
+    },
+    "downloads": -1,
+    "filename": "sqlalchemy-2.1.6-cp313-cp313-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl",
+    "has_sig": false,
+    "md5_digest": "71b7b90af75d69a247207d661f6704b7",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp313",
+    "requires_python": ">=3.11",
+    "size": 4319667,
+    "upload_time": "2026-10-21T19:23:16",
+    "upload_time_iso_8601": "2026-10-21T19:23:16.637046Z",
+    "url": "https://files.pythonhosted.org/packages/41/5c/0bdaa1676fb182b93e3c87c09cafd08a734ef29820aac6312b87a88f8537/sqlalchemy-2.1.6-cp313-cp313-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "f174fb2a052ac3679f399ba9e73b5bd5a8bd1f69a78b1460aebc90eb7ebdda50"
+    },
+    "digests": {
+     "blake2b_256": "c1d7319e5a049b6f5235d1229858972abb05b8eae2fdd6639dc7bdbbc9cdb68d",
+     "md5": "5f46494e61b175fc8ceda001bf34b7e9",
+     "sha256": "015bd7b0687b5feaecb9988bc2f36ecb39daca83bd806b094b43b19ea503b0a9"
+    },
+    "downloads": -1,
+    "filename": "sqlalchemy-2.1.6-cp313-cp313-musllinux_1_2_aarch64.whl",
+    "has_sig": false,
+    "md5_digest": "5f46494e61b175fc8ceda001bf34b7e9",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp313",
+    "requires_python": ">=3.11",
+    "size": 4525975,
+    "upload_time": "2026-10-21T18:54:21",
+    "upload_time_iso_8601": "2026-10-21T18:54:21.553732Z",
+    "url": "https://files.pythonhosted.org/packages/c1/d7/319e5a049b6f5235d1229858972abb05b8eae2fdd6639dc7bdbbc9cdb68d/sqlalchemy-2.1.6-cp313-cp313-musllinux_1_2_aarch64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "f174fb2a052ac3679f399ba9e73b5bd5a8bd1f69a78b1460aebc90eb7ebdda50"
+    },
+    "digests": {
+     "blake2b_256": "193b6e8e5c14a3bcfae59a081a27f33e4f225df8140daab8e90fc3c42afd0d0e",
+     "md5": "a992e794da856c45674a6705f5ccbfc3",
+     "sha256": "bf883ae772971bc6155cb64cdfb9e31c50a2099f3b7c8b51b0401bf608a9fe8e"
+    },
+    "downloads": -1,
+    "filename": "sqlalchemy-2.1.6-cp313-cp313-musllinux_1_2_riscv64.whl",
+    "has_sig": false,
+    "md5_digest": "a992e794da856c45674a6705f5ccbfc3",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp313",
+    "requires_python": ">=3.11",
+    "size": 4320900,
+    "upload_time": "2026-10-21T19:23:18",
+    "upload_time_iso_8601": "2026-10-21T19:23:18.835391Z",
+    "url": "https://files.pythonhosted.org/packages/19/3b/6e8e5c14a3bcfae59a081a27f33e4f225df8140daab8e90fc3c42afd0d0e/sqlalchemy-2.1.6-cp313-cp313-musllinux_1_2_riscv64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "f174fb2a052ac3679f399ba9e73b5bd5a8bd1f69a78b1460aebc90eb7ebdda50"
+    },
+    "digests": {
+     "blake2b_256": "b8a77ad220d5ea6308a9a32395785f4ce8beff4d00b0ae56ab9f2dafcca28743",
+     "md5": "4cb23ae3da50b1897d3970175b7c9115",
+     "sha256": "1ff897d13de613768123dee68474956a51fe641c42bba7af6cb7776716a8dbcb"
+    },
+    "downloads": -1,
+    "filename": "sqlalchemy-2.1.6-cp313-cp313-musllinux_1_2_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "4cb23ae3da50b1897d3970175b7c9115",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp313",
+    "requires_python": ">=3.11",
+    "size": 4616756,
+    "upload_time": "2026-10-21T19:05:22",
+    "upload_time_iso_8601": "2026-10-21T19:05:22.265415Z",
+    "url": "https://files.pythonhosted.org/packages/b8/a7/7ad220d5ea6308a9a32395785f4ce8beff4d00b0ae56ab9f2dafcca28743/sqlalchemy-2.1.6-cp313-cp313-musllinux_1_2_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "abac8285ee6ac1507aafb2118e4de07340aca76fa7e9c1150489cb51d691c2f0"
+    },
+    "digests": {
+     "blake2b_256": "088153a198f5a29f247adc68c0c6da69bd2c7bdd89d3ffc58f9e626ee3160f18",
+     "md5": "01c5a81fd281aba4a046be1255e23481",
+     "sha256": "9db8bacb2a69b4b5388bc1439463170af28f4cc710933085b81d1658d931d2c2"
+    },
+    "downloads": -1,
+    "filename": "sqlalchemy-2.1.6-cp313-cp313-win32.whl",
+    "has_sig": false,
+    "md5_digest": "01c5a81fd281aba4a046be1255e23481",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp313",
+    "requires_python": ">=3.11",
+    "size": 2382042,
+    "upload_time": "2026-10-21T17:11:33",
+    "upload_time_iso_8601": "2026-10-21T17:11:33.968174Z",
+    "url": "https://files.pythonhosted.org/packages/08/81/53a198f5a29f247adc68c0c6da69bd2c7bdd89d3ffc58f9e626ee3160f18/sqlalchemy-2.1.6-cp313-cp313-win32.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "abac8285ee6ac1507aafb2118e4de07340aca76fa7e9c1150489cb51d691c2f0"
+    },
+    "digests": {
+     "blake2b_256": "b48769e86a23cd9ccef0d654c09dc69dfea6d62b1311d2f13ca3daab1bcd922e",
+     "md5": "3f64d8e483a77927a093ea41d72f8bb5",
+     "sha256": "b9f0b92b4a88b630f1e67df816b43cb017bb583479917dd100541d4f490a9517"
+    },
+    "downloads": -1,
+    "filename": "sqlalchemy-2.1.6-cp313-cp313-win_amd64.whl",
+    "has_sig": false,
+    "md5_digest": "3f64d8e483a77927a093ea41d72f8bb5",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp313",
+    "requires_python": ">=3.11",
+    "size": 2432597,
+    "upload_time": "2026-10-21T17:11:35",
+    "upload_time_iso_8601": "2026-10-21T17:11:35.514849Z",
+    "url": "https://files.pythonhosted.org/packages/b4/87/69e86a23cd9ccef0d654c09dc69dfea6d62b1311d2f13ca3daab1bcd922e/sqlalchemy-2.1.6-cp313-cp313-win_amd64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "abac8285ee6ac1507aafb2118e4de07340aca76fa7e9c1150489cb51d691c2f0"
+    },
+    "digests": {
+     "blake2b_256": "9890a7f81395135cc5da724403ece4340f7e04c1ce752da15d0ad337591ec9c9",
+     "md5": "6c9dd297dcf8c622b3296bd32aecee79",
+     "sha256": "bc495d00f235c3df6f376187a4ef48a56e162fdcc0a113ee34518332aa1aa2df"
+    },
+    "downloads": -1,
+    "filename": "sqlalchemy-2.1.6-cp313-cp313-win_arm64.whl",
+    "has_sig": false,
+    "md5_digest": "6c9dd297dcf8c622b3296bd32aecee79",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp313",
+    "requires_python": ">=3.11",
+    "size": 2393224,
+    "upload_time": "2026-10-21T18:54:18",
+    "upload_time_iso_8601": "2026-10-21T18:54:18.405307Z",
+    "url": "https://files.pythonhosted.org/packages/98/90/a7f81395135cc5da724403ece4340f7e04c1ce752da15d0ad337591ec9c9/sqlalchemy-2.1.6-cp313-cp313-win_arm64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "f174fb2a052ac3679f399ba9e73b5bd5a8bd1f69a78b1460aebc90eb7ebdda50"
+    },
+    "digests": {
+     "blake2b_256": "d3231d808dee65ee9a7fc0013d3f42af0655bc1e740c55b2ee8a2dfedc09be26",
+     "md5": "bb07e737e6735945377ea30388de597a",
+     "sha256": "5f9400b1234555b9ae78450123dec7aaf045d8d978a1e94967437ebe561ae120"
+    },
+    "downloads": -1,
+    "filename": "sqlalchemy-2.1.6-cp314-cp314-macosx_11_0_arm64.whl",
+    "has_sig": false,
+    "md5_digest": "bb07e737e6735945377ea30388de597a",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.11",
+    "size": 2471756,
+    "upload_time": "2026-10-21T18:49:35",
+    "upload_time_iso_8601": "2026-10-21T18:49:35.133516Z",
+    "url": "https://files.pythonhosted.org/packages/d3/23/1d808dee65ee9a7fc0013d3f42af0655bc1e740c55b2ee8a2dfedc09be26/sqlalchemy-2.1.6-cp314-cp314-macosx_11_0_arm64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "f174fb2a052ac3679f399ba9e73b5bd5a8bd1f69a78b1460aebc90eb7ebdda50"
+    },
+    "digests": {
+     "blake2b_256": "c333f3feba2de61a20df6293d7da26eedabdd5fd01bb44f6b6a6a192a5a902de",
+     "md5": "87e2f7bf7edd1f05d37bc65a4f4b821f",
+     "sha256": "d106c2191a3a0dea6873c96ab909f31c13978913714a25023f492e9ccc8ffcc7"
+    },
+    "downloads": -1,
+    "filename": "sqlalchemy-2.1.6-cp314-cp314-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+    "has_sig": false,
+    "md5_digest": "87e2f7bf7edd1f05d37bc65a4f4b821f",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.11",
+    "size": 4596061,
+    "upload_time": "2026-10-21T18:54:23",
+    "upload_time_iso_8601": "2026-10-21T18:54:23.586050Z",
+    "url": "https://files.pythonhosted.org/packages/c3/33/f3feba2de61a20df6293d7da26eedabdd5fd01bb44f6b6a6a192a5a902de/sqlalchemy-2.1.6-cp314-cp314-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "f174fb2a052ac3679f399ba9e73b5bd5a8bd1f69a78b1460aebc90eb7ebdda50"
+    },
+    "digests": {
+     "blake2b_256": "2c4042ccf6f7f6adea241f51f236868b8f27076f072b22e194b197f1bafedd75",
+     "md5": "3a1368fe0935df4f3f6629a1b9dfe3d0",
+     "sha256": "39ca3a128260fb3aa1c33554f1993bc5ddf3f82375697028c49e7b411ab80b84"
+    },
+    "downloads": -1,
+    "filename": "sqlalchemy-2.1.6-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "3a1368fe0935df4f3f6629a1b9dfe3d0",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.11",
+    "size": 4625648,
+    "upload_time": "2026-10-21T19:05:24",
+    "upload_time_iso_8601": "2026-10-21T19:05:24.248306Z",
+    "url": "https://files.pythonhosted.org/packages/2c/40/42ccf6f7f6adea241f51f236868b8f27076f072b22e194b197f1bafedd75/sqlalchemy-2.1.6-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "f174fb2a052ac3679f399ba9e73b5bd5a8bd1f69a78b1460aebc90eb7ebdda50"
+    },
+    "digests": {
+     "blake2b_256": "43522007c76766751730e4ac51d5df9aa22be8c82a242413085f3a424d7efd7b",
+     "md5": "4637a2fb29870c4bb9f6678c3205bfce",
+     "sha256": "d8c34c200a124a1a5769671613b3fc05a21d0a50f7ad942cf0ee12d4390a112c"
+    },
+    "downloads": -1,
+    "filename": "sqlalchemy-2.1.6-cp314-cp314-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl",
+    "has_sig": false,
+    "md5_digest": "4637a2fb29870c4bb9f6678c3205bfce",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.11",
+    "size": 4319086,
+    "upload_time": "2026-10-21T19:23:20",
+    "upload_time_iso_8601": "2026-10-21T19:23:20.337689Z",
+    "url": "https://files.pythonhosted.org/packages/43/52/2007c76766751730e4ac51d5df9aa22be8c82a242413085f3a424d7efd7b/sqlalchemy-2.1.6-cp314-cp314-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "f174fb2a052ac3679f399ba9e73b5bd5a8bd1f69a78b1460aebc90eb7ebdda50"
+    },
+    "digests": {
+     "blake2b_256": "ec7bdd2b47ab0cb726abe54cc365a1d0bdf1a0424d936c740512173eaec7ab89",
+     "md5": "a53339c74b0ba923de30c0b897c2d3d2",
+     "sha256": "17bc5f508f5e5cee2722a5a14af0a48768b40e1fc5d1bfc92abf6ac587636bd7"
+    },
+    "downloads": -1,
+    "filename": "sqlalchemy-2.1.6-cp314-cp314-musllinux_1_2_aarch64.whl",
+    "has_sig": false,
+    "md5_digest": "a53339c74b0ba923de30c0b897c2d3d2",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.11",
+    "size": 4525360,
+    "upload_time": "2026-10-21T18:54:25",
+    "upload_time_iso_8601": "2026-10-21T18:54:25.782898Z",
+    "url": "https://files.pythonhosted.org/packages/ec/7b/dd2b47ab0cb726abe54cc365a1d0bdf1a0424d936c740512173eaec7ab89/sqlalchemy-2.1.6-cp314-cp314-musllinux_1_2_aarch64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "f174fb2a052ac3679f399ba9e73b5bd5a8bd1f69a78b1460aebc90eb7ebdda50"
+    },
+    "digests": {
+     "blake2b_256": "07fd6499902fd0fcf1dc078efc3d33c60434c55901c14dcf20bad98fca1ed556",
+     "md5": "bc70fb7975bf195bda60a5efeb278f53",
+     "sha256": "c757e13b63a25d59a2566c9b2e77adf14d969207a375ca82a9b4fa1a04b37845"
+    },
+    "downloads": -1,
+    "filename": "sqlalchemy-2.1.6-cp314-cp314-musllinux_1_2_riscv64.whl",
+    "has_sig": false,
+    "md5_digest": "bc70fb7975bf195bda60a5efeb278f53",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.11",
+    "size": 4320430,
+    "upload_time": "2026-10-21T19:23:22",
+    "upload_time_iso_8601": "2026-10-21T19:23:22.497176Z",
+    "url": "https://files.pythonhosted.org/packages/07/fd/6499902fd0fcf1dc078efc3d33c60434c55901c14dcf20bad98fca1ed556/sqlalchemy-2.1.6-cp314-cp314-musllinux_1_2_riscv64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "f174fb2a052ac3679f399ba9e73b5bd5a8bd1f69a78b1460aebc90eb7ebdda50"
+    },
+    "digests": {
+     "blake2b_256": "5a22d805c0b3ff191af4e3cf8b2303c0fca44f5845d019f694c22b2d05e4a3b0",
+     "md5": "99c48aed9c2decd50f344fe3e88badd7",
+     "sha256": "73aa8d2f911a54d1310e8258a752207e2d7624f4db46e2320d734fe7218320a1"
+    },
+    "downloads": -1,
+    "filename": "sqlalchemy-2.1.6-cp314-cp314-musllinux_1_2_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "99c48aed9c2decd50f344fe3e88badd7",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.11",
+    "size": 4586042,
+    "upload_time": "2026-10-21T19:05:26",
+    "upload_time_iso_8601": "2026-10-21T19:05:26.135760Z",
+    "url": "https://files.pythonhosted.org/packages/5a/22/d805c0b3ff191af4e3cf8b2303c0fca44f5845d019f694c22b2d05e4a3b0/sqlalchemy-2.1.6-cp314-cp314-musllinux_1_2_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "f174fb2a052ac3679f399ba9e73b5bd5a8bd1f69a78b1460aebc90eb7ebdda50"
+    },
+    "digests": {
+     "blake2b_256": "bd7162984152c616b26883a686cf05d650f34782108c26c17d0946683b2f13c1",
+     "md5": "9342a02db5465eaefd539f28192adebb",
+     "sha256": "ea5f3dd7450669acbfee7813d3a2a13876806b1d9e4c1626a7bf587c33c68472"
+    },
+    "downloads": -1,
+    "filename": "sqlalchemy-2.1.6-cp314-cp314t-macosx_11_0_arm64.whl",
+    "has_sig": false,
+    "md5_digest": "9342a02db5465eaefd539f28192adebb",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.11",
+    "size": 2511148,
+    "upload_time": "2026-10-21T16:53:10",
+    "upload_time_iso_8601": "2026-10-21T16:53:10.732774Z",
+    "url": "https://files.pythonhosted.org/packages/bd/71/62984152c616b26883a686cf05d650f34782108c26c17d0946683b2f13c1/sqlalchemy-2.1.6-cp314-cp314t-macosx_11_0_arm64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "f174fb2a052ac3679f399ba9e73b5bd5a8bd1f69a78b1460aebc90eb7ebdda50"
+    },
+    "digests": {
+     "blake2b_256": "19cbfc1fe57bd16a0b3d4ccf8bffb2b664b3b9fb53ca87e38873413bcec3ee74",
+     "md5": "c1ad4625a5b61e7b66788d88439087c3",
+     "sha256": "a4e4782514c16753f8bce3dd925cd37d26c847bead06e179af6fa4993ce83e88"
+    },
+    "downloads": -1,
+    "filename": "sqlalchemy-2.1.6-cp314-cp314t-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+    "has_sig": false,
+    "md5_digest": "c1ad4625a5b61e7b66788d88439087c3",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.11",
+    "size": 4927691,
+    "upload_time": "2026-10-21T18:59:13",
+    "upload_time_iso_8601": "2026-10-21T18:59:13.924877Z",
+    "url": "https://files.pythonhosted.org/packages/19/cb/fc1fe57bd16a0b3d4ccf8bffb2b664b3b9fb53ca87e38873413bcec3ee74/sqlalchemy-2.1.6-cp314-cp314t-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "f174fb2a052ac3679f399ba9e73b5bd5a8bd1f69a78b1460aebc90eb7ebdda50"
+    },
+    "digests": {
+     "blake2b_256": "6379f155003077cee0893aca3f573e20d69ee28a6219966265b1be55c36a6f26",
+     "md5": "787403282638e5b154b6507d445d448e",
+     "sha256": "da21b36d60f47dd04042e9372ffb3d1ededf5c60a76d43f8c3592221fb2d41cd"
+    },
+    "downloads": -1,
+    "filename": "sqlalchemy-2.1.6-cp314-cp314t-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "787403282638e5b154b6507d445d448e",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.11",
+    "size": 4838397,
+    "upload_time": "2026-10-21T19:17:33",
+    "upload_time_iso_8601": "2026-10-21T19:17:33.178091Z",
+    "url": "https://files.pythonhosted.org/packages/63/79/f155003077cee0893aca3f573e20d69ee28a6219966265b1be55c36a6f26/sqlalchemy-2.1.6-cp314-cp314t-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "f174fb2a052ac3679f399ba9e73b5bd5a8bd1f69a78b1460aebc90eb7ebdda50"
+    },
+    "digests": {
+     "blake2b_256": "90e2f2787823ad943dbbdf6ceacd3a418bc5b633229e5f2d1d438eedf79a722b",
+     "md5": "fb9db9f646d1f220f072d1a86db47d3f",
+     "sha256": "048d1beb9bfd7ca1afbcfdb8da9519712827df6cccc80a225715ce387d37bb3b"
+    },
+    "downloads": -1,
+    "filename": "sqlalchemy-2.1.6-cp314-cp314t-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl",
+    "has_sig": false,
+    "md5_digest": "fb9db9f646d1f220f072d1a86db47d3f",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.11",
+    "size": 4516544,
+    "upload_time": "2026-10-21T19:44:40",
+    "upload_time_iso_8601": "2026-10-21T19:44:40.890250Z",
+    "url": "https://files.pythonhosted.org/packages/90/e2/f2787823ad943dbbdf6ceacd3a418bc5b633229e5f2d1d438eedf79a722b/sqlalchemy-2.1.6-cp314-cp314t-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "f174fb2a052ac3679f399ba9e73b5bd5a8bd1f69a78b1460aebc90eb7ebdda50"
+    },
+    "digests": {
+     "blake2b_256": "679f8c9eb3efec0c5909d7161c9c4039f9e0d108cb10b2e500f9191f3226a5b5",
+     "md5": "819d0163b551ea22742c5fe322563194",
+     "sha256": "8de444335e3723959913f6635d579276a3517b8c19cbdfaefb04e73b5480e88b"
+    },
+    "downloads": -1,
+    "filename": "sqlalchemy-2.1.6-cp314-cp314t-musllinux_1_2_aarch64.whl",
+    "has_sig": false,
+    "md5_digest": "819d0163b551ea22742c5fe322563194",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.11",
+    "size": 4783970,
+    "upload_time": "2026-10-21T18:59:15",
+    "upload_time_iso_8601": "2026-10-21T18:59:15.941924Z",
+    "url": "https://files.pythonhosted.org/packages/67/9f/8c9eb3efec0c5909d7161c9c4039f9e0d108cb10b2e500f9191f3226a5b5/sqlalchemy-2.1.6-cp314-cp314t-musllinux_1_2_aarch64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "f174fb2a052ac3679f399ba9e73b5bd5a8bd1f69a78b1460aebc90eb7ebdda50"
+    },
+    "digests": {
+     "blake2b_256": "d94fc80016c99d2ede933088a68dc2b198e1ba09c574d82213703ddd91962349",
+     "md5": "c7f59454c4f2e1afbd7b5b3371e4757d",
+     "sha256": "231d0fd85866f847c34c915116c386c83e677ab6f79a94c835b7ae7313b86095"
+    },
+    "downloads": -1,
+    "filename": "sqlalchemy-2.1.6-cp314-cp314t-musllinux_1_2_riscv64.whl",
+    "has_sig": false,
+    "md5_digest": "c7f59454c4f2e1afbd7b5b3371e4757d",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.11",
+    "size": 4516656,
+    "upload_time": "2026-10-21T19:44:43",
+    "upload_time_iso_8601": "2026-10-21T19:44:43.492543Z",
+    "url": "https://files.pythonhosted.org/packages/d9/4f/c80016c99d2ede933088a68dc2b198e1ba09c574d82213703ddd91962349/sqlalchemy-2.1.6-cp314-cp314t-musllinux_1_2_riscv64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "f174fb2a052ac3679f399ba9e73b5bd5a8bd1f69a78b1460aebc90eb7ebdda50"
+    },
+    "digests": {
+     "blake2b_256": "fc72385e0312720af964a4d72f4a37f625fc966aed4115ea249db202521adb1c",
+     "md5": "b8cf01d14786143afb86e885d7433982",
+     "sha256": "bf937348d4052eac6cfa93c809ad214be75b1f057e3fc0dd2e374a814a23a16b"
+    },
+    "downloads": -1,
+    "filename": "sqlalchemy-2.1.6-cp314-cp314t-musllinux_1_2_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "b8cf01d14786143afb86e885d7433982",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.11",
+    "size": 4775302,
+    "upload_time": "2026-10-21T19:17:34",
+    "upload_time_iso_8601": "2026-10-21T19:17:34.970249Z",
+    "url": "https://files.pythonhosted.org/packages/fc/72/385e0312720af964a4d72f4a37f625fc966aed4115ea249db202521adb1c/sqlalchemy-2.1.6-cp314-cp314t-musllinux_1_2_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "abac8285ee6ac1507aafb2118e4de07340aca76fa7e9c1150489cb51d691c2f0"
+    },
+    "digests": {
+     "blake2b_256": "3d462e2eb1f296e4617fb11fbf12acc4aaf1be4e75dd3eed8693bc9967c596ed",
+     "md5": "8f1a1859f9c9be0b6b1cd74c826e9f9e",
+     "sha256": "bc8b805fb04472e0f9cb3bc6aad90f24b202afc274b7b8bbd48042130e82997a"
+    },
+    "downloads": -1,
+    "filename": "sqlalchemy-2.1.6-cp314-cp314t-win32.whl",
+    "has_sig": false,
+    "md5_digest": "8f1a1859f9c9be0b6b1cd74c826e9f9e",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.11",
+    "size": 2447775,
+    "upload_time": "2026-10-21T18:11:52",
+    "upload_time_iso_8601": "2026-10-21T18:11:52.675301Z",
+    "url": "https://files.pythonhosted.org/packages/3d/46/2e2eb1f296e4617fb11fbf12acc4aaf1be4e75dd3eed8693bc9967c596ed/sqlalchemy-2.1.6-cp314-cp314t-win32.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "abac8285ee6ac1507aafb2118e4de07340aca76fa7e9c1150489cb51d691c2f0"
+    },
+    "digests": {
+     "blake2b_256": "5e809bdce178d771f569cf3c88516cb7a71eaf6d701086fa47fe5bfb2b3022b3",
+     "md5": "363fa8120b120a3f647753720fb62d17",
+     "sha256": "84033cab9fec2a515a62d76a7b4acafa83339917db9ea911b65b017928ae7dd8"
+    },
+    "downloads": -1,
+    "filename": "sqlalchemy-2.1.6-cp314-cp314t-win_amd64.whl",
+    "has_sig": false,
+    "md5_digest": "363fa8120b120a3f647753720fb62d17",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.11",
+    "size": 2515411,
+    "upload_time": "2026-10-21T18:11:54",
+    "upload_time_iso_8601": "2026-10-21T18:11:54.512884Z",
+    "url": "https://files.pythonhosted.org/packages/5e/80/9bdce178d771f569cf3c88516cb7a71eaf6d701086fa47fe5bfb2b3022b3/sqlalchemy-2.1.6-cp314-cp314t-win_amd64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "abac8285ee6ac1507aafb2118e4de07340aca76fa7e9c1150489cb51d691c2f0"
+    },
+    "digests": {
+     "blake2b_256": "f400587dcab13fdb2ecc5854171a31eaa9ef5fc885bd1b034aa8d7e6ceba19cd",
+     "md5": "0d557051f1e4282443f7e3b91304c933",
+     "sha256": "96ace18758136905f8d5588ec35d6ae4fdc29ce4e4902518263ca33abf10de04"
+    },
+    "downloads": -1,
+    "filename": "sqlalchemy-2.1.6-cp314-cp314t-win_arm64.whl",
+    "has_sig": false,
+    "md5_digest": "0d557051f1e4282443f7e3b91304c933",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.11",
+    "size": 2433508,
+    "upload_time": "2026-10-21T18:48:27",
+    "upload_time_iso_8601": "2026-10-21T18:48:27.552671Z",
+    "url": "https://files.pythonhosted.org/packages/f4/00/587dcab13fdb2ecc5854171a31eaa9ef5fc885bd1b034aa8d7e6ceba19cd/sqlalchemy-2.1.6-cp314-cp314t-win_arm64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "abac8285ee6ac1507aafb2118e4de07340aca76fa7e9c1150489cb51d691c2f0"
+    },
+    "digests": {
+     "blake2b_256": "a84f015929abb68561990262348bd18aec9768ad743c293e77ad659947c20fa4",
+     "md5": "948291386d9d5954758d7dadbbca2f7f",
+     "sha256": "1927eabf26265ed962627e7a64626d9058da29cc0faea341091302ec108ce305"
+    },
+    "downloads": -1,
+    "filename": "sqlalchemy-2.1.6-cp314-cp314-win32.whl",
+    "has_sig": false,
+    "md5_digest": "948291386d9d5954758d7dadbbca2f7f",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.11",
+    "size": 2388927,
+    "upload_time": "2026-10-21T17:11:37",
+    "upload_time_iso_8601": "2026-10-21T17:11:37.139595Z",
+    "url": "https://files.pythonhosted.org/packages/a8/4f/015929abb68561990262348bd18aec9768ad743c293e77ad659947c20fa4/sqlalchemy-2.1.6-cp314-cp314-win32.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "abac8285ee6ac1507aafb2118e4de07340aca76fa7e9c1150489cb51d691c2f0"
+    },
+    "digests": {
+     "blake2b_256": "0a1b19bc3e0b590228bd122237bf38092b292c04e6501f9de7024a5b6d68cf10",
+     "md5": "7875de4dcf6802a4a2f4e17cc6d1ce4f",
+     "sha256": "fd1154c6394892e727ff234273f5eb2b4319e5714917b016602435d77add8dcb"
+    },
+    "downloads": -1,
+    "filename": "sqlalchemy-2.1.6-cp314-cp314-win_amd64.whl",
+    "has_sig": false,
+    "md5_digest": "7875de4dcf6802a4a2f4e17cc6d1ce4f",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.11",
+    "size": 2439897,
+    "upload_time": "2026-10-21T17:11:39",
+    "upload_time_iso_8601": "2026-10-21T17:11:39.092618Z",
+    "url": "https://files.pythonhosted.org/packages/0a/1b/19bc3e0b590228bd122237bf38092b292c04e6501f9de7024a5b6d68cf10/sqlalchemy-2.1.6-cp314-cp314-win_amd64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "abac8285ee6ac1507aafb2118e4de07340aca76fa7e9c1150489cb51d691c2f0"
+    },
+    "digests": {
+     "blake2b_256": "6f27e01e46d55b60be7df1420604ad7d81ede3fbf5d41d9cdd7d2d25d5d98b6a",
+     "md5": "16e2f2acfa96e498d3c71de107c66884",
+     "sha256": "10a4fe106adbb46c9452f750d8a5d4013d9a7e9752f63631c3b255c062b748d0"
+    },
+    "downloads": -1,
+    "filename": "sqlalchemy-2.1.6-cp314-cp314-win_arm64.whl",
+    "has_sig": false,
+    "md5_digest": "16e2f2acfa96e498d3c71de107c66884",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.11",
+    "size": 2404309,
+    "upload_time": "2026-10-21T18:54:19",
+    "upload_time_iso_8601": "2026-10-21T18:54:19.619811Z",
+    "url": "https://files.pythonhosted.org/packages/6f/27/e01e46d55b60be7df1420604ad7d81ede3fbf5d41d9cdd7d2d25d5d98b6a/sqlalchemy-2.1.6-cp314-cp314-win_arm64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "f174fb2a052ac3679f399ba9e73b5bd5a8bd1f69a78b1460aebc90eb7ebdda50"
+    },
+    "digests": {
+     "blake2b_256": "34dab04b7e7da0374d8e40a6d894fe9969a4d7477d4b5963c94736e85599d27d",
+     "md5": "6c41b367e729fcec38a49b9f33045ed6",
+     "sha256": "89d05a1ef531a1fee86d68e731c428b773bd37aabf743bf63dc3709c86f7254d"
+    },
+    "downloads": -1,
+    "filename": "sqlalchemy-2.1.6-cp315-cp315-macosx_11_0_arm64.whl",
+    "has_sig": false,
+    "md5_digest": "6c41b367e729fcec38a49b9f33045ed6",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp315",
+    "requires_python": ">=3.11",
+    "size": 2471694,
+    "upload_time": "2026-10-21T18:46:27",
+    "upload_time_iso_8601": "2026-10-21T18:46:27.122798Z",
+    "url": "https://files.pythonhosted.org/packages/34/da/b04b7e7da0374d8e40a6d894fe9969a4d7477d4b5963c94736e85599d27d/sqlalchemy-2.1.6-cp315-cp315-macosx_11_0_arm64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "f174fb2a052ac3679f399ba9e73b5bd5a8bd1f69a78b1460aebc90eb7ebdda50"
+    },
+    "digests": {
+     "blake2b_256": "6717cc5203117626f71ab3a9ef2fee4cc5ec5c53a80d72b1dd791bc3d497afd2",
+     "md5": "9d393b1464651758e092bec1a9ea40b3",
+     "sha256": "1e12763cb2a400879c6dfe34995a032f707de635c8cad14d6ba777a1250be90b"
+    },
+    "downloads": -1,
+    "filename": "sqlalchemy-2.1.6-cp315-cp315-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+    "has_sig": false,
+    "md5_digest": "9d393b1464651758e092bec1a9ea40b3",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp315",
+    "requires_python": ">=3.11",
+    "size": 4599858,
+    "upload_time": "2026-10-21T18:55:38",
+    "upload_time_iso_8601": "2026-10-21T18:55:38.095770Z",
+    "url": "https://files.pythonhosted.org/packages/67/17/cc5203117626f71ab3a9ef2fee4cc5ec5c53a80d72b1dd791bc3d497afd2/sqlalchemy-2.1.6-cp315-cp315-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "f174fb2a052ac3679f399ba9e73b5bd5a8bd1f69a78b1460aebc90eb7ebdda50"
+    },
+    "digests": {
+     "blake2b_256": "bebda4d24b125b92bb156fe2aa3ce8894d19d7d015e246ce88baceb724776a26",
+     "md5": "f7f055542decc1b10c0aefcd1f6d3d73",
+     "sha256": "d6e1a9ae71366164800942c477e663b31f3accef55d2e039cb7919fdb54b0086"
+    },
+    "downloads": -1,
+    "filename": "sqlalchemy-2.1.6-cp315-cp315-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "f7f055542decc1b10c0aefcd1f6d3d73",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp315",
+    "requires_python": ">=3.11",
+    "size": 4635165,
+    "upload_time": "2026-10-21T18:57:40",
+    "upload_time_iso_8601": "2026-10-21T18:57:40.670071Z",
+    "url": "https://files.pythonhosted.org/packages/be/bd/a4d24b125b92bb156fe2aa3ce8894d19d7d015e246ce88baceb724776a26/sqlalchemy-2.1.6-cp315-cp315-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "f174fb2a052ac3679f399ba9e73b5bd5a8bd1f69a78b1460aebc90eb7ebdda50"
+    },
+    "digests": {
+     "blake2b_256": "211234545d002189c49f05121ecc2b393bd2a5d2dbd9dc0c6e4510c95e3284e1",
+     "md5": "799cd012b7a631756e62d1342170274a",
+     "sha256": "9bd573f8da863781ace89950d57a959397d5048b1cf69931c29b2b4ce1405bd7"
+    },
+    "downloads": -1,
+    "filename": "sqlalchemy-2.1.6-cp315-cp315-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl",
+    "has_sig": false,
+    "md5_digest": "799cd012b7a631756e62d1342170274a",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp315",
+    "requires_python": ">=3.11",
+    "size": 4341217,
+    "upload_time": "2026-10-21T19:17:05",
+    "upload_time_iso_8601": "2026-10-21T19:17:05.753784Z",
+    "url": "https://files.pythonhosted.org/packages/21/12/34545d002189c49f05121ecc2b393bd2a5d2dbd9dc0c6e4510c95e3284e1/sqlalchemy-2.1.6-cp315-cp315-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "f174fb2a052ac3679f399ba9e73b5bd5a8bd1f69a78b1460aebc90eb7ebdda50"
+    },
+    "digests": {
+     "blake2b_256": "98bf491ed3e97d1625245c153c083064f36b1c3c1ecc1b1258a84a1f67f80f98",
+     "md5": "fb73a23cf4620a113185f183d8031604",
+     "sha256": "0d0424a4189f95886c78b48bb500a1dd7ae6dbae76deb552b15813dc298d9c8f"
+    },
+    "downloads": -1,
+    "filename": "sqlalchemy-2.1.6-cp315-cp315-musllinux_1_2_aarch64.whl",
+    "has_sig": false,
+    "md5_digest": "fb73a23cf4620a113185f183d8031604",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp315",
+    "requires_python": ">=3.11",
+    "size": 4528088,
+    "upload_time": "2026-10-21T18:55:40",
+    "upload_time_iso_8601": "2026-10-21T18:55:40.234656Z",
+    "url": "https://files.pythonhosted.org/packages/98/bf/491ed3e97d1625245c153c083064f36b1c3c1ecc1b1258a84a1f67f80f98/sqlalchemy-2.1.6-cp315-cp315-musllinux_1_2_aarch64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "f174fb2a052ac3679f399ba9e73b5bd5a8bd1f69a78b1460aebc90eb7ebdda50"
+    },
+    "digests": {
+     "blake2b_256": "107f8750ec25961075140def7fa15f3d07d800a68bacfdbc90112387345b78ca",
+     "md5": "f34e06c0e758f6689e9229640cf030ed",
+     "sha256": "cc60fffea328f38187a4fce43f99c6bbf930de2b87b78251f43f2ba64a1af622"
+    },
+    "downloads": -1,
+    "filename": "sqlalchemy-2.1.6-cp315-cp315-musllinux_1_2_riscv64.whl",
+    "has_sig": false,
+    "md5_digest": "f34e06c0e758f6689e9229640cf030ed",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp315",
+    "requires_python": ">=3.11",
+    "size": 4340063,
+    "upload_time": "2026-10-21T19:17:07",
+    "upload_time_iso_8601": "2026-10-21T19:17:07.687243Z",
+    "url": "https://files.pythonhosted.org/packages/10/7f/8750ec25961075140def7fa15f3d07d800a68bacfdbc90112387345b78ca/sqlalchemy-2.1.6-cp315-cp315-musllinux_1_2_riscv64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "f174fb2a052ac3679f399ba9e73b5bd5a8bd1f69a78b1460aebc90eb7ebdda50"
+    },
+    "digests": {
+     "blake2b_256": "625aa9c53bb9dad2732de73d835f691784a3153b4ed693fa385534d2bba39c25",
+     "md5": "49f3d6a1ebb1940d8c841fc0a6670013",
+     "sha256": "c390f76f2fe408aa1a3121f3ca3d5c15698e14d913197417355fe3dc016f787d"
+    },
+    "downloads": -1,
+    "filename": "sqlalchemy-2.1.6-cp315-cp315-musllinux_1_2_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "49f3d6a1ebb1940d8c841fc0a6670013",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp315",
+    "requires_python": ">=3.11",
+    "size": 4597401,
+    "upload_time": "2026-10-21T18:57:42",
+    "upload_time_iso_8601": "2026-10-21T18:57:42.376983Z",
+    "url": "https://files.pythonhosted.org/packages/62/5a/a9c53bb9dad2732de73d835f691784a3153b4ed693fa385534d2bba39c25/sqlalchemy-2.1.6-cp315-cp315-musllinux_1_2_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "f174fb2a052ac3679f399ba9e73b5bd5a8bd1f69a78b1460aebc90eb7ebdda50"
+    },
+    "digests": {
+     "blake2b_256": "0460b4821fe7a42405d12abf9ba48e13b5e056e428d6f0e48c8166f0c7df61fa",
+     "md5": "6c2d1e744beb757947b72922f0543c3b",
+     "sha256": "e269c68ec200538ae3fa7f9e8d8ed2b4b34d974c25945286ccc2a488438acf32"
+    },
+    "downloads": -1,
+    "filename": "sqlalchemy-2.1.6-cp315-cp315t-macosx_11_0_arm64.whl",
+    "has_sig": false,
+    "md5_digest": "6c2d1e744beb757947b72922f0543c3b",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp315",
+    "requires_python": ">=3.11",
+    "size": 2507298,
+    "upload_time": "2026-10-21T16:53:12",
+    "upload_time_iso_8601": "2026-10-21T16:53:12.887028Z",
+    "url": "https://files.pythonhosted.org/packages/04/60/b4821fe7a42405d12abf9ba48e13b5e056e428d6f0e48c8166f0c7df61fa/sqlalchemy-2.1.6-cp315-cp315t-macosx_11_0_arm64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "f174fb2a052ac3679f399ba9e73b5bd5a8bd1f69a78b1460aebc90eb7ebdda50"
+    },
+    "digests": {
+     "blake2b_256": "49e04feccf4511123d55e26269aa22c426ca2cdba88298bd65781bd3609e0e1b",
+     "md5": "5cc7efece23e811fd3c335f48be53d8f",
+     "sha256": "b25199a1b499da643de52ab73e972eb07e55e2a95bb99eaa491846098fa2214c"
+    },
+    "downloads": -1,
+    "filename": "sqlalchemy-2.1.6-cp315-cp315t-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+    "has_sig": false,
+    "md5_digest": "5cc7efece23e811fd3c335f48be53d8f",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp315",
+    "requires_python": ">=3.11",
+    "size": 4905036,
+    "upload_time": "2026-10-21T18:59:17",
+    "upload_time_iso_8601": "2026-10-21T18:59:17.626802Z",
+    "url": "https://files.pythonhosted.org/packages/49/e0/4feccf4511123d55e26269aa22c426ca2cdba88298bd65781bd3609e0e1b/sqlalchemy-2.1.6-cp315-cp315t-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "f174fb2a052ac3679f399ba9e73b5bd5a8bd1f69a78b1460aebc90eb7ebdda50"
+    },
+    "digests": {
+     "blake2b_256": "7cfa7329c40698034056c924210eaba019f46f2914783c3d52b29c47806399c9",
+     "md5": "0265e364b677279d73ecf7979ee55430",
+     "sha256": "641a3742dac4b8f325667b585097de0f1d20eb3498506c92d5f04c20b3a6c823"
+    },
+    "downloads": -1,
+    "filename": "sqlalchemy-2.1.6-cp315-cp315t-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "0265e364b677279d73ecf7979ee55430",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp315",
+    "requires_python": ">=3.11",
+    "size": 4854715,
+    "upload_time": "2026-10-21T19:17:36",
+    "upload_time_iso_8601": "2026-10-21T19:17:36.904310Z",
+    "url": "https://files.pythonhosted.org/packages/7c/fa/7329c40698034056c924210eaba019f46f2914783c3d52b29c47806399c9/sqlalchemy-2.1.6-cp315-cp315t-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "f174fb2a052ac3679f399ba9e73b5bd5a8bd1f69a78b1460aebc90eb7ebdda50"
+    },
+    "digests": {
+     "blake2b_256": "7966098e0981ba55bf61a4b85ae904714987640a7f489da57641c8b6f7d1cfc6",
+     "md5": "a8bc1a9342eabd9f4032c3c6a16cfb1b",
+     "sha256": "d96186af967d7ae3f76d1e9a8fb70b5beb0f0dbdacfd3b418a946fffbb8781ff"
+    },
+    "downloads": -1,
+    "filename": "sqlalchemy-2.1.6-cp315-cp315t-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl",
+    "has_sig": false,
+    "md5_digest": "a8bc1a9342eabd9f4032c3c6a16cfb1b",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp315",
+    "requires_python": ">=3.11",
+    "size": 4502934,
+    "upload_time": "2026-10-21T19:44:45",
+    "upload_time_iso_8601": "2026-10-21T19:44:45.288830Z",
+    "url": "https://files.pythonhosted.org/packages/79/66/098e0981ba55bf61a4b85ae904714987640a7f489da57641c8b6f7d1cfc6/sqlalchemy-2.1.6-cp315-cp315t-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "f174fb2a052ac3679f399ba9e73b5bd5a8bd1f69a78b1460aebc90eb7ebdda50"
+    },
+    "digests": {
+     "blake2b_256": "2069f7ef99af2f3b17e45c1189176decaa2be595848f67827dd7c665ec8e2166",
+     "md5": "02c1f92c5bcd124b496d4497580d5e76",
+     "sha256": "5a9b4cbc5f5cda3c9429e1ac503a57f3b95c59886f26af6ffb44e2e7628b7df8"
+    },
+    "downloads": -1,
+    "filename": "sqlalchemy-2.1.6-cp315-cp315t-musllinux_1_2_aarch64.whl",
+    "has_sig": false,
+    "md5_digest": "02c1f92c5bcd124b496d4497580d5e76",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp315",
+    "requires_python": ">=3.11",
+    "size": 4760666,
+    "upload_time": "2026-10-21T18:59:19",
+    "upload_time_iso_8601": "2026-10-21T18:59:19.419117Z",
+    "url": "https://files.pythonhosted.org/packages/20/69/f7ef99af2f3b17e45c1189176decaa2be595848f67827dd7c665ec8e2166/sqlalchemy-2.1.6-cp315-cp315t-musllinux_1_2_aarch64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "f174fb2a052ac3679f399ba9e73b5bd5a8bd1f69a78b1460aebc90eb7ebdda50"
+    },
+    "digests": {
+     "blake2b_256": "72d73dbbefd2342237fbce9b9169ac4f425d039e97b8a9f765467e4a0319c9aa",
+     "md5": "36a858710d22cbcafb788182e5bc9136",
+     "sha256": "b7ddb305126d34fda64c3fe4632a43fb9b724da6cc7d1dedd8434e6c783b285b"
+    },
+    "downloads": -1,
+    "filename": "sqlalchemy-2.1.6-cp315-cp315t-musllinux_1_2_riscv64.whl",
+    "has_sig": false,
+    "md5_digest": "36a858710d22cbcafb788182e5bc9136",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp315",
+    "requires_python": ">=3.11",
+    "size": 4502218,
+    "upload_time": "2026-10-21T19:44:47",
+    "upload_time_iso_8601": "2026-10-21T19:44:47.119152Z",
+    "url": "https://files.pythonhosted.org/packages/72/d7/3dbbefd2342237fbce9b9169ac4f425d039e97b8a9f765467e4a0319c9aa/sqlalchemy-2.1.6-cp315-cp315t-musllinux_1_2_riscv64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "f174fb2a052ac3679f399ba9e73b5bd5a8bd1f69a78b1460aebc90eb7ebdda50"
+    },
+    "digests": {
+     "blake2b_256": "a42207acba0614b788f94c655a25d76188591921a459fe4f4925a3176b576328",
+     "md5": "1ec9f2cdd63c61d36db2c8a07862fbff",
+     "sha256": "70b435f719d7156623f49ac6539f30dd8471500b5acf399f3b318c1c17f6fa7f"
+    },
+    "downloads": -1,
+    "filename": "sqlalchemy-2.1.6-cp315-cp315t-musllinux_1_2_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "1ec9f2cdd63c61d36db2c8a07862fbff",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp315",
+    "requires_python": ">=3.11",
+    "size": 4780103,
+    "upload_time": "2026-10-21T19:17:39",
+    "upload_time_iso_8601": "2026-10-21T19:17:39.400147Z",
+    "url": "https://files.pythonhosted.org/packages/a4/22/07acba0614b788f94c655a25d76188591921a459fe4f4925a3176b576328/sqlalchemy-2.1.6-cp315-cp315t-musllinux_1_2_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "abac8285ee6ac1507aafb2118e4de07340aca76fa7e9c1150489cb51d691c2f0"
+    },
+    "digests": {
+     "blake2b_256": "590dea88e6e0e069b6c1c65c7a32043ab2203386c80d0bd1a25cf1ba39007741",
+     "md5": "d5fa40d6ba783316d4faae53778aaf65",
+     "sha256": "654192c9f192459ee5f63e6606cc6dd8c50681c28e0689d2a494fc9522b357c1"
+    },
+    "downloads": -1,
+    "filename": "sqlalchemy-2.1.6-cp315-cp315t-win32.whl",
+    "has_sig": false,
+    "md5_digest": "d5fa40d6ba783316d4faae53778aaf65",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp315",
+    "requires_python": ">=3.11",
+    "size": 2444581,
+    "upload_time": "2026-10-21T18:11:57",
+    "upload_time_iso_8601": "2026-10-21T18:11:57.416230Z",
+    "url": "https://files.pythonhosted.org/packages/59/0d/ea88e6e0e069b6c1c65c7a32043ab2203386c80d0bd1a25cf1ba39007741/sqlalchemy-2.1.6-cp315-cp315t-win32.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "abac8285ee6ac1507aafb2118e4de07340aca76fa7e9c1150489cb51d691c2f0"
+    },
+    "digests": {
+     "blake2b_256": "66252182431a4955adfeab69a89e7e4e81eaabbfbf1846ff8634b0f9448fd6cd",
+     "md5": "925ad26d6a11509aee533408ba912867",
+     "sha256": "a053a9d9c9ccc9b72d90ecdcbabcbe57446defc7e8c52fc9978188f78742ac19"
+    },
+    "downloads": -1,
+    "filename": "sqlalchemy-2.1.6-cp315-cp315t-win_amd64.whl",
+    "has_sig": false,
+    "md5_digest": "925ad26d6a11509aee533408ba912867",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp315",
+    "requires_python": ">=3.11",
+    "size": 2510428,
+    "upload_time": "2026-10-21T18:11:59",
+    "upload_time_iso_8601": "2026-10-21T18:11:59.230204Z",
+    "url": "https://files.pythonhosted.org/packages/66/25/2182431a4955adfeab69a89e7e4e81eaabbfbf1846ff8634b0f9448fd6cd/sqlalchemy-2.1.6-cp315-cp315t-win_amd64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "abac8285ee6ac1507aafb2118e4de07340aca76fa7e9c1150489cb51d691c2f0"
+    },
+    "digests": {
+     "blake2b_256": "b369e290384d311e6e2c495734673bdbd2e358dc6725e7c1525326eb8e34af8d",
+     "md5": "31added18bf5e96600f05893528c916b",
+     "sha256": "61dc3fa488208a2f03e0e25ad32950dc024545291acc7348f2e550ea1bc5abb4"
+    },
+    "downloads": -1,
+    "filename": "sqlalchemy-2.1.6-cp315-cp315t-win_arm64.whl",
+    "has_sig": false,
+    "md5_digest": "31added18bf5e96600f05893528c916b",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp315",
+    "requires_python": ">=3.11",
+    "size": 2429115,
+    "upload_time": "2026-10-21T18:48:28",
+    "upload_time_iso_8601": "2026-10-21T18:48:28.987301Z",
+    "url": "https://files.pythonhosted.org/packages/b3/69/e290384d311e6e2c495734673bdbd2e358dc6725e7c1525326eb8e34af8d/sqlalchemy-2.1.6-cp315-cp315t-win_arm64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "abac8285ee6ac1507aafb2118e4de07340aca76fa7e9c1150489cb51d691c2f0"
+    },
+    "digests": {
+     "blake2b_256": "1802bc6b004cd8e5906efca1dbbb4e158aa2efe31a5623c32946ec9da73126ae",
+     "md5": "376994f1ef5876ffbb2b0194d9d0b278",
+     "sha256": "79c1c20dffd4d8d7e669f096c88f261da8ba3646939cd3eb6faeccb92bae99c3"
+    },
+    "downloads": -1,
+    "filename": "sqlalchemy-2.1.6-cp315-cp315-win32.whl",
+    "has_sig": false,
+    "md5_digest": "376994f1ef5876ffbb2b0194d9d0b278",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp315",
+    "requires_python": ">=3.11",
+    "size": 2388678,
+    "upload_time": "2026-10-21T17:51:54",
+    "upload_time_iso_8601": "2026-10-21T17:51:54.104831Z",
+    "url": "https://files.pythonhosted.org/packages/18/02/bc6b004cd8e5906efca1dbbb4e158aa2efe31a5623c32946ec9da73126ae/sqlalchemy-2.1.6-cp315-cp315-win32.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "abac8285ee6ac1507aafb2118e4de07340aca76fa7e9c1150489cb51d691c2f0"
+    },
+    "digests": {
+     "blake2b_256": "f3d613087d9a1ded5bf8ccadc2f315c157d4796828829b2c2d6cf1031f1c00ba",
+     "md5": "2519acdac18e61359f6f70d0f1a18100",
+     "sha256": "f1e78019147ff7e08afaffb88fc3a0aa795171b147eacfc7ff873ce7a0d37dff"
+    },
+    "downloads": -1,
+    "filename": "sqlalchemy-2.1.6-cp315-cp315-win_amd64.whl",
+    "has_sig": false,
+    "md5_digest": "2519acdac18e61359f6f70d0f1a18100",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp315",
+    "requires_python": ">=3.11",
+    "size": 2439956,
+    "upload_time": "2026-10-21T17:51:55",
+    "upload_time_iso_8601": "2026-10-21T17:51:55.706831Z",
+    "url": "https://files.pythonhosted.org/packages/f3/d6/13087d9a1ded5bf8ccadc2f315c157d4796828829b2c2d6cf1031f1c00ba/sqlalchemy-2.1.6-cp315-cp315-win_amd64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "abac8285ee6ac1507aafb2118e4de07340aca76fa7e9c1150489cb51d691c2f0"
+    },
+    "digests": {
+     "blake2b_256": "6d90263b259d872cf4e11c7bcd1b278256096482db06fa23ddbc8c00c9918f3d",
+     "md5": "45ffddae2482c24148e69d1cd10b12b3",
+     "sha256": "3974e33fc322b645eedeac8a3dea93022466fee41a6385c744a6656aba293cd4"
+    },
+    "downloads": -1,
+    "filename": "sqlalchemy-2.1.6-cp315-cp315-win_arm64.whl",
+    "has_sig": false,
+    "md5_digest": "45ffddae2482c24148e69d1cd10b12b3",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp315",
+    "requires_python": ">=3.11",
+    "size": 2403996,
+    "upload_time": "2026-10-21T18:50:02",
+    "upload_time_iso_8601": "2026-10-21T18:50:02.367825Z",
+    "url": "https://files.pythonhosted.org/packages/6d/90/263b259d872cf4e11c7bcd1b278256096482db06fa23ddbc8c00c9918f3d/sqlalchemy-2.1.6-cp315-cp315-win_arm64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "f174fb2a052ac3679f399ba9e73b5bd5a8bd1f69a78b1460aebc90eb7ebdda50"
+    },
+    "digests": {
+     "blake2b_256": "c169c75534e336b06b3fd3f76de73d89736510800e60c77c58d4e4ce18389018",
+     "md5": "08dbad37438ea8e6e29d2c227d3562e6",
+     "sha256": "106878cf3795cd3d357e2e858609f9e44f20f19b2d8e48a3532bef3f90b03fbe"
+    },
+    "downloads": -1,
+    "filename": "sqlalchemy-2.1.6-py3-none-any.whl",
+    "has_sig": false,
+    "md5_digest": "08dbad37438ea8e6e29d2c227d3562e6",
+    "packagetype": "bdist_wheel",
+    "python_version": "py3",
+    "requires_python": ">=3.11",
+    "size": 2063055,
+    "upload_time": "2026-10-21T18:42:10",
+    "upload_time_iso_8601": "2026-10-21T18:42:10.234629Z",
+    "url": "https://files.pythonhosted.org/packages/c1/69/c75534e336b06b3fd3f76de73d89736510800e60c77c58d4e4ce18389018/sqlalchemy-2.1.6-py3-none-any.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": false,
+    "digests": {
+     "blake2b_256": "36dc9addbf490110b5727380059ee542ad8353bdcee45a37ba6a5e0976966ae0",
+     "md5": "e48a02203a8c156dda64d0f8f703e5e7",
+     "sha256": "499eae5c9051efe96cb9a73ec2fbde8ffa4186f102b9094ebab8fcc9d3b99f52"
+    },
+    "downloads": -1,
+    "filename": "sqlalchemy-2.1.6.tar.gz",
+    "has_sig": false,
+    "md5_digest": "e48a02203a8c156dda64d0f8f703e5e7",
+    "packagetype": "sdist",
+    "python_version": "source",
+    "requires_python": ">=3.11",
+    "size": 10589700,
+    "upload_time": "2026-10-21T16:25:06",
+    "upload_time_iso_8601": "2026-10-21T16:25:06.497882Z",
+    "url": "https://files.pythonhosted.org/packages/36/dc/9addbf490110b5727380059ee542ad8353bdcee45a37ba6a5e0976966ae0/sqlalchemy-2.1.6.tar.gz",
+    "yanked": false,
+    "yanked_reason": null
+   }
+  ],
+  "vulnerabilities": []
+ },
+ "http_status": 200,
+ "requested_at_utc": "2026-10-30T14:16:11Z",
+ "url": "https://pypi.org/pypi/sqlalchemy/2.1.6/json"
+}

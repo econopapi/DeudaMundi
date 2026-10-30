@@ -1,0 +1,138 @@
+{
+ "body": {
+  "info": {
+   "author": null,
+   "author_email": "Mike Bayer <mike@zzzcomputing.com>",
+   "bugtrack_url": null,
+   "classifiers": [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Web Environment",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Programming Language :: Python :: 3.15",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Programming Language :: Python :: Implementation :: PyPy",
+    "Topic :: Internet :: WWW/HTTP :: Dynamic Content"
+   ],
+   "description": "=========================\nMako Templates for Python\n=========================\n\nMako is a template library written in Python. It provides a familiar, non-XML \nsyntax which compiles into Python modules for maximum performance. Mako's \nsyntax and API borrows from the best ideas of many others, including Django\ntemplates, Cheetah, Myghty, and Genshi. Conceptually, Mako is an embedded \nPython (i.e. Python Server Page) language, which refines the familiar ideas\nof componentized layout and inheritance to produce one of the most \nstraightforward and flexible models available, while also maintaining close \nties to Python calling and scoping semantics.\n\nNutshell\n========\n\n::\n\n    <%inherit file=\"base.html\"/>\n    <%\n        rows = [[v for v in range(0,10)] for row in range(0,10)]\n    %>\n    <table>\n        % for row in rows:\n            ${makerow(row)}\n        % endfor\n    </table>\n\n    <%def name=\"makerow(row)\">\n        <tr>\n        % for name in row:\n            <td>${name}</td>\\\n        % endfor\n        </tr>\n    </%def>\n\nPhilosophy\n===========\n\nPython is a great scripting language. Don't reinvent the wheel...your templates can handle it !\n\nDocumentation\n==============\n\nSee documentation for Mako at https://docs.makotemplates.org/en/latest/\n\nLicense\n========\n\nMako is licensed under an MIT-style license (see LICENSE).\nOther incorporated projects may be licensed under different licenses.\nAll licenses allow for non-commercial and commercial use.\n",
+   "description_content_type": "text/x-rst",
+   "docs_url": null,
+   "download_url": null,
+   "downloads": {
+    "last_day": -1,
+    "last_month": -1,
+    "last_week": -1
+   },
+   "dynamic": [
+    "License-File"
+   ],
+   "home_page": null,
+   "keywords": null,
+   "license": null,
+   "license_expression": "MIT",
+   "license_files": [
+    "LICENSE"
+   ],
+   "maintainer": null,
+   "maintainer_email": null,
+   "name": "Mako",
+   "package_url": "https://pypi.org/project/Mako/",
+   "platform": null,
+   "project_url": "https://pypi.org/project/Mako/",
+   "project_urls": {
+    "Documentation": "https://docs.makotemplates.org",
+    "Homepage": "https://www.makotemplates.org/",
+    "Issue Tracker": "https://github.com/sqlalchemy/mako"
+   },
+   "provides_extra": [
+    "testing",
+    "babel",
+    "lingua"
+   ],
+   "release_url": "https://pypi.org/project/Mako/1.4.3/",
+   "requires_dist": [
+    "MarkupSafe>=2.0",
+    "pytest; extra == \"testing\"",
+    "Babel; extra == \"babel\"",
+    "lingua>=4.16; extra == \"lingua\""
+   ],
+   "requires_python": ">=3.10",
+   "summary": "A super-fast templating language that borrows the best ideas from the existing templating languages.",
+   "version": "1.4.3",
+   "yanked": false,
+   "yanked_reason": null
+  },
+  "last_serial": 41345026,
+  "ownership": {
+   "organization": "sqlalchemy",
+   "roles": [
+    {
+     "role": "Owner",
+     "user": "CaselIT"
+    },
+    {
+     "role": "Owner",
+     "user": "zzzeek"
+    }
+   ]
+  },
+  "urls": [
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "39ea65f21e706265428ea6f2925520f419a10f0113a59318192ed38175d8838b"
+    },
+    "digests": {
+     "blake2b_256": "6da0053d6af3e8f871e0073b4a36732d9e65be77a72e5434c31b94f6af78a6bb",
+     "md5": "64b44e389cd17c32f3673a52e4bfbf45",
+     "sha256": "723296007c870bfd6b3f0c3230dba7198096e5269297ebf5e4eff9e7ffa39d4f"
+    },
+    "downloads": -1,
+    "filename": "mako-1.4.3-py3-none-any.whl",
+    "has_sig": false,
+    "md5_digest": "64b44e389cd17c32f3673a52e4bfbf45",
+    "packagetype": "bdist_wheel",
+    "python_version": "py3",
+    "requires_python": ">=3.10",
+    "size": 80164,
+    "upload_time": "2026-09-22T20:54:33",
+    "upload_time_iso_8601": "2026-09-22T20:54:33.128860Z",
+    "url": "https://files.pythonhosted.org/packages/6d/a0/053d6af3e8f871e0073b4a36732d9e65be77a72e5434c31b94f6af78a6bb/mako-1.4.3-py3-none-any.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": false,
+    "digests": {
+     "blake2b_256": "5a09e07c4b5579a79f4b16f8d4f29f6c54514ac787c4ad506b8c4f28a0e6b0bf",
+     "md5": "4b7555300a75b951bf99aa067cbb3633",
+     "sha256": "cd6537fe88d5fec315c55c2f8529bc4ce7a9a352ad7db3eeaa6a66e2dd4ec37a"
+    },
+    "downloads": -1,
+    "filename": "mako-1.4.3.tar.gz",
+    "has_sig": false,
+    "md5_digest": "4b7555300a75b951bf99aa067cbb3633",
+    "packagetype": "sdist",
+    "python_version": "source",
+    "requires_python": ">=3.10",
+    "size": 412799,
+    "upload_time": "2026-09-22T20:54:31",
+    "upload_time_iso_8601": "2026-09-22T20:54:31.509149Z",
+    "url": "https://files.pythonhosted.org/packages/5a/09/e07c4b5579a79f4b16f8d4f29f6c54514ac787c4ad506b8c4f28a0e6b0bf/mako-1.4.3.tar.gz",
+    "yanked": false,
+    "yanked_reason": null
+   }
+  ],
+  "vulnerabilities": []
+ },
+ "http_status": 200,
+ "requested_at_utc": "2026-10-30T14:16:11Z",
+ "url": "https://pypi.org/pypi/mako/1.4.3/json"
+}

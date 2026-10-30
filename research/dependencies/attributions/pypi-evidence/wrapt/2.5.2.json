@@ -1,0 +1,2504 @@
+{
+ "body": {
+  "info": {
+   "author": null,
+   "author_email": "Graham Dumpleton <Graham.Dumpleton@gmail.com>",
+   "bugtrack_url": null,
+   "classifiers": [
+    "Development Status :: 5 - Production/Stable",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Programming Language :: Python :: 3.15",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Programming Language :: Python :: Implementation :: PyPy"
+   ],
+   "description": ".. image:: https://raw.githubusercontent.com/GrahamDumpleton/wrapt/develop/docs/_static/wrapt-logo.svg\n   :alt: wrapt\n   :width: 182px\n\nwrapt\n=====\n\n|PyPI| |Documentation|\n\nA Python module for decorators, wrappers and monkey patching.\n\nOverview\n--------\n\nThe **wrapt** module provides a transparent object proxy for Python, which can be used as the basis for the construction of function wrappers and decorator functions.\n\nThe **wrapt** module focuses very much on correctness. It goes way beyond existing mechanisms such as ``functools.wraps()`` to ensure that decorators preserve introspectability, signatures, type checking abilities etc. The decorators that can be constructed using this module will work in far more scenarios than typical decorators and provide more predictable and consistent behaviour.\n\nTo ensure that the overhead is as minimal as possible, a C extension module is used for performance critical components. An automatic fallback to a pure Python implementation is also provided where a target system does not have a compiler to allow the C extension to be compiled.\n\nKey Features\n------------\n\n* **Universal decorators** that work with functions, methods, classmethods, staticmethods, and classes\n* **Transparent object proxies** for advanced wrapping scenarios  \n* **Monkey patching utilities** for safe runtime modifications\n* **C extension** for optimal performance with Python fallback\n* **Comprehensive introspection preservation** (signatures, annotations, etc.)\n* **Thread-safe decorator implementations**\n\nInstallation\n------------\n\nInstall from PyPI using pip::\n\n    pip install wrapt\n\nSupported Python Versions\n--------------------------\n\n* Python 3.9+\n* CPython and PyPy implementations\n\nDocumentation\n-------------\n\nFor comprehensive documentation, examples, and advanced usage patterns, visit:\n\n* https://wrapt.readthedocs.io/\n\nQuick Start\n-----------\n\nTo implement your decorator you need to first define a wrapper function.\nThis will be called each time a decorated function is called. The wrapper\nfunction needs to take four positional arguments:\n\n* ``wrapped`` - The wrapped function which in turns needs to be called by your wrapper function.\n* ``instance`` - The object to which the wrapped function was bound when it was called.\n* ``args`` - The list of positional arguments supplied when the decorated function was called.\n* ``kwargs`` - The dictionary of keyword arguments supplied when the decorated function was called.\n\nThe wrapper function would do whatever it needs to, but would usually in\nturn call the wrapped function that is passed in via the ``wrapped``\nargument.\n\nThe decorator ``@wrapt.decorator`` then needs to be applied to the wrapper\nfunction to convert it into a decorator which can in turn be applied to\nother functions.\n\n.. code-block:: python\n\n    import wrapt\n\n    @wrapt.decorator\n    def pass_through(wrapped, instance, args, kwargs):\n        return wrapped(*args, **kwargs)\n\n    @pass_through\n    def function():\n        pass\n\nIf you wish to implement a decorator which accepts arguments, then wrap the\ndefinition of the decorator in a function closure. Any arguments supplied\nto the outer function when the decorator is applied, will be available to\nthe inner wrapper when the wrapped function is called.\n\n.. code-block:: python\n\n    import wrapt\n\n    def with_arguments(myarg1, myarg2):\n        @wrapt.decorator\n        def wrapper(wrapped, instance, args, kwargs):\n            return wrapped(*args, **kwargs)\n        return wrapper\n\n    @with_arguments(1, 2)\n    def function():\n        pass\n\nWhen applied to a normal function or static method, the wrapper function\nwhen called will be passed ``None`` as the ``instance`` argument.\n\nWhen applied to an instance method, the wrapper function when called will\nbe passed the instance of the class the method is being called on as the\n``instance`` argument. This will be the case even when the instance method\nwas called explicitly via the class and the instance passed as the first\nargument. That is, the instance will never be passed as part of ``args``.\n\nWhen applied to a class method, the wrapper function when called will be\npassed the class type as the ``instance`` argument.\n\nWhen applied to a class, the wrapper function when called will be passed\n``None`` as the ``instance`` argument. The ``wrapped`` argument in this\ncase will be the class.\n\nThe above rules can be summarised with the following example.\n\n.. code-block:: python\n\n    import inspect\n\n    @wrapt.decorator\n    def universal(wrapped, instance, args, kwargs):\n        if instance is None:\n            if inspect.isclass(wrapped):\n                # Decorator was applied to a class.\n                return wrapped(*args, **kwargs)\n            else:\n                # Decorator was applied to a function or staticmethod.\n                return wrapped(*args, **kwargs)\n        else:\n            if inspect.isclass(instance):\n                # Decorator was applied to a classmethod.\n                return wrapped(*args, **kwargs)\n            else:\n                # Decorator was applied to an instancemethod.\n                return wrapped(*args, **kwargs)\n\nUsing these checks it is therefore possible to create a universal decorator\nthat can be applied in all situations. It is no longer necessary to create\ndifferent variants of decorators for normal functions and instance methods,\nor use additional wrappers to convert a function decorator into one that\nwill work for instance methods.\n\nIn all cases, the wrapped function passed to the wrapper function is called\nin the same way, with ``args`` and ``kwargs`` being passed. The\n``instance`` argument doesn't need to be used in calling the wrapped\nfunction.\n\nLinks\n-----\n\n* **Documentation**: https://wrapt.readthedocs.io/\n* **Source Code**: https://github.com/GrahamDumpleton/wrapt\n* **Bug Reports**: https://github.com/GrahamDumpleton/wrapt/issues/\n* **Changelog**: https://wrapt.readthedocs.io/en/latest/changes.html\n\n.. |PyPI| image:: https://img.shields.io/pypi/v/wrapt.svg?logo=python&cacheSeconds=3600\n   :target: https://pypi.python.org/pypi/wrapt\n.. |Documentation| image:: https://img.shields.io/badge/docs-wrapt.readthedocs.io-blue.svg\n   :target: https://wrapt.readthedocs.io/\n",
+   "description_content_type": "text/x-rst",
+   "docs_url": null,
+   "download_url": null,
+   "downloads": {
+    "last_day": -1,
+    "last_month": -1,
+    "last_week": -1
+   },
+   "dynamic": [
+    "License-File"
+   ],
+   "home_page": null,
+   "keywords": "wrapper, proxy, decorator",
+   "license": null,
+   "license_expression": "BSD-2-Clause",
+   "license_files": [
+    "LICENSE"
+   ],
+   "maintainer": null,
+   "maintainer_email": null,
+   "name": "wrapt",
+   "package_url": "https://pypi.org/project/wrapt/",
+   "platform": null,
+   "project_url": "https://pypi.org/project/wrapt/",
+   "project_urls": {
+    "Bug Tracker": "https://github.com/GrahamDumpleton/wrapt/issues/",
+    "Changelog": "https://wrapt.readthedocs.io/en/latest/changes.html",
+    "Documentation": "https://wrapt.readthedocs.io/",
+    "Homepage": "https://github.com/GrahamDumpleton/wrapt"
+   },
+   "provides_extra": [
+    "dev"
+   ],
+   "release_url": "https://pypi.org/project/wrapt/2.5.2/",
+   "requires_dist": [
+    "pytest; extra == \"dev\"",
+    "setuptools; extra == \"dev\""
+   ],
+   "requires_python": ">=3.9",
+   "summary": "Module for decorators, wrappers and monkey patching.",
+   "version": "2.5.2",
+   "yanked": false,
+   "yanked_reason": null
+  },
+  "last_serial": 42946059,
+  "ownership": {
+   "organization": null,
+   "roles": [
+    {
+     "role": "Owner",
+     "user": "Graham.Dumpleton"
+    }
+   ]
+  },
+  "urls": [
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "ceab6c052af5f2dfe7d70e4e57521a9556c0f106a327aa897d66fd0c26e9db89"
+    },
+    "digests": {
+     "blake2b_256": "5bfe9ae2a8711f49db40f18bc0276dc869594007073b55c4066adb10ac07db6a",
+     "md5": "15c33c532cbbb49efba8d843339fc121",
+     "sha256": "9c0e0342eba94829491985516e951d1b6a2de402ae4a44d1ea0debbd929cb7a9"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-cp310-cp310-macosx_10_9_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "15c33c532cbbb49efba8d843339fc121",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp310",
+    "requires_python": ">=3.9",
+    "size": 105404,
+    "upload_time": "2026-10-29T23:04:09",
+    "upload_time_iso_8601": "2026-10-29T23:04:09.349702Z",
+    "url": "https://files.pythonhosted.org/packages/5b/fe/9ae2a8711f49db40f18bc0276dc869594007073b55c4066adb10ac07db6a/wrapt-2.5.2-cp310-cp310-macosx_10_9_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "ceab6c052af5f2dfe7d70e4e57521a9556c0f106a327aa897d66fd0c26e9db89"
+    },
+    "digests": {
+     "blake2b_256": "d93a54a07e3b5c30c95a05118eebc676f9f4a545fdd71c085c87c3664d834d6c",
+     "md5": "0a4d639066b33747acfb2254e939837e",
+     "sha256": "244d57e361833389278820e5242f4a364305f633572d9500d3a85f40417aefee"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-cp310-cp310-macosx_11_0_arm64.whl",
+    "has_sig": false,
+    "md5_digest": "0a4d639066b33747acfb2254e939837e",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp310",
+    "requires_python": ">=3.9",
+    "size": 105868,
+    "upload_time": "2026-10-29T23:04:12",
+    "upload_time_iso_8601": "2026-10-29T23:04:12.326204Z",
+    "url": "https://files.pythonhosted.org/packages/d9/3a/54a07e3b5c30c95a05118eebc676f9f4a545fdd71c085c87c3664d834d6c/wrapt-2.5.2-cp310-cp310-macosx_11_0_arm64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "ceab6c052af5f2dfe7d70e4e57521a9556c0f106a327aa897d66fd0c26e9db89"
+    },
+    "digests": {
+     "blake2b_256": "56d0ea2284532f0b6f1dae5740b353c94a19717ee586ca366cc2e5e0b301aaf4",
+     "md5": "b036ef075c31e486d6a796b30feb2e65",
+     "sha256": "0fa61d2f1033039aa47f8f1b4e076ca3c9d0fc08e448c4b1bd06d8b59da89cbf"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-cp310-cp310-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "b036ef075c31e486d6a796b30feb2e65",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp310",
+    "requires_python": ">=3.9",
+    "size": 231522,
+    "upload_time": "2026-10-29T23:04:14",
+    "upload_time_iso_8601": "2026-10-29T23:04:14.343646Z",
+    "url": "https://files.pythonhosted.org/packages/56/d0/ea2284532f0b6f1dae5740b353c94a19717ee586ca366cc2e5e0b301aaf4/wrapt-2.5.2-cp310-cp310-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "ceab6c052af5f2dfe7d70e4e57521a9556c0f106a327aa897d66fd0c26e9db89"
+    },
+    "digests": {
+     "blake2b_256": "483a0117858feaf12f0054998e176d27e3181dd412a384dd24cbbfe338a777cb",
+     "md5": "0d95255b027bfab5bed7f4552c5fdafa",
+     "sha256": "51465dcbab69d9c02e8ca943befa1eabc37ccb07f9335c240d78a78330285a2d"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-cp310-cp310-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+    "has_sig": false,
+    "md5_digest": "0d95255b027bfab5bed7f4552c5fdafa",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp310",
+    "requires_python": ">=3.9",
+    "size": 233168,
+    "upload_time": "2026-10-29T23:04:16",
+    "upload_time_iso_8601": "2026-10-29T23:04:16.128929Z",
+    "url": "https://files.pythonhosted.org/packages/48/3a/0117858feaf12f0054998e176d27e3181dd412a384dd24cbbfe338a777cb/wrapt-2.5.2-cp310-cp310-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "ceab6c052af5f2dfe7d70e4e57521a9556c0f106a327aa897d66fd0c26e9db89"
+    },
+    "digests": {
+     "blake2b_256": "c90189d2a8048cf1cda688c4106d9a60de048d930d85fa5157b828fc0086340e",
+     "md5": "bcc1d580be65b1465a75a3e0b74fd413",
+     "sha256": "d5322e78248f6079f6525f0a9476750112750ea0a3f3fca13fd5f18a1c864d3b"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-cp310-cp310-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl",
+    "has_sig": false,
+    "md5_digest": "bcc1d580be65b1465a75a3e0b74fd413",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp310",
+    "requires_python": ">=3.9",
+    "size": 221540,
+    "upload_time": "2026-10-29T23:04:17",
+    "upload_time_iso_8601": "2026-10-29T23:04:17.841965Z",
+    "url": "https://files.pythonhosted.org/packages/c9/01/89d2a8048cf1cda688c4106d9a60de048d930d85fa5157b828fc0086340e/wrapt-2.5.2-cp310-cp310-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "ceab6c052af5f2dfe7d70e4e57521a9556c0f106a327aa897d66fd0c26e9db89"
+    },
+    "digests": {
+     "blake2b_256": "0d27afd9a9e4aa185c8b444858d940294c157cbf42e20e0a530f12594a07ce32",
+     "md5": "1c30c00999ae5474b4eaab018d2a5488",
+     "sha256": "90dad90c8a74293d2cb3ed225760a8c8f20009522efe519d6380f5de7f5caece"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-cp310-cp310-musllinux_1_2_aarch64.whl",
+    "has_sig": false,
+    "md5_digest": "1c30c00999ae5474b4eaab018d2a5488",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp310",
+    "requires_python": ">=3.9",
+    "size": 231066,
+    "upload_time": "2026-10-29T23:04:19",
+    "upload_time_iso_8601": "2026-10-29T23:04:19.382519Z",
+    "url": "https://files.pythonhosted.org/packages/0d/27/afd9a9e4aa185c8b444858d940294c157cbf42e20e0a530f12594a07ce32/wrapt-2.5.2-cp310-cp310-musllinux_1_2_aarch64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "ceab6c052af5f2dfe7d70e4e57521a9556c0f106a327aa897d66fd0c26e9db89"
+    },
+    "digests": {
+     "blake2b_256": "203cd50aa957f8f0ecbfd3121b2360f2ec0238fe570e6e41574fde5bdc79c48b",
+     "md5": "7674c3744027b770d3f60af88d1a3608",
+     "sha256": "f00c726586871c22f542df6d5ce57a81e60e9339e4d40bcc7d7d5c6130db3cce"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-cp310-cp310-musllinux_1_2_riscv64.whl",
+    "has_sig": false,
+    "md5_digest": "7674c3744027b770d3f60af88d1a3608",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp310",
+    "requires_python": ">=3.9",
+    "size": 218928,
+    "upload_time": "2026-10-29T23:04:21",
+    "upload_time_iso_8601": "2026-10-29T23:04:21.063521Z",
+    "url": "https://files.pythonhosted.org/packages/20/3c/d50aa957f8f0ecbfd3121b2360f2ec0238fe570e6e41574fde5bdc79c48b/wrapt-2.5.2-cp310-cp310-musllinux_1_2_riscv64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "ceab6c052af5f2dfe7d70e4e57521a9556c0f106a327aa897d66fd0c26e9db89"
+    },
+    "digests": {
+     "blake2b_256": "436dff3af2781e501a640f1b38a544c2353d8b6c4bf4e66e9832ef30f702bce9",
+     "md5": "3276cea703b6df95939cc5492fce4584",
+     "sha256": "b528eb5dbf54cf9c3e9b9c5b1680e0f4965eb8750ae738f43dd14d1bc332fa42"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-cp310-cp310-musllinux_1_2_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "3276cea703b6df95939cc5492fce4584",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp310",
+    "requires_python": ">=3.9",
+    "size": 220940,
+    "upload_time": "2026-10-29T23:04:22",
+    "upload_time_iso_8601": "2026-10-29T23:04:22.757216Z",
+    "url": "https://files.pythonhosted.org/packages/43/6d/ff3af2781e501a640f1b38a544c2353d8b6c4bf4e66e9832ef30f702bce9/wrapt-2.5.2-cp310-cp310-musllinux_1_2_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "3ff687637af9ffe59405f9c67a5e2f0fcbe25a1034fda529843635baf4932626"
+    },
+    "digests": {
+     "blake2b_256": "750e8b6e95a9cd76dcad49c22272fc3593b0fea40beed765a022cb98d58c922a",
+     "md5": "23c8c3ac1ec9e6d0abb07f2a65ce9088",
+     "sha256": "80eec154f8ce6d26a553481772f111a064091b7e37700c690e0024921d57c569"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-cp310-cp310-win32.whl",
+    "has_sig": false,
+    "md5_digest": "23c8c3ac1ec9e6d0abb07f2a65ce9088",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp310",
+    "requires_python": ">=3.9",
+    "size": 100767,
+    "upload_time": "2026-10-29T23:04:24",
+    "upload_time_iso_8601": "2026-10-29T23:04:24.376875Z",
+    "url": "https://files.pythonhosted.org/packages/75/0e/8b6e95a9cd76dcad49c22272fc3593b0fea40beed765a022cb98d58c922a/wrapt-2.5.2-cp310-cp310-win32.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "3ff687637af9ffe59405f9c67a5e2f0fcbe25a1034fda529843635baf4932626"
+    },
+    "digests": {
+     "blake2b_256": "8a01fee1502db80770d388c1d17350e8c6821a955adbbef660228dbcea8ad68c",
+     "md5": "804c567648b6a87efeb4bd28e968d674",
+     "sha256": "f01f56a6ddffd89179bf0424c3b5bbd187690cfa2f972472aa2d563a4e0a7fdb"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-cp310-cp310-win_amd64.whl",
+    "has_sig": false,
+    "md5_digest": "804c567648b6a87efeb4bd28e968d674",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp310",
+    "requires_python": ">=3.9",
+    "size": 105837,
+    "upload_time": "2026-10-29T23:04:25",
+    "upload_time_iso_8601": "2026-10-29T23:04:25.795528Z",
+    "url": "https://files.pythonhosted.org/packages/8a/01/fee1502db80770d388c1d17350e8c6821a955adbbef660228dbcea8ad68c/wrapt-2.5.2-cp310-cp310-win_amd64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "3ff687637af9ffe59405f9c67a5e2f0fcbe25a1034fda529843635baf4932626"
+    },
+    "digests": {
+     "blake2b_256": "48cb08ee6d9df616b393e40ce0c4513e6c9f5c05b90b9cd2084ee268dc3662e6",
+     "md5": "2389ebe0352cc6a3b89104d0d10d325b",
+     "sha256": "550a597a9c0510fb8bd79864025225f4fc51717adb617191561295565337f068"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-cp310-cp310-win_arm64.whl",
+    "has_sig": false,
+    "md5_digest": "2389ebe0352cc6a3b89104d0d10d325b",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp310",
+    "requires_python": ">=3.9",
+    "size": 103062,
+    "upload_time": "2026-10-29T23:04:27",
+    "upload_time_iso_8601": "2026-10-29T23:04:27.384045Z",
+    "url": "https://files.pythonhosted.org/packages/48/cb/08ee6d9df616b393e40ce0c4513e6c9f5c05b90b9cd2084ee268dc3662e6/wrapt-2.5.2-cp310-cp310-win_arm64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "ceab6c052af5f2dfe7d70e4e57521a9556c0f106a327aa897d66fd0c26e9db89"
+    },
+    "digests": {
+     "blake2b_256": "4dc2b4bbaabf73ea9ccc2e322a11455a95d7d9dcae5bbcc6fd836c5f676a082f",
+     "md5": "5a2db4285485fac1cf9bf24569c61daf",
+     "sha256": "8b240a879405591da10e2d20c2d1ad29b978d40ec37e24801296cfee1d4c04f9"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-cp311-cp311-macosx_10_9_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "5a2db4285485fac1cf9bf24569c61daf",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp311",
+    "requires_python": ">=3.9",
+    "size": 105761,
+    "upload_time": "2026-10-29T23:04:28",
+    "upload_time_iso_8601": "2026-10-29T23:04:28.866215Z",
+    "url": "https://files.pythonhosted.org/packages/4d/c2/b4bbaabf73ea9ccc2e322a11455a95d7d9dcae5bbcc6fd836c5f676a082f/wrapt-2.5.2-cp311-cp311-macosx_10_9_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "ceab6c052af5f2dfe7d70e4e57521a9556c0f106a327aa897d66fd0c26e9db89"
+    },
+    "digests": {
+     "blake2b_256": "f7d457db9384ffb339f29b6712cc1d7d4ace29d07670756becf9ad336728ca42",
+     "md5": "bd9f63598a13a54f87f07f0349add274",
+     "sha256": "b632d90ac0d04e3ba8821b19954d6c36ea8f714b75db53c58015025fefccb1ac"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-cp311-cp311-macosx_11_0_arm64.whl",
+    "has_sig": false,
+    "md5_digest": "bd9f63598a13a54f87f07f0349add274",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp311",
+    "requires_python": ">=3.9",
+    "size": 105933,
+    "upload_time": "2026-10-29T23:04:30",
+    "upload_time_iso_8601": "2026-10-29T23:04:30.450440Z",
+    "url": "https://files.pythonhosted.org/packages/f7/d4/57db9384ffb339f29b6712cc1d7d4ace29d07670756becf9ad336728ca42/wrapt-2.5.2-cp311-cp311-macosx_11_0_arm64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "ceab6c052af5f2dfe7d70e4e57521a9556c0f106a327aa897d66fd0c26e9db89"
+    },
+    "digests": {
+     "blake2b_256": "9800a0effd5872aed3271b28b4740a71bc2d7406d33b4e03eac01ae099ac8569",
+     "md5": "170b9663282c1a7a448d640c455d32c6",
+     "sha256": "0743950d3dda9940e56f81f5334ba051c4fe2e1421e4e4a4ef8eb8fb86a90894"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-cp311-cp311-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "170b9663282c1a7a448d640c455d32c6",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp311",
+    "requires_python": ">=3.9",
+    "size": 240286,
+    "upload_time": "2026-10-29T23:04:31",
+    "upload_time_iso_8601": "2026-10-29T23:04:31.855913Z",
+    "url": "https://files.pythonhosted.org/packages/98/00/a0effd5872aed3271b28b4740a71bc2d7406d33b4e03eac01ae099ac8569/wrapt-2.5.2-cp311-cp311-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "ceab6c052af5f2dfe7d70e4e57521a9556c0f106a327aa897d66fd0c26e9db89"
+    },
+    "digests": {
+     "blake2b_256": "69228e9ef3a15115f3cc01f2460aaf9aeb04819704fefd218086642c7182be95",
+     "md5": "733aeafb5acc87a9f60cfa78af427b7d",
+     "sha256": "594c6d10b9cfb951a09f7338531a41d31194e7eee9dee206c0a8992421682719"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-cp311-cp311-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+    "has_sig": false,
+    "md5_digest": "733aeafb5acc87a9f60cfa78af427b7d",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp311",
+    "requires_python": ">=3.9",
+    "size": 241793,
+    "upload_time": "2026-10-29T23:04:33",
+    "upload_time_iso_8601": "2026-10-29T23:04:33.501926Z",
+    "url": "https://files.pythonhosted.org/packages/69/22/8e9ef3a15115f3cc01f2460aaf9aeb04819704fefd218086642c7182be95/wrapt-2.5.2-cp311-cp311-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "ceab6c052af5f2dfe7d70e4e57521a9556c0f106a327aa897d66fd0c26e9db89"
+    },
+    "digests": {
+     "blake2b_256": "157fb2912f3d045fd9a5f30d9d58f3b4df8921c87e902524a32d7eb0e0e315cb",
+     "md5": "c4834465cebd5b7a6441a1b11b867485",
+     "sha256": "e4362b3b4e4b050b8f1f518e0c71a09f2e938a9f62ee559ea1743a13b3c9e8f1"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-cp311-cp311-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl",
+    "has_sig": false,
+    "md5_digest": "c4834465cebd5b7a6441a1b11b867485",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp311",
+    "requires_python": ">=3.9",
+    "size": 226781,
+    "upload_time": "2026-10-29T23:04:34",
+    "upload_time_iso_8601": "2026-10-29T23:04:34.862303Z",
+    "url": "https://files.pythonhosted.org/packages/15/7f/b2912f3d045fd9a5f30d9d58f3b4df8921c87e902524a32d7eb0e0e315cb/wrapt-2.5.2-cp311-cp311-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "ceab6c052af5f2dfe7d70e4e57521a9556c0f106a327aa897d66fd0c26e9db89"
+    },
+    "digests": {
+     "blake2b_256": "ab06cdd488014d5010b052fdd9c368d8598accd9eee766d98e698cc8510b364d",
+     "md5": "eefbefaca5dfa5e33311beffed51ec62",
+     "sha256": "81e685c7662fab9958a852b9c86f3b5b8eee45d047a2766d6c23b63ad1eee423"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-cp311-cp311-musllinux_1_2_aarch64.whl",
+    "has_sig": false,
+    "md5_digest": "eefbefaca5dfa5e33311beffed51ec62",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp311",
+    "requires_python": ">=3.9",
+    "size": 239441,
+    "upload_time": "2026-10-29T23:04:36",
+    "upload_time_iso_8601": "2026-10-29T23:04:36.296306Z",
+    "url": "https://files.pythonhosted.org/packages/ab/06/cdd488014d5010b052fdd9c368d8598accd9eee766d98e698cc8510b364d/wrapt-2.5.2-cp311-cp311-musllinux_1_2_aarch64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "ceab6c052af5f2dfe7d70e4e57521a9556c0f106a327aa897d66fd0c26e9db89"
+    },
+    "digests": {
+     "blake2b_256": "ddb96605b2fd612ea1635d0a7cebbdc05cdb59c97a07ee9c418a5f43a49cee53",
+     "md5": "a358b2b983b3158ea6252d8d7f92cbfa",
+     "sha256": "c6b4bd8c662c333518a9aedb35bb9f4f7d1584fbef4bc1507a6c6a47357c628e"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-cp311-cp311-musllinux_1_2_riscv64.whl",
+    "has_sig": false,
+    "md5_digest": "a358b2b983b3158ea6252d8d7f92cbfa",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp311",
+    "requires_python": ">=3.9",
+    "size": 224041,
+    "upload_time": "2026-10-29T23:04:38",
+    "upload_time_iso_8601": "2026-10-29T23:04:38.008021Z",
+    "url": "https://files.pythonhosted.org/packages/dd/b9/6605b2fd612ea1635d0a7cebbdc05cdb59c97a07ee9c418a5f43a49cee53/wrapt-2.5.2-cp311-cp311-musllinux_1_2_riscv64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "ceab6c052af5f2dfe7d70e4e57521a9556c0f106a327aa897d66fd0c26e9db89"
+    },
+    "digests": {
+     "blake2b_256": "429b6a8acfd407991b50b9bdbaaae5551cc12ba487a8a0973c87793dac621f1f",
+     "md5": "de695840dedb172e5380a1423997bcdd",
+     "sha256": "7a7efde469ad904b8e05f98c76d63b437f4756c30ec7b9136bef02bdb5d1b14c"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-cp311-cp311-musllinux_1_2_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "de695840dedb172e5380a1423997bcdd",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp311",
+    "requires_python": ">=3.9",
+    "size": 229602,
+    "upload_time": "2026-10-29T23:04:39",
+    "upload_time_iso_8601": "2026-10-29T23:04:39.463284Z",
+    "url": "https://files.pythonhosted.org/packages/42/9b/6a8acfd407991b50b9bdbaaae5551cc12ba487a8a0973c87793dac621f1f/wrapt-2.5.2-cp311-cp311-musllinux_1_2_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "3ff687637af9ffe59405f9c67a5e2f0fcbe25a1034fda529843635baf4932626"
+    },
+    "digests": {
+     "blake2b_256": "816c9a975e802393c74af9879ca938b298a00fd59074ee90abf4ec4bedcdd109",
+     "md5": "34be8e43e05c77b0af8338a6b13d3e1c",
+     "sha256": "73d432588d1e0a8fcb88d46ef2733e848ff0c3e14111a0420c77199fd2a8cd30"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-cp311-cp311-win32.whl",
+    "has_sig": false,
+    "md5_digest": "34be8e43e05c77b0af8338a6b13d3e1c",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp311",
+    "requires_python": ">=3.9",
+    "size": 100856,
+    "upload_time": "2026-10-29T23:04:40",
+    "upload_time_iso_8601": "2026-10-29T23:04:40.884008Z",
+    "url": "https://files.pythonhosted.org/packages/81/6c/9a975e802393c74af9879ca938b298a00fd59074ee90abf4ec4bedcdd109/wrapt-2.5.2-cp311-cp311-win32.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "3ff687637af9ffe59405f9c67a5e2f0fcbe25a1034fda529843635baf4932626"
+    },
+    "digests": {
+     "blake2b_256": "46aa196ab4e3584e547fcb6c4a622934aae14077c367b86f57a5ab5e76a47203",
+     "md5": "4ebe5dae29905f381efe645a6d4ef52e",
+     "sha256": "04703a2a4eea122c3a6b3af89e72bbbaa20779e5c7199c3d06e3fcb6601bc7d4"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-cp311-cp311-win_amd64.whl",
+    "has_sig": false,
+    "md5_digest": "4ebe5dae29905f381efe645a6d4ef52e",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp311",
+    "requires_python": ">=3.9",
+    "size": 106052,
+    "upload_time": "2026-10-29T23:04:42",
+    "upload_time_iso_8601": "2026-10-29T23:04:42.232173Z",
+    "url": "https://files.pythonhosted.org/packages/46/aa/196ab4e3584e547fcb6c4a622934aae14077c367b86f57a5ab5e76a47203/wrapt-2.5.2-cp311-cp311-win_amd64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "3ff687637af9ffe59405f9c67a5e2f0fcbe25a1034fda529843635baf4932626"
+    },
+    "digests": {
+     "blake2b_256": "e05d7a699446d344bc74bcd607a0cf09087285a253eefc6449048c0df7b5a3e5",
+     "md5": "a51f43ee76cc016cd88b178ca32a65ff",
+     "sha256": "53cf804402d49fa2c920a90dfab971a82bca67fb43e54adc7c3b24c054485b4d"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-cp311-cp311-win_arm64.whl",
+    "has_sig": false,
+    "md5_digest": "a51f43ee76cc016cd88b178ca32a65ff",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp311",
+    "requires_python": ">=3.9",
+    "size": 103001,
+    "upload_time": "2026-10-29T23:04:43",
+    "upload_time_iso_8601": "2026-10-29T23:04:43.529469Z",
+    "url": "https://files.pythonhosted.org/packages/e0/5d/7a699446d344bc74bcd607a0cf09087285a253eefc6449048c0df7b5a3e5/wrapt-2.5.2-cp311-cp311-win_arm64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "ceab6c052af5f2dfe7d70e4e57521a9556c0f106a327aa897d66fd0c26e9db89"
+    },
+    "digests": {
+     "blake2b_256": "4bfe9ccae0a147d0732397f54ff232b1a0da148a4099f17c1b156b9d3e79127e",
+     "md5": "b926c08b4433507be45ac7e33301f2ea",
+     "sha256": "bec3b6b1ae2f7ed763fb0ba1776b9b5f11283e6ff40c9cbe3a855ea652c326cf"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-cp312-cp312-macosx_10_13_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "b926c08b4433507be45ac7e33301f2ea",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp312",
+    "requires_python": ">=3.9",
+    "size": 106628,
+    "upload_time": "2026-10-29T23:04:44",
+    "upload_time_iso_8601": "2026-10-29T23:04:44.962315Z",
+    "url": "https://files.pythonhosted.org/packages/4b/fe/9ccae0a147d0732397f54ff232b1a0da148a4099f17c1b156b9d3e79127e/wrapt-2.5.2-cp312-cp312-macosx_10_13_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "ceab6c052af5f2dfe7d70e4e57521a9556c0f106a327aa897d66fd0c26e9db89"
+    },
+    "digests": {
+     "blake2b_256": "d5caa61d994df49fa422abd859e525e04b95ef2888e3818a0f451aa7d4d3527f",
+     "md5": "4798c31c57a0147e07884ffc97ea30ba",
+     "sha256": "e57d79e3338b3cecee1dd80d6ef8f945f8ea7b92f0d8d5591f840ffa0afc14dc"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-cp312-cp312-macosx_11_0_arm64.whl",
+    "has_sig": false,
+    "md5_digest": "4798c31c57a0147e07884ffc97ea30ba",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp312",
+    "requires_python": ">=3.9",
+    "size": 106264,
+    "upload_time": "2026-10-29T23:04:46",
+    "upload_time_iso_8601": "2026-10-29T23:04:46.307872Z",
+    "url": "https://files.pythonhosted.org/packages/d5/ca/a61d994df49fa422abd859e525e04b95ef2888e3818a0f451aa7d4d3527f/wrapt-2.5.2-cp312-cp312-macosx_11_0_arm64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "ceab6c052af5f2dfe7d70e4e57521a9556c0f106a327aa897d66fd0c26e9db89"
+    },
+    "digests": {
+     "blake2b_256": "dd26a6caa9a84ef5db4a273787949cea7ab51f6001d2548768af4c8e3c49debd",
+     "md5": "e1c76773571926f50d33a3be40b585d8",
+     "sha256": "092472b7b1494deef40dac5e9f6295013a9d51b112b5fbc4350f64dc2574e46a"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "e1c76773571926f50d33a3be40b585d8",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp312",
+    "requires_python": ">=3.9",
+    "size": 250614,
+    "upload_time": "2026-10-29T23:04:47",
+    "upload_time_iso_8601": "2026-10-29T23:04:47.735360Z",
+    "url": "https://files.pythonhosted.org/packages/dd/26/a6caa9a84ef5db4a273787949cea7ab51f6001d2548768af4c8e3c49debd/wrapt-2.5.2-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "ceab6c052af5f2dfe7d70e4e57521a9556c0f106a327aa897d66fd0c26e9db89"
+    },
+    "digests": {
+     "blake2b_256": "c7282189571e711ab31cb7f682c739d05f033ae0e83e12eb4d5d21473ca2cd1a",
+     "md5": "e3dbc702742e37fb531339e133eadca1",
+     "sha256": "d108bd98ab2c5ccbf55cf2154e0a73341df930030df2e01ee35d71a44a99d3ad"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-cp312-cp312-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+    "has_sig": false,
+    "md5_digest": "e3dbc702742e37fb531339e133eadca1",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp312",
+    "requires_python": ">=3.9",
+    "size": 250770,
+    "upload_time": "2026-10-29T23:04:49",
+    "upload_time_iso_8601": "2026-10-29T23:04:49.183605Z",
+    "url": "https://files.pythonhosted.org/packages/c7/28/2189571e711ab31cb7f682c739d05f033ae0e83e12eb4d5d21473ca2cd1a/wrapt-2.5.2-cp312-cp312-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "ceab6c052af5f2dfe7d70e4e57521a9556c0f106a327aa897d66fd0c26e9db89"
+    },
+    "digests": {
+     "blake2b_256": "808e46a6cc2e8215df7fae292178a355df729547ff9b912686823201d38be269",
+     "md5": "b72891d201b58051b3db9b1504b78452",
+     "sha256": "858511731d6ede4217960c5fecdb5ecbf90e306dfd93b837395658d61374a498"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-cp312-cp312-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl",
+    "has_sig": false,
+    "md5_digest": "b72891d201b58051b3db9b1504b78452",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp312",
+    "requires_python": ">=3.9",
+    "size": 230031,
+    "upload_time": "2026-10-29T23:04:50",
+    "upload_time_iso_8601": "2026-10-29T23:04:50.641050Z",
+    "url": "https://files.pythonhosted.org/packages/80/8e/46a6cc2e8215df7fae292178a355df729547ff9b912686823201d38be269/wrapt-2.5.2-cp312-cp312-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "ceab6c052af5f2dfe7d70e4e57521a9556c0f106a327aa897d66fd0c26e9db89"
+    },
+    "digests": {
+     "blake2b_256": "9738dff531d0125fe880e05fe5fcb89f144d25ffbe95aa9a2c50539eabde7567",
+     "md5": "8432497cf95091a4245d4787e57f49c9",
+     "sha256": "3b6885250b809532a634acd56e360d57c201c1cdc75cbf2b5e106241ece6cbc3"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-cp312-cp312-musllinux_1_2_aarch64.whl",
+    "has_sig": false,
+    "md5_digest": "8432497cf95091a4245d4787e57f49c9",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp312",
+    "requires_python": ">=3.9",
+    "size": 247325,
+    "upload_time": "2026-10-29T23:04:52",
+    "upload_time_iso_8601": "2026-10-29T23:04:52.160634Z",
+    "url": "https://files.pythonhosted.org/packages/97/38/dff531d0125fe880e05fe5fcb89f144d25ffbe95aa9a2c50539eabde7567/wrapt-2.5.2-cp312-cp312-musllinux_1_2_aarch64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "ceab6c052af5f2dfe7d70e4e57521a9556c0f106a327aa897d66fd0c26e9db89"
+    },
+    "digests": {
+     "blake2b_256": "f05bf4a78df4c52175d53ff095f2f5a54206a2d16e542b1dd2cdcaed901fe432",
+     "md5": "8883efcec895645e243e05327d9ddda3",
+     "sha256": "c60a5cd8b7b510056f2643d94f1c144533a568ade2891a9dd35733f5e0055777"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-cp312-cp312-musllinux_1_2_riscv64.whl",
+    "has_sig": false,
+    "md5_digest": "8883efcec895645e243e05327d9ddda3",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp312",
+    "requires_python": ">=3.9",
+    "size": 226900,
+    "upload_time": "2026-10-29T23:04:53",
+    "upload_time_iso_8601": "2026-10-29T23:04:53.559350Z",
+    "url": "https://files.pythonhosted.org/packages/f0/5b/f4a78df4c52175d53ff095f2f5a54206a2d16e542b1dd2cdcaed901fe432/wrapt-2.5.2-cp312-cp312-musllinux_1_2_riscv64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "ceab6c052af5f2dfe7d70e4e57521a9556c0f106a327aa897d66fd0c26e9db89"
+    },
+    "digests": {
+     "blake2b_256": "206f8eab144c717300f76f1337ba58091f4de5da0f4d772727c9f41135b325c1",
+     "md5": "6ff46aeade65422545db47674eae2ee3",
+     "sha256": "40e03506f09dbf4854fd69848e843dadd9b7fbbdd217837cb27b37fb8f0b5bc3"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-cp312-cp312-musllinux_1_2_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "6ff46aeade65422545db47674eae2ee3",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp312",
+    "requires_python": ">=3.9",
+    "size": 239017,
+    "upload_time": "2026-10-29T23:04:55",
+    "upload_time_iso_8601": "2026-10-29T23:04:55.293159Z",
+    "url": "https://files.pythonhosted.org/packages/20/6f/8eab144c717300f76f1337ba58091f4de5da0f4d772727c9f41135b325c1/wrapt-2.5.2-cp312-cp312-musllinux_1_2_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "3ff687637af9ffe59405f9c67a5e2f0fcbe25a1034fda529843635baf4932626"
+    },
+    "digests": {
+     "blake2b_256": "591a98e278ef2f8952a34f847a91f75899f6385762b07577c51a5ef82c768dfb",
+     "md5": "77a5576aa4401e4a4b9c6e752aefb384",
+     "sha256": "ac00ba7d22d55d3c8d085005ce4942ff3bb118d480f889b5984f1d3454052917"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-cp312-cp312-win32.whl",
+    "has_sig": false,
+    "md5_digest": "77a5576aa4401e4a4b9c6e752aefb384",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp312",
+    "requires_python": ">=3.9",
+    "size": 100660,
+    "upload_time": "2026-10-29T23:04:56",
+    "upload_time_iso_8601": "2026-10-29T23:04:56.703877Z",
+    "url": "https://files.pythonhosted.org/packages/59/1a/98e278ef2f8952a34f847a91f75899f6385762b07577c51a5ef82c768dfb/wrapt-2.5.2-cp312-cp312-win32.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "3ff687637af9ffe59405f9c67a5e2f0fcbe25a1034fda529843635baf4932626"
+    },
+    "digests": {
+     "blake2b_256": "7d0aab645f8b4c594cac2db49bbc805bff97a9d3f2944061b865f67e0351b6c8",
+     "md5": "89d20f2c64885d03803672968d2536d6",
+     "sha256": "36021ef761856bdbc10d5f3da9a95af93ef60d6acf9c72c8f849937ba2b902aa"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-cp312-cp312-win_amd64.whl",
+    "has_sig": false,
+    "md5_digest": "89d20f2c64885d03803672968d2536d6",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp312",
+    "requires_python": ">=3.9",
+    "size": 106220,
+    "upload_time": "2026-10-29T23:04:58",
+    "upload_time_iso_8601": "2026-10-29T23:04:58.081892Z",
+    "url": "https://files.pythonhosted.org/packages/7d/0a/ab645f8b4c594cac2db49bbc805bff97a9d3f2944061b865f67e0351b6c8/wrapt-2.5.2-cp312-cp312-win_amd64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "3ff687637af9ffe59405f9c67a5e2f0fcbe25a1034fda529843635baf4932626"
+    },
+    "digests": {
+     "blake2b_256": "371e232868b68b925ab29ca5acbec4ad54ee42a853fcd8f596bf7e0e0e3850f1",
+     "md5": "a1dfd59e970c766208a4de0f1267a170",
+     "sha256": "81bdf0bd141d9b1706a0751b2ee068c7afe6be4042712d427b32b3072d5c40b9"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-cp312-cp312-win_arm64.whl",
+    "has_sig": false,
+    "md5_digest": "a1dfd59e970c766208a4de0f1267a170",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp312",
+    "requires_python": ">=3.9",
+    "size": 103377,
+    "upload_time": "2026-10-29T23:04:59",
+    "upload_time_iso_8601": "2026-10-29T23:04:59.366315Z",
+    "url": "https://files.pythonhosted.org/packages/37/1e/232868b68b925ab29ca5acbec4ad54ee42a853fcd8f596bf7e0e0e3850f1/wrapt-2.5.2-cp312-cp312-win_arm64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "ceab6c052af5f2dfe7d70e4e57521a9556c0f106a327aa897d66fd0c26e9db89"
+    },
+    "digests": {
+     "blake2b_256": "1b7a38f08a89ca8faa9b788a857f109b5e4cd1f25671a5157e2218072f64aa76",
+     "md5": "8e1160680b87432e616c8f1d71aa5dfe",
+     "sha256": "88f982c2bb306732271aa15cded4002ce28b5d9023de9d11e927da4dcf65e441"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-cp313-cp313-macosx_10_13_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "8e1160680b87432e616c8f1d71aa5dfe",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp313",
+    "requires_python": ">=3.9",
+    "size": 106242,
+    "upload_time": "2026-10-29T23:05:00",
+    "upload_time_iso_8601": "2026-10-29T23:05:00.746054Z",
+    "url": "https://files.pythonhosted.org/packages/1b/7a/38f08a89ca8faa9b788a857f109b5e4cd1f25671a5157e2218072f64aa76/wrapt-2.5.2-cp313-cp313-macosx_10_13_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "ceab6c052af5f2dfe7d70e4e57521a9556c0f106a327aa897d66fd0c26e9db89"
+    },
+    "digests": {
+     "blake2b_256": "e98b2fb9b2522b7e1e7534a72fec0040bbf3d273129ec0a98316e7d37b09aa35",
+     "md5": "ecfe6cb2d401c758cbc04c49ae84b2f1",
+     "sha256": "269321b17467a10997cc6e14793bf1816e6ce488f9711c74b72552466d206739"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-cp313-cp313-macosx_11_0_arm64.whl",
+    "has_sig": false,
+    "md5_digest": "ecfe6cb2d401c758cbc04c49ae84b2f1",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp313",
+    "requires_python": ">=3.9",
+    "size": 106366,
+    "upload_time": "2026-10-29T23:05:02",
+    "upload_time_iso_8601": "2026-10-29T23:05:02.191455Z",
+    "url": "https://files.pythonhosted.org/packages/e9/8b/2fb9b2522b7e1e7534a72fec0040bbf3d273129ec0a98316e7d37b09aa35/wrapt-2.5.2-cp313-cp313-macosx_11_0_arm64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "ceab6c052af5f2dfe7d70e4e57521a9556c0f106a327aa897d66fd0c26e9db89"
+    },
+    "digests": {
+     "blake2b_256": "c21e770d73e0cc82a41602cb2cb184769c28bdbaa9b998944d577a1097c18da3",
+     "md5": "a667d9b96633d48d4234ce417729bf88",
+     "sha256": "8b039b3a296762db1908d6108365225393c4fb33c1dbc5f00aa36f8302eaeaa0"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-cp313-cp313-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "a667d9b96633d48d4234ce417729bf88",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp313",
+    "requires_python": ">=3.9",
+    "size": 248696,
+    "upload_time": "2026-10-29T23:05:03",
+    "upload_time_iso_8601": "2026-10-29T23:05:03.593497Z",
+    "url": "https://files.pythonhosted.org/packages/c2/1e/770d73e0cc82a41602cb2cb184769c28bdbaa9b998944d577a1097c18da3/wrapt-2.5.2-cp313-cp313-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "ceab6c052af5f2dfe7d70e4e57521a9556c0f106a327aa897d66fd0c26e9db89"
+    },
+    "digests": {
+     "blake2b_256": "ac2bb4362e803d870451b5e701df5e30ded2d6fb1d9e0c01eec4dc7fa8332b57",
+     "md5": "211b95b888e3c6c530f4af1b35961d96",
+     "sha256": "e1af6136ac5bcfab17190a70b25d8437eb8d8f9ca2b821a0655d39275a8cb7e7"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-cp313-cp313-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+    "has_sig": false,
+    "md5_digest": "211b95b888e3c6c530f4af1b35961d96",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp313",
+    "requires_python": ">=3.9",
+    "size": 248663,
+    "upload_time": "2026-10-29T23:05:05",
+    "upload_time_iso_8601": "2026-10-29T23:05:05.084891Z",
+    "url": "https://files.pythonhosted.org/packages/ac/2b/b4362e803d870451b5e701df5e30ded2d6fb1d9e0c01eec4dc7fa8332b57/wrapt-2.5.2-cp313-cp313-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "ceab6c052af5f2dfe7d70e4e57521a9556c0f106a327aa897d66fd0c26e9db89"
+    },
+    "digests": {
+     "blake2b_256": "8715244dbd2d86285857898be5f7632e8375161953e645f250ac9778c058ab9b",
+     "md5": "11afdb997d4a243e53346064a105d748",
+     "sha256": "9d4e1cdf2efdc7181c8177f6090886e22278e70f7257df12863d2f52a9dcbbd7"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-cp313-cp313-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl",
+    "has_sig": false,
+    "md5_digest": "11afdb997d4a243e53346064a105d748",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp313",
+    "requires_python": ">=3.9",
+    "size": 227568,
+    "upload_time": "2026-10-29T23:05:06",
+    "upload_time_iso_8601": "2026-10-29T23:05:06.836994Z",
+    "url": "https://files.pythonhosted.org/packages/87/15/244dbd2d86285857898be5f7632e8375161953e645f250ac9778c058ab9b/wrapt-2.5.2-cp313-cp313-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "ceab6c052af5f2dfe7d70e4e57521a9556c0f106a327aa897d66fd0c26e9db89"
+    },
+    "digests": {
+     "blake2b_256": "620e15ae5812d510fbfb65acb3a63aecbd8ffb4b944b2fd0131d968e31df89d6",
+     "md5": "fcf6263a15f4f4e4ea3cb3015c3daae6",
+     "sha256": "e33578755e07edf3a70df3241f4cf376dad507e2cc73e737311bb00b5067f4d7"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-cp313-cp313-musllinux_1_2_aarch64.whl",
+    "has_sig": false,
+    "md5_digest": "fcf6263a15f4f4e4ea3cb3015c3daae6",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp313",
+    "requires_python": ">=3.9",
+    "size": 245147,
+    "upload_time": "2026-10-29T23:05:08",
+    "upload_time_iso_8601": "2026-10-29T23:05:08.322875Z",
+    "url": "https://files.pythonhosted.org/packages/62/0e/15ae5812d510fbfb65acb3a63aecbd8ffb4b944b2fd0131d968e31df89d6/wrapt-2.5.2-cp313-cp313-musllinux_1_2_aarch64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "ceab6c052af5f2dfe7d70e4e57521a9556c0f106a327aa897d66fd0c26e9db89"
+    },
+    "digests": {
+     "blake2b_256": "f6c2e611b881c05f7f2a5c88f9d89236afb091b8adba3ac89ff9040b6a837be4",
+     "md5": "9a6ffb1af4e0ca303c551a7d20c365cb",
+     "sha256": "2bf23cde96e0f771a6a2c68973c1ded45c9707f8bd519ede30ecf075f3c720f6"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-cp313-cp313-musllinux_1_2_riscv64.whl",
+    "has_sig": false,
+    "md5_digest": "9a6ffb1af4e0ca303c551a7d20c365cb",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp313",
+    "requires_python": ">=3.9",
+    "size": 225491,
+    "upload_time": "2026-10-29T23:05:10",
+    "upload_time_iso_8601": "2026-10-29T23:05:10.102143Z",
+    "url": "https://files.pythonhosted.org/packages/f6/c2/e611b881c05f7f2a5c88f9d89236afb091b8adba3ac89ff9040b6a837be4/wrapt-2.5.2-cp313-cp313-musllinux_1_2_riscv64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "ceab6c052af5f2dfe7d70e4e57521a9556c0f106a327aa897d66fd0c26e9db89"
+    },
+    "digests": {
+     "blake2b_256": "f3f4bdb253208ec907097809e34c25d199cd66686a7974257e08b57d96e3176c",
+     "md5": "fc42d5e169cdf2d2c6c3cab514cfb270",
+     "sha256": "eff91af619ad5d587f8855f6c02164e12d33d205c702eb73d487deb499520265"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-cp313-cp313-musllinux_1_2_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "fc42d5e169cdf2d2c6c3cab514cfb270",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp313",
+    "requires_python": ">=3.9",
+    "size": 237319,
+    "upload_time": "2026-10-29T23:05:11",
+    "upload_time_iso_8601": "2026-10-29T23:05:11.625511Z",
+    "url": "https://files.pythonhosted.org/packages/f3/f4/bdb253208ec907097809e34c25d199cd66686a7974257e08b57d96e3176c/wrapt-2.5.2-cp313-cp313-musllinux_1_2_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "3ff687637af9ffe59405f9c67a5e2f0fcbe25a1034fda529843635baf4932626"
+    },
+    "digests": {
+     "blake2b_256": "678674205217834201f27bc73a76b4db67f488fd07787e12a045fb2b39f09c29",
+     "md5": "5dc798ab6d6e051d66e1986f3bd2c0a5",
+     "sha256": "11655df8e17658a67628cdc97fe95d6b263e023213cf18067f21e5ec0b0285f3"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-cp313-cp313-win32.whl",
+    "has_sig": false,
+    "md5_digest": "5dc798ab6d6e051d66e1986f3bd2c0a5",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp313",
+    "requires_python": ">=3.9",
+    "size": 100634,
+    "upload_time": "2026-10-29T23:05:13",
+    "upload_time_iso_8601": "2026-10-29T23:05:13.073777Z",
+    "url": "https://files.pythonhosted.org/packages/67/86/74205217834201f27bc73a76b4db67f488fd07787e12a045fb2b39f09c29/wrapt-2.5.2-cp313-cp313-win32.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "3ff687637af9ffe59405f9c67a5e2f0fcbe25a1034fda529843635baf4932626"
+    },
+    "digests": {
+     "blake2b_256": "e0567c732aed39116853d74485b4431a0ea37b05bd2bf250bdddc55ceb64f8c0",
+     "md5": "3f23dab1cf4463897676f4070820756f",
+     "sha256": "5726faa7342ba473041bc1a276486d232b42e3927d35427729b266b1b5ecaa42"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-cp313-cp313-win_amd64.whl",
+    "has_sig": false,
+    "md5_digest": "3f23dab1cf4463897676f4070820756f",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp313",
+    "requires_python": ">=3.9",
+    "size": 106044,
+    "upload_time": "2026-10-29T23:05:14",
+    "upload_time_iso_8601": "2026-10-29T23:05:14.372271Z",
+    "url": "https://files.pythonhosted.org/packages/e0/56/7c732aed39116853d74485b4431a0ea37b05bd2bf250bdddc55ceb64f8c0/wrapt-2.5.2-cp313-cp313-win_amd64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "3ff687637af9ffe59405f9c67a5e2f0fcbe25a1034fda529843635baf4932626"
+    },
+    "digests": {
+     "blake2b_256": "0ca7c4f7ae891bbfef566aa63effe846f6804dac4c0461601993f4c59deaf955",
+     "md5": "c08c224826726979c533071f2815ae71",
+     "sha256": "e1fb4af8aac3573770ed3e64efc39d953342b12bcb6e6479512a945eb5557523"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-cp313-cp313-win_arm64.whl",
+    "has_sig": false,
+    "md5_digest": "c08c224826726979c533071f2815ae71",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp313",
+    "requires_python": ">=3.9",
+    "size": 103077,
+    "upload_time": "2026-10-29T23:05:15",
+    "upload_time_iso_8601": "2026-10-29T23:05:15.718953Z",
+    "url": "https://files.pythonhosted.org/packages/0c/a7/c4f7ae891bbfef566aa63effe846f6804dac4c0461601993f4c59deaf955/wrapt-2.5.2-cp313-cp313-win_arm64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "ceab6c052af5f2dfe7d70e4e57521a9556c0f106a327aa897d66fd0c26e9db89"
+    },
+    "digests": {
+     "blake2b_256": "acdca259acf2b59eefe400b2a1c6b45bc19b0d0b583722426c9dabb276cc0d19",
+     "md5": "5184b44027fcc96076c6c15d2be1da93",
+     "sha256": "229859aebfc909626ea6b5a3ae9523aba43c63fd828f876f2a813f4a5767726f"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-cp314-cp314-macosx_10_15_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "5184b44027fcc96076c6c15d2be1da93",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.9",
+    "size": 106620,
+    "upload_time": "2026-10-29T23:05:17",
+    "upload_time_iso_8601": "2026-10-29T23:05:17.256872Z",
+    "url": "https://files.pythonhosted.org/packages/ac/dc/a259acf2b59eefe400b2a1c6b45bc19b0d0b583722426c9dabb276cc0d19/wrapt-2.5.2-cp314-cp314-macosx_10_15_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "ceab6c052af5f2dfe7d70e4e57521a9556c0f106a327aa897d66fd0c26e9db89"
+    },
+    "digests": {
+     "blake2b_256": "f8c5b34ca079b7906eb043c53c06896b4e42f3ca9efa97ac10e4e254c88e2ca6",
+     "md5": "b32622d65a62806a17ea5a8e733095a3",
+     "sha256": "c1ea16d7dfe7d235d29435307b1539495b4925e88b135d532892973a04569245"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-cp314-cp314-macosx_11_0_arm64.whl",
+    "has_sig": false,
+    "md5_digest": "b32622d65a62806a17ea5a8e733095a3",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.9",
+    "size": 106555,
+    "upload_time": "2026-10-29T23:05:18",
+    "upload_time_iso_8601": "2026-10-29T23:05:18.656614Z",
+    "url": "https://files.pythonhosted.org/packages/f8/c5/b34ca079b7906eb043c53c06896b4e42f3ca9efa97ac10e4e254c88e2ca6/wrapt-2.5.2-cp314-cp314-macosx_11_0_arm64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "ceab6c052af5f2dfe7d70e4e57521a9556c0f106a327aa897d66fd0c26e9db89"
+    },
+    "digests": {
+     "blake2b_256": "e246f66042c9ed3626cdcdf641105f091964f6d38cd406cec96479c4a3f70640",
+     "md5": "493d251d516307ffa0779f07f5b71520",
+     "sha256": "59b7e6d1dea7c3f38bab21954f587499c27c16ea537058eee4add6e4da1780ea"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-cp314-cp314-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "493d251d516307ffa0779f07f5b71520",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.9",
+    "size": 251681,
+    "upload_time": "2026-10-29T23:05:20",
+    "upload_time_iso_8601": "2026-10-29T23:05:20.035537Z",
+    "url": "https://files.pythonhosted.org/packages/e2/46/f66042c9ed3626cdcdf641105f091964f6d38cd406cec96479c4a3f70640/wrapt-2.5.2-cp314-cp314-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "ceab6c052af5f2dfe7d70e4e57521a9556c0f106a327aa897d66fd0c26e9db89"
+    },
+    "digests": {
+     "blake2b_256": "70951ebe33ff8053a94b3e1a0bafe31ea94b5e9296f9c5098cbcafc4ee2bcdc9",
+     "md5": "39573fc3ecd554b8f7f2c1b69a203788",
+     "sha256": "cfd508866c421687a99bed9ce5b7b4f26fd9b93d3753685d81947ab37d54c496"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-cp314-cp314-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+    "has_sig": false,
+    "md5_digest": "39573fc3ecd554b8f7f2c1b69a203788",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.9",
+    "size": 250919,
+    "upload_time": "2026-10-29T23:05:21",
+    "upload_time_iso_8601": "2026-10-29T23:05:21.501711Z",
+    "url": "https://files.pythonhosted.org/packages/70/95/1ebe33ff8053a94b3e1a0bafe31ea94b5e9296f9c5098cbcafc4ee2bcdc9/wrapt-2.5.2-cp314-cp314-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "ceab6c052af5f2dfe7d70e4e57521a9556c0f106a327aa897d66fd0c26e9db89"
+    },
+    "digests": {
+     "blake2b_256": "1cbfee90a8674c8f2179ad7aeaf8c5b875fa33a12fec7bf1ccf6cbfcc31fbbf0",
+     "md5": "8da6cf216845b58031aa77580b17e02d",
+     "sha256": "459bb66cd4bc43e35cba1f1ab2bdfb9b507e0d8dc0ec40c93a060c9cb0c5415e"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-cp314-cp314-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl",
+    "has_sig": false,
+    "md5_digest": "8da6cf216845b58031aa77580b17e02d",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.9",
+    "size": 231773,
+    "upload_time": "2026-10-29T23:05:22",
+    "upload_time_iso_8601": "2026-10-29T23:05:22.996569Z",
+    "url": "https://files.pythonhosted.org/packages/1c/bf/ee90a8674c8f2179ad7aeaf8c5b875fa33a12fec7bf1ccf6cbfcc31fbbf0/wrapt-2.5.2-cp314-cp314-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "ceab6c052af5f2dfe7d70e4e57521a9556c0f106a327aa897d66fd0c26e9db89"
+    },
+    "digests": {
+     "blake2b_256": "e8ee610ef6bf4f35e4719a5edea6bd0c4d948921d028950bc9669d1fa9234af9",
+     "md5": "f859aae8c9683d71731c0a926d0c824c",
+     "sha256": "a8626135ecbb0b892ca79c388581ab0ef57e087f09dc0e51a2f34185d3682055"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-cp314-cp314-musllinux_1_2_aarch64.whl",
+    "has_sig": false,
+    "md5_digest": "f859aae8c9683d71731c0a926d0c824c",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.9",
+    "size": 248171,
+    "upload_time": "2026-10-29T23:05:24",
+    "upload_time_iso_8601": "2026-10-29T23:05:24.481917Z",
+    "url": "https://files.pythonhosted.org/packages/e8/ee/610ef6bf4f35e4719a5edea6bd0c4d948921d028950bc9669d1fa9234af9/wrapt-2.5.2-cp314-cp314-musllinux_1_2_aarch64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "ceab6c052af5f2dfe7d70e4e57521a9556c0f106a327aa897d66fd0c26e9db89"
+    },
+    "digests": {
+     "blake2b_256": "c6106f12cf42bd9a34829c902c8a617c8151a4e16e7d7cb015289eede5813f39",
+     "md5": "75438b9524203485c11b85ba72a7ad17",
+     "sha256": "7ffa0be31f651da63ee51e5b74701339feac1860b561a985c7b4869d4600e800"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-cp314-cp314-musllinux_1_2_riscv64.whl",
+    "has_sig": false,
+    "md5_digest": "75438b9524203485c11b85ba72a7ad17",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.9",
+    "size": 228970,
+    "upload_time": "2026-10-29T23:05:25",
+    "upload_time_iso_8601": "2026-10-29T23:05:25.904290Z",
+    "url": "https://files.pythonhosted.org/packages/c6/10/6f12cf42bd9a34829c902c8a617c8151a4e16e7d7cb015289eede5813f39/wrapt-2.5.2-cp314-cp314-musllinux_1_2_riscv64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "ceab6c052af5f2dfe7d70e4e57521a9556c0f106a327aa897d66fd0c26e9db89"
+    },
+    "digests": {
+     "blake2b_256": "b1f179417514032b9015b772bf5bf006ca542937b5f6c483b9ab092f9ceff8e9",
+     "md5": "aff8b1baeb87be011e63568a220ae4d2",
+     "sha256": "5ab31d929ca8b2b7bf9320ad2a927edfb1841609951a869a9b98723b285ffbc6"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-cp314-cp314-musllinux_1_2_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "aff8b1baeb87be011e63568a220ae4d2",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.9",
+    "size": 239267,
+    "upload_time": "2026-10-29T23:05:27",
+    "upload_time_iso_8601": "2026-10-29T23:05:27.502836Z",
+    "url": "https://files.pythonhosted.org/packages/b1/f1/79417514032b9015b772bf5bf006ca542937b5f6c483b9ab092f9ceff8e9/wrapt-2.5.2-cp314-cp314-musllinux_1_2_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "ceab6c052af5f2dfe7d70e4e57521a9556c0f106a327aa897d66fd0c26e9db89"
+    },
+    "digests": {
+     "blake2b_256": "620415e0c465088fbfdab321a672c88739f68429a18aeb81ad7995a0a5cf2065",
+     "md5": "53c37559cf86378e6ef9fa48aaf5ebfe",
+     "sha256": "a60863d874cc6ac917bbf44324e3f195564064dee15c84e83b19e1fbbccd3169"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-cp314-cp314t-macosx_10_15_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "53c37559cf86378e6ef9fa48aaf5ebfe",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.9",
+    "size": 109731,
+    "upload_time": "2026-10-29T23:05:33",
+    "upload_time_iso_8601": "2026-10-29T23:05:33.131059Z",
+    "url": "https://files.pythonhosted.org/packages/62/04/15e0c465088fbfdab321a672c88739f68429a18aeb81ad7995a0a5cf2065/wrapt-2.5.2-cp314-cp314t-macosx_10_15_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "ceab6c052af5f2dfe7d70e4e57521a9556c0f106a327aa897d66fd0c26e9db89"
+    },
+    "digests": {
+     "blake2b_256": "b1b691d6f77257afabafe19bca698b41d60dde7cf49b59b0126eb25ed6a3a90e",
+     "md5": "ee24e22dd2d883c75af95a97958f4638",
+     "sha256": "d41c45517912610de55546188695e2bd0fbcd70b585087cd759f85a96f47be7e"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-cp314-cp314t-macosx_11_0_arm64.whl",
+    "has_sig": false,
+    "md5_digest": "ee24e22dd2d883c75af95a97958f4638",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.9",
+    "size": 110032,
+    "upload_time": "2026-10-29T23:05:34",
+    "upload_time_iso_8601": "2026-10-29T23:05:34.589532Z",
+    "url": "https://files.pythonhosted.org/packages/b1/b6/91d6f77257afabafe19bca698b41d60dde7cf49b59b0126eb25ed6a3a90e/wrapt-2.5.2-cp314-cp314t-macosx_11_0_arm64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "ceab6c052af5f2dfe7d70e4e57521a9556c0f106a327aa897d66fd0c26e9db89"
+    },
+    "digests": {
+     "blake2b_256": "9c8440901e8ba08f6f18f213fea51daa41a8107ccaae4e0b6e13b842f02f5feb",
+     "md5": "0db71a5c85bce8da9cfeb9c9cbf6e604",
+     "sha256": "48fd5026977adb3e2fda292a6a796967b511935d23f97dc2ae1f127a3a8639d5"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-cp314-cp314t-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "0db71a5c85bce8da9cfeb9c9cbf6e604",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.9",
+    "size": 284278,
+    "upload_time": "2026-10-29T23:05:36",
+    "upload_time_iso_8601": "2026-10-29T23:05:36.033475Z",
+    "url": "https://files.pythonhosted.org/packages/9c/84/40901e8ba08f6f18f213fea51daa41a8107ccaae4e0b6e13b842f02f5feb/wrapt-2.5.2-cp314-cp314t-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "ceab6c052af5f2dfe7d70e4e57521a9556c0f106a327aa897d66fd0c26e9db89"
+    },
+    "digests": {
+     "blake2b_256": "89af6bfdffc2688a78019762f0b14171ca47c73fae1421c3324c0850135b212c",
+     "md5": "3bf674ae01a34665d3219c7e4faf9b21",
+     "sha256": "0d7639c3287d4efcdc2c8837f1854d1ecf27aae761714ba3d95e61fe8eb48db3"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-cp314-cp314t-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+    "has_sig": false,
+    "md5_digest": "3bf674ae01a34665d3219c7e4faf9b21",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.9",
+    "size": 294060,
+    "upload_time": "2026-10-29T23:05:37",
+    "upload_time_iso_8601": "2026-10-29T23:05:37.515771Z",
+    "url": "https://files.pythonhosted.org/packages/89/af/6bfdffc2688a78019762f0b14171ca47c73fae1421c3324c0850135b212c/wrapt-2.5.2-cp314-cp314t-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "ceab6c052af5f2dfe7d70e4e57521a9556c0f106a327aa897d66fd0c26e9db89"
+    },
+    "digests": {
+     "blake2b_256": "56d19a4e3aed00d6d877d2646072d9b6b4c9a558a8ad79a18d3abafc1079cd07",
+     "md5": "9d830ebe0ddb80b7cb4571f6c66048b8",
+     "sha256": "eeaa40251c40e18c5c97ef11d5dbbad28a7b7b99fdd7a7469662799100d74dc7"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-cp314-cp314t-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl",
+    "has_sig": false,
+    "md5_digest": "9d830ebe0ddb80b7cb4571f6c66048b8",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.9",
+    "size": 263272,
+    "upload_time": "2026-10-29T23:05:39",
+    "upload_time_iso_8601": "2026-10-29T23:05:39.008222Z",
+    "url": "https://files.pythonhosted.org/packages/56/d1/9a4e3aed00d6d877d2646072d9b6b4c9a558a8ad79a18d3abafc1079cd07/wrapt-2.5.2-cp314-cp314t-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "ceab6c052af5f2dfe7d70e4e57521a9556c0f106a327aa897d66fd0c26e9db89"
+    },
+    "digests": {
+     "blake2b_256": "5f6f0086e02aae9144a0fa029fb0351a8b2f91fbd28eb191c8f2ced3831cb1ba",
+     "md5": "5e55fc75f4b279e26912149e1343c0c6",
+     "sha256": "b9ce67ec8803e6c56e78c9ebf726f61116516212c28dfa3683d0962e15cf9a62"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-cp314-cp314t-musllinux_1_2_aarch64.whl",
+    "has_sig": false,
+    "md5_digest": "5e55fc75f4b279e26912149e1343c0c6",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.9",
+    "size": 289219,
+    "upload_time": "2026-10-29T23:05:40",
+    "upload_time_iso_8601": "2026-10-29T23:05:40.459345Z",
+    "url": "https://files.pythonhosted.org/packages/5f/6f/0086e02aae9144a0fa029fb0351a8b2f91fbd28eb191c8f2ced3831cb1ba/wrapt-2.5.2-cp314-cp314t-musllinux_1_2_aarch64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "ceab6c052af5f2dfe7d70e4e57521a9556c0f106a327aa897d66fd0c26e9db89"
+    },
+    "digests": {
+     "blake2b_256": "d2ace342f997166b7d433abc12720b6e30793fcf3a36c5457d22261558b61411",
+     "md5": "a040678d86e340f2d213d17faa178722",
+     "sha256": "4d5faf5c3e435207b3a51294ed5a00e5e17e3842442ccbbd864ee9bc0efc63fb"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-cp314-cp314t-musllinux_1_2_riscv64.whl",
+    "has_sig": false,
+    "md5_digest": "a040678d86e340f2d213d17faa178722",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.9",
+    "size": 260554,
+    "upload_time": "2026-10-29T23:05:41",
+    "upload_time_iso_8601": "2026-10-29T23:05:41.815514Z",
+    "url": "https://files.pythonhosted.org/packages/d2/ac/e342f997166b7d433abc12720b6e30793fcf3a36c5457d22261558b61411/wrapt-2.5.2-cp314-cp314t-musllinux_1_2_riscv64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "ceab6c052af5f2dfe7d70e4e57521a9556c0f106a327aa897d66fd0c26e9db89"
+    },
+    "digests": {
+     "blake2b_256": "656448ddff54611f6e08ba70adf1b3dbf36c7b08b7aa5dbf7c65a03672b0eed1",
+     "md5": "fe56282f2b500f8627867a26c5a8d66b",
+     "sha256": "2861d50a4f330fa140ddc2a9ddee33f7e4f9bdb649a23dc9be8ed6310ffa47fc"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-cp314-cp314t-musllinux_1_2_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "fe56282f2b500f8627867a26c5a8d66b",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.9",
+    "size": 278921,
+    "upload_time": "2026-10-29T23:05:43",
+    "upload_time_iso_8601": "2026-10-29T23:05:43.489581Z",
+    "url": "https://files.pythonhosted.org/packages/65/64/48ddff54611f6e08ba70adf1b3dbf36c7b08b7aa5dbf7c65a03672b0eed1/wrapt-2.5.2-cp314-cp314t-musllinux_1_2_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "3ff687637af9ffe59405f9c67a5e2f0fcbe25a1034fda529843635baf4932626"
+    },
+    "digests": {
+     "blake2b_256": "c0bf0ca422495491f22656b401832184a87b1e67d1dfb7f31ac8d60525c572ce",
+     "md5": "66d24224459bbbb12ad84456ade5c62d",
+     "sha256": "46cee4400437c9f33e755522be9e7ce6ebd097273f464eb6f57bee09787f0c59"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-cp314-cp314t-win32.whl",
+    "has_sig": false,
+    "md5_digest": "66d24224459bbbb12ad84456ade5c62d",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.9",
+    "size": 103586,
+    "upload_time": "2026-10-29T23:05:45",
+    "upload_time_iso_8601": "2026-10-29T23:05:45.046315Z",
+    "url": "https://files.pythonhosted.org/packages/c0/bf/0ca422495491f22656b401832184a87b1e67d1dfb7f31ac8d60525c572ce/wrapt-2.5.2-cp314-cp314t-win32.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "3ff687637af9ffe59405f9c67a5e2f0fcbe25a1034fda529843635baf4932626"
+    },
+    "digests": {
+     "blake2b_256": "6917922d99009a228907cd0a5f5d590bbc176dd70527d3eb06f8b4d74889edf8",
+     "md5": "cd59d8cffa5a1c209450867dd6430d78",
+     "sha256": "1ad706a42b139ad7f03f32aed57da5e10fe8ed707e29849cfa94f1d49cba1405"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-cp314-cp314t-win_amd64.whl",
+    "has_sig": false,
+    "md5_digest": "cd59d8cffa5a1c209450867dd6430d78",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.9",
+    "size": 110111,
+    "upload_time": "2026-10-29T23:05:46",
+    "upload_time_iso_8601": "2026-10-29T23:05:46.458379Z",
+    "url": "https://files.pythonhosted.org/packages/69/17/922d99009a228907cd0a5f5d590bbc176dd70527d3eb06f8b4d74889edf8/wrapt-2.5.2-cp314-cp314t-win_amd64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "3ff687637af9ffe59405f9c67a5e2f0fcbe25a1034fda529843635baf4932626"
+    },
+    "digests": {
+     "blake2b_256": "6845d168c09643e3207c5618b33a5636137f298b9ded38b3a33fad67dc343403",
+     "md5": "3864d430a94e0e0807f3560d959b5b3d",
+     "sha256": "450cc93f5a2d58d4a74d384d52db4b41d5728065c0057c9bb4666c6115f2a2c9"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-cp314-cp314t-win_arm64.whl",
+    "has_sig": false,
+    "md5_digest": "3864d430a94e0e0807f3560d959b5b3d",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.9",
+    "size": 106384,
+    "upload_time": "2026-10-29T23:05:48",
+    "upload_time_iso_8601": "2026-10-29T23:05:48.051410Z",
+    "url": "https://files.pythonhosted.org/packages/68/45/d168c09643e3207c5618b33a5636137f298b9ded38b3a33fad67dc343403/wrapt-2.5.2-cp314-cp314t-win_arm64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "3ff687637af9ffe59405f9c67a5e2f0fcbe25a1034fda529843635baf4932626"
+    },
+    "digests": {
+     "blake2b_256": "a1ce092f2723758586973c94afa8c38a206ce3720ec5cd3edb64ee9c8b27a1c4",
+     "md5": "3fcfc350b1c632f6d614638dce834fcb",
+     "sha256": "afd99530994449aaac9a58e1e268eb080bb1ffd758be43ab2f8a249ce8970c9c"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-cp314-cp314-win32.whl",
+    "has_sig": false,
+    "md5_digest": "3fcfc350b1c632f6d614638dce834fcb",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.9",
+    "size": 101091,
+    "upload_time": "2026-10-29T23:05:28",
+    "upload_time_iso_8601": "2026-10-29T23:05:28.955043Z",
+    "url": "https://files.pythonhosted.org/packages/a1/ce/092f2723758586973c94afa8c38a206ce3720ec5cd3edb64ee9c8b27a1c4/wrapt-2.5.2-cp314-cp314-win32.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "3ff687637af9ffe59405f9c67a5e2f0fcbe25a1034fda529843635baf4932626"
+    },
+    "digests": {
+     "blake2b_256": "2386201fb9180290373b7fdff18e8d600151694fdb0b10892cdee77c13eb7e6b",
+     "md5": "837ef3c8387a08bfa1cc502bd8cb42ed",
+     "sha256": "fabc60720d1e4a36bbe8aaf1c32024f04c6674991313f5acaca5eeadb564c600"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-cp314-cp314-win_amd64.whl",
+    "has_sig": false,
+    "md5_digest": "837ef3c8387a08bfa1cc502bd8cb42ed",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.9",
+    "size": 106417,
+    "upload_time": "2026-10-29T23:05:30",
+    "upload_time_iso_8601": "2026-10-29T23:05:30.395111Z",
+    "url": "https://files.pythonhosted.org/packages/23/86/201fb9180290373b7fdff18e8d600151694fdb0b10892cdee77c13eb7e6b/wrapt-2.5.2-cp314-cp314-win_amd64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "3ff687637af9ffe59405f9c67a5e2f0fcbe25a1034fda529843635baf4932626"
+    },
+    "digests": {
+     "blake2b_256": "73a8cc313dc9230f4b5029e24867a1fc1dbcb929b792b02ac5fb2e0d79df7401",
+     "md5": "56da4248b3447eefc524469cc0396627",
+     "sha256": "1c17ca5ce83c7145eddaa20073398ec2192dad65c8d8ff4d9b78fd2917c46a75"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-cp314-cp314-win_arm64.whl",
+    "has_sig": false,
+    "md5_digest": "56da4248b3447eefc524469cc0396627",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp314",
+    "requires_python": ">=3.9",
+    "size": 104145,
+    "upload_time": "2026-10-29T23:05:31",
+    "upload_time_iso_8601": "2026-10-29T23:05:31.788512Z",
+    "url": "https://files.pythonhosted.org/packages/73/a8/cc313dc9230f4b5029e24867a1fc1dbcb929b792b02ac5fb2e0d79df7401/wrapt-2.5.2-cp314-cp314-win_arm64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "ceab6c052af5f2dfe7d70e4e57521a9556c0f106a327aa897d66fd0c26e9db89"
+    },
+    "digests": {
+     "blake2b_256": "678c3b2b95cd60b78f9450d748854e421fcf48bc350d76ca9e0fe048b87ad796",
+     "md5": "e0ac4107bdd958e2a969d5aefcae6dbc",
+     "sha256": "2c17ec4310cc06f864799a4c37c1c716d5dcf05ceead2e63ca992a9466903b73"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-cp315-cp315-macosx_10_15_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "e0ac4107bdd958e2a969d5aefcae6dbc",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp315",
+    "requires_python": ">=3.9",
+    "size": 106621,
+    "upload_time": "2026-10-29T23:05:49",
+    "upload_time_iso_8601": "2026-10-29T23:05:49.433541Z",
+    "url": "https://files.pythonhosted.org/packages/67/8c/3b2b95cd60b78f9450d748854e421fcf48bc350d76ca9e0fe048b87ad796/wrapt-2.5.2-cp315-cp315-macosx_10_15_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "ceab6c052af5f2dfe7d70e4e57521a9556c0f106a327aa897d66fd0c26e9db89"
+    },
+    "digests": {
+     "blake2b_256": "1612c430cd1289711cdf2b6b1c469d5efa527f4815fabab32bff3249545344da",
+     "md5": "e2f66c3d9ab4ebb2c698dadbb9703da1",
+     "sha256": "430070776fb30d925a7a1e13d68086e4731b63eedf4c43ee62fc4c8108920cce"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-cp315-cp315-macosx_11_0_arm64.whl",
+    "has_sig": false,
+    "md5_digest": "e2f66c3d9ab4ebb2c698dadbb9703da1",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp315",
+    "requires_python": ">=3.9",
+    "size": 106590,
+    "upload_time": "2026-10-29T23:05:50",
+    "upload_time_iso_8601": "2026-10-29T23:05:50.967094Z",
+    "url": "https://files.pythonhosted.org/packages/16/12/c430cd1289711cdf2b6b1c469d5efa527f4815fabab32bff3249545344da/wrapt-2.5.2-cp315-cp315-macosx_11_0_arm64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "ceab6c052af5f2dfe7d70e4e57521a9556c0f106a327aa897d66fd0c26e9db89"
+    },
+    "digests": {
+     "blake2b_256": "694bd7230c57ca30023a5630bf5cc0e092ad1cfce4d999a309b8377a36b3c249",
+     "md5": "ada5f78396b87dc665d59fc80039ce48",
+     "sha256": "99978d196df45c115273c6119e4d0dacbc67bc267a196506625bf7084b741f0b"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-cp315-cp315-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "ada5f78396b87dc665d59fc80039ce48",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp315",
+    "requires_python": ">=3.9",
+    "size": 252192,
+    "upload_time": "2026-10-29T23:05:52",
+    "upload_time_iso_8601": "2026-10-29T23:05:52.344864Z",
+    "url": "https://files.pythonhosted.org/packages/69/4b/d7230c57ca30023a5630bf5cc0e092ad1cfce4d999a309b8377a36b3c249/wrapt-2.5.2-cp315-cp315-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "ceab6c052af5f2dfe7d70e4e57521a9556c0f106a327aa897d66fd0c26e9db89"
+    },
+    "digests": {
+     "blake2b_256": "fa746dc841c96b9906e0c466aaeed7f51162129cc8745a91bb28168aa3b45194",
+     "md5": "1c35fff2bbb3a3eaa45031c1055c49e1",
+     "sha256": "217798fb0cfb31479a264f841b0242bc1bed1ffc70d233e8444a876cec57928c"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-cp315-cp315-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+    "has_sig": false,
+    "md5_digest": "1c35fff2bbb3a3eaa45031c1055c49e1",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp315",
+    "requires_python": ">=3.9",
+    "size": 251207,
+    "upload_time": "2026-10-29T23:05:54",
+    "upload_time_iso_8601": "2026-10-29T23:05:54.011572Z",
+    "url": "https://files.pythonhosted.org/packages/fa/74/6dc841c96b9906e0c466aaeed7f51162129cc8745a91bb28168aa3b45194/wrapt-2.5.2-cp315-cp315-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "ceab6c052af5f2dfe7d70e4e57521a9556c0f106a327aa897d66fd0c26e9db89"
+    },
+    "digests": {
+     "blake2b_256": "52bb25e710cc9d3bd25d81d46791dd25029d6f9b9d44b990e3d81755b549ff71",
+     "md5": "889e57b883e587e3da0ac949c9aa2a39",
+     "sha256": "62b339565cfdfcc0ba71c527b4ad13ac9de25504d474fa4ae5db95d1c7e4c6a2"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-cp315-cp315-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl",
+    "has_sig": false,
+    "md5_digest": "889e57b883e587e3da0ac949c9aa2a39",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp315",
+    "requires_python": ">=3.9",
+    "size": 233048,
+    "upload_time": "2026-10-29T23:05:55",
+    "upload_time_iso_8601": "2026-10-29T23:05:55.796554Z",
+    "url": "https://files.pythonhosted.org/packages/52/bb/25e710cc9d3bd25d81d46791dd25029d6f9b9d44b990e3d81755b549ff71/wrapt-2.5.2-cp315-cp315-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "ceab6c052af5f2dfe7d70e4e57521a9556c0f106a327aa897d66fd0c26e9db89"
+    },
+    "digests": {
+     "blake2b_256": "4e80672640d799862a36abae740e778146dbe155ec8ffd6211b3a99240f599ca",
+     "md5": "cb14b6356dfc847e0fb29a97a8652243",
+     "sha256": "84619ca6b6f67a7dd53754ad402cafceb4ddc9d8981f144f62718b783f05786e"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-cp315-cp315-musllinux_1_2_aarch64.whl",
+    "has_sig": false,
+    "md5_digest": "cb14b6356dfc847e0fb29a97a8652243",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp315",
+    "requires_python": ">=3.9",
+    "size": 248479,
+    "upload_time": "2026-10-29T23:05:57",
+    "upload_time_iso_8601": "2026-10-29T23:05:57.346267Z",
+    "url": "https://files.pythonhosted.org/packages/4e/80/672640d799862a36abae740e778146dbe155ec8ffd6211b3a99240f599ca/wrapt-2.5.2-cp315-cp315-musllinux_1_2_aarch64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "ceab6c052af5f2dfe7d70e4e57521a9556c0f106a327aa897d66fd0c26e9db89"
+    },
+    "digests": {
+     "blake2b_256": "f63491eb6724eb7cf64b77637d720ef71cad1ec6e4ce2d15eb548670c47078fa",
+     "md5": "98b57dc1c5c1fcfda261ef8cc5093446",
+     "sha256": "08d1d7bcb7dd277b7b976fd914455c3c1088f5c101ac7469ae5a5b8c03be0a0a"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-cp315-cp315-musllinux_1_2_riscv64.whl",
+    "has_sig": false,
+    "md5_digest": "98b57dc1c5c1fcfda261ef8cc5093446",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp315",
+    "requires_python": ">=3.9",
+    "size": 230013,
+    "upload_time": "2026-10-29T23:05:58",
+    "upload_time_iso_8601": "2026-10-29T23:05:58.745042Z",
+    "url": "https://files.pythonhosted.org/packages/f6/34/91eb6724eb7cf64b77637d720ef71cad1ec6e4ce2d15eb548670c47078fa/wrapt-2.5.2-cp315-cp315-musllinux_1_2_riscv64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "ceab6c052af5f2dfe7d70e4e57521a9556c0f106a327aa897d66fd0c26e9db89"
+    },
+    "digests": {
+     "blake2b_256": "bff8f1fc0c3394819c9a6a3c0d0055b06614a3bef7ad133cf18f9c09a2b2141f",
+     "md5": "c683bab5bcb42c1324e54aa2ca256b84",
+     "sha256": "4e86f3543c67d72b4d4c08c3e351523c2d69cd05932df65937d79bc472e9d62f"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-cp315-cp315-musllinux_1_2_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "c683bab5bcb42c1324e54aa2ca256b84",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp315",
+    "requires_python": ">=3.9",
+    "size": 239808,
+    "upload_time": "2026-10-29T23:06:00",
+    "upload_time_iso_8601": "2026-10-29T23:06:00.266228Z",
+    "url": "https://files.pythonhosted.org/packages/bf/f8/f1fc0c3394819c9a6a3c0d0055b06614a3bef7ad133cf18f9c09a2b2141f/wrapt-2.5.2-cp315-cp315-musllinux_1_2_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "ceab6c052af5f2dfe7d70e4e57521a9556c0f106a327aa897d66fd0c26e9db89"
+    },
+    "digests": {
+     "blake2b_256": "8ae7b43d341b036e2862550eb7fffe2b4130015c39c861f30eb34014a2f032d2",
+     "md5": "92c1cc45f3d0788181bc0afda85eadec",
+     "sha256": "b680bef5200899524667f813fa34dcfde9313fef9f9fa432985d4bc7b4195ba3"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-cp315-cp315t-macosx_10_15_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "92c1cc45f3d0788181bc0afda85eadec",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp315",
+    "requires_python": ">=3.9",
+    "size": 109711,
+    "upload_time": "2026-10-29T23:06:05",
+    "upload_time_iso_8601": "2026-10-29T23:06:05.768649Z",
+    "url": "https://files.pythonhosted.org/packages/8a/e7/b43d341b036e2862550eb7fffe2b4130015c39c861f30eb34014a2f032d2/wrapt-2.5.2-cp315-cp315t-macosx_10_15_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "ceab6c052af5f2dfe7d70e4e57521a9556c0f106a327aa897d66fd0c26e9db89"
+    },
+    "digests": {
+     "blake2b_256": "be528012aaf046264e27969f79bc94cd2afb4729338f5434b90edd3d4bb60b8f",
+     "md5": "e8ca3d8cac0f884fedf16d9dc3a78fe4",
+     "sha256": "da51f5ac290f2e024ee842799c6592f68cd880c20f6b3a54305d1b6aeab459a4"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-cp315-cp315t-macosx_11_0_arm64.whl",
+    "has_sig": false,
+    "md5_digest": "e8ca3d8cac0f884fedf16d9dc3a78fe4",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp315",
+    "requires_python": ">=3.9",
+    "size": 110047,
+    "upload_time": "2026-10-29T23:06:07",
+    "upload_time_iso_8601": "2026-10-29T23:06:07.309521Z",
+    "url": "https://files.pythonhosted.org/packages/be/52/8012aaf046264e27969f79bc94cd2afb4729338f5434b90edd3d4bb60b8f/wrapt-2.5.2-cp315-cp315t-macosx_11_0_arm64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "ceab6c052af5f2dfe7d70e4e57521a9556c0f106a327aa897d66fd0c26e9db89"
+    },
+    "digests": {
+     "blake2b_256": "54a7628c315d19c6027e8b0e700c0dd7d5c3fd662329c7aa1294315064b87cdd",
+     "md5": "0dd162b250e743fd9df465e84553df84",
+     "sha256": "b3ebc07822649eda442382c1d20983bc6ec5aa2bf79a600da11b29ecb62a0fb2"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-cp315-cp315t-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "0dd162b250e743fd9df465e84553df84",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp315",
+    "requires_python": ">=3.9",
+    "size": 285041,
+    "upload_time": "2026-10-29T23:06:08",
+    "upload_time_iso_8601": "2026-10-29T23:06:08.777797Z",
+    "url": "https://files.pythonhosted.org/packages/54/a7/628c315d19c6027e8b0e700c0dd7d5c3fd662329c7aa1294315064b87cdd/wrapt-2.5.2-cp315-cp315t-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "ceab6c052af5f2dfe7d70e4e57521a9556c0f106a327aa897d66fd0c26e9db89"
+    },
+    "digests": {
+     "blake2b_256": "7afd4b418c9655bacb5ce8b0aed894f8355e12940bde74237ec45d9396e1f87f",
+     "md5": "bd58d071319254d156adc59f5938b1a3",
+     "sha256": "bbb6e959c1e2c32bbad291f83af6320c8c46bb64e256801e85f55d88a09522d5"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-cp315-cp315t-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+    "has_sig": false,
+    "md5_digest": "bd58d071319254d156adc59f5938b1a3",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp315",
+    "requires_python": ">=3.9",
+    "size": 295329,
+    "upload_time": "2026-10-29T23:06:10",
+    "upload_time_iso_8601": "2026-10-29T23:06:10.489034Z",
+    "url": "https://files.pythonhosted.org/packages/7a/fd/4b418c9655bacb5ce8b0aed894f8355e12940bde74237ec45d9396e1f87f/wrapt-2.5.2-cp315-cp315t-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "ceab6c052af5f2dfe7d70e4e57521a9556c0f106a327aa897d66fd0c26e9db89"
+    },
+    "digests": {
+     "blake2b_256": "9224dbe9776fded6dd5f2bfa1446ec04a33afe5afac1d5fb89cd7f5e96fbc61d",
+     "md5": "fe84ead06ed9154012d8db17216a091d",
+     "sha256": "a0541e62f7b9c0d42130e3469d6ac3b1767f019314ae795646a2850a75c64412"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-cp315-cp315t-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl",
+    "has_sig": false,
+    "md5_digest": "fe84ead06ed9154012d8db17216a091d",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp315",
+    "requires_python": ">=3.9",
+    "size": 265088,
+    "upload_time": "2026-10-29T23:06:11",
+    "upload_time_iso_8601": "2026-10-29T23:06:11.963360Z",
+    "url": "https://files.pythonhosted.org/packages/92/24/dbe9776fded6dd5f2bfa1446ec04a33afe5afac1d5fb89cd7f5e96fbc61d/wrapt-2.5.2-cp315-cp315t-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "ceab6c052af5f2dfe7d70e4e57521a9556c0f106a327aa897d66fd0c26e9db89"
+    },
+    "digests": {
+     "blake2b_256": "9dee4103576d31bed902224fed8b1d06b94313491504d1d644e42bceba4de880",
+     "md5": "53502c8d3e6a3812679bd5d4846266f0",
+     "sha256": "18819c05409a161999be68da8e451636470c35f77e25c8201825a33a7d88c89c"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-cp315-cp315t-musllinux_1_2_aarch64.whl",
+    "has_sig": false,
+    "md5_digest": "53502c8d3e6a3812679bd5d4846266f0",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp315",
+    "requires_python": ">=3.9",
+    "size": 290413,
+    "upload_time": "2026-10-29T23:06:13",
+    "upload_time_iso_8601": "2026-10-29T23:06:13.536779Z",
+    "url": "https://files.pythonhosted.org/packages/9d/ee/4103576d31bed902224fed8b1d06b94313491504d1d644e42bceba4de880/wrapt-2.5.2-cp315-cp315t-musllinux_1_2_aarch64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "ceab6c052af5f2dfe7d70e4e57521a9556c0f106a327aa897d66fd0c26e9db89"
+    },
+    "digests": {
+     "blake2b_256": "bc7c944e95c25232a5805ea9f25cf2ce90386262db025ba04fbb61f451d9523f",
+     "md5": "8ad01acb7fac83ce5e031a7ce994cc03",
+     "sha256": "2594e0be4ee09b2f19828265a39df90e591def44215fe8c5b8d6b83aa4cc18b5"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-cp315-cp315t-musllinux_1_2_riscv64.whl",
+    "has_sig": false,
+    "md5_digest": "8ad01acb7fac83ce5e031a7ce994cc03",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp315",
+    "requires_python": ">=3.9",
+    "size": 262383,
+    "upload_time": "2026-10-29T23:06:14",
+    "upload_time_iso_8601": "2026-10-29T23:06:14.887905Z",
+    "url": "https://files.pythonhosted.org/packages/bc/7c/944e95c25232a5805ea9f25cf2ce90386262db025ba04fbb61f451d9523f/wrapt-2.5.2-cp315-cp315t-musllinux_1_2_riscv64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "ceab6c052af5f2dfe7d70e4e57521a9556c0f106a327aa897d66fd0c26e9db89"
+    },
+    "digests": {
+     "blake2b_256": "5db3a4b66497e3bb63d2e94ea1605f4beaf5b6b5dafbb6ce41abd727a6fcb7b5",
+     "md5": "4896d61b846074f75c82159effa4e629",
+     "sha256": "32c0387872e67b9dfdd2b599bf31fe127e597ed8526c5f192cdaca57a491e9dc"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-cp315-cp315t-musllinux_1_2_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "4896d61b846074f75c82159effa4e629",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp315",
+    "requires_python": ">=3.9",
+    "size": 280180,
+    "upload_time": "2026-10-29T23:06:16",
+    "upload_time_iso_8601": "2026-10-29T23:06:16.314340Z",
+    "url": "https://files.pythonhosted.org/packages/5d/b3/a4b66497e3bb63d2e94ea1605f4beaf5b6b5dafbb6ce41abd727a6fcb7b5/wrapt-2.5.2-cp315-cp315t-musllinux_1_2_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "3ff687637af9ffe59405f9c67a5e2f0fcbe25a1034fda529843635baf4932626"
+    },
+    "digests": {
+     "blake2b_256": "91bd28d046dccfcade6ad62ad19f2f805e5b2e3f3463431307c3b8bd54e24e7f",
+     "md5": "298555b0ea9d7416cecacb4526f0dc41",
+     "sha256": "9cb33f293e3aa04b36f7d165dc05b42db85e0a88e20a8fd81f60426d1f17d535"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-cp315-cp315t-win32.whl",
+    "has_sig": false,
+    "md5_digest": "298555b0ea9d7416cecacb4526f0dc41",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp315",
+    "requires_python": ">=3.9",
+    "size": 103551,
+    "upload_time": "2026-10-29T23:06:17",
+    "upload_time_iso_8601": "2026-10-29T23:06:17.732063Z",
+    "url": "https://files.pythonhosted.org/packages/91/bd/28d046dccfcade6ad62ad19f2f805e5b2e3f3463431307c3b8bd54e24e7f/wrapt-2.5.2-cp315-cp315t-win32.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "3ff687637af9ffe59405f9c67a5e2f0fcbe25a1034fda529843635baf4932626"
+    },
+    "digests": {
+     "blake2b_256": "0dd9aef3035a3e3d918eb51e7db454af9e06919f0c5208fa0a9315548fef7734",
+     "md5": "7c92adb03554ffa5fd7839c2ad45ecba",
+     "sha256": "7f89423965b23aa62a90bf21c20353056a829ca9a60c01fde9aec9876c99392e"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-cp315-cp315t-win_amd64.whl",
+    "has_sig": false,
+    "md5_digest": "7c92adb03554ffa5fd7839c2ad45ecba",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp315",
+    "requires_python": ">=3.9",
+    "size": 110099,
+    "upload_time": "2026-10-29T23:06:19",
+    "upload_time_iso_8601": "2026-10-29T23:06:19.293726Z",
+    "url": "https://files.pythonhosted.org/packages/0d/d9/aef3035a3e3d918eb51e7db454af9e06919f0c5208fa0a9315548fef7734/wrapt-2.5.2-cp315-cp315t-win_amd64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "3ff687637af9ffe59405f9c67a5e2f0fcbe25a1034fda529843635baf4932626"
+    },
+    "digests": {
+     "blake2b_256": "5fea56eddba6249fae5361b53eb62e2e25ad86cabec4632d943d356aba8dea1b",
+     "md5": "9f39f99c48eeed03a7463dd29e609b13",
+     "sha256": "fa642d3781c061579cb138773add4a55b16f99de9ebc41603e89a756cf9e62c6"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-cp315-cp315t-win_arm64.whl",
+    "has_sig": false,
+    "md5_digest": "9f39f99c48eeed03a7463dd29e609b13",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp315",
+    "requires_python": ">=3.9",
+    "size": 106397,
+    "upload_time": "2026-10-29T23:06:20",
+    "upload_time_iso_8601": "2026-10-29T23:06:20.826087Z",
+    "url": "https://files.pythonhosted.org/packages/5f/ea/56eddba6249fae5361b53eb62e2e25ad86cabec4632d943d356aba8dea1b/wrapt-2.5.2-cp315-cp315t-win_arm64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "3ff687637af9ffe59405f9c67a5e2f0fcbe25a1034fda529843635baf4932626"
+    },
+    "digests": {
+     "blake2b_256": "56d170f9e71674d7b6c21c8e8cafc3016f773dc3acb31a131f23ab4af8c1effb",
+     "md5": "32c08af5c5e1e220182da0c4308ee9bc",
+     "sha256": "035cd71e2aadfc0ad366ab4785b49e62093370885ea4b527b61b308b7a92ff14"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-cp315-cp315-win32.whl",
+    "has_sig": false,
+    "md5_digest": "32c08af5c5e1e220182da0c4308ee9bc",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp315",
+    "requires_python": ">=3.9",
+    "size": 101099,
+    "upload_time": "2026-10-29T23:06:01",
+    "upload_time_iso_8601": "2026-10-29T23:06:01.777202Z",
+    "url": "https://files.pythonhosted.org/packages/56/d1/70f9e71674d7b6c21c8e8cafc3016f773dc3acb31a131f23ab4af8c1effb/wrapt-2.5.2-cp315-cp315-win32.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "3ff687637af9ffe59405f9c67a5e2f0fcbe25a1034fda529843635baf4932626"
+    },
+    "digests": {
+     "blake2b_256": "7ce6fdea9e35605a6e7fc71556068ea184fb3e9cc09d1e3be8ca8f26d16339c9",
+     "md5": "7c99d5ea7c4ea22740a274a1143957ca",
+     "sha256": "b9f41029f9bc6ba80755b9c07f5e77e9e7aafb71c625b9f67614e4ebfb24302a"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-cp315-cp315-win_amd64.whl",
+    "has_sig": false,
+    "md5_digest": "7c99d5ea7c4ea22740a274a1143957ca",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp315",
+    "requires_python": ">=3.9",
+    "size": 106423,
+    "upload_time": "2026-10-29T23:06:03",
+    "upload_time_iso_8601": "2026-10-29T23:06:03.076459Z",
+    "url": "https://files.pythonhosted.org/packages/7c/e6/fdea9e35605a6e7fc71556068ea184fb3e9cc09d1e3be8ca8f26d16339c9/wrapt-2.5.2-cp315-cp315-win_amd64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "3ff687637af9ffe59405f9c67a5e2f0fcbe25a1034fda529843635baf4932626"
+    },
+    "digests": {
+     "blake2b_256": "d5508c41d8ba868cde9afd5b68e18f19b94300d091c409ef081b80c2aecda653",
+     "md5": "c7384126f2dce088a8ffe13f590bb37a",
+     "sha256": "ae84013e89ec1874415549a46cfea373e28ddecbb72e1f5456cddfa2b76a28e6"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-cp315-cp315-win_arm64.whl",
+    "has_sig": false,
+    "md5_digest": "c7384126f2dce088a8ffe13f590bb37a",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp315",
+    "requires_python": ">=3.9",
+    "size": 104152,
+    "upload_time": "2026-10-29T23:06:04",
+    "upload_time_iso_8601": "2026-10-29T23:06:04.356037Z",
+    "url": "https://files.pythonhosted.org/packages/d5/50/8c41d8ba868cde9afd5b68e18f19b94300d091c409ef081b80c2aecda653/wrapt-2.5.2-cp315-cp315-win_arm64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "ceab6c052af5f2dfe7d70e4e57521a9556c0f106a327aa897d66fd0c26e9db89"
+    },
+    "digests": {
+     "blake2b_256": "6f78ede1d24c5ab3de441332262d6862ad8ca09bfda1707c66c6435946af5edf",
+     "md5": "fb0e6432d74404f29820401fb0b24055",
+     "sha256": "ad9daa883bb795b8cbe960570590878280a444173fece51f7bbfb7532a9538e2"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-cp39-cp39-macosx_10_9_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "fb0e6432d74404f29820401fb0b24055",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp39",
+    "requires_python": ">=3.9",
+    "size": 105421,
+    "upload_time": "2026-10-29T23:06:22",
+    "upload_time_iso_8601": "2026-10-29T23:06:22.169037Z",
+    "url": "https://files.pythonhosted.org/packages/6f/78/ede1d24c5ab3de441332262d6862ad8ca09bfda1707c66c6435946af5edf/wrapt-2.5.2-cp39-cp39-macosx_10_9_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "ceab6c052af5f2dfe7d70e4e57521a9556c0f106a327aa897d66fd0c26e9db89"
+    },
+    "digests": {
+     "blake2b_256": "c7f1192398297bc5180064de5342806d99e0af8468ff80498b368337d0f3fd9b",
+     "md5": "5f134b9db40683ec2cd66c46bf3f98a8",
+     "sha256": "40f8ae3eb1388763fd2e60b55e1d569f66e80552e02a333f3d2fa9139a509d1e"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-cp39-cp39-macosx_11_0_arm64.whl",
+    "has_sig": false,
+    "md5_digest": "5f134b9db40683ec2cd66c46bf3f98a8",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp39",
+    "requires_python": ">=3.9",
+    "size": 105889,
+    "upload_time": "2026-10-29T23:06:23",
+    "upload_time_iso_8601": "2026-10-29T23:06:23.541540Z",
+    "url": "https://files.pythonhosted.org/packages/c7/f1/192398297bc5180064de5342806d99e0af8468ff80498b368337d0f3fd9b/wrapt-2.5.2-cp39-cp39-macosx_11_0_arm64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "ceab6c052af5f2dfe7d70e4e57521a9556c0f106a327aa897d66fd0c26e9db89"
+    },
+    "digests": {
+     "blake2b_256": "ab7f88def1698c06f00f741e8be7f94df24b4f30f408067372a4bafea9259ce8",
+     "md5": "81799b42639cc50cf703f0c4ff5e2aa5",
+     "sha256": "8581eab7cb0a3bc6e8c8f64f853a1a814664d71f7ca74efb3011b4df2a40314b"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-cp39-cp39-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "81799b42639cc50cf703f0c4ff5e2aa5",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp39",
+    "requires_python": ">=3.9",
+    "size": 231422,
+    "upload_time": "2026-10-29T23:06:25",
+    "upload_time_iso_8601": "2026-10-29T23:06:25.277766Z",
+    "url": "https://files.pythonhosted.org/packages/ab/7f/88def1698c06f00f741e8be7f94df24b4f30f408067372a4bafea9259ce8/wrapt-2.5.2-cp39-cp39-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "ceab6c052af5f2dfe7d70e4e57521a9556c0f106a327aa897d66fd0c26e9db89"
+    },
+    "digests": {
+     "blake2b_256": "ca7e23e9fdb0154ff1454739e079f2fa336bf7e094009466cd553d705d397272",
+     "md5": "9e5e02f9e6b2d897ec75068af3a46007",
+     "sha256": "d8dc92a832446351ce3bf5876aa558e4f6b456ca0613d02969ce0db4762394b2"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-cp39-cp39-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+    "has_sig": false,
+    "md5_digest": "9e5e02f9e6b2d897ec75068af3a46007",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp39",
+    "requires_python": ">=3.9",
+    "size": 233105,
+    "upload_time": "2026-10-29T23:06:26",
+    "upload_time_iso_8601": "2026-10-29T23:06:26.770280Z",
+    "url": "https://files.pythonhosted.org/packages/ca/7e/23e9fdb0154ff1454739e079f2fa336bf7e094009466cd553d705d397272/wrapt-2.5.2-cp39-cp39-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "ceab6c052af5f2dfe7d70e4e57521a9556c0f106a327aa897d66fd0c26e9db89"
+    },
+    "digests": {
+     "blake2b_256": "70e8f59044d947545e1b9b54d16e20ef9d42ffe34b68a5df28993afe3f55d268",
+     "md5": "653c852973bfd18803d9ec283415f1c7",
+     "sha256": "a829b0febab0828f5d47903b11474f9f23711da5ac55e15d0d177e907d3c15e7"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-cp39-cp39-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl",
+    "has_sig": false,
+    "md5_digest": "653c852973bfd18803d9ec283415f1c7",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp39",
+    "requires_python": ">=3.9",
+    "size": 221228,
+    "upload_time": "2026-10-29T23:06:28",
+    "upload_time_iso_8601": "2026-10-29T23:06:28.178417Z",
+    "url": "https://files.pythonhosted.org/packages/70/e8/f59044d947545e1b9b54d16e20ef9d42ffe34b68a5df28993afe3f55d268/wrapt-2.5.2-cp39-cp39-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "ceab6c052af5f2dfe7d70e4e57521a9556c0f106a327aa897d66fd0c26e9db89"
+    },
+    "digests": {
+     "blake2b_256": "edcd8a3edb3183152925ba3b9b846a8c61064b8d3ce6d38aca2dd908374c6742",
+     "md5": "2a243f7b05733b4f7a42561af98dc0f1",
+     "sha256": "ded0118adcb43b080cfcbe2a96dcf27171b8fd73d0b418603d899f4e6309ac50"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-cp39-cp39-musllinux_1_2_aarch64.whl",
+    "has_sig": false,
+    "md5_digest": "2a243f7b05733b4f7a42561af98dc0f1",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp39",
+    "requires_python": ">=3.9",
+    "size": 230845,
+    "upload_time": "2026-10-29T23:06:29",
+    "upload_time_iso_8601": "2026-10-29T23:06:29.930437Z",
+    "url": "https://files.pythonhosted.org/packages/ed/cd/8a3edb3183152925ba3b9b846a8c61064b8d3ce6d38aca2dd908374c6742/wrapt-2.5.2-cp39-cp39-musllinux_1_2_aarch64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "ceab6c052af5f2dfe7d70e4e57521a9556c0f106a327aa897d66fd0c26e9db89"
+    },
+    "digests": {
+     "blake2b_256": "aba5e5bb96e734d3010d67f85cb7b8f92e68b1d2085cb06d06e2356011799860",
+     "md5": "f9e68de20bcef438b482ad7d72f5e4f9",
+     "sha256": "af9cecb68173b0945a53e7aaabc65ef6ef458f6dd201a9ebb23139e804f1f5e7"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-cp39-cp39-musllinux_1_2_riscv64.whl",
+    "has_sig": false,
+    "md5_digest": "f9e68de20bcef438b482ad7d72f5e4f9",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp39",
+    "requires_python": ">=3.9",
+    "size": 218817,
+    "upload_time": "2026-10-29T23:06:31",
+    "upload_time_iso_8601": "2026-10-29T23:06:31.411026Z",
+    "url": "https://files.pythonhosted.org/packages/ab/a5/e5bb96e734d3010d67f85cb7b8f92e68b1d2085cb06d06e2356011799860/wrapt-2.5.2-cp39-cp39-musllinux_1_2_riscv64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "ceab6c052af5f2dfe7d70e4e57521a9556c0f106a327aa897d66fd0c26e9db89"
+    },
+    "digests": {
+     "blake2b_256": "5f68d0ad18bb38b70b6627b968695ef4a29ec58f3ecce27f528b8b7a4f86c17d",
+     "md5": "b1abc72ec2257b58674fa82b6283ef7c",
+     "sha256": "143a3f8b33984e35950ae5d0159be2bac93356b6f79b509af9941a4be64c4368"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-cp39-cp39-musllinux_1_2_x86_64.whl",
+    "has_sig": false,
+    "md5_digest": "b1abc72ec2257b58674fa82b6283ef7c",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp39",
+    "requires_python": ">=3.9",
+    "size": 220894,
+    "upload_time": "2026-10-29T23:06:32",
+    "upload_time_iso_8601": "2026-10-29T23:06:32.887961Z",
+    "url": "https://files.pythonhosted.org/packages/5f/68/d0ad18bb38b70b6627b968695ef4a29ec58f3ecce27f528b8b7a4f86c17d/wrapt-2.5.2-cp39-cp39-musllinux_1_2_x86_64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "3ff687637af9ffe59405f9c67a5e2f0fcbe25a1034fda529843635baf4932626"
+    },
+    "digests": {
+     "blake2b_256": "d3e7c1c06e0e70392b96e2e5cf604b4d921a494bccdca544579e90b923239924",
+     "md5": "ff765b0167cfbc72d106fe4c690dce69",
+     "sha256": "c954a582cd96faa9a7598b634efdc92c9fa7710538dae93fbd9222c3a1e13beb"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-cp39-cp39-win32.whl",
+    "has_sig": false,
+    "md5_digest": "ff765b0167cfbc72d106fe4c690dce69",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp39",
+    "requires_python": ">=3.9",
+    "size": 100734,
+    "upload_time": "2026-10-29T23:06:34",
+    "upload_time_iso_8601": "2026-10-29T23:06:34.280673Z",
+    "url": "https://files.pythonhosted.org/packages/d3/e7/c1c06e0e70392b96e2e5cf604b4d921a494bccdca544579e90b923239924/wrapt-2.5.2-cp39-cp39-win32.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "3ff687637af9ffe59405f9c67a5e2f0fcbe25a1034fda529843635baf4932626"
+    },
+    "digests": {
+     "blake2b_256": "9b0c00d375b2858039ecdccd40718040b7230fd5c19c0eb796f15c75fb66ba7d",
+     "md5": "b50087e31a2bd754a1e90946c83d1205",
+     "sha256": "1433ddff7786f2d0d4096646530a7aa04de0e776715014b80bc289e874fd8538"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-cp39-cp39-win_amd64.whl",
+    "has_sig": false,
+    "md5_digest": "b50087e31a2bd754a1e90946c83d1205",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp39",
+    "requires_python": ">=3.9",
+    "size": 105821,
+    "upload_time": "2026-10-29T23:06:35",
+    "upload_time_iso_8601": "2026-10-29T23:06:35.633314Z",
+    "url": "https://files.pythonhosted.org/packages/9b/0c/00d375b2858039ecdccd40718040b7230fd5c19c0eb796f15c75fb66ba7d/wrapt-2.5.2-cp39-cp39-win_amd64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "3ff687637af9ffe59405f9c67a5e2f0fcbe25a1034fda529843635baf4932626"
+    },
+    "digests": {
+     "blake2b_256": "e46d4a6a90e1c8a81ea348e7452c030f9798b186de424aefb4984f16576b308a",
+     "md5": "ad8b4ef537ab7c759822b6d9555410c5",
+     "sha256": "01ace38a377198e0b981b027a46cbdb5502d0123bd39c1a0f60a83a5eab7698e"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-cp39-cp39-win_arm64.whl",
+    "has_sig": false,
+    "md5_digest": "ad8b4ef537ab7c759822b6d9555410c5",
+    "packagetype": "bdist_wheel",
+    "python_version": "cp39",
+    "requires_python": ">=3.9",
+    "size": 103082,
+    "upload_time": "2026-10-29T23:06:36",
+    "upload_time_iso_8601": "2026-10-29T23:06:36.954036Z",
+    "url": "https://files.pythonhosted.org/packages/e4/6d/4a6a90e1c8a81ea348e7452c030f9798b186de424aefb4984f16576b308a/wrapt-2.5.2-cp39-cp39-win_arm64.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": {
+     "sha256": "ceab6c052af5f2dfe7d70e4e57521a9556c0f106a327aa897d66fd0c26e9db89"
+    },
+    "digests": {
+     "blake2b_256": "778b1ea57b936b70f98e8e7620a352578096d778dbee95b262f73c066d210ffb",
+     "md5": "6ab3e9a4764a00d64628aaf96ce8b3db",
+     "sha256": "61eb54e9540ea522c2c4752a57549a83d3c67e6704ed708403d28e067aaf90f0"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2-py3-none-any.whl",
+    "has_sig": false,
+    "md5_digest": "6ab3e9a4764a00d64628aaf96ce8b3db",
+    "packagetype": "bdist_wheel",
+    "python_version": "py3",
+    "requires_python": ">=3.9",
+    "size": 82025,
+    "upload_time": "2026-10-29T23:06:38",
+    "upload_time_iso_8601": "2026-10-29T23:06:38.560357Z",
+    "url": "https://files.pythonhosted.org/packages/77/8b/1ea57b936b70f98e8e7620a352578096d778dbee95b262f73c066d210ffb/wrapt-2.5.2-py3-none-any.whl",
+    "yanked": false,
+    "yanked_reason": null
+   },
+   {
+    "comment_text": null,
+    "core-metadata": false,
+    "digests": {
+     "blake2b_256": "9cb0f752d19e1e83ab8bd64aeccfde32ff086aee3ef08520f7340b69a8d0a4d2",
+     "md5": "e235838e46cbca0c9ac504555ebcba70",
+     "sha256": "551cb49e88b3722faad780303833bc4fa70685fb1773270fb98b40d39d9fddbf"
+    },
+    "downloads": -1,
+    "filename": "wrapt-2.5.2.tar.gz",
+    "has_sig": false,
+    "md5_digest": "e235838e46cbca0c9ac504555ebcba70",
+    "packagetype": "sdist",
+    "python_version": "source",
+    "requires_python": ">=3.9",
+    "size": 186066,
+    "upload_time": "2026-10-29T23:06:39",
+    "upload_time_iso_8601": "2026-10-29T23:06:39.868828Z",
+    "url": "https://files.pythonhosted.org/packages/9c/b0/f752d19e1e83ab8bd64aeccfde32ff086aee3ef08520f7340b69a8d0a4d2/wrapt-2.5.2.tar.gz",
+    "yanked": false,
+    "yanked_reason": null
+   }
+  ],
+  "vulnerabilities": []
+ },
+ "http_status": 200,
+ "requested_at_utc": "2026-10-30T14:16:11Z",
+ "url": "https://pypi.org/pypi/wrapt/2.5.2/json"
+}

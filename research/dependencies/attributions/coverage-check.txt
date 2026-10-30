@@ -1,0 +1,29 @@
+{
+  "counts": {
+    "attributed": 37,
+    "expected": 37,
+    "pending": 0,
+    "single_source": 0,
+    "verified": 37
+  },
+  "duplicated_names": [],
+  "frozen_versions_match_nodes": true,
+  "missing_vs_universe": [],
+  "pending_detail": [],
+  "redirects_resolved": [
+    "starlette"
+  ],
+  "result": "PASS",
+  "shared_repositories": {
+    "psycopg/psycopg": [
+      "psycopg",
+      "psycopg-binary"
+    ],
+    "pydantic/pydantic": [
+      "pydantic",
+      "pydantic-core"
+    ]
+  },
+  "single_source_detail": [],
+  "unexpected_vs_universe": []
+}
