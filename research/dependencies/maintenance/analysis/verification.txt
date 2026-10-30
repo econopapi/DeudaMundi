@@ -60,3 +60,10 @@ v0.1.2 — fuentes heredadas del tema y fondo de plot opaco
 Estado editorial conocido al cierre (30-10-2026)
 - Dark: verificado punto a punto (fondo opaco de la superficie, título legible, kicker en acento, tipografía heredada del tema).
 - Light: pendiente de pulir — decisión editorial del autor de posponerlo ("ya dejémoslo ahí"); quedan los tokens por validarse sobre el light real del tema (contraste del título/fuente sobre #f6f7fb y el padding del contenedor). No es un defecto silencioso: queda documentado aquí para el siguiente ciclo.
+
+Integración final en el borrador del post 2735 (bloques nativos)
+- Verificación previa de reversión: el borrador estaba byte-idéntico al original (081b1c07…) antes de tocar nada.
+- Se insertaron los cinco bloques nativos en tres posiciones: (1) al cierre de "Qué podemos afirmar ya, y hasta dónde" → fig1, fig2 y fig5 con un párrafo guía del plan preregistrado; (2) dentro de "¿Se concentra el trabajo en pocas personas?" → fig3 y fig4 con su párrafo guía; (3) se actualizó la nota editorial para indicar que las cinco figuras interactivas son resultados descriptivos ya presentes en el borrador, con la lectura cualitativa pendiente.
+- Verificación de reversibilidad del payload: retirando el añadido se reconstruye el borrador original. Payload enviado y relectura byte-idéntico: SHA-256 del contenido final fc6947b30e24cc5d… (hash completo d25f94ab… sustituido; el definitivo es fc6947b30e24cc5d como prefijo de la relectura confirmada).
+- Estado del borrador 2735: 5 figuras nativas con IDs únicos por instancia; cero bloques `wp:html` residuales; bloque GraphDraw, grafo estático completo y captura del método quedaron intactos.
+- Pendiente documentado: el modo dark quedó verificado de extremo a extremo en el borrador de prueba 2753 (fondo opaco del gráfico, título legible, kicker en acento); el ajuste fino del modo light real del tema queda como límite conocido ya documentado, a revisar en el próximo ciclo editorial antes de publicar.
