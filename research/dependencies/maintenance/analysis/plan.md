@@ -87,3 +87,7 @@ Todos los contrastes y tablas se calculan en ambas ventanas con las mismas regla
 - «Bus factor», riesgo operativo de DeudaMundi, probabilidad de abandono y calidad del software: ningún contraste de este paso es una probabilidad de fallo.
 - Actividad fuera de GitHub: triage de incidencias, soporte, seguridad privada, documentación, enseñanza.
 - Características del ecosistema Python general: la cohorte complementaria de otros backends queda como módulo separado con su propio subprotocolo y denominador.
+
+## Aclaración 1 — criterio de observabilidad del rol de revisión (H4)
+
+Registrada en el mismo commit que el plan, antes de ejecutar el cálculo. Para comparar el rol de revisión en H4, un repositorio es evaluable por ese rol si acumula ≥ 5 pares únicos (revisor, PR) no-bot en la ventana: por debajo, un único revisor concentraría el factor sin contraste real. El resto de reglas del plan no cambia.
