@@ -38,7 +38,7 @@ imagen del paso 1) y los extras propagados al punto fijo:
 | `graph-diagram.mmd` | Visualización Mermaid (renderiza en GitHub). |
 | `checks.json` | Datos de verificación: extras activos/inactivos, marcadores Python/plataforma, dependencias compartidas, aislamiento del tooling, no-explicados. |
 | `step1-vs-step2.txt` | Comparación semántica contra las flechas del paso 1 (no se usan como fuente de verdad). |
-| `verification.txt` | Certificación del orquestador: hash de la foto, entorno de imagen vs foto, binding del pyproject, resultado de la puerta de estabilidad. |
+| `verification.txt` | Certificación del orquestador: hash de la foto, entorno de imagen vs foto, binding del pyproject, resultado de la puerta de estabilidad. **Se escribe a un fichero temporal y solo se publica tras pasar todas las puertas**; en un fallo no se toca (queda el de la última corrida verde). |
 | `SHA256SUMS` | Hashes de todos los archivos de la carpeta. |
 
 ## Cómo regenerar
@@ -51,16 +51,25 @@ Requisitos en el host: Docker + `sha256sum` + la imagen de producción del
 paso 1 presente localmente (por defecto
 `deudamundi-api:research-env-snapshot`; se usa tal cual, **no se reconstruye**).
 El orquestador: (1) valida `pip-inspect.json` contra `SHA256SUMS` del paso 1;
-(2) comprueba que la imagen existe — si falta, deté­nese con mensaje claro,
-sin reconstruir ni resolver dependencias; (3) vincula la definición de
-directas/extras a la foto: `pyproject-frozen.toml` debe ser idéntico al
-checkout actual **y** a `/app/pyproject.toml` dentro de la imagen; (4)
+(2) comprueba que la imagen existe — si falta, se detiene con mensaje claro
+que explica **cómo recuperar la imagen original** (`docker save`/`docker
+load` desde la máquina donde se construyó el paso 1) y **sin sugerir
+reconstruirla**: reconstruir reescribiría `pip-inspect.json` y cancelaría la
+foto congelada; (3) vincula la definición de directas/extras a la foto:
+`pyproject-frozen.toml` debe ser idéntico al checkout actual **y** a
+`/app/pyproject.toml` dentro de la imagen — el volcado se hace con el ID
+devuelto por `docker create` (la creación debe funcionar; sin nombres fijos
+de contenedor, por si un contenedor viejo aporta el archivo equivocado); (4)
 verifica pip/Python de la imagen contra los de la foto; (5) el extractor
 comprueba identidad completa (nombre canónico + versión) de las 41
 distribuciones entre la foto y el entorno donde corre, con `exit 2` en
 desacuerdo; (6) extrae dos veces y exige salida byte-idéntica — si difieren,
-**exit 1 sin publicar nada** (se conservan `runs/run1` y `runs/run2` para
-depurar); (7) publica run1 y recalcula `SHA256SUMS`.
+**exit 1 sin publicar nada**: los artefactos publicados, incluidos
+`verification.txt` y `SHA256SUMS`, quedan intactos (de la última corrida
+verde) y solo se conservan `runs/run1` y `runs/run2` para depurar; (7)
+publica run1, publica `verification.txt` — que se genera en un fichero
+temporal y solo se publica tras pasar **todas** las puertas — y recalcula
+`SHA256SUMS`.
 
 Demostración del comportamiento de fallo por inestabilidad:
 
@@ -130,10 +139,11 @@ demostraciones negativas):
    Demostrado el rechazo con una foto mutada en copia temporal
    (`redis 9.9.9`) → exit 2 sin escribir salidas.
 4. **Estabilidad con puerta de publicación:** dos extracciones byte-idénticas;
-   en divergencia, exit 1 y nada publicado (demostrado con
-   `STABILITY_TEST=mismatch` → exit 1; los SHA de los artefactos de
-   publicación quedaron intactos y sólo quedó el directorio de depuración
-   `runs/`).
+   en divergencia, exit 1 y nada publicado, incluidos
+   `verification.txt` y `SHA256SUMS` (que se generan en fichero temporal y
+   solo se publican tras pasar todas las puertas); demostrado con
+   `STABILITY_TEST=mismatch` → exit 1 y SHA de `verification.txt`,
+   `nodes.csv` y `SHA256SUMS` intactos tras el intento.
 
 Verificaciones de gramática del grafo (sin cambiar tras las correcciones):
 

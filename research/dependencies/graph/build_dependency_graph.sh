@@ -18,7 +18,9 @@
 #      runtime, and hard-fails on mismatch;
 #   5. performs a second extraction and REQUIRES byte-level stability: on
 #      instability the orchestrator exits 1 WITHOUT publishing anything;
-#   6. publishes outputs, then writes SHA256SUMS and verification.txt.
+#   6. publishes outputs and verification.txt ONLY after every gate passes
+#      (verification.txt is staged outside the published set until then),
+#      then writes SHA256SUMS.
 #
 # Usage (from anywhere):
 #   ./research/dependencies/graph/build_dependency_graph.sh
@@ -53,8 +55,19 @@ echo "==> verifying frozen photo (pip-inspect.json vs step-1 SHA256SUMS)"
 
 # --- 2. reuse the snapshot image (no rebuild) ----------------------------------
 echo "==> reusing snapshot image ${IMAGE_TAG} (no rebuild, no installs)"
-docker image inspect "${IMAGE_TAG}" >/dev/null 2>&1 \
-  || fail "la imagen ${IMAGE_TAG} no existe localmente. Obténla ejecutando UNA VEZ ./research/dependencies/extract_env_snapshot.sh en una máquina que tenga el paso 1; este script no reconstruye ni resuelve dependencias."
+if ! docker image inspect "${IMAGE_TAG}" >/dev/null 2>&1; then
+  echo "ERROR: la imagen ${IMAGE_TAG} no existe localmente. DETENIENDO." >&2
+  echo "> Este script NO reconstruye la imagen ni resuelve dependencias: hacerlo" >&2
+  echo "> invalidaría la foto congelada del paso 1 (extract_env_snapshot.sh" >&2
+  echo "> reconstruye la imagen y REESCRIBE pip-inspect.json)." >&2
+  echo "> Recupera la imagen original: desde la máquina donde se obtuvo el" >&2
+  echo "> snapshot del paso 1, exporta e importa la MISMA imagen:" >&2
+  echo ">   docker save deudamundi-api:research-env-snapshot | gzip > imagen.tgz" >&2
+  echo ">   docker load < imagen.tgz" >&2
+  echo "> Si no es recuperable, la extracción no es verificable frente a esa" >&2
+  echo "> imagen: consulta la investigación y decide por esa vía." >&2
+  exit 1
+fi
 
 # --- 3. bind direct deps/extras to the photo -----------------------------------
 # 3a. the committed frozen copy must equal the CURRENT checkout of
@@ -66,11 +79,17 @@ fi
 echo "==> pyproject-frozen.toml == api/pyproject.toml (checkout): OK"
 
 # 3b. the frozen copy must equal /app/pyproject.toml INSIDE the image
+#     (an ephemeral container identified by its returned ID; creation must
+#     succeed so the file we compare against provably comes from THIS image)
 IMG_PYPROJECT="$(mktemp /tmp/img-pyproject-XXXXXX)"
-docker create --name tmp-fg-dump "${IMAGE_TAG}" >/dev/null 2>&1 || true
-docker cp "tmp-fg-dump:/app/pyproject.toml" "${IMG_PYPROJECT}" \
-  || { docker rm -f tmp-fg-dump >/dev/null 2>&1 || true; fail "no se pudo leer /app/pyproject.toml de la imagen; no se puede vincular la definición de dependencias a la foto."; }
-docker rm -f tmp-fg-dump >/dev/null 2>&1 || true
+IMG_CID="$(docker create "${IMAGE_TAG}")" \
+  || fail "no se pudo crear un contenedor efímero de la imagen ${IMAGE_TAG}; no se puede leer /app/pyproject.toml para vincular la foto."
+if ! docker cp "${IMG_CID}:/app/pyproject.toml" "${IMG_PYPROJECT}"; then
+  rm -f "${IMG_PYPROJECT}"
+  docker rm -f "${IMG_CID}" >/dev/null 2>&1 || true
+  fail "no se pudo leer /app/pyproject.toml de la imagen ${IMAGE_TAG} (contenedor ${IMG_CID}); no se puede vincular la definición de dependencias a la foto."
+fi
+docker rm -f "${IMG_CID}" >/dev/null
 cmp -s "${IMG_PYPROJECT}" "${FROZEN_PYPROJECT}" \
   || fail "/app/pyproject.toml de la imagen difiere de pyproject-frozen.toml: la imagen ya no es la de la foto. Deteniendo."
 rm -f "${IMG_PYPROJECT}"
@@ -86,7 +105,9 @@ PHOTO_PIP_VERSION="$(grep -o '"pip_version": *"[^"]*"' "${DEPS_DIR}/pip-inspect.
 PHOTO_PYTHON_VERSION="$(grep -o '"python_full_version": *"[^"]*"' "${DEPS_DIR}/pip-inspect.json" \
   | head -1 | cut -d'"' -f4)"
 
-VERIF="${OUT_DIR}/verification.txt"
+VERIF="${OUT_DIR}/.verification.staged"
+VERIF_PUBLISHED="${OUT_DIR}/verification.txt"
+rm -f "${VERIF}"
 {
   echo "# verification.txt - step 2 extraction checks"
   echo "generated_at_utc: $(date -u +%Y-%m-%dT%H:%M:%SZ)"
@@ -103,6 +124,9 @@ VERIF="${OUT_DIR}/verification.txt"
 [ "${IMG_PIP_VERSION}" = "${PHOTO_PIP_VERSION}" ] \
   && [ "${IMG_PYTHON_VERSION}" = "${PHOTO_PYTHON_VERSION}" ] \
   || fail "el entorno (pip/Python) de la imagen no coincide con la foto. Deteniendo."
+# NOTE: verification data stays in the staged file; the published
+# verification.txt (and SHA256SUMS) change ONLY when every gate passes.
+trap 'rm -f "${OUT_DIR}/.verification.staged"' EXIT
 
 # --- 4. extract (twice: one blind run for stability) ----------------------------
 STABLE_FILENAMES="nodes.csv edges.csv edges-inactive.csv paths.txt graph-diagram.mmd checks.json step1-vs-step2.txt"
@@ -155,6 +179,9 @@ else
   echo "ERROR: las dos extracciones difieren. No se publica NADA." >&2
   echo "       Runs para depuración conservados en ${OUT_DIR}/runs/ (run1, run2)." >&2
   echo "       Bórralos (rm -rf ${OUT_DIR}/runs) tras investigar." >&2
+  echo "       Nota: los artefactos publicados (incluido verification.txt y" >&2
+  echo "       SHA256SUMS) se mantienen intactos: siguen siendo los de la" >&2
+  echo "       última corrida verde; este intento no publicó nada." >&2
   exit 1
 fi
 
@@ -163,6 +190,9 @@ for f in ${STABLE_FILENAMES}; do
   cp "${OUT_DIR}/runs/run1/${f}" "${OUT_DIR}/${f}"
 done
 rm -rf "${OUT_DIR}/runs" "${OUT_DIR}/.tmp1" "${OUT_DIR}/.tmp2"
+
+# all gates passed: now (and only now) publish the verification record
+mv "${VERIF}" "${VERIF_PUBLISHED}"
 
 # --- 6. checksums ---------------------------------------------------------------
 ( cd "${OUT_DIR}" &&
