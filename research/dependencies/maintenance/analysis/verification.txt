@@ -49,3 +49,10 @@ Vía final de publicación del borrador (Paso 5 close, 30 de octubre)
 
 Corrección del aviso de activación («1 carácter de salida inesperado»)
 - Causa exacta: econopapi-plotly.php empezaba con un salto de línea antes de `<?php` (el include del plugin durante la activación emitía ese byte único). Corregido en build_block_plugin.py (stripping inicial + aserción de que el archivo abre con el tag PHP), re-armado y re-verificado: ambos PHP abren exactamente con `<?php`, `php -l` OK bajo la imagen oficial php:8-cli y el zip regenerado en SHA256SUMS.
+
+v0.1.2 — fuentes heredadas del tema y fondo de plot opaco
+- Decisión: el bloque NO define tipografía (sin @font-face ni font-family en el CSS, sin family en el layout de Plotly): la tipografía del post la cocina el tema del sitio; coincidiendo con el manual (familia web real sí pendiente de verificación en Astra) y con lo observado en el post ( Cartera 'fuentes distintas').
+- Fondo: paper_bgcolor/plot_bgcolor = c.surface (opaco): elimina el rectángulo blanco que el tema pintaba sobre el SVG en dark.
+- refuerzo: título de figura de h2 a p.figu-title (color propio; evita heredar estilos de h2 del tema y desaparece de los Índices automáticos tipo Jetpack "EN ESTE POST").
+- Verificado: node --check builders.js; php -l (php:8-cli) ambos archivos; arnés con 5 bloques renderizados en claro y oscuro (capturas) con tipografía heredada.
+- Zip final: wp-block-plugin/econopapi-plotly.zip, sha256 cf66b048d393195485f445641ad059f90041739663981a9ffb0f90cd6d1e467b.

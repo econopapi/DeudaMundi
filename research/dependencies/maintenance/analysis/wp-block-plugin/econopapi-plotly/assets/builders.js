@@ -22,8 +22,8 @@ function axes(c){
            tickfont:{color:c.muted,size:11}, automargin:true };
 }
 function lay(c){
-  return { paper_bgcolor:'rgba(0,0,0,0)', plot_bgcolor:'rgba(0,0,0,0)',
-    font:{color:c.text, family:"-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial"},
+  return { paper_bgcolor:c.surface, plot_bgcolor:c.surface,
+    font:{color:c.text},
     xaxis:axes(c), yaxis:axes(c), margin:{t:8,r:10,b:4,l:10},
     hoverlabel:{bgcolor:c.surface, bordercolor:c.border,
       font:{color:c.text, size:12}} };
@@ -60,8 +60,8 @@ function axes(c){
            tickfont:{color:c.muted,size:11}, automargin:true };
 }
 function lay(c){
-  return { paper_bgcolor:'rgba(0,0,0,0)', plot_bgcolor:'rgba(0,0,0,0)',
-    font:{color:c.text, family:"-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial"},
+  return { paper_bgcolor:c.surface, plot_bgcolor:c.surface,
+    font:{color:c.text},
     xaxis:axes(c), yaxis:axes(c), margin:{t:8,r:10,b:4,l:10},
     hoverlabel:{bgcolor:c.surface, bordercolor:c.border,
       font:{color:c.text, size:12}} };
@@ -98,8 +98,8 @@ function axes(c){
            tickfont:{color:c.muted,size:11}, automargin:true };
 }
 function lay(c){
-  return { paper_bgcolor:'rgba(0,0,0,0)', plot_bgcolor:'rgba(0,0,0,0)',
-    font:{color:c.text, family:"-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial"},
+  return { paper_bgcolor:c.surface, plot_bgcolor:c.surface,
+    font:{color:c.text},
     xaxis:axes(c), yaxis:axes(c), margin:{t:8,r:10,b:4,l:10},
     hoverlabel:{bgcolor:c.surface, bordercolor:c.border,
       font:{color:c.text, size:12}} };
@@ -150,8 +150,8 @@ function axes(c){
            tickfont:{color:c.muted,size:11}, automargin:true };
 }
 function lay(c){
-  return { paper_bgcolor:'rgba(0,0,0,0)', plot_bgcolor:'rgba(0,0,0,0)',
-    font:{color:c.text, family:"-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial"},
+  return { paper_bgcolor:c.surface, plot_bgcolor:c.surface,
+    font:{color:c.text},
     xaxis:axes(c), yaxis:axes(c), margin:{t:8,r:10,b:4,l:10},
     hoverlabel:{bgcolor:c.surface, bordercolor:c.border,
       font:{color:c.text, size:12}} };
@@ -186,8 +186,8 @@ function axes(c){
            tickfont:{color:c.muted,size:11}, automargin:true };
 }
 function lay(c){
-  return { paper_bgcolor:'rgba(0,0,0,0)', plot_bgcolor:'rgba(0,0,0,0)',
-    font:{color:c.text, family:"-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial"},
+  return { paper_bgcolor:c.surface, plot_bgcolor:c.surface,
+    font:{color:c.text},
     xaxis:axes(c), yaxis:axes(c), margin:{t:8,r:10,b:4,l:10},
     hoverlabel:{bgcolor:c.surface, bordercolor:c.border,
       font:{color:c.text, size:12}} };

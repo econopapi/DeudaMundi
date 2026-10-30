@@ -1,35 +1,25 @@
-@font-face { font-family:'Montserrat'; src:url('fonts/Montserrat-Bold-sub.otf') format('opentype');
-  font-weight:700; font-style:normal; font-display:swap; }
-@font-face { font-family:'Source Sans Pro'; src:url('fonts/SourceSansPro-Regular-sub.otf') format('opentype');
-  font-weight:400; font-style:normal; font-display:swap; }
-@font-face { font-family:'Source Sans Pro'; src:url('fonts/SourceSansPro-Bold-sub.otf') format('opentype');
-  font-weight:700; font-style:normal; font-display:swap; }
 .econopapi-plotly { color-scheme: light dark;
   --bg:#f4f4f8; --surface:#ffffff; --text:#1f2230; --muted:#676b7e;
   --border:#e6e7ef; --accent:#5f58d8; --soft:#ebe9ff; --grid:rgba(31,34,48,0.08); }
-@media (prefers-color-scheme: dark) {
-  html.dark .econopapi-plotly, html[data-theme="dark"] .econopapi-plotly,
-  .econopapi-plotly[data-theme="dark"] {
-    --bg:#090b14; --surface:#0b0d17; --text:#e8ebf7; --muted:#9ea5bf;
-    --border:#1f2437; --accent:#7b70ff; --soft:#251d53; --grid:rgba(232,235,251,0.07); } }
-@media (prefers-color-scheme: light) {
-  .econopapi-plotly { --bg:#f4f4f8; --surface:#ffffff; --text:#1f2230; --muted:#676b7e;
-    --border:#e6e7ef; --accent:#5f58d8; --soft:#ebe9ff; --grid:rgba(31,34,48,0.08); } }
 html.dark .econopapi-plotly, html[data-theme="dark"] .econopapi-plotly,
 .econopapi-plotly[data-theme="dark"] { --bg:#090b14; --surface:#0b0d17; --text:#e8ebf7;
   --muted:#9ea5bf; --border:#1f2437; --accent:#7b70ff; --soft:#251d53;
   --grid:rgba(232,235,251,0.07); }
+@media (prefers-color-scheme: dark) {
+  .econopapi-plotly:not([data-theme="light"]) { --bg:#090b14; --surface:#0b0d17;
+    --text:#e8ebf7; --muted:#9ea5bf; --border:#1f2437; --accent:#7b70ff;
+    --soft:#251d53; --grid:rgba(232,235,251,0.07); } }
 .econopapi-plotly { margin:2rem 0; padding:18px; background:var(--bg);
   color:var(--text); border:1px solid var(--border); border-radius:16px;
-  font-family:"Source Sans Pro", -apple-system, BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
   font-size:14px; line-height:1.5; max-width:1080px; margin-inline:auto; }
 .econopapi-plotly .figu { display:flex; flex-wrap:wrap; gap:8px; align-items:baseline; }
 .econopapi-plotly .figkicker { font-size:11px; letter-spacing:.12em; text-transform:uppercase;
   color:var(--accent); font-weight:700; }
-.econopapi-plotly h2.figu-title { font-family:"Montserrat","Source Sans Pro",sans-serif;
-  font-size:19px; margin:0; line-height:1.2; letter-spacing:-.025em; }
+.econopapi-plotly p.figu-title { font-size:19px; margin:0; line-height:1.2;
+  letter-spacing:-.025em; color:var(--text); font-weight:700; }
 .econopapi-plotly .accent-dot { color:var(--accent); }
-.econopapi-plotly .figu-sub { font-size:12.5px; color:var(--muted); margin:6px 0 10px; line-height:1.45; }
+.econopapi-plotly .figu-sub { font-size:12.5px; color:var(--muted); margin:6px 0 10px;
+  line-height:1.45; }
 .econopapi-plotly .enu { border:1px solid var(--border); background:var(--surface);
   border-radius:.4rem; padding:8px 4px 2px; margin:0; }
 .econopapi-plotly .enu > div { width:100%; height:100%; }
@@ -48,5 +38,5 @@ html.dark .econopapi-plotly, html[data-theme="dark"] .econopapi-plotly,
   font-size:11px; font-weight:600; }
 .econopapi-plotly-error .econ-chart { border:1px dashed var(--border); color:var(--muted);
   padding:18px; font-size:12px; }
-@media (max-width:640px){ .econopapi-plotly { padding:12px; } h2.figu-title { font-size:16px; }
-  .econopapi-plotly { overflow-x:hidden; } }
+@media (max-width:640px){ .econopapi-plotly { padding:12px; }
+  .econopapi-plotly p.figu-title { font-size:16px; } }

@@ -94,38 +94,28 @@ RENDER_JS = textwrap.dedent("""\
 
 
 STYLE_CSS = textwrap.dedent("""\
-@font-face { font-family:'Montserrat'; src:url('fonts/Montserrat-Bold-sub.otf') format('opentype');
-  font-weight:700; font-style:normal; font-display:swap; }
-@font-face { font-family:'Source Sans Pro'; src:url('fonts/SourceSansPro-Regular-sub.otf') format('opentype');
-  font-weight:400; font-style:normal; font-display:swap; }
-@font-face { font-family:'Source Sans Pro'; src:url('fonts/SourceSansPro-Bold-sub.otf') format('opentype');
-  font-weight:700; font-style:normal; font-display:swap; }
 .econopapi-plotly { color-scheme: light dark;
   --bg:#f4f4f8; --surface:#ffffff; --text:#1f2230; --muted:#676b7e;
   --border:#e6e7ef; --accent:#5f58d8; --soft:#ebe9ff; --grid:rgba(31,34,48,0.08); }
-@media (prefers-color-scheme: dark) {
-  html.dark .econopapi-plotly, html[data-theme="dark"] .econopapi-plotly,
-  .econopapi-plotly[data-theme="dark"] {
-    --bg:#090b14; --surface:#0b0d17; --text:#e8ebf7; --muted:#9ea5bf;
-    --border:#1f2437; --accent:#7b70ff; --soft:#251d53; --grid:rgba(232,235,251,0.07); } }
-@media (prefers-color-scheme: light) {
-  .econopapi-plotly { --bg:#f4f4f8; --surface:#ffffff; --text:#1f2230; --muted:#676b7e;
-    --border:#e6e7ef; --accent:#5f58d8; --soft:#ebe9ff; --grid:rgba(31,34,48,0.08); } }
 html.dark .econopapi-plotly, html[data-theme="dark"] .econopapi-plotly,
 .econopapi-plotly[data-theme="dark"] { --bg:#090b14; --surface:#0b0d17; --text:#e8ebf7;
   --muted:#9ea5bf; --border:#1f2437; --accent:#7b70ff; --soft:#251d53;
   --grid:rgba(232,235,251,0.07); }
+@media (prefers-color-scheme: dark) {
+  .econopapi-plotly:not([data-theme="light"]) { --bg:#090b14; --surface:#0b0d17;
+    --text:#e8ebf7; --muted:#9ea5bf; --border:#1f2437; --accent:#7b70ff;
+    --soft:#251d53; --grid:rgba(232,235,251,0.07); } }
 .econopapi-plotly { margin:2rem 0; padding:18px; background:var(--bg);
   color:var(--text); border:1px solid var(--border); border-radius:16px;
-  font-family:"Source Sans Pro", -apple-system, BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
   font-size:14px; line-height:1.5; max-width:1080px; margin-inline:auto; }
 .econopapi-plotly .figu { display:flex; flex-wrap:wrap; gap:8px; align-items:baseline; }
 .econopapi-plotly .figkicker { font-size:11px; letter-spacing:.12em; text-transform:uppercase;
   color:var(--accent); font-weight:700; }
-.econopapi-plotly h2.figu-title { font-family:"Montserrat","Source Sans Pro",sans-serif;
-  font-size:19px; margin:0; line-height:1.2; letter-spacing:-.025em; }
+.econopapi-plotly p.figu-title { font-size:19px; margin:0; line-height:1.2;
+  letter-spacing:-.025em; color:var(--text); font-weight:700; }
 .econopapi-plotly .accent-dot { color:var(--accent); }
-.econopapi-plotly .figu-sub { font-size:12.5px; color:var(--muted); margin:6px 0 10px; line-height:1.45; }
+.econopapi-plotly .figu-sub { font-size:12.5px; color:var(--muted); margin:6px 0 10px;
+  line-height:1.45; }
 .econopapi-plotly .enu { border:1px solid var(--border); background:var(--surface);
   border-radius:.4rem; padding:8px 4px 2px; margin:0; }
 .econopapi-plotly .enu > div { width:100%; height:100%; }
@@ -144,8 +134,8 @@ html.dark .econopapi-plotly, html[data-theme="dark"] .econopapi-plotly,
   font-size:11px; font-weight:600; }
 .econopapi-plotly-error .econ-chart { border:1px dashed var(--border); color:var(--muted);
   padding:18px; font-size:12px; }
-@media (max-width:640px){ .econopapi-plotly { padding:12px; } h2.figu-title { font-size:16px; }
-  .econopapi-plotly { overflow-x:hidden; } }
+@media (max-width:640px){ .econopapi-plotly { padding:12px; }
+  .econopapi-plotly p.figu-title { font-size:16px; } }
 """)
 
 
@@ -154,13 +144,13 @@ PHP_PLUGIN = textwrap.dedent(r'''
 /**
  * Plugin Name: Econopapi Plotly Charts
  * Description: Bloque dinámico econopapi/plotly-figure para las figuras interactivas del paso 5 (caso DeudaMundi). El bloque guarda solo la elección de figura; el render y los datos viven en el plugin, y las fuentes/Plotly se encolan una sola vez por página. No modifie el bloque GraphDraw ni el plugin viejo wp-plotly.
- * Version: 0.1.0
+ * Version: 0.1.2
  * Author: Daniel Limón — Econopapi
  * Text Domain: econopapi-plotly
  */
 defined('ABSPATH') || exit;
 
-define('ECONOPAPI_PLOTLY_VERSION', '0.1.0');
+define('ECONOPAPI_PLOTLY_VERSION', '0.1.2');
 define('ECONOPAPI_PLOTLY_PLOTLY_URL', 'https://cdn.plot.ly/plotly-2.35.2.min.js'); /* filterable */
 
 require_once __DIR__ . '/assets/defs-meta.php';
@@ -198,7 +188,7 @@ function econopapi_plotly_render(array $attributes = array()): string {
 <section class="econopapi-plotly" id="<?php echo esc_attr($uid); ?>" data-figure="<?php echo esc_attr($figure); ?>" role="figure" aria-label="<?php echo esc_attr(wp_strip_all_tags($d['alt'])); ?>">
   <div class="figu">
     <div class="figkicker"><?php echo esc_html($d['kicker']); ?></div>
-    <h2 class="figu-title"><?php echo esc_html($d['title']); ?><span class="accent-dot">.</span></h2>
+    <p class="figu-title"><?php echo esc_html($d['title']); ?><span class="accent-dot">.</span></p>
   </div>
   <p class="figu-sub"><?php echo wp_kses_post($d['subtitle']); ?></p>
   <div class="enu">
@@ -293,8 +283,7 @@ function econopapi_plotly_defs(): array {
 def main():
     meta = json.loads((RESULTS / "figure-meta.json").read_text(encoding="utf-8"))
     assets = PLUGIN_DIR / "assets"
-    fonts = PLUGIN_DIR / "assets" / "fonts"
-    for p in (assets, fonts):
+    for p in (assets,):
         p.mkdir(parents=True, exist_ok=True)
     # PHP (no leading whitespace: anything before <?php is output at activation)
     php_code = PHP_PLUGIN.lstrip("\n")
@@ -339,14 +328,8 @@ def main():
     (assets / "render.js").write_text(RENDER_JS, encoding="utf-8")
     (assets / "editor.js").write_text(EDITOR_JS, encoding="utf-8")
     (assets / "style.css").write_text(STYLE_CSS, encoding="utf-8")
-    # fonts
-    for f in ("Montserrat-Bold-sub.otf", "SourceSansPro-Regular-sub.otf",
-              "SourceSansPro-Bold-sub.otf"):
-        (fonts / f).write_bytes((FONTS / f).read_bytes())
-    for f in ("FONTS-LICENSE-Montserrat-OFL.txt", "FONTS-LICENSE-SourceSansPro-OFL.txt"):
-        name = "LICENSE-" + f.split("FONTS-LICENSE-")[1]
-        (fonts / name).write_text((HERE / "figures" / f).read_text(encoding="utf-8"),
-                                  encoding="utf-8")
+    # note: no bundled fonts by design (v0.1.2): the block inherits the site
+    # theme typography; the brand kit keeps font authority out of code.
     # zip
     zpath = PLUGIN_DIR.parent / "econopapi-plotly.zip"
     with zipfile.ZipFile(zpath, "w", zipfile.ZIP_DEFLATED) as z:
