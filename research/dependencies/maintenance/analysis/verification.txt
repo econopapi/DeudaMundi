@@ -56,3 +56,7 @@ v0.1.2 — fuentes heredadas del tema y fondo de plot opaco
 - refuerzo: título de figura de h2 a p.figu-title (color propio; evita heredar estilos de h2 del tema y desaparece de los Índices automáticos tipo Jetpack "EN ESTE POST").
 - Verificado: node --check builders.js; php -l (php:8-cli) ambos archivos; arnés con 5 bloques renderizados en claro y oscuro (capturas) con tipografía heredada.
 - Zip final: wp-block-plugin/econopapi-plotly.zip, sha256 cf66b048d393195485f445641ad059f90041739663981a9ffb0f90cd6d1e467b.
+
+Estado editorial conocido al cierre (30-10-2026)
+- Dark: verificado punto a punto (fondo opaco de la superficie, título legible, kicker en acento, tipografía heredada del tema).
+- Light: pendiente de pulir — decisión editorial del autor de posponerlo ("ya dejémoslo ahí"); quedan los tokens por validarse sobre el light real del tema (contraste del título/fuente sobre #f6f7fb y el padding del contenedor). No es un defecto silencioso: queda documentado aquí para el siguiente ciclo.
