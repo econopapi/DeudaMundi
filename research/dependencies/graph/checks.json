@@ -16,6 +16,14 @@
     },
     "source": "pip-inspect.json (frozen photo, step 1)"
   },
+  "identity_check": {
+    "photo_distributions": 41,
+    "runtime_distributions": 41,
+    "missing_in_runtime": [],
+    "unexpected_in_runtime": [],
+    "version_mismatch": [],
+    "result": "PASS"
+  },
   "counts": {
     "installed": 41,
     "runtime_nodes": 38,

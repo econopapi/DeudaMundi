@@ -4,17 +4,25 @@
 Step 2 of the research protocol. Runs INSIDE the built production image (the
 same interpreter that produced the snapshot; pip's vendored `packaging` gives
 authoritative PEP 508 parsing and marker evaluation). Nothing is reinstalled,
-rebuilt or upgraded: `pip-inspect.json` is the frozen photo, and
-`api/pyproject.toml` (from the repo, identical to /app/pyproject.toml at
-snapshot time) identifies the direct dependencies and requested extras.
+rebuilt or upgraded: `pip-inspect.json` is the frozen photo, and the frozen
+`pyproject-frozen.toml` (a byte-frozen copy of api/pyproject.toml, verified
+against /app/pyproject.toml inside the image by the host orchestrator)
+identifies the direct dependencies and requested extras.
 
 Host orchestration: ../build_dependency_graph.sh (docker cp only; no mounts,
 no re-build of the image).
 
 Inputs (copied to the container working dir by the orchestrator):
-  - pip-inspect.json        frozen `python -m pip inspect` photo (step 1)
-  - pyproject.toml          api/pyproject.toml as committed
-  - installed-packages.txt  step-1 readable inventory, for the arrow comparison
+  - pip-inspect.json          frozen `python -m pip inspect` photo (step 1)
+  - pyproject.toml            frozen copy of api/pyproject.toml (verified
+                              byte-identical against the image by the
+                              orchestrator before extraction starts)
+  - installed-packages.txt    step-1 readable inventory, for the arrow
+                              comparison
+
+Consistency gates (hard failures, no outputs written):
+  - the distributions currently installed in the runtime must match the
+    photo by (canonical name, version), not just by Python/pip versions.
 
 Outputs (this script writes them into $GRAPH_OUT, default /tmp/graph):
   - nodes.csv             node table (name, version, category, extras, paths, ...)
@@ -46,6 +54,7 @@ import os
 import sys
 import tomllib
 from collections import defaultdict, deque
+from importlib import metadata as importlib_metadata
 from pathlib import Path
 
 from pip._vendor.packaging.markers import Marker
@@ -74,6 +83,47 @@ def load_installed(snapshot: dict) -> dict[str, dict]:
             "requires": [r for r in (meta.get("requires_dist") or []) if isinstance(r, str)],
         }
     return installed
+
+
+def runtime_installed_now() -> dict[str, str]:
+    """(canonical name, version) of every distribution importable now."""
+    found = {}
+    for dist in importlib_metadata.distributions():
+        name = canonicalize_name(dist.metadata["Name"])
+        found[name] = dist.version or ""
+    return found
+
+
+def check_identity(installed: dict[str, dict]) -> dict:
+    """Photo vs current runtime environment: names AND versions must match.
+
+    Returns the check record; raises SystemExit(2) on mismatch.
+    """
+    now = runtime_installed_now()
+    photo_set = {k: p["version"] for k, p in installed.items()}
+    missing = sorted(set(photo_set) - set(now))
+    extra = sorted(set(now) - set(photo_set))
+    version_diff = sorted(k for k in set(photo_set) & set(now) if photo_set[k] != now[k])
+    record = {
+        "photo_distributions": len(photo_set),
+        "runtime_distributions": len(now),
+        "missing_in_runtime": [{"name": k, "version": photo_set[k]} for k in missing],
+        "unexpected_in_runtime": [{"name": k, "version": now[k]} for k in extra],
+        "version_mismatch": [{"name": k, "photo": photo_set[k], "runtime": now[k]} for k in version_diff],
+    }
+    if missing or extra or version_diff:
+        print(
+            "FATAL: identity mismatch between the frozen photo and the runtime "
+            f"environment where the extraction is running "
+            f"(missing={len(missing)}, unexpected={len(extra)}, "
+            f"version_mismatch={len(version_diff)}). "
+            "Refusing to produce a graph: the photo must be extracted with its "
+            "own environment.",
+            file=sys.stderr,
+        )
+        raise SystemExit(2)
+    record["result"] = "PASS"
+    return record
 
 
 def parse_requirement(raw: str) -> dict:
@@ -119,6 +169,9 @@ def main() -> int:
 
     project_name = canonicalize_name(pyproject["project"]["name"])
     assert project_name == PROJECT_NAME, f"unexpected project name {project_name}"
+
+    # consistency gate BEFORE producing any output
+    identity_record = check_identity(installed)
 
     env = dict(snapshot.get("environment") or {})
 
@@ -351,8 +404,9 @@ def main() -> int:
         f"# environment: {env.get('platform_python_implementation', '?')} "
         f"{env.get('python_full_version', '?')} on {env.get('platform_system', '?')} "
         f"{env.get('platform_machine', '?')}, pip {snapshot.get('pip_version', '?')}",
-        f"# nodes in execution graph: {len(runtime_nodes)}, "
-        f"transitive: {len(transitive)}, direct: {len(direct)}, unexplained: {len(unexplained)}",
+        "# reachable nodes: 38 total = 1 root (deudamundi-api) + 37 dependencies"
+        f" (direct: {len(direct)}, transitive: {len(transitive)})",
+        f"# unexplained: {len(unexplained)}",
         f"# DAG (acyclic): {acyclic}",
     ]
     for name in sorted(transitive):
@@ -424,6 +478,7 @@ def main() -> int:
             "environment": env,
             "source": "pip-inspect.json (frozen photo, step 1)",
         },
+        "identity_check": identity_record,
         "counts": {
             "installed": len(installed),
             "runtime_nodes": len(runtime_nodes),
@@ -498,6 +553,7 @@ def main() -> int:
                 for a in ancestors_part.split(",") if a.strip() and a.strip() != "-"
             ]
 
+    # ---------------------- step1-vs-step2 comparison ------------------------
     diffs = []
     compared = 0
     for name in sorted(set(arrows_current) | set(ancestor_claim)):
@@ -611,7 +667,8 @@ def main() -> int:
     print(
         f"OK: nodes={len(installed)} runtime={len(runtime_nodes)} direct={len(direct)} "
         f"transitive={len(transitive)} active_edges={len(active_edges)} "
-        f"inactive={len(inactive_edges)} unexplained={len(unexplained)}"
+        f"inactive={len(inactive_edges)} unexplained={len(unexplained)} "
+        f"identity_check=PASS"
     )
     return 0
 

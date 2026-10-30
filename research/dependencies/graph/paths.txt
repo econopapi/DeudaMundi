@@ -1,6 +1,7 @@
 # Simple dependency paths from deudamundi-api (step-2 extractor)
 # environment: CPython 3.12.16 on Linux x86_64, pip 26.2.2
-# nodes in execution graph: 38, transitive: 27, direct: 10, unexplained: 0
+# reachable nodes: 38 total = 1 root (deudamundi-api) + 37 dependencies (direct: 10, transitive: 27)
+# unexplained: 0
 # DAG (acyclic): True
 
 annotated-types 0.8.0 (hops=3, simple_paths=2)
