@@ -1,0 +1,220 @@
+{
+ "rows": [
+  {
+   "label": "Commits rama principal · 12m",
+   "k": "h",
+   "n": 5498,
+   "total": 7014,
+   "humans": 5498,
+   "bots": 1495,
+   "unatt": 21
+  },
+  {
+   "label": "Commits rama principal · 12m",
+   "k": "b",
+   "n": 1495,
+   "total": 7014,
+   "humans": 5498,
+   "bots": 1495,
+   "unatt": 21
+  },
+  {
+   "label": "Commits rama principal · 12m",
+   "k": "u",
+   "n": 21,
+   "total": 7014,
+   "humans": 5498,
+   "bots": 1495,
+   "unatt": 21
+  },
+  {
+   "label": "PR fusionados (toda base) · 12m",
+   "k": "h",
+   "n": 3311,
+   "total": 3981,
+   "humans": 3311,
+   "bots": 670,
+   "unatt": 0
+  },
+  {
+   "label": "PR fusionados (toda base) · 12m",
+   "k": "b",
+   "n": 670,
+   "total": 3981,
+   "humans": 3311,
+   "bots": 670,
+   "unatt": 0
+  },
+  {
+   "label": "PR fusionados (toda base) · 12m",
+   "k": "u",
+   "n": 0,
+   "total": 3981,
+   "humans": 3311,
+   "bots": 670,
+   "unatt": 0
+  },
+  {
+   "label": "Revisiones de PR · 12m",
+   "k": "h",
+   "n": 7932,
+   "total": 10543,
+   "humans": 7932,
+   "bots": 2610,
+   "unatt": 1
+  },
+  {
+   "label": "Revisiones de PR · 12m",
+   "k": "b",
+   "n": 2610,
+   "total": 10543,
+   "humans": 7932,
+   "bots": 2610,
+   "unatt": 1
+  },
+  {
+   "label": "Revisiones de PR · 12m",
+   "k": "u",
+   "n": 1,
+   "total": 10543,
+   "humans": 7932,
+   "bots": 2610,
+   "unatt": 1
+  },
+  {
+   "label": "Releases de GitHub · 12m",
+   "k": "h",
+   "n": 216,
+   "total": 356,
+   "humans": 216,
+   "bots": 140,
+   "unatt": 0
+  },
+  {
+   "label": "Releases de GitHub · 12m",
+   "k": "b",
+   "n": 140,
+   "total": 356,
+   "humans": 216,
+   "bots": 140,
+   "unatt": 0
+  },
+  {
+   "label": "Releases de GitHub · 12m",
+   "k": "u",
+   "n": 0,
+   "total": 356,
+   "humans": 216,
+   "bots": 140,
+   "unatt": 0
+  },
+  {
+   "label": "Commits rama principal · 24m",
+   "k": "h",
+   "n": 10567,
+   "total": 12593,
+   "humans": 10567,
+   "bots": 1973,
+   "unatt": 53
+  },
+  {
+   "label": "Commits rama principal · 24m",
+   "k": "b",
+   "n": 1973,
+   "total": 12593,
+   "humans": 10567,
+   "bots": 1973,
+   "unatt": 53
+  },
+  {
+   "label": "Commits rama principal · 24m",
+   "k": "u",
+   "n": 53,
+   "total": 12593,
+   "humans": 10567,
+   "bots": 1973,
+   "unatt": 53
+  },
+  {
+   "label": "PR fusionados (toda base) · 24m",
+   "k": "h",
+   "n": 5559,
+   "total": 6545,
+   "humans": 5559,
+   "bots": 984,
+   "unatt": 2
+  },
+  {
+   "label": "PR fusionados (toda base) · 24m",
+   "k": "b",
+   "n": 984,
+   "total": 6545,
+   "humans": 5559,
+   "bots": 984,
+   "unatt": 2
+  },
+  {
+   "label": "PR fusionados (toda base) · 24m",
+   "k": "u",
+   "n": 2,
+   "total": 6545,
+   "humans": 5559,
+   "bots": 984,
+   "unatt": 2
+  },
+  {
+   "label": "Revisiones de PR · 24m",
+   "k": "h",
+   "n": 15250,
+   "total": 18025,
+   "humans": 15250,
+   "bots": 2768,
+   "unatt": 7
+  },
+  {
+   "label": "Revisiones de PR · 24m",
+   "k": "b",
+   "n": 2768,
+   "total": 18025,
+   "humans": 15250,
+   "bots": 2768,
+   "unatt": 7
+  },
+  {
+   "label": "Revisiones de PR · 24m",
+   "k": "u",
+   "n": 7,
+   "total": 18025,
+   "humans": 15250,
+   "bots": 2768,
+   "unatt": 7
+  },
+  {
+   "label": "Releases de GitHub · 24m",
+   "k": "h",
+   "n": 407,
+   "total": 594,
+   "humans": 407,
+   "bots": 187,
+   "unatt": 0
+  },
+  {
+   "label": "Releases de GitHub · 24m",
+   "k": "b",
+   "n": 187,
+   "total": 594,
+   "humans": 407,
+   "bots": 187,
+   "unatt": 0
+  },
+  {
+   "label": "Releases de GitHub · 24m",
+   "k": "u",
+   "n": 0,
+   "total": 594,
+   "humans": 407,
+   "bots": 187,
+   "unatt": 0
+  }
+ ]
+}

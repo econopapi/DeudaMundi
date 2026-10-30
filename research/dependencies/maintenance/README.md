@@ -54,3 +54,5 @@ GitHub presenta un estado actual, no una foto histórica perfecta al corte: `upd
 No hay análisis de concentración, HHI, «bus factor», calidad de revisión, riesgo o quién mantiene cada repositorio en este paso. El material de demostración para el blog y el video está en [`editorial-evidence.md`](editorial-evidence.md).
 
 La [auditoría de aptitud analítica](quality-audit.md) mapea las preguntas del protocolo a los datos disponibles y registra los controles pendientes antes de sacar conclusiones.
+
+**Paso 5 (30 de octubre de 2026):** el análisis descriptivo vive en [`analysis/`](analysis/), con el plan preregistrado (`analysis/plan.md`), los contrastes H1–H4 con sensibilidad 12/24 meses, evidencia PyPI para H3, auditoría manual de 24 repositorios con segunda implementación independiente, bitácora en `analysis/audits.md`, cinco figuras interactivas con identidad visual Econopapi (`analysis/figures/`) y su integración verificada como borrador en WordPress (sin publicar) a través de `analysis/wp-snippets/`. Verificación reproducible y hashes en `analysis/verification.txt` y `analysis/SHA256SUMS`.

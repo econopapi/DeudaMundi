@@ -1,0 +1,41 @@
+Paso 5 — verificaciones de análisis (2026-10-30 UTC)
+
+Entrada
+- Datos congelados del paso 4 (../data/, 443 JSON) verificados a su vez por ../verify_activity.py (PASS 35/35) y ../SHA256SUMS (454 OK) antes de cualquier cálculo.
+- Mapa del paso 3: ../../attributions/source-repos.csv, SHA-256 f1d2884a5907652236848be559f168a535eb898e4ef2db14e57e352472fea12c.
+
+Plan preregistrado
+- plan.md creado y commiteado (65b8d02) antes de calcular cuotas/HHI/hipótesis; aclaraciones 1–3 añadidas en commits utilisateurs propios (c57005f discriminación del rol de revisión para H4; e56114d continuidad+variante con bots; 9334d39 selección mecánica de casos). La recolección de PyPI (H3) corrió después del plan y antes del contraste.
+
+Recomputo y consistencia
+- analyze_activity.py: exit 0; re-hidrató las 4 corrientes × 2 ventanas × 35 repos y contrastó cada total contra ../coverage-descriptive.csv: 0 discrepancias (tras corregir dos incidentes propios, ver abajo).
+- Los totales de 12m (7,014 commits / 3,981 PR / 10,543 revisiones / 356 releases) y 24m (12,593 / 6,545 / 18,025 / 594) coinciden con los del paso 4.
+
+Incidentes detectados durante el desarrollo (todos corregidos y fechados antes de declarar resultados)
+1. Error del pack de auditoría: contaba actores sin atribuir como humanos — corregido en audit_manual.py; el script principal estaba bien.
+2. Falsa alarma de esta bitácora sobre mako: la cuota 42/45 proviene de separar 3 commits de fusión; el cálculo era correcto.
+3. **Error real del script principal detectado por la auditoría** (fastapi): el denominador de cuotas de commits incluía a los bots; corregido (denominador = humanos + no atribuidos, sin bots) en la misma sesión y todo el conjunto re-verificado. Reglas y umbrales intactos respecto a plan.md.
+
+Auditoría manual
+- audit_manual.py (implementación independiente con clasificadores propios): 24 repos × 2 ventanas; contraste por campos de conteo y actor top-1: 0 discrepancias.
+- Evidencia por caso en results/audit-packs.json (login, id, type, flag bot y muestra del commit del actor principal)
+
+H3 (PyPI)
+- 37/37 distribuciones archivadas en pypi-evidence/ con recibo (URL, UTC, estado HTTP, SHA-256 del cuerpo).
+- 4 repos califican (psycopg, certifi, httpx, tzlocal); detalle en results/h3-test.csv.
+
+Figuras
+- 5 figuras autocontenidas generadas con Plotly 2.35.2 (CDN); sintaxis de los scripts in-line verificada con node --check; render ejecutado y captura (screenshot) exitosa en Chrome headless en claro y oscuro y en 390px (móvil). Inspección visual humana de las 5.
+- Procedencia de tokens: /home/econopapi/Projects/econopapi-video-studio/docs/brand/ECONOPAPI_BRAND_KIT_LIGHT_DARK_v04/ (guía oficial v0.4 + galería). Fuentes Montserrat/Source Sans Pro confirmadas por la galería; subconjuntos con pyftsubset 4.68.0; hash del plotly.min.js usado para el render de prueba: 6d21266ce1bd7d9e5ab4e115989c70c20de0382fd973a8f26ab58619eba4d603.
+- Bug de doble envoltorio de `window.__build` corregido antes de que pudiera observarse (y verificado con capturas).
+
+Integración con WordPress (borrador 2735, sin publicar)
+- Autohospedado (Namecheap), usuario administrador con `unfiltered_html: true` (confirmado via REST sobre las capabilities del usuario id 1).
+- Ciclo de respaldo y edición: lectura completa del borrador con respaldo local (SHA-256 081b1c07…), edición mínima quirúrgica, POST y relectura byte-idéntica. Hash SHA-256 del contenido final del borrador tras la relectura: c2de1bca7ed5cd3068a1c16264f1aa317a1c57de4fa25f2a424712db83ee4f82. La primera pasada insertó figuras sin el contenedor `.econofigw`; se rehízo partiendo del respaldo original y el payload final (c2de1bca7ed5cd30…) verificó el POST.
+- Estado final del borrador: sigue en draft; 5 bloques wp:html con figuras (id="chart" ×5 en el render); contenedores .econofigw ×5 en raw y render; el bloque GraphDraw y la imagen estática del grafo quedaron intactos (verificados por presencia).
+- Borrador de PRUEBA propio: id 2753 con fig1 corregida para previsualización (estado draft, borrable).
+- El listado de plugins mostró el viejo plugin `wp-plotly` v1.0.2 INACTIVO; no se activó. La vía usada fue el bloque wp:html inline (sin plugins nuevos, sin CDN alternativo distinto del CDN de Plotly ya documentado).
+
+Límites
+- El API de GitHub no ofrece foto histórica inmutable; los límites del paso 4 quedan sin cambiar. Cero discrepancias entre implementaciones no certifica los totales absolutos de GitHub, sí la reproducibilidad del cálculo desde los datos congelados.
+- Las reglas de `plan.md` no se ajustaron después de ver cifras; no se fusionan alias ni se recategorizan cuentas.

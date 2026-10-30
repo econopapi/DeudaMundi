@@ -1,0 +1,16 @@
+Fuentes embebidas (base64) en las figuras del paso 5
+====================================================
+
+-Familias: Montserrat Bold (titulares y etiqueta superior) y Source Sans Pro
+ Regular/Bold (texto), según la galería de identidad
+ (ECONOPAPI_BRAND_KIT_LIGHT_DARK_v04, galeria.html, octubre 2026).
+-Origen: manual de marca oficial en
+ /home/econopapi/Projects/econopapi-video-studio/docs/brand/
+ (pegado 30-10-2026; archivos originales .otf en assets/fonts del mismo proyecto).
+- Estas copias son SUBCONJUNTOS con pyftsubset 4.68.0 (unicodes
+  U+0020-007E, U+00A0-00FF, U+2010-2015, U+2192, U+00B7, U+2022),
+  para reducir el peso de las HTML autocontenidas.
+- Licencias SIL OFL 1.1 incluidas como FONTS-LICENSE-*.txt.
+- La guía indica que la familia web definitiva (Astra/Customizer) queda
+  pendiente; estas fuentes provienen del kit confirmado para video y las
+  figuras del blog las usan con ese rotulado.

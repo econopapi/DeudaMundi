@@ -1,0 +1,268 @@
+{
+ "rows": [
+  {
+   "label": "Commits rama principal - 12m",
+   "k": "b",
+   "bot_share": 21.3,
+   "humans_share": 78.4,
+   "unatt_share": 0.3,
+   "total": 7014,
+   "bots": 1495,
+   "humans": 5498,
+   "unatt": 21
+  },
+  {
+   "label": "Commits rama principal - 12m",
+   "k": "h",
+   "bot_share": 21.3,
+   "humans_share": 78.4,
+   "unatt_share": 0.3,
+   "total": 7014,
+   "bots": 1495,
+   "humans": 5498,
+   "unatt": 21
+  },
+  {
+   "label": "Commits rama principal - 12m",
+   "k": "u",
+   "bot_share": 21.3,
+   "humans_share": 78.4,
+   "unatt_share": 0.3,
+   "total": 7014,
+   "bots": 1495,
+   "humans": 5498,
+   "unatt": 21
+  },
+  {
+   "label": "PR fusionados (toda base) - 12m",
+   "k": "b",
+   "bot_share": 16.8,
+   "humans_share": 83.2,
+   "unatt_share": 0.0,
+   "total": 3981,
+   "bots": 670,
+   "humans": 3311,
+   "unatt": 0
+  },
+  {
+   "label": "PR fusionados (toda base) - 12m",
+   "k": "h",
+   "bot_share": 16.8,
+   "humans_share": 83.2,
+   "unatt_share": 0.0,
+   "total": 3981,
+   "bots": 670,
+   "humans": 3311,
+   "unatt": 0
+  },
+  {
+   "label": "PR fusionados (toda base) - 12m",
+   "k": "u",
+   "bot_share": 16.8,
+   "humans_share": 83.2,
+   "unatt_share": 0.0,
+   "total": 3981,
+   "bots": 670,
+   "humans": 3311,
+   "unatt": 0
+  },
+  {
+   "label": "Revisiones de PR - 12m",
+   "k": "b",
+   "bot_share": 24.8,
+   "humans_share": 75.2,
+   "unatt_share": 0.0,
+   "total": 10543,
+   "bots": 2610,
+   "humans": 7932,
+   "unatt": 1
+  },
+  {
+   "label": "Revisiones de PR - 12m",
+   "k": "h",
+   "bot_share": 24.8,
+   "humans_share": 75.2,
+   "unatt_share": 0.0,
+   "total": 10543,
+   "bots": 2610,
+   "humans": 7932,
+   "unatt": 1
+  },
+  {
+   "label": "Revisiones de PR - 12m",
+   "k": "u",
+   "bot_share": 24.8,
+   "humans_share": 75.2,
+   "unatt_share": 0.0,
+   "total": 10543,
+   "bots": 2610,
+   "humans": 7932,
+   "unatt": 1
+  },
+  {
+   "label": "Releases de GitHub - 12m",
+   "k": "b",
+   "bot_share": 39.3,
+   "humans_share": 60.7,
+   "unatt_share": 0.0,
+   "total": 356,
+   "bots": 140,
+   "humans": 216,
+   "unatt": 0
+  },
+  {
+   "label": "Releases de GitHub - 12m",
+   "k": "h",
+   "bot_share": 39.3,
+   "humans_share": 60.7,
+   "unatt_share": 0.0,
+   "total": 356,
+   "bots": 140,
+   "humans": 216,
+   "unatt": 0
+  },
+  {
+   "label": "Releases de GitHub - 12m",
+   "k": "u",
+   "bot_share": 39.3,
+   "humans_share": 60.7,
+   "unatt_share": 0.0,
+   "total": 356,
+   "bots": 140,
+   "humans": 216,
+   "unatt": 0
+  },
+  {
+   "label": "Commits rama principal - 24m",
+   "k": "b",
+   "bot_share": 15.7,
+   "humans_share": 83.9,
+   "unatt_share": 0.4,
+   "total": 12593,
+   "bots": 1973,
+   "humans": 10567,
+   "unatt": 53
+  },
+  {
+   "label": "Commits rama principal - 24m",
+   "k": "h",
+   "bot_share": 15.7,
+   "humans_share": 83.9,
+   "unatt_share": 0.4,
+   "total": 12593,
+   "bots": 1973,
+   "humans": 10567,
+   "unatt": 53
+  },
+  {
+   "label": "Commits rama principal - 24m",
+   "k": "u",
+   "bot_share": 15.7,
+   "humans_share": 83.9,
+   "unatt_share": 0.4,
+   "total": 12593,
+   "bots": 1973,
+   "humans": 10567,
+   "unatt": 53
+  },
+  {
+   "label": "PR fusionados (toda base) - 24m",
+   "k": "b",
+   "bot_share": 15.0,
+   "humans_share": 84.9,
+   "unatt_share": 0.0,
+   "total": 6545,
+   "bots": 984,
+   "humans": 5559,
+   "unatt": 2
+  },
+  {
+   "label": "PR fusionados (toda base) - 24m",
+   "k": "h",
+   "bot_share": 15.0,
+   "humans_share": 84.9,
+   "unatt_share": 0.0,
+   "total": 6545,
+   "bots": 984,
+   "humans": 5559,
+   "unatt": 2
+  },
+  {
+   "label": "PR fusionados (toda base) - 24m",
+   "k": "u",
+   "bot_share": 15.0,
+   "humans_share": 84.9,
+   "unatt_share": 0.0,
+   "total": 6545,
+   "bots": 984,
+   "humans": 5559,
+   "unatt": 2
+  },
+  {
+   "label": "Revisiones de PR - 24m",
+   "k": "b",
+   "bot_share": 15.4,
+   "humans_share": 84.6,
+   "unatt_share": 0.0,
+   "total": 18025,
+   "bots": 2768,
+   "humans": 15250,
+   "unatt": 7
+  },
+  {
+   "label": "Revisiones de PR - 24m",
+   "k": "h",
+   "bot_share": 15.4,
+   "humans_share": 84.6,
+   "unatt_share": 0.0,
+   "total": 18025,
+   "bots": 2768,
+   "humans": 15250,
+   "unatt": 7
+  },
+  {
+   "label": "Revisiones de PR - 24m",
+   "k": "u",
+   "bot_share": 15.4,
+   "humans_share": 84.6,
+   "unatt_share": 0.0,
+   "total": 18025,
+   "bots": 2768,
+   "humans": 15250,
+   "unatt": 7
+  },
+  {
+   "label": "Releases de GitHub - 24m",
+   "k": "b",
+   "bot_share": 31.5,
+   "humans_share": 68.5,
+   "unatt_share": 0.0,
+   "total": 594,
+   "bots": 187,
+   "humans": 407,
+   "unatt": 0
+  },
+  {
+   "label": "Releases de GitHub - 24m",
+   "k": "h",
+   "bot_share": 31.5,
+   "humans_share": 68.5,
+   "unatt_share": 0.0,
+   "total": 594,
+   "bots": 187,
+   "humans": 407,
+   "unatt": 0
+  },
+  {
+   "label": "Releases de GitHub - 24m",
+   "k": "u",
+   "bot_share": 31.5,
+   "humans_share": 68.5,
+   "unatt_share": 0.0,
+   "total": 594,
+   "bots": 187,
+   "humans": 407,
+   "unatt": 0
+  }
+ ]
+}
