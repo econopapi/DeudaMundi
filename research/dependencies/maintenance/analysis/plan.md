@@ -91,3 +91,14 @@ Todos los contrastes y tablas se calculan en ambas ventanas con las mismas regla
 ## Aclaración 1 — criterio de observabilidad del rol de revisión (H4)
 
 Registrada en el mismo commit que el plan, antes de ejecutar el cálculo. Para comparar el rol de revisión en H4, un repositorio es evaluable por ese rol si acumula ≥ 5 pares únicos (revisor, PR) no-bot en la ventana: por debajo, un único revisor concentraría el factor sin contraste real. El resto de reglas del plan no cambia.
+
+## Aclaración 2 — variables de continuidad y variante con bots (completar el diccionario del protocolo)
+
+Registrada al contrastar el plan con el diccionario de variables del protocolo en Notion. Dos omisiones se corrigen antes de calcular estos resultados, con fecha, sin cambiar nada de lo anterior:
+
+1. **Continuidad**: por repositorio, ventana y tipo de evento se calculan (a) meses cubiertos con al menos un evento del flujo (escala 0–12 o 0–24), (b) fecha del último evento observable del flujo dentro de la ventana y (c) para releases, días transcurridos entre los dos releases in-window más recientes, como descripción de cadencia. Se calculan sobre todos los eventos del flujo, incluidos los bots, y en paralelo la última fecha observable de actividad no bot (humana o no atribuida), porque un repositorio cuya única actividad es automatizada debe verse distinto de uno con cualquier actividad humana. La cadencia es descriptiva y no equivale a «salud».
+2. **Inclusión/exclusión de bots**: además de las cuotas con bots fuera (métrica principal preregistrada), se reporta la variante con bots incluidos como categorías propias en el mismo ranking, con denominador de todos los eventos en la ventana. Sirve para mostrar dónde la automatización cambia la lectura; no sustituye a la principal.
+
+## Aclaración 3 — selección de casos para lectura profunda
+
+El protocolo exige hasta 6 repositorios «elegidos antes de ver métricas»: dos directos centrales, dos transitivos con más rutas y dos de función distinta (por ejemplo datos, servidor o seguridad), con desempate alfabético por nombre normalizado. Se aplica esa regla de forma mecánica sobre el grafo congelado del paso 2 (directo/transitivo según `nodes.csv`, centralidad por `paths_from_root`, capa funcional según la categoría del paso 1). La regla determinista no depende de ninguna métrica de actividad pública. Nota de transparencia de proceso: durante la depuración del reconten de agregados de este paso se vieron cuotas agregadas; la regla de selección siguió siendo mecánica sobre los datos del paso 2 y en ningún momento se seleccionó por resultados de actividad. La lectura cualitativa profunda pertenece al paso posterior, con las plantillas del protocolo (madurez, gobernanza, trabajo invisible, financiación declarada).
