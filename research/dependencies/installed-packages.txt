@@ -1,0 +1,55 @@
+# Installed Python packages - DeudaMundi backend production image
+# Source: `python -m pip inspect` executed in image deudamundi-api:research-env-snapshot
+# Categories:
+#   project:package     the deudamundi-api distribution itself (`pip install .`)
+#   runtime:direct      declared in api/pyproject.toml [project.dependencies]
+#   runtime:transitive  resolved at build time by pip (<- direct packages that require it)
+#   build:tooling       pip / setuptools / wheel (upgraded by Dockerfile builder)
+
+# Python 3.12.16 (CPython), pip 26.2.2, platform Linux x86_64
+# packages: 41 (project:package=1, runtime:direct=10, runtime:transitive=27, build:tooling=3)
+# Note: dev extra (pytest, pytest-cov, ruff, locust) is NOT installed in the production target.
+
+# dev-extra metadata present in installed env: none
+
+[project:package   ] deudamundi-api    0.1.0      
+[runtime:direct    ] APScheduler       3.11.3     
+[runtime:direct    ] SQLAlchemy        2.1.6      
+[runtime:direct    ] alembic           1.20.1     
+[runtime:direct    ] fastapi           0.115.14   
+[runtime:direct    ] httpx             0.28.1     
+[runtime:direct    ] psycopg           3.3.6      
+[runtime:direct    ] pydantic-settings 2.16.2     
+[runtime:direct    ] redis             5.3.1      
+[runtime:direct    ] slowapi           0.1.10     
+[runtime:direct    ] uvicorn           0.54.0     
+[runtime:transitive] Deprecated        3.0.1      <- deudamundi-api, slowapi
+[runtime:transitive] Mako              1.4.3      <- alembic, deudamundi-api
+[runtime:transitive] MarkupSafe        3.0.4      <- alembic, deudamundi-api
+[runtime:transitive] PyJWT             2.15.1     <- deudamundi-api, redis
+[runtime:transitive] PyYAML            6.0.3      <- deudamundi-api, uvicorn
+[runtime:transitive] annotated-types   0.8.0      <- deudamundi-api, fastapi, pydantic-settings
+[runtime:transitive] anyio             4.15.1     <- deudamundi-api, fastapi, httpx, uvicorn
+[runtime:transitive] certifi           2026.10.23 <- deudamundi-api, httpx
+[runtime:transitive] click             8.5.0      <- deudamundi-api, uvicorn
+[runtime:transitive] h11               0.16.0     <- deudamundi-api, httpx, uvicorn
+[runtime:transitive] httpcore          1.0.9      <- deudamundi-api, httpx
+[runtime:transitive] httptools         0.9.0      <- deudamundi-api, uvicorn
+[runtime:transitive] idna              3.20       <- deudamundi-api, fastapi, httpx, uvicorn
+[runtime:transitive] limits            5.8.0      <- deudamundi-api, slowapi
+[runtime:transitive] packaging         26.3       <- deudamundi-api, slowapi
+[runtime:transitive] psycopg-binary    3.3.6      <- deudamundi-api, psycopg
+[runtime:transitive] pydantic          2.14.2     <- deudamundi-api, fastapi, pydantic-settings
+[runtime:transitive] pydantic_core     2.50.2     <- deudamundi-api, fastapi, pydantic-settings
+[runtime:transitive] python-dotenv     1.2.4      <- deudamundi-api, pydantic-settings, uvicorn
+[runtime:transitive] starlette         0.46.2     <- deudamundi-api, fastapi
+[runtime:transitive] typing-inspection 0.4.4      <- deudamundi-api, fastapi, pydantic-settings
+[runtime:transitive] typing_extensions 4.16.0     <- alembic, deudamundi-api, fastapi, httpx, psycopg, pydantic-settings, redis, slowapi, sqlalchemy, uvicorn
+[runtime:transitive] tzlocal           5.4.5      <- apscheduler, deudamundi-api
+[runtime:transitive] uvloop            0.23.0     <- deudamundi-api, uvicorn
+[runtime:transitive] watchfiles        1.3.0      <- deudamundi-api, uvicorn
+[runtime:transitive] websockets        17.3       <- deudamundi-api, uvicorn
+[runtime:transitive] wrapt             2.5.2      <- deudamundi-api, slowapi
+[build:tooling     ] pip               26.2.2     
+[build:tooling     ] setuptools        84.2.1     
+[build:tooling     ] wheel             0.48.0     
