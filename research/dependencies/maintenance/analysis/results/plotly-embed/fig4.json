@@ -1,0 +1,138 @@
+{
+ "block": "econopapi/plotly-figure",
+ "figure": "fig4",
+ "attributes": {
+  "figure": "fig4"
+ },
+ "meta": {
+  "title": "Sensibilidad: cuota del actor principal entre ventanas",
+  "kicker": "PASO 5 - SENSIBILIDAD 12/24",
+  "subtitle": "Cambios de la cuota del actor principal entre ventanas con las mismas reglas preregistradas. Las lineas horizontales punteadas marcan 0.50 y 0.75. La estabilidad de cuota no es estabilidad de riesgo: es un cambio de denominador.",
+  "alt": "Grafico de pendientes: para cada repositorio evaluable en ambas ventanas, una linea con la cuota del actor humano principal por commits en 12 y en 24 meses.",
+  "provenance_extra": "Datos derivados de <code>results/hypotheses.json</code>.",
+  "table_head": "<th>Repositorio</th><th>Cuota 12m</th><th>Cuota 24m</th>",
+  "table_body": "<tr><td>sqlalchemy/mako</td><td>1.0</td><td>0.932</td></tr>\n<tr><td>grahamdumpleton/wrapt</td><td>0.964</td><td>0.947</td></tr>\n<tr><td>python-websockets/websockets</td><td>0.947</td><td>0.947</td></tr>\n<tr><td>alisaifee/limits</td><td>0.9</td><td>0.958</td></tr>\n<tr><td>kjd/idna</td><td>0.916</td><td>0.903</td></tr>\n<tr><td>kludex/uvicorn</td><td>0.818</td><td>0.805</td></tr>\n<tr><td>sqlalchemy/alembic</td><td>0.752</td><td>0.71</td></tr>\n<tr><td>psycopg/psycopg</td><td>0.658</td><td>0.777</td></tr>\n<tr><td>kludex/starlette</td><td>0.68</td><td>0.644</td></tr>\n<tr><td>agronholm/apscheduler</td><td>0.649</td><td>0.641</td></tr>\n<tr><td>sqlalchemy/sqlalchemy</td><td>0.634</td><td>0.592</td></tr>\n<tr><td>jpadilla/pyjwt</td><td>0.671</td><td>0.54</td></tr>\n<tr><td>fastapi/fastapi</td><td>0.722</td><td>0.395</td></tr>\n<tr><td>pydantic/pydantic</td><td>0.548</td><td>0.52</td></tr>\n<tr><td>laurent-laporte-pro/deprecated</td><td>0.72</td><td>0.343</td></tr>\n<tr><td>agronholm/anyio</td><td>0.466</td><td>0.545</td></tr>\n<tr><td>pypa/packaging</td><td>0.49</td><td>0.456</td></tr>\n<tr><td>theskumar/python-dotenv</td><td>0.357</td><td>0.52</td></tr>\n<tr><td>pallets/click</td><td>0.481</td><td>0.342</td></tr>\n<tr><td>pydantic/pydantic-settings</td><td>0.351</td><td>0.332</td></tr>\n<tr><td>python/typing_extensions</td><td>0.457</td><td>0.225</td></tr>\n<tr><td>redis/redis-py</td><td>0.324</td><td>0.344</td></tr>",
+  "builder": "f4"
+ },
+ "data": {
+  "repos": [
+   "sqlalchemy/mako",
+   "grahamdumpleton/wrapt",
+   "python-websockets/websockets",
+   "alisaifee/limits",
+   "kjd/idna",
+   "kludex/uvicorn",
+   "sqlalchemy/alembic",
+   "psycopg/psycopg",
+   "kludex/starlette",
+   "agronholm/apscheduler",
+   "sqlalchemy/sqlalchemy",
+   "jpadilla/pyjwt",
+   "fastapi/fastapi",
+   "pydantic/pydantic",
+   "laurent-laporte-pro/deprecated",
+   "agronholm/anyio",
+   "pypa/packaging",
+   "theskumar/python-dotenv",
+   "pallets/click",
+   "pydantic/pydantic-settings",
+   "python/typing_extensions",
+   "redis/redis-py"
+  ],
+  "series": {
+   "sqlalchemy/mako": {
+    "12m": 1.0,
+    "24m": 0.932
+   },
+   "grahamdumpleton/wrapt": {
+    "12m": 0.964,
+    "24m": 0.947
+   },
+   "python-websockets/websockets": {
+    "12m": 0.947,
+    "24m": 0.947
+   },
+   "alisaifee/limits": {
+    "12m": 0.9,
+    "24m": 0.958
+   },
+   "kjd/idna": {
+    "12m": 0.916,
+    "24m": 0.903
+   },
+   "kludex/uvicorn": {
+    "12m": 0.818,
+    "24m": 0.805
+   },
+   "sqlalchemy/alembic": {
+    "12m": 0.752,
+    "24m": 0.71
+   },
+   "psycopg/psycopg": {
+    "12m": 0.658,
+    "24m": 0.777
+   },
+   "kludex/starlette": {
+    "12m": 0.68,
+    "24m": 0.644
+   },
+   "agronholm/apscheduler": {
+    "12m": 0.649,
+    "24m": 0.641
+   },
+   "sqlalchemy/sqlalchemy": {
+    "12m": 0.634,
+    "24m": 0.592
+   },
+   "jpadilla/pyjwt": {
+    "12m": 0.671,
+    "24m": 0.54
+   },
+   "fastapi/fastapi": {
+    "12m": 0.722,
+    "24m": 0.395
+   },
+   "pydantic/pydantic": {
+    "12m": 0.548,
+    "24m": 0.52
+   },
+   "laurent-laporte-pro/deprecated": {
+    "12m": 0.72,
+    "24m": 0.343
+   },
+   "agronholm/anyio": {
+    "12m": 0.466,
+    "24m": 0.545
+   },
+   "pypa/packaging": {
+    "12m": 0.49,
+    "24m": 0.456
+   },
+   "theskumar/python-dotenv": {
+    "12m": 0.357,
+    "24m": 0.52
+   },
+   "pallets/click": {
+    "12m": 0.481,
+    "24m": 0.342
+   },
+   "pydantic/pydantic-settings": {
+    "12m": 0.351,
+    "24m": 0.332
+   },
+   "python/typing_extensions": {
+    "12m": 0.457,
+    "24m": 0.225
+   },
+   "redis/redis-py": {
+    "12m": 0.324,
+    "24m": 0.344
+   }
+  }
+ },
+ "source": {
+  "branch": "research/deudamundi-dependencies",
+  "commit_source": "1363af84 (paso 4) y commits del análisis en el historial de la rama",
+  "cut_utc": "2026-10-30T00:00:00Z"
+ }
+}

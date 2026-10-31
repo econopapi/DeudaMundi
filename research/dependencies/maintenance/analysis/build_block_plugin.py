@@ -361,6 +361,32 @@ def main():
     print("plugin build ok:", PLUGIN_DIR)
     print("zip:", zpath, zpath.stat().st_size, "bytes")
 
+    # ---- portable payloads (results canonical; consumed by a generic block)
+    outdir = RESULTS / "plotly-embed"
+    outdir.mkdir(exist_ok=True)
+    for m in meta:
+        payload = {
+            "block": "econopapi/plotly-figure",
+            "figure": m["id"],
+            "attributes": {"figure": m["id"]},
+            "meta": {
+                "title": m["title"], "kicker": m["kicker"],
+                "subtitle": m["subtitle"], "alt": m["alt"],
+                "provenance_extra": m["provenance_extra"],
+                "table_head": m["table_head"], "table_body": m["table_body"],
+                "builder": BUILDER_MAP[int(m["id"][3])],
+            },
+            "data": m["data"],
+            "source": {
+                "branch": "research/deudamundi-dependencies",
+                "commit_source": "1363af84 (paso 4) y commits del análisis en el historial de la rama",
+                "cut_utc": "2026-10-30T00:00:00Z",
+            },
+        }
+        (outdir / (m["id"] + ".json")).write_text(
+            json.dumps(payload, ensure_ascii=False, indent=1), encoding="utf-8")
+    print("payloads:", outdir)
+
 
 def _php_array(meta):
     import re

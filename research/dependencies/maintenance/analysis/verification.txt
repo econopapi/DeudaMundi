@@ -79,3 +79,18 @@ Correcciones de rigor del paso 5 (ronda del cierre, 30-10-2026)
 8. Figuras: los botones 12/24 de fig3 corregidos (args de restyle object) y probado con clic real en arnés (trazas visibles cambiadas, valores del JSON verificado). Pruebas de render con 5 bloques + instancia duplicada, tema claro/oscuro con cambio dinámico y repintado por MutationObserver, móvil (390 px), CDN caído (fallback con mensaje y tabla accesible) y JavaScript deshabilitado (la tabla es lo visible).
 9. Plugin v0.1.4: marcado semántico `figure` + `figcaption` (antes `section` con `figcaption` suelto), render.js marca "renderizada" sólo con `Plotly.react` resuelto, guarda contra carreras al cambiar tema rápido, y mensaje de respaldo conservando la tabla ante fallas.
 10. Fuentes: subconjuntos versionados en `analysis/assets/fonts/`; `build_block_plugin.py` ya no depende de `/tmp/opencode/fonts`. El ZIP se genera determinista (timestamp fijado) y pasa `php -l` y `node --check`.
+
+Puerta de cierre final (checkout limpio + payloads)
+- Clonación limpia de la rama: verify_activity PASS (35/35), 454/454 hashes; analyze_activity PASS (0 discrepancias vs coverage); verify_contrasts PASS; make_figures y build_block_plugin reconstruyen todo SIN RED; el zip determinista sale byte-idéntico (sha256 2becba85… en ambos arboles).
+- Manifiesto SHA256SUMS de analysis/ refrescado de nuevo tras los artefactos finales; cover todos los archivos publicados (scripts, results/, figures/, wp-block-plugin资产, wp-snippets/).
+- Payloads portables: results/plotly-embed/fig{1..5}.json contienen TODO lo que un bloque genérico necesita (attributes + meta + data + source). Son la salida canónica para la integración de gráficos: un bloque genérico del tema (o cualquier sistema) puede definirlos sin que las cifras vivan en el plugin. El plugin actual queda documentado como puente transitorio (su eliminación no toca estos payloads).
+- Fuentes de fechas del plugin dejados de lado de propósito (sin @font-face, sin family): el post hereda la tipografía del tema (limitación conocida del Light real queda anotada arriba).
+
+Pruebas funcionales finales (armés del render.php)
+- 5 bloques juntos + instancia DUPLICADA del mismo figura: ambos contenedores pintan con IDs únicos (6/6).
+- Cambio de tema en caliente: MutationObserver repinta 6/6 light y 6/6 dark, sin clase de error; guard de carrera por token.
+- Botones 12/24 de fig3: clic REAL sobre el updatemenu; trazas visibles cambiadas (vis0=false, vis1=true) y valores correspondientes al JSON (y0=0.2719, y1=0.125).
+- Móvil 390 px: captura correcta (leyenda envuelta, gráficos legibles).
+- CDN de Plotly caído: 5 mensajes de respaldo «Plotly no cargó» y 5 tablas accesibles conservadas.
+- JavaScript deshabilitado: la entrada del navegador headless de prueba no honró el flag en este build; el equivalente se verificó por la vía del render REST del servidor (el HTML servido contiene las tablas y <noscript>; sin JS el lector ve tablas). Límite anotado, no una prueba de navegador ejecutada.
+- WordPress reproduc gráficos y los assets correctos en la página (script tags plotly/defs/builders/render + css encolados una vez tal ya vistos en el árbol local y confirmado en el sitio real, verificación de vista previa del autor en 2753/2735).

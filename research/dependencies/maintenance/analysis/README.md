@@ -16,24 +16,26 @@
 | `wp-snippets/` | Fragmentos HTML autocontenidos (descartados como vía principal tras la revisión editorial: no respetan la higiene de bloques). La vía definitiva es el plugin de bloque dinámico: `wp-block-plugin/econopapi-plotly/` con el bloque nativo `econopapi/plotly-figure` (el post guarda solo `{"figure":"figN"}`; el servidor imprime kicker/título/subtítulo/tabla accesible; contenedores con ID única; Plotly/fonts/datos encolados una vez). `README.txt` documenta el método verificado y la evaluación del antiguo plugin wp-plotly. Integración pendiente de la instalación del plugin y aprobación editorial. |
 | `SHA256SUMS` / `verification.txt` | Manifest del directorio y bitácora de verificación. |
 
-## Reproducción (una sola persona, sin red)
+## Reproducción
+
+Análisis **sin red** (solo los 443 JSON congelados), desde la raíz del repositorio, rama `research/deudamundi-dependencies`:
 
 ```sh
-cd research/dependencies/maintenance
-sha256sum -c SHA256SUMS                          # resultados y fragmentos del análisis
-../graph  # jump — not needed here
+python research/dependencies/maintenance/verify_activity.py        # puerta del paso 4 (35/35)
+python research/dependencies/maintenance/analysis/analyze_activity.py   # re-cómpilación + contraste vs coverage-descriptive.csv
+python research/dependencies/maintenance/analysis/verify_contrasts.py   # contrastes corregidos (variante bots, H4, H1)
+cd research/dependencies/maintenance && sha256sum -c SHA256SUMS    # manifiesto del directorio del paso 4
 ```
 
-Desde la raíz del repositorio:
+Visualización **requiere red** (Plotly 2.35.2 desde cdn.plot.ly; los datos de cada gráfico viven impregnados en el HTML/payload, no en el CDN):
 
 ```sh
-python research/dependencies/maintenance/verify_activity.py       # puerta del paso 4
-sha256sum -c research/dependencies/maintenance/SHA256SUMS         # calle de datos
-python research/dependencies/maintenance/analysis/analyze_activity.py
-python research/dependencies/maintenance/analysis/make_figures.py
+cd research/dependencies/maintenance && sha256sum -c SHA256SUMS    # manifiesto de ESTE directorio (analysis/)
+python research/dependencies/maintenance/analysis/make_figures.py       # tablas + figuras standalone + datos
+python research/dependencies/maintenance/analysis/build_block_plugin.py # payloads + plugin + zip determinista
 ```
 
-El script de análisis imprime PASS solo si su recomputo coincide con `coverage-descriptive.csv` (que a su vez lo produce el verificador del paso 4). No invoca a GitHub.
+El orden importa: `analyze_activity.py` verifica cada total contra `../coverage-descriptive.csv` (que el verificador del paso 4 también reconstruye) antes de emitir `results/`. Las figuras y el plugin se generan DESDE `results/`; el manifiesto `SHA256SUMS` de `analysis/`/YYYY:MM:DD cubre todos los artefactos publicados de este directorio. La banana del visor (plugin y zip) viene del post; no es dependencia del análisis.
 
 ## Resultados en una línea (todo está en `audits.md` y `results/`)
 
