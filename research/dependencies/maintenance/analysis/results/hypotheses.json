@@ -15,11 +15,13 @@
      "with_merge_share": 0.4661,
      "with_bots_share": 0.3815,
      "with_bots_top1": "agronholm",
+     "with_bots_top1_is_bot": false,
      "den_nonmerge": 221,
      "unattrib_share": 0.0,
      "bot_share": 0.1815,
-     "inconclusive_flag": false,
-     "over_50": false
+     "numeric_over_50": false,
+     "inconclusive": false,
+     "conclusive_over_50": false
     },
     {
      "repo": "agronholm/apscheduler",
@@ -28,11 +30,13 @@
      "with_merge_share": 0.6486,
      "with_bots_share": 0.5106,
      "with_bots_top1": "agronholm",
+     "with_bots_top1_is_bot": false,
      "den_nonmerge": 37,
      "unattrib_share": 0.0,
      "bot_share": 0.2128,
-     "inconclusive_flag": false,
-     "over_50": true
+     "numeric_over_50": true,
+     "inconclusive": false,
+     "conclusive_over_50": true
     },
     {
      "repo": "alisaifee/limits",
@@ -41,11 +45,13 @@
      "with_merge_share": 0.9,
      "with_bots_share": 0.54,
      "with_bots_top1": "alisaifee",
+     "with_bots_top1_is_bot": false,
      "den_nonmerge": 30,
      "unattrib_share": 0.0,
      "bot_share": 0.4,
-     "inconclusive_flag": false,
-     "over_50": true
+     "numeric_over_50": true,
+     "inconclusive": false,
+     "conclusive_over_50": true
     },
     {
      "repo": "fastapi/fastapi",
@@ -54,24 +60,28 @@
      "with_merge_share": 0.7222,
      "with_bots_share": 0.3796,
      "with_bots_top1": "github-actions[bot]",
+     "with_bots_top1_is_bot": true,
      "den_nonmerge": 738,
      "unattrib_share": 0.0,
      "bot_share": 0.5838,
-     "inconclusive_flag": true,
-     "over_50": false
+     "numeric_over_50": true,
+     "inconclusive": true,
+     "conclusive_over_50": false
     },
     {
      "repo": "grahamdumpleton/wrapt",
      "top1": "GrahamDumpleton",
      "share": 0.9644,
      "with_merge_share": 0.9687,
-     "with_bots_share": 0.9687,
+     "with_bots_share": 0.9644,
      "with_bots_top1": "GrahamDumpleton",
+     "with_bots_top1_is_bot": false,
      "den_nonmerge": 337,
      "unattrib_share": 0.0,
      "bot_share": 0.0,
-     "inconclusive_flag": false,
-     "over_50": true
+     "numeric_over_50": true,
+     "inconclusive": false,
+     "conclusive_over_50": true
     },
     {
      "repo": "jpadilla/pyjwt",
@@ -80,24 +90,28 @@
      "with_merge_share": 0.6712,
      "with_bots_share": 0.5385,
      "with_bots_top1": "jpadilla",
+     "with_bots_top1_is_bot": false,
      "den_nonmerge": 73,
      "unattrib_share": 0.0,
      "bot_share": 0.1978,
-     "inconclusive_flag": false,
-     "over_50": true
+     "numeric_over_50": true,
+     "inconclusive": false,
+     "conclusive_over_50": true
     },
     {
      "repo": "kjd/idna",
      "top1": "kjd",
      "share": 0.916,
      "with_merge_share": 0.9451,
-     "with_bots_share": 0.9297,
+     "with_bots_share": 0.8934,
      "with_bots_top1": "kjd",
+     "with_bots_top1_is_bot": false,
      "den_nonmerge": 119,
      "unattrib_share": 0.0168,
      "bot_share": 0.0162,
-     "inconclusive_flag": false,
-     "over_50": true
+     "numeric_over_50": true,
+     "inconclusive": false,
+     "conclusive_over_50": true
     },
     {
      "repo": "kludex/starlette",
@@ -106,11 +120,13 @@
      "with_merge_share": 0.6802,
      "with_bots_share": 0.5763,
      "with_bots_top1": "Kludex",
+     "with_bots_top1_is_bot": false,
      "den_nonmerge": 222,
      "unattrib_share": 0.0045,
      "bot_share": 0.1527,
-     "inconclusive_flag": false,
-     "over_50": true
+     "numeric_over_50": true,
+     "inconclusive": false,
+     "conclusive_over_50": true
     },
     {
      "repo": "kludex/uvicorn",
@@ -119,63 +135,73 @@
      "with_merge_share": 0.8182,
      "with_bots_share": 0.6774,
      "with_bots_top1": "Kludex",
+     "with_bots_top1_is_bot": false,
      "den_nonmerge": 154,
      "unattrib_share": 0.0065,
      "bot_share": 0.172,
-     "inconclusive_flag": false,
-     "over_50": true
+     "numeric_over_50": true,
+     "inconclusive": false,
+     "conclusive_over_50": true
     },
     {
      "repo": "laurent-laporte-pro/deprecated",
      "top1": "claude",
      "share": 0.72,
      "with_merge_share": 0.6333,
-     "with_bots_share": 0.623,
+     "with_bots_share": 0.7059,
      "with_bots_top1": "claude",
+     "with_bots_top1_is_bot": false,
      "den_nonmerge": 50,
      "unattrib_share": 0.1,
      "bot_share": 0.0164,
-     "inconclusive_flag": false,
-     "over_50": true
+     "numeric_over_50": true,
+     "inconclusive": false,
+     "conclusive_over_50": true
     },
     {
      "repo": "pallets/click",
      "top1": "kdeldycke",
      "share": 0.4812,
      "with_merge_share": 0.4411,
-     "with_bots_share": 0.4391,
-     "with_bots_top1": "Rowlando13",
+     "with_bots_share": 0.4772,
+     "with_bots_top1": "kdeldycke",
+     "with_bots_top1_is_bot": false,
      "den_nonmerge": 239,
      "unattrib_share": 0.0042,
      "bot_share": 0.0046,
-     "inconclusive_flag": false,
-     "over_50": false
+     "numeric_over_50": false,
+     "inconclusive": false,
+     "conclusive_over_50": false
     },
     {
      "repo": "psycopg/psycopg",
      "top1": "dvarrazzo",
      "share": 0.658,
      "with_merge_share": 0.7168,
-     "with_bots_share": 0.692,
+     "with_bots_share": 0.6307,
      "with_bots_top1": "dvarrazzo",
+     "with_bots_top1_is_bot": false,
      "den_nonmerge": 231,
      "unattrib_share": 0.0043,
      "bot_share": 0.0346,
-     "inconclusive_flag": false,
-     "over_50": true
+     "numeric_over_50": true,
+     "inconclusive": false,
+     "conclusive_over_50": true
     },
     {
      "repo": "pydantic/pydantic",
      "top1": "Viicos",
      "share": 0.5482,
      "with_merge_share": 0.5472,
-     "with_bots_share": 0.4545,
+     "with_bots_share": 0.4553,
      "with_bots_top1": "Viicos",
+     "with_bots_top1_is_bot": false,
      "den_nonmerge": 529,
      "unattrib_share": 0.0038,
      "bot_share": 0.1693,
-     "inconclusive_flag": false,
-     "over_50": true
+     "numeric_over_50": true,
+     "inconclusive": false,
+     "conclusive_over_50": true
     },
     {
      "repo": "pydantic/pydantic-settings",
@@ -184,11 +210,13 @@
      "with_merge_share": 0.3512,
      "with_bots_share": 0.2783,
      "with_bots_top1": "hramezani",
+     "with_bots_top1_is_bot": false,
      "den_nonmerge": 168,
      "unattrib_share": 0.0,
      "bot_share": 0.2075,
-     "inconclusive_flag": false,
-     "over_50": false
+     "numeric_over_50": false,
+     "inconclusive": false,
+     "conclusive_over_50": false
     },
     {
      "repo": "pypa/packaging",
@@ -197,24 +225,28 @@
      "with_merge_share": 0.4905,
      "with_bots_share": 0.4677,
      "with_bots_top1": "henryiii",
+     "with_bots_top1_is_bot": false,
      "den_nonmerge": 369,
      "unattrib_share": 0.0,
      "bot_share": 0.0465,
-     "inconclusive_flag": false,
-     "over_50": false
+     "numeric_over_50": false,
+     "inconclusive": false,
+     "conclusive_over_50": false
     },
     {
      "repo": "python-websockets/websockets",
      "top1": "aaugustin",
      "share": 0.9474,
      "with_merge_share": 0.9476,
-     "with_bots_share": 0.8767,
+     "with_bots_share": 0.8761,
      "with_bots_top1": "aaugustin",
+     "with_bots_top1_is_bot": false,
      "den_nonmerge": 209,
      "unattrib_share": 0.0096,
      "bot_share": 0.0749,
-     "inconclusive_flag": false,
-     "over_50": true
+     "numeric_over_50": true,
+     "inconclusive": false,
+     "conclusive_over_50": true
     },
     {
      "repo": "python/typing_extensions",
@@ -223,11 +255,13 @@
      "with_merge_share": 0.4565,
      "with_bots_share": 0.3818,
      "with_bots_top1": "AlexWaygood",
+     "with_bots_top1_is_bot": false,
      "den_nonmerge": 46,
      "unattrib_share": 0.0,
      "bot_share": 0.1636,
-     "inconclusive_flag": false,
-     "over_50": false
+     "numeric_over_50": false,
+     "inconclusive": false,
+     "conclusive_over_50": false
     },
     {
      "repo": "redis/redis-py",
@@ -236,24 +270,28 @@
      "with_merge_share": 0.3242,
      "with_bots_share": 0.3057,
      "with_bots_top1": "petyaslavova",
+     "with_bots_top1_is_bot": false,
      "den_nonmerge": 364,
      "unattrib_share": 0.0055,
      "bot_share": 0.057,
-     "inconclusive_flag": false,
-     "over_50": false
+     "numeric_over_50": false,
+     "inconclusive": false,
+     "conclusive_over_50": false
     },
     {
      "repo": "sqlalchemy/alembic",
      "top1": "zzzeek",
      "share": 0.7524,
      "with_merge_share": 0.7797,
-     "with_bots_share": 0.7603,
+     "with_bots_share": 0.7315,
      "with_bots_top1": "zzzeek",
+     "with_bots_top1_is_bot": false,
      "den_nonmerge": 105,
      "unattrib_share": 0.0,
      "bot_share": 0.0248,
-     "inconclusive_flag": false,
-     "over_50": true
+     "numeric_over_50": true,
+     "inconclusive": false,
+     "conclusive_over_50": true
     },
     {
      "repo": "sqlalchemy/mako",
@@ -262,24 +300,28 @@
      "with_merge_share": 1.0,
      "with_bots_share": 1.0,
      "with_bots_top1": "zzzeek",
+     "with_bots_top1_is_bot": false,
      "den_nonmerge": 42,
      "unattrib_share": 0.0,
      "bot_share": 0.0,
-     "inconclusive_flag": false,
-     "over_50": true
+     "numeric_over_50": true,
+     "inconclusive": false,
+     "conclusive_over_50": true
     },
     {
      "repo": "sqlalchemy/sqlalchemy",
      "top1": "zzzeek",
      "share": 0.6342,
      "with_merge_share": 0.71,
-     "with_bots_share": 0.6984,
+     "with_bots_share": 0.6198,
      "with_bots_top1": "zzzeek",
+     "with_bots_top1_is_bot": false,
      "den_nonmerge": 473,
      "unattrib_share": 0.0085,
      "bot_share": 0.0163,
-     "inconclusive_flag": false,
-     "over_50": true
+     "numeric_over_50": true,
+     "inconclusive": false,
+     "conclusive_over_50": true
     },
     {
      "repo": "theskumar/python-dotenv",
@@ -288,11 +330,13 @@
      "with_merge_share": 0.3571,
      "with_bots_share": 0.3191,
      "with_bots_top1": "theskumar",
+     "with_bots_top1_is_bot": false,
      "den_nonmerge": 42,
      "unattrib_share": 0.0,
      "bot_share": 0.1064,
-     "inconclusive_flag": false,
-     "over_50": false
+     "numeric_over_50": false,
+     "inconclusive": false,
+     "conclusive_over_50": false
     }
    ],
    "H2": [
@@ -304,7 +348,7 @@
      "commit_share": 0.4661,
      "commit_share_incl_bots": 0.3815,
      "pr_share": 0.2027,
-     "pr_share_incl_bots": 0.202
+     "pr_share_incl_bots": 0.203
     },
     {
      "repo": "agronholm/apscheduler",
@@ -314,7 +358,7 @@
      "commit_share": 0.6486,
      "commit_share_incl_bots": 0.5106,
      "pr_share": 0.0769,
-     "pr_share_incl_bots": 0.2143
+     "pr_share_incl_bots": 0.2609
     },
     {
      "repo": "fastapi/fastapi",
@@ -324,7 +368,7 @@
      "commit_share": 0.7222,
      "commit_share_incl_bots": 0.3796,
      "pr_share": 0.6942,
-     "pr_share_incl_bots": 0.5231
+     "pr_share_incl_bots": 0.5238
     },
     {
      "repo": "grahamdumpleton/wrapt",
@@ -332,7 +376,7 @@
      "pr_cat": "<=50%",
      "changed": true,
      "commit_share": 0.9644,
-     "commit_share_incl_bots": 0.9687,
+     "commit_share_incl_bots": 0.9644,
      "pr_share": 0.3077,
      "pr_share_incl_bots": 0.3077
     },
@@ -352,7 +396,7 @@
      "pr_cat": ">75%",
      "changed": false,
      "commit_share": 0.916,
-     "commit_share_incl_bots": 0.9297,
+     "commit_share_incl_bots": 0.8934,
      "pr_share": 0.8269,
      "pr_share_incl_bots": 0.7818
     },
@@ -364,7 +408,7 @@
      "commit_share": 0.6802,
      "commit_share_incl_bots": 0.5763,
      "pr_share": 0.6773,
-     "pr_share_incl_bots": 0.5763
+     "pr_share_incl_bots": 0.5731
     },
     {
      "repo": "kludex/uvicorn",
@@ -374,7 +418,7 @@
      "commit_share": 0.8182,
      "commit_share_incl_bots": 0.6774,
      "pr_share": 0.8182,
-     "pr_share_incl_bots": 0.6791
+     "pr_share_incl_bots": 0.6774
     },
     {
      "repo": "pallets/click",
@@ -382,9 +426,9 @@
      "pr_cat": "<=50%",
      "changed": false,
      "commit_share": 0.4812,
-     "commit_share_incl_bots": 0.4391,
+     "commit_share_incl_bots": 0.4772,
      "pr_share": 0.4487,
-     "pr_share_incl_bots": 0.4457
+     "pr_share_incl_bots": 0.4487
     },
     {
      "repo": "psycopg/psycopg",
@@ -392,9 +436,9 @@
      "pr_cat": "<=50%",
      "changed": true,
      "commit_share": 0.658,
-     "commit_share_incl_bots": 0.692,
+     "commit_share_incl_bots": 0.6307,
      "pr_share": 0.4198,
-     "pr_share_incl_bots": 0.3871
+     "pr_share_incl_bots": 0.3736
     },
     {
      "repo": "pydantic/pydantic",
@@ -402,9 +446,9 @@
      "pr_cat": "50-75%",
      "changed": false,
      "commit_share": 0.5482,
-     "commit_share_incl_bots": 0.4545,
+     "commit_share_incl_bots": 0.4553,
      "pr_share": 0.5558,
-     "pr_share_incl_bots": 0.4715
+     "pr_share_incl_bots": 0.4654
     },
     {
      "repo": "pydantic/pydantic-settings",
@@ -414,7 +458,7 @@
      "commit_share": 0.3512,
      "commit_share_incl_bots": 0.2783,
      "pr_share": 0.3533,
-     "pr_share_incl_bots": 0.283
+     "pr_share_incl_bots": 0.2796
     },
     {
      "repo": "pypa/packaging",
@@ -432,7 +476,7 @@
      "pr_cat": "50-75%",
      "changed": true,
      "commit_share": 0.9474,
-     "commit_share_incl_bots": 0.8767,
+     "commit_share_incl_bots": 0.8761,
      "pr_share": 0.6944,
      "pr_share_incl_bots": 0.4717
     },
@@ -454,7 +498,7 @@
      "commit_share": 0.3242,
      "commit_share_incl_bots": 0.3057,
      "pr_share": 0.3242,
-     "pr_share_incl_bots": 0.3115
+     "pr_share_incl_bots": 0.3057
     },
     {
      "repo": "sqlalchemy/sqlalchemy",
@@ -462,7 +506,7 @@
      "pr_cat": "<=50%",
      "changed": true,
      "commit_share": 0.6342,
-     "commit_share_incl_bots": 0.6984,
+     "commit_share_incl_bots": 0.6198,
      "pr_share": 0.1333,
      "pr_share_incl_bots": 0.2683
     },
@@ -640,7 +684,16 @@
      "commit_pr_differ": false,
      "commit_rev_differ": true
     }
-   ]
+   ],
+   "H1_summary": {
+    "evaluable": 22,
+    "numeric_over_50": 15,
+    "inconclusive": 1,
+    "inconclusive_repos": [
+     "fastapi/fastapi"
+    ],
+    "conclusive_over_50": 14
+   }
   },
   "24m": {
    "H1": [
@@ -651,11 +704,13 @@
      "with_merge_share": 0.5447,
      "with_bots_share": 0.4345,
      "with_bots_top1": "agronholm",
+     "with_bots_top1_is_bot": false,
      "den_nonmerge": 347,
      "unattrib_share": 0.0,
      "bot_share": 0.2023,
-     "inconclusive_flag": false,
-     "over_50": true
+     "numeric_over_50": true,
+     "inconclusive": false,
+     "conclusive_over_50": true
     },
     {
      "repo": "agronholm/apscheduler",
@@ -664,24 +719,28 @@
      "with_merge_share": 0.6406,
      "with_bots_share": 0.4362,
      "with_bots_top1": "agronholm",
+     "with_bots_top1_is_bot": false,
      "den_nonmerge": 64,
      "unattrib_share": 0.0,
      "bot_share": 0.3191,
-     "inconclusive_flag": false,
-     "over_50": true
+     "numeric_over_50": true,
+     "inconclusive": false,
+     "conclusive_over_50": true
     },
     {
      "repo": "alisaifee/limits",
      "top1": "alisaifee",
      "share": 0.9577,
      "with_merge_share": 0.9605,
-     "with_bots_share": 0.8743,
+     "with_bots_share": 0.8662,
      "with_bots_top1": "alisaifee",
+     "with_bots_top1_is_bot": false,
      "den_nonmerge": 284,
      "unattrib_share": 0.0,
      "bot_share": 0.0898,
-     "inconclusive_flag": false,
-     "over_50": true
+     "numeric_over_50": true,
+     "inconclusive": false,
+     "conclusive_over_50": true
     },
     {
      "repo": "encode/httpx",
@@ -690,11 +749,13 @@
      "with_merge_share": 0.2973,
      "with_bots_share": 0.2683,
      "with_bots_top1": "lovelydinosaur",
+     "with_bots_top1_is_bot": false,
      "den_nonmerge": 37,
      "unattrib_share": 0.0,
      "bot_share": 0.0976,
-     "inconclusive_flag": false,
-     "over_50": false
+     "numeric_over_50": false,
+     "inconclusive": false,
+     "conclusive_over_50": false
     },
     {
      "repo": "fastapi/fastapi",
@@ -703,24 +764,28 @@
      "with_merge_share": 0.3949,
      "with_bots_share": 0.266,
      "with_bots_top1": "github-actions[bot]",
+     "with_bots_top1_is_bot": true,
      "den_nonmerge": 1722,
      "unattrib_share": 0.0006,
      "bot_share": 0.418,
-     "inconclusive_flag": false,
-     "over_50": false
+     "numeric_over_50": false,
+     "inconclusive": false,
+     "conclusive_over_50": false
     },
     {
      "repo": "grahamdumpleton/wrapt",
      "top1": "GrahamDumpleton",
      "share": 0.9469,
      "with_merge_share": 0.9522,
-     "with_bots_share": 0.9522,
+     "with_bots_share": 0.9469,
      "with_bots_top1": "GrahamDumpleton",
+     "with_bots_top1_is_bot": false,
      "den_nonmerge": 603,
      "unattrib_share": 0.0083,
      "bot_share": 0.0,
-     "inconclusive_flag": false,
-     "over_50": true
+     "numeric_over_50": true,
+     "inconclusive": false,
+     "conclusive_over_50": true
     },
     {
      "repo": "jpadilla/pyjwt",
@@ -729,24 +794,28 @@
      "with_merge_share": 0.54,
      "with_bots_share": 0.3776,
      "with_bots_top1": "jpadilla",
+     "with_bots_top1_is_bot": false,
      "den_nonmerge": 100,
      "unattrib_share": 0.0,
      "bot_share": 0.3007,
-     "inconclusive_flag": false,
-     "over_50": true
+     "numeric_over_50": true,
+     "inconclusive": false,
+     "conclusive_over_50": true
     },
     {
      "repo": "kjd/idna",
      "top1": "kjd",
      "share": 0.9034,
      "with_merge_share": 0.9361,
-     "with_bots_share": 0.9234,
+     "with_bots_share": 0.8851,
      "with_bots_top1": "kjd",
+     "with_bots_top1_is_bot": false,
      "den_nonmerge": 145,
      "unattrib_share": 0.0138,
      "bot_share": 0.0135,
-     "inconclusive_flag": false,
-     "over_50": true
+     "numeric_over_50": true,
+     "inconclusive": false,
+     "conclusive_over_50": true
     },
     {
      "repo": "kludex/starlette",
@@ -755,11 +824,13 @@
      "with_merge_share": 0.6437,
      "with_bots_share": 0.56,
      "with_bots_top1": "Kludex",
+     "with_bots_top1_is_bot": false,
      "den_nonmerge": 348,
      "unattrib_share": 0.0057,
      "bot_share": 0.13,
-     "inconclusive_flag": false,
-     "over_50": true
+     "numeric_over_50": true,
+     "inconclusive": false,
+     "conclusive_over_50": true
     },
     {
      "repo": "kludex/uvicorn",
@@ -768,24 +839,28 @@
      "with_merge_share": 0.8051,
      "with_bots_share": 0.6762,
      "with_bots_top1": "Kludex",
+     "with_bots_top1_is_bot": false,
      "den_nonmerge": 236,
      "unattrib_share": 0.0042,
      "bot_share": 0.1601,
-     "inconclusive_flag": false,
-     "over_50": true
+     "numeric_over_50": true,
+     "inconclusive": false,
+     "conclusive_over_50": true
     },
     {
      "repo": "laurent-laporte-pro/deprecated",
      "top1": "claude",
      "share": 0.3429,
      "with_merge_share": 0.4297,
-     "with_bots_share": 0.4264,
-     "with_bots_top1": "laurent-laporte-pro",
+     "with_bots_share": 0.3396,
+     "with_bots_top1": "claude",
+     "with_bots_top1_is_bot": false,
      "den_nonmerge": 105,
      "unattrib_share": 0.1429,
      "bot_share": 0.0078,
-     "inconclusive_flag": false,
-     "over_50": false
+     "numeric_over_50": false,
+     "inconclusive": false,
+     "conclusive_over_50": false
     },
     {
      "repo": "magicstack/uvloop",
@@ -794,63 +869,73 @@
      "with_merge_share": 0.4286,
      "with_bots_share": 0.4286,
      "with_bots_top1": "fantix",
+     "with_bots_top1_is_bot": false,
      "den_nonmerge": 35,
      "unattrib_share": 0.0,
      "bot_share": 0.0,
-     "inconclusive_flag": false,
-     "over_50": false
+     "numeric_over_50": false,
+     "inconclusive": false,
+     "conclusive_over_50": false
     },
     {
      "repo": "pallets/click",
      "top1": "kdeldycke",
      "share": 0.3417,
      "with_merge_share": 0.4231,
-     "with_bots_share": 0.4192,
-     "with_bots_top1": "Rowlando13",
+     "with_bots_share": 0.3365,
+     "with_bots_top1": "kdeldycke",
+     "with_bots_top1_is_bot": false,
      "den_nonmerge": 515,
      "unattrib_share": 0.0058,
      "bot_share": 0.0092,
-     "inconclusive_flag": false,
-     "over_50": false
+     "numeric_over_50": false,
+     "inconclusive": false,
+     "conclusive_over_50": false
     },
     {
      "repo": "pallets/markupsafe",
      "top1": "davidism",
      "share": 0.7778,
      "with_merge_share": 0.8769,
-     "with_bots_share": 0.8769,
+     "with_bots_share": 0.7778,
      "with_bots_top1": "davidism",
+     "with_bots_top1_is_bot": false,
      "den_nonmerge": 36,
      "unattrib_share": 0.0,
      "bot_share": 0.0,
-     "inconclusive_flag": false,
-     "over_50": true
+     "numeric_over_50": true,
+     "inconclusive": false,
+     "conclusive_over_50": true
     },
     {
      "repo": "psycopg/psycopg",
      "top1": "dvarrazzo",
      "share": 0.7766,
      "with_merge_share": 0.8101,
-     "with_bots_share": 0.7907,
+     "with_bots_share": 0.7548,
      "with_bots_top1": "dvarrazzo",
+     "with_bots_top1_is_bot": false,
      "den_nonmerge": 555,
      "unattrib_share": 0.009,
      "bot_share": 0.0239,
-     "inconclusive_flag": false,
-     "over_50": true
+     "numeric_over_50": true,
+     "inconclusive": false,
+     "conclusive_over_50": true
     },
     {
      "repo": "pydantic/pydantic",
      "top1": "Viicos",
      "share": 0.5204,
      "with_merge_share": 0.52,
-     "with_bots_share": 0.4545,
+     "with_bots_share": 0.4548,
      "with_bots_top1": "Viicos",
+     "with_bots_top1_is_bot": false,
      "den_nonmerge": 1199,
      "unattrib_share": 0.0017,
      "bot_share": 0.126,
-     "inconclusive_flag": false,
-     "over_50": true
+     "numeric_over_50": true,
+     "inconclusive": false,
+     "conclusive_over_50": true
     },
     {
      "repo": "pydantic/pydantic-settings",
@@ -859,11 +944,13 @@
      "with_merge_share": 0.3321,
      "with_bots_share": 0.2853,
      "with_bots_top1": "hramezani",
+     "with_bots_top1_is_bot": false,
      "den_nonmerge": 268,
      "unattrib_share": 0.0,
      "bot_share": 0.141,
-     "inconclusive_flag": false,
-     "over_50": false
+     "numeric_over_50": false,
+     "inconclusive": false,
+     "conclusive_over_50": false
     },
     {
      "repo": "pydantic/typing-inspection",
@@ -872,11 +959,13 @@
      "with_merge_share": 0.9062,
      "with_bots_share": 0.9062,
      "with_bots_top1": "Viicos",
+     "with_bots_top1_is_bot": false,
      "den_nonmerge": 64,
      "unattrib_share": 0.0,
      "bot_share": 0.0,
-     "inconclusive_flag": false,
-     "over_50": true
+     "numeric_over_50": true,
+     "inconclusive": false,
+     "conclusive_over_50": true
     },
     {
      "repo": "pypa/packaging",
@@ -885,24 +974,28 @@
      "with_merge_share": 0.4558,
      "with_bots_share": 0.4263,
      "with_bots_top1": "henryiii",
+     "with_bots_top1_is_bot": false,
      "den_nonmerge": 419,
      "unattrib_share": 0.0,
      "bot_share": 0.0647,
-     "inconclusive_flag": false,
-     "over_50": false
+     "numeric_over_50": false,
+     "inconclusive": false,
+     "conclusive_over_50": false
     },
     {
      "repo": "python-websockets/websockets",
      "top1": "aaugustin",
      "share": 0.9468,
      "with_merge_share": 0.9469,
-     "with_bots_share": 0.8782,
+     "with_bots_share": 0.8779,
      "with_bots_top1": "aaugustin",
+     "with_bots_top1_is_bot": false,
      "den_nonmerge": 357,
      "unattrib_share": 0.0084,
      "bot_share": 0.0725,
-     "inconclusive_flag": false,
-     "over_50": true
+     "numeric_over_50": true,
+     "inconclusive": false,
+     "conclusive_over_50": true
     },
     {
      "repo": "python/typing_extensions",
@@ -911,11 +1004,13 @@
      "with_merge_share": 0.2252,
      "with_bots_share": 0.2048,
      "with_bots_top1": "JelleZijlstra",
+     "with_bots_top1_is_bot": false,
      "den_nonmerge": 151,
      "unattrib_share": 0.0,
      "bot_share": 0.0904,
-     "inconclusive_flag": false,
-     "over_50": false
+     "numeric_over_50": false,
+     "inconclusive": false,
+     "conclusive_over_50": false
     },
     {
      "repo": "redis/redis-py",
@@ -924,24 +1019,28 @@
      "with_merge_share": 0.3439,
      "with_bots_share": 0.3266,
      "with_bots_top1": "petyaslavova",
+     "with_bots_top1_is_bot": false,
      "den_nonmerge": 567,
      "unattrib_share": 0.0053,
      "bot_share": 0.0503,
-     "inconclusive_flag": false,
-     "over_50": false
+     "numeric_over_50": false,
+     "inconclusive": false,
+     "conclusive_over_50": false
     },
     {
      "repo": "regebro/tzlocal",
      "top1": "regebro",
      "share": 0.9394,
      "with_merge_share": 0.9412,
-     "with_bots_share": 0.9412,
+     "with_bots_share": 0.9394,
      "with_bots_top1": "regebro",
+     "with_bots_top1_is_bot": false,
      "den_nonmerge": 33,
      "unattrib_share": 0.0,
      "bot_share": 0.0,
-     "inconclusive_flag": false,
-     "over_50": true
+     "numeric_over_50": true,
+     "inconclusive": false,
+     "conclusive_over_50": true
     },
     {
      "repo": "samuelcolvin/watchfiles",
@@ -950,50 +1049,58 @@
      "with_merge_share": 0.6429,
      "with_bots_share": 0.5625,
      "with_bots_top1": "samuelcolvin",
+     "with_bots_top1_is_bot": false,
      "den_nonmerge": 42,
      "unattrib_share": 0.0,
      "bot_share": 0.125,
-     "inconclusive_flag": false,
-     "over_50": true
+     "numeric_over_50": true,
+     "inconclusive": false,
+     "conclusive_over_50": true
     },
     {
      "repo": "sqlalchemy/alembic",
      "top1": "zzzeek",
      "share": 0.7095,
      "with_merge_share": 0.7382,
-     "with_bots_share": 0.7302,
+     "with_bots_share": 0.7008,
      "with_bots_top1": "zzzeek",
+     "with_bots_top1_is_bot": false,
      "den_nonmerge": 241,
      "unattrib_share": 0.0124,
      "bot_share": 0.0108,
-     "inconclusive_flag": false,
-     "over_50": true
+     "numeric_over_50": true,
+     "inconclusive": false,
+     "conclusive_over_50": true
     },
     {
      "repo": "sqlalchemy/mako",
      "top1": "zzzeek",
      "share": 0.9322,
      "with_merge_share": 0.9355,
-     "with_bots_share": 0.9355,
+     "with_bots_share": 0.9322,
      "with_bots_top1": "zzzeek",
+     "with_bots_top1_is_bot": false,
      "den_nonmerge": 59,
      "unattrib_share": 0.0169,
      "bot_share": 0.0,
-     "inconclusive_flag": false,
-     "over_50": true
+     "numeric_over_50": true,
+     "inconclusive": false,
+     "conclusive_over_50": true
     },
     {
      "repo": "sqlalchemy/sqlalchemy",
      "top1": "zzzeek",
      "share": 0.5915,
      "with_merge_share": 0.6742,
-     "with_bots_share": 0.6677,
+     "with_bots_share": 0.5835,
      "with_bots_top1": "zzzeek",
+     "with_bots_top1_is_bot": false,
      "den_nonmerge": 874,
      "unattrib_share": 0.008,
      "bot_share": 0.0097,
-     "inconclusive_flag": false,
-     "over_50": true
+     "numeric_over_50": true,
+     "inconclusive": false,
+     "conclusive_over_50": true
     },
     {
      "repo": "theskumar/python-dotenv",
@@ -1002,11 +1109,13 @@
      "with_merge_share": 0.52,
      "with_bots_share": 0.4756,
      "with_bots_top1": "theskumar",
+     "with_bots_top1_is_bot": false,
      "den_nonmerge": 75,
      "unattrib_share": 0.0,
      "bot_share": 0.0854,
-     "inconclusive_flag": false,
-     "over_50": true
+     "numeric_over_50": true,
+     "inconclusive": false,
+     "conclusive_over_50": true
     }
    ],
    "H2": [
@@ -1018,7 +1127,7 @@
      "commit_share": 0.5447,
      "commit_share_incl_bots": 0.4345,
      "pr_share": 0.2719,
-     "pr_share_incl_bots": 0.2524
+     "pr_share_incl_bots": 0.2557
     },
     {
      "repo": "agronholm/apscheduler",
@@ -1028,7 +1137,7 @@
      "commit_share": 0.6406,
      "commit_share_incl_bots": 0.4362,
      "pr_share": 0.125,
-     "pr_share_incl_bots": 0.4068
+     "pr_share_incl_bots": 0.4444
     },
     {
      "repo": "alisaifee/limits",
@@ -1036,7 +1145,7 @@
      "pr_cat": "<=50%",
      "changed": true,
      "commit_share": 0.9577,
-     "commit_share_incl_bots": 0.8743,
+     "commit_share_incl_bots": 0.8662,
      "pr_share": 0.35,
      "pr_share_incl_bots": 0.6078
     },
@@ -1048,7 +1157,7 @@
      "commit_share": 0.2973,
      "commit_share_incl_bots": 0.2683,
      "pr_share": 0.3056,
-     "pr_share_incl_bots": 0.383
+     "pr_share_incl_bots": 0.275
     },
     {
      "repo": "fastapi/fastapi",
@@ -1058,7 +1167,7 @@
      "commit_share": 0.3949,
      "commit_share_incl_bots": 0.266,
      "pr_share": 0.4987,
-     "pr_share_incl_bots": 0.3941
+     "pr_share_incl_bots": 0.3945
     },
     {
      "repo": "grahamdumpleton/wrapt",
@@ -1066,9 +1175,9 @@
      "pr_cat": "<=50%",
      "changed": true,
      "commit_share": 0.9469,
-     "commit_share_incl_bots": 0.9522,
+     "commit_share_incl_bots": 0.9469,
      "pr_share": 0.1818,
-     "pr_share_incl_bots": 0.1739
+     "pr_share_incl_bots": 0.1818
     },
     {
      "repo": "jpadilla/pyjwt",
@@ -1086,7 +1195,7 @@
      "pr_cat": ">75%",
      "changed": false,
      "commit_share": 0.9034,
-     "commit_share_incl_bots": 0.9234,
+     "commit_share_incl_bots": 0.8851,
      "pr_share": 0.8,
      "pr_share_incl_bots": 0.7619
     },
@@ -1098,7 +1207,7 @@
      "commit_share": 0.6437,
      "commit_share_incl_bots": 0.56,
      "pr_share": 0.6892,
-     "pr_share_incl_bots": 0.5567
+     "pr_share_incl_bots": 0.5925
     },
     {
      "repo": "kludex/uvicorn",
@@ -1108,7 +1217,7 @@
      "commit_share": 0.8051,
      "commit_share_incl_bots": 0.6762,
      "pr_share": 0.8287,
-     "pr_share_incl_bots": 0.6773
+     "pr_share_incl_bots": 0.6944
     },
     {
      "repo": "laurent-laporte-pro/deprecated",
@@ -1116,9 +1225,9 @@
      "pr_cat": "50-75%",
      "changed": true,
      "commit_share": 0.3429,
-     "commit_share_incl_bots": 0.4264,
+     "commit_share_incl_bots": 0.3396,
      "pr_share": 0.7,
-     "pr_share_incl_bots": 0.7586
+     "pr_share_incl_bots": 0.7
     },
     {
      "repo": "magicstack/uvloop",
@@ -1136,9 +1245,9 @@
      "pr_cat": "<=50%",
      "changed": false,
      "commit_share": 0.3417,
-     "commit_share_incl_bots": 0.4192,
+     "commit_share_incl_bots": 0.3365,
      "pr_share": 0.3235,
-     "pr_share_incl_bots": 0.3006
+     "pr_share_incl_bots": 0.3235
     },
     {
      "repo": "psycopg/psycopg",
@@ -1146,9 +1255,9 @@
      "pr_cat": "<=50%",
      "changed": true,
      "commit_share": 0.7766,
-     "commit_share_incl_bots": 0.7907,
+     "commit_share_incl_bots": 0.7548,
      "pr_share": 0.4412,
-     "pr_share_incl_bots": 0.439
+     "pr_share_incl_bots": 0.3974
     },
     {
      "repo": "pydantic/pydantic",
@@ -1156,9 +1265,9 @@
      "pr_cat": "50-75%",
      "changed": false,
      "commit_share": 0.5204,
-     "commit_share_incl_bots": 0.4545,
+     "commit_share_incl_bots": 0.4548,
      "pr_share": 0.5664,
-     "pr_share_incl_bots": 0.5115
+     "pr_share_incl_bots": 0.5032
     },
     {
      "repo": "pydantic/pydantic-settings",
@@ -1168,7 +1277,7 @@
      "commit_share": 0.3321,
      "commit_share_incl_bots": 0.2853,
      "pr_share": 0.3333,
-     "pr_share_incl_bots": 0.2885
+     "pr_share_incl_bots": 0.2862
     },
     {
      "repo": "pydantic/typing-inspection",
@@ -1196,7 +1305,7 @@
      "pr_cat": "50-75%",
      "changed": true,
      "commit_share": 0.9468,
-     "commit_share_incl_bots": 0.8782,
+     "commit_share_incl_bots": 0.8779,
      "pr_share": 0.7097,
      "pr_share_incl_bots": 0.4889
     },
@@ -1218,7 +1327,7 @@
      "commit_share": 0.3439,
      "commit_share_incl_bots": 0.3266,
      "pr_share": 0.3451,
-     "pr_share_incl_bots": 0.3222
+     "pr_share_incl_bots": 0.3277
     },
     {
      "repo": "regebro/tzlocal",
@@ -1226,7 +1335,7 @@
      "pr_cat": ">75%",
      "changed": false,
      "commit_share": 0.9394,
-     "commit_share_incl_bots": 0.9412,
+     "commit_share_incl_bots": 0.9394,
      "pr_share": 0.8333,
      "pr_share_incl_bots": 0.8333
     },
@@ -1246,7 +1355,7 @@
      "pr_cat": "<=50%",
      "changed": true,
      "commit_share": 0.5915,
-     "commit_share_incl_bots": 0.6677,
+     "commit_share_incl_bots": 0.5835,
      "pr_share": 0.0909,
      "pr_share_incl_bots": 0.1538
     },
@@ -1311,8 +1420,8 @@
      "repo": "grahamdumpleton/wrapt",
      "top_committer": "GrahamDumpleton",
      "top_integrator": "GrahamDumpleton",
-     "top_reviewer": null,
-     "reviewer_evaluable": false,
+     "top_reviewer": "GrahamDumpleton",
+     "reviewer_evaluable": true,
      "commit_pr_differ": false,
      "commit_rev_differ": false
     },
@@ -1410,8 +1519,8 @@
      "repo": "pydantic/typing-inspection",
      "top_committer": "Viicos",
      "top_integrator": "Viicos",
-     "top_reviewer": null,
-     "reviewer_evaluable": false,
+     "top_reviewer": "Viicos",
+     "reviewer_evaluable": true,
      "commit_pr_differ": false,
      "commit_rev_differ": false
     },
@@ -1464,8 +1573,8 @@
      "repo": "samuelcolvin/watchfiles",
      "top_committer": "samuelcolvin",
      "top_integrator": "samuelcolvin",
-     "top_reviewer": null,
-     "reviewer_evaluable": false,
+     "top_reviewer": "samuelcolvin",
+     "reviewer_evaluable": true,
      "commit_pr_differ": false,
      "commit_rev_differ": false
     },
@@ -1487,7 +1596,14 @@
      "commit_pr_differ": false,
      "commit_rev_differ": true
     }
-   ]
+   ],
+   "H1_summary": {
+    "evaluable": 28,
+    "numeric_over_50": 19,
+    "inconclusive": 0,
+    "inconclusive_repos": [],
+    "conclusive_over_50": 19
+   }
   }
  }
 }

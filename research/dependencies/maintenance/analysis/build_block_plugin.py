@@ -69,12 +69,30 @@ RENDER_JS = textwrap.dedent("""\
       var defs = window.ECONOPAPI_PLOTLY_DEFS || {};
       var def = defs[sec.dataset.figure];
       var el = sec.querySelector('.econ-chart');
-      if (!def || !el || typeof window.__epb[def.builder] !== 'function') return;
-      sec.dataset.rendered = String(t);
-      try { window.__epb[def.builder](def.data, t, el); } catch (e) {
+      sec.__token = (sec.__token || 0) + 1;
+      var token = sec.__token;
+      var ok = function(){
+        if (token !== sec.__token) return;
+        sec.dataset.rendered = String(t);
+      };
+      var fail = function(msg){
+        if (token !== sec.__token) return;
+        sec.dataset.rendered = '';
         sec.classList.add('econopapi-plotly-error');
-        el.textContent = 'La grafica no pudo renderizarse: ' + e.message;
-      }
+        el.textContent = 'El gráfico interactivo no pudo renderizarse (' + msg + '). ' +
+          'La tabla de datos accesible, más abajo, conserva los valores.';
+      };
+      if (!def || !el) { fail('figura desconocida'); return; }
+      if (!window.__epb || typeof window.__epb[def.builder] !== 'function') { fail('definiciones no cargadas'); return; }
+      sec.dataset.rendered = 'pending';
+      sec.classList.remove('econopapi-plotly-error');
+      try {
+        if (!window.Plotly) { fail('Plotly no cargó; revisa la conexión o el filtro del CDN'); return; }
+        var result = window.__epb[def.builder](def.data, t, el);
+        if (result && typeof result.then === 'function') {
+          result.then(ok, function(e){ fail(e && (e.message || e)); });
+        } else { ok(); }
+      } catch (e) { fail(e && (e.message || e)); }
     });
   }
   function boot(){
@@ -91,7 +109,6 @@ RENDER_JS = textwrap.dedent("""\
   boot();
 })();
 """)
-
 
 STYLE_CSS = textwrap.dedent("""\
 .econopapi-plotly { color-scheme: light dark;
@@ -144,13 +161,13 @@ PHP_PLUGIN = textwrap.dedent(r'''
 /**
  * Plugin Name: Econopapi Plotly Charts
  * Description: Bloque dinámico econopapi/plotly-figure para las figuras interactivas del paso 5 (caso DeudaMundi). El bloque guarda solo la elección de figura; el render y los datos viven en el plugin, y las fuentes/Plotly se encolan una sola vez por página. No modifie el bloque GraphDraw ni el plugin viejo wp-plotly.
- * Version: 0.1.2
+ * Version: 0.1.3
  * Author: Daniel Limón — Econopapi
  * Text Domain: econopapi-plotly
  */
 defined('ABSPATH') || exit;
 
-define('ECONOPAPI_PLOTLY_VERSION', '0.1.2');
+define('ECONOPAPI_PLOTLY_VERSION', '0.1.3');
 define('ECONOPAPI_PLOTLY_PLOTLY_URL', 'https://cdn.plot.ly/plotly-2.35.2.min.js'); /* filterable */
 
 require_once __DIR__ . '/assets/defs-meta.php';
@@ -185,7 +202,7 @@ function econopapi_plotly_render(array $attributes = array()): string {
     wp_enqueue_style('econopapi-plotly-style');
 
     ob_start(); ?>
-<section class="econopapi-plotly" id="<?php echo esc_attr($uid); ?>" data-figure="<?php echo esc_attr($figure); ?>" role="figure" aria-label="<?php echo esc_attr(wp_strip_all_tags($d['alt'])); ?>">
+<figure class="econopapi-plotly" id="<?php echo esc_attr($uid); ?>" data-figure="<?php echo esc_attr($figure); ?>" aria-label="<?php echo esc_attr(wp_strip_all_tags($d['alt'])); ?>">
   <div class="figu">
     <div class="figkicker"><?php echo esc_html($d['kicker']); ?></div>
     <p class="figu-title"><?php echo esc_html($d['title']); ?><span class="accent-dot">.</span></p>
@@ -209,7 +226,7 @@ function econopapi_plotly_render(array $attributes = array()): string {
       <tbody><?php echo wp_kses_post($d['table_body']); ?></tbody>
     </table>
   </details>
-</section>
+</figure>
 <?php
     return (string) ob_get_clean();
 }
@@ -332,10 +349,15 @@ def main():
     # theme typography; the brand kit keeps font authority out of code.
     # zip
     zpath = PLUGIN_DIR.parent / "econopapi-plotly.zip"
+    files = sorted(f for f in PLUGIN_DIR.rglob("*") if f.is_file())
+    stamp = (2026, 10, 30, 0, 0, 0)
     with zipfile.ZipFile(zpath, "w", zipfile.ZIP_DEFLATED) as z:
-        for p in sorted(PLUGIN_DIR.rglob("*")):
-            if p.is_file():
-                z.write(p, "econopapi-plotly/" + str(p.relative_to(PLUGIN_DIR)))
+        for f in files:
+            info = zipfile.ZipInfo("econopapi-plotly/" + str(f.relative_to(PLUGIN_DIR)),
+                                   date_time=stamp)
+            info.compress_type = zipfile.ZIP_DEFLATED
+            info.external_attr = 0o644 << 16
+            z.writestr(info, f.read_bytes())
     print("plugin build ok:", PLUGIN_DIR)
     print("zip:", zpath, zpath.stat().st_size, "bytes")
 

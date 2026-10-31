@@ -69,7 +69,7 @@ table.data th { background:var(--soft); color:var(--muted);
     <strong>Fuente:</strong> extracción congelada del 30-10-2026
     (<a href="https://github.com/econopapi/DeudaMundi/commit/1363af84d5089ca4260645012dcb34ccc93d4c6c">commit 1363af84</a> ·
     <a href="https://github.com/econopapi/DeudaMundi/tree/research/deudamundi-dependencies/research/dependencies/maintenance/analysis">plan preregistrado del paso 5</a>).
-    Datos derivados de <code>results/hypotheses.json</code> (12 y 24 meses). Figura generada 2026-10-30T19:03:33Z. Unidad: eventos públicos observados; los cuatro flujos no se suman entre sí.
+    Datos derivados de <code>results/hypotheses.json</code> (12 y 24 meses). Figura generada 2026-10-31T01:13:08Z. Unidad: eventos públicos observados; los cuatro flujos no se suman entre sí.
   </figcaption>
   <details class="datatables">
     <summary>Tabla de datos (accesible)</summary>
@@ -171,8 +171,10 @@ window.__build = function(d, tname){
     bgcolor:c.surface, bordercolor:c.border, font:{color:c.text, size:11},
     active:0, activebgcolor:c.accent, activecolor:'#ffffff',
     buttons:[
-      { label:'12 meses', method:'restyle', args:[['visible','visible'],[true, false]] },
-      { label:'24 meses', method:'restyle', args:[['visible','visible'],[false, true]] }
+      { label:'12 meses', method:'restyle',
+        args:[{ visible:[true,false] }] },
+      { label:'24 meses', method:'restyle',
+        args:[{ visible:[false,true] }] }
     ]}];
   L.annotations=[{x:0.94, y:0.06, xref:'x', yref:'y', text:'misma cuota', showarrow:false,
     font:{color:c.muted, size:10}}];

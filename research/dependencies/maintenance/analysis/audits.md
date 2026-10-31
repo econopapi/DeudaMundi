@@ -18,7 +18,7 @@ Las reglas y umbrales se mantuvieron exactamente como se preregistraron en `plan
 
 El protocolo del paso 4 marca bot solo con `type=Bot` o sufijo `[bot]`. Esta auditoría no recategoriza cuentas; registra patrones para cualificar lecturas y titulares:
 
-- `sqla-tester` (id 8250554, `type=User`) en `sqlalchemy/sqlalchemy` y `sqlalchemy/alembic`: es la cuenta con más pares de revisión en ambos (96 pares en sqlalchemy y 19 en alembic, 12m), por delante de personas. Es la cuenta automatizada que reporta ejecuciones de CI de SQLAlchemy. No está declarada bot en los datos. La cuota de "quién revisa" en estos dos repos no debe leerse como personas sin lectura cualitativa. El contraste de H4 para `sqlalchemy/sqlalchemy` se apoya en el rol de *integración* (`CaselIT`, humano), no en el de revisión.
+- `sqla-tester` (id 8250554, `type=User`) en `sqlalchemy/sqlalchemy` y `sqlalchemy/alembic`: es la cuenta con más pares de revisión en ambos (96 pares en sqlalchemy y 19 en alembic, 12m), por delante de cuentas con patrón humano esperado. Es la cuenta automatizada que reporta ejecuciones de CI de SQLAlchemy. No está declarada bot en los datos. La cuota de "quién revisa" en estos dos repos no debe leerse como personas sin lectura cualitativa. El contraste de H4 para `sqlalchemy/sqlalchemy` se apoya en el rol de *integración* (`CaselIT`, cuenta con patrón humano esperado), no en el de revisión.
 - `claude` (id 81847, `type=User`) en `laurent-laporte-pro/deprecated`: actor principal de commits en 12m (36 de 45 no-fusión no-bot; committer igual al autor, sin sufijo de bot). El patrón es compatible con una cuenta de agente automatizado no declarada como bot. La regla del protocolo la clasifica como actor con cuenta; se reporta la cuota con esta advertencia y la lectura de "quién" queda pendiente de verificación pública adicional (paso cualitativo).
 - `invalid-email-address` (id 148100, `type=User`): cuenta materializadora de GitHub en varios repos (p. ej. fastapi). Permanece como cuenta propia en los denominadores, con la etiqueta "patrón probablemente automatizado, no declarado".
 
@@ -84,7 +84,7 @@ Califican **4** repos (detalle y recibos: `results/h3-test.csv`, `pypi-evidence/
 
 Rasgo informativo inverso (0 releases de GitHub, actividad, pero **sin** publicación en PyPI 12m): `encode/httpcore`, `python-hyper/h11`, `yaml/pyyaml`. La ausencia de release no es, en ninguna dirección, prueba de abandono.
 
-## H4 — divergencia de roles (persona top por commits vs revisión e integración)
+## H4 — divergencia de roles (cuenta top por commits vs revisión e integración)
 
 12 meses, repos evaluables en commits y PR (y ≥5 pares de revisión para el rol de revisión): divergencias en **6**:
 

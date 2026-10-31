@@ -37,11 +37,12 @@ El script de análisis imprime PASS solo si su recomputo coincide con `coverage-
 
 ## Resultados en una línea (todo está en `audits.md` y `results/`)
 
-- **H1 (12m):** 14 de 22 repos evaluables tienen cuota top-1 de commits no-fusión no-bot superior al 50 % — `sqlalchemy/mako` (1,000), `wrapt` (0,964), `websockets` (0,947), `idna` (0,916), `limits` (0,900)…
-- **H2 (12m):** 6 de 18 repos evaluables cambian de categoría entre cuota por commits y por PR fusionados a rama principal (24m: 10 de 25).
-- **H3:** 4 repos califican (psycopg, certifi, httpx, tzlocal): PyPI publica, GitHub Releases no, con actividad humana observable.
-- **H4 (12m):** 6 repos con divergencia de roles en commits frente a integración/revisión; la cuenta `sqla-tester` contamina la lectura de revisión en sqlalchemy (automatización no declarada como bot).
-- **Participación de bots declarados (12m):** 24,6 % commits, 21,7 % PR, 28,6 % revisiones, 55,7 % releases — y Cuadro: en certifi/controllers automático; en fastapi el actor top con bots incluidos es `github-actions[bot]`.
+- **H1 (12m), sin ambigüedad:** 22 repos evaluables (≥30 commits no-bot sin fusiones); **15** con cuota numérica >50 %; **1 inconcluso** por la regla preregistrada (`fastapi/fastapi`, bots ≥50 % de sus commits); **14 conclusivos >50 %**: `sqlalchemy/mako` (1,000), `wrapt` (0,964), `websockets` (0,947), `idna` (0,916), `limits` (0,900)… Sensibilidad 24m: 28 evaluables, 19 >50 %, 0 inconclusos.
+- **H2 (12m):** 6 de 18 repos evaluables cambian de categoría entre cuota por commits y por PR fusionados a rama principal (24m: 10 de 25). Contraejemplo útil: `fastapi/fastapi` NO cambia (0.722 vs 0.694, ambas en 50–75 %).
+- **H3:** 4 repos califican (psycopg, certifi, httpx, tzlocal): publican el paquete en PyPI dentro de la ventana, mantienen cero GitHub Releases en la misma y muestran actividad observable (commits no-bot, PR fusionados no-bot o pares de revisión no-bot). «Sin GitHub Release» no significa «sin mantenimiento» ni «sin publicación»: H3 existe para rebatir ese atajo y NO convierte la ausencia en prueba de abandono.
+- **H4 (12m):** 6 repos con divergencia de roles (cuenta top de commits ≠ cuenta top de integración/revisión): fastapi, pyjwt, click, typing_extensions, sqlalchemy (integrador CaselIT; el rol de revisión está contaminado por `sqla-tester`, automatización no declarada), python-dotenv. Evaluabilidad del rol de revisión por **pares no-bot totales del repo ≥5** (plan.md, Aclaración 1); tras corregirla, wrapt/typing-inspection/watchfiles pasan a evaluables en 24m — en los tres el actor top coincide en commits y revisión, así que los 6 divergentes de cada ventana se mantienen.
+- **Participación de bots declarados (12m, con campo congelado `bot`, denominía explícita):** commits **1,495/7,014 = 21.3 %**; PR fusionados **670/3,981 = 16.8 %**; revisiones **crudas** **2,610/10,543 = 24.8 %** (por **pares únicos revisor-PR: 1,638/5,756 = 28.5 %**); releases de GitHub **140/356 = 39.3 %**. Estos porcentajes no se suman entre flujos ni se atribuyen los bots a los cambios del denominador.
+- Las cuentas marcadas `type=User` en GitHub no son por definición «personas». Las métricas identifican cuentas y eventos observables, no mantenedores formales; las advertencias sobre `claude`, `sqla-tester` y `invalid-email-address` permanecen en `audits.md`.
 
 Los totales de cobertura del paso 4 (7,014 commits, 3,981 PR, 10,543 revisiones y 356 releases en 12m) se reproducen aquí con cero discrepancias.
 

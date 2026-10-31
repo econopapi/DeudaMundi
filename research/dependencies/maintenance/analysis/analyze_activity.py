@@ -303,11 +303,18 @@ def analyze_repo(data, start, pname):
     res["releases_cadence_days"] = (
         days_between(sorted_rel[0], sorted_rel[1]) if len(sorted_rel) >= 2 else None)
 
-    # --- bot-included variant (plan Aclaración 2)
-    res["cmt_incl_bots"] = share_table_all(c_actors, len(commits))
-    res["pr_incl_bots"] = share_table_all(pr_actors, len(merged))
-    res["rev_incl_bots"] = share_table_all(rev_actors, len(revs_in))
-    res["rel_incl_bots"] = share_table_all(rel_actors, len(rels))
+    # --- bot-included variant (plan Aclaración 2, CORRECTED): SAME units as
+    # the principal metric — non-merge commits, mainline merged PRs, unique
+    # (reviewer, PR) pairs — with every actor (bots and unattributed) in the
+    # ranking and the denominator covering the whole unit.
+    nm_actors = [c.get("author") for c in nonmerge]
+    res["cmt_incl_bots"] = share_table_all(nm_actors, len(nonmerge))
+    main_actors = [p.get("author") for p in m_main]
+    res["pr_incl_bots"] = share_table_all(main_actors, len(m_main))
+    pair_actors = [rs_pairs[0].get("author") for _k, rs_pairs in pairs.items()]
+    res["rev_incl_bots"] = share_table_all(pair_actors, len(pairs))
+    rel_actors_all = [x.get("author") for x in rels]
+    res["rel_incl_bots"] = share_table_all(rel_actors_all, len(rels))
 
     # --- H4 roles
     res["top_integrator"] = top_by(
@@ -319,30 +326,35 @@ def analyze_repo(data, start, pname):
 
 
 def share_table_all(events, den_all):
-    """Variant including bots (each bot its own category) — plan Aclaración 2.
-
-    Unattributed also its own category. top1 may be a bot; flag returned.
-    """
+    """Variant INCLUDING bots, same units as the principal metric (plan.md
+    Aclaración 2, corrected): the caller passes the SAME event set used by
+    the principal concentration metric; only the bots join the ranking and
+    the denominator covers all in-window events of that unit. Bot status is
+    taken from the frozen `bot` flag, never inferred from the login suffix.
+    Unattributed is its own category. top1 may be a bot; flag returned."""
     counts = defaultdict(int)
     disp = {}
+    kind = {}
     bot_events = 0
     for a in events:
         if a is None:
             counts[("none", None)] += 1
+            kind[("none", None)] = "unattributed"
             continue
-        if is_bot(a):
-            bot_events += 1
         k = ((a.get("login") or "").lower(), a.get("id"))
         counts[k] += 1
         disp[k[0]] = a.get("login") or ""
+        kind[k] = "bot" if is_bot(a) else "human"
+        bot_events += 1 if is_bot(a) else 0
     ranked = sorted(counts.items(), key=lambda kv: (-kv[1], kv[0][0]))
     if not ranked or not den_all:
         return {"top1_incl": None, "top1_incl_is_bot": None,
                 "top1_incl_share": None, "bot_share_incl": None}
-    top_login = disp[ranked[0][0][0]]
+    top_key = ranked[0][0]
+    top_login = disp[top_key[0]]
     return {
         "top1_incl": top_login,
-        "top1_incl_is_bot": bool(top_login.lower().endswith("[bot]")),
+        "top1_incl_is_bot": kind[top_key] == "bot",
         "top1_incl_share": round(ranked[0][1] / den_all, 4),
         "bot_share_incl": round(bot_events / den_all, 4) if den_all else None,
     }
@@ -655,23 +667,36 @@ def main():
            "windows": {}}
     for p in ("12m", "24m"):
         rows = {r["repo"]: r for r in flat_rows if r["window_end"] == p}
-        # H1
-        eval_c = [r for r in rows.values() if r["cmt_evaluable"]]
+        # H1 (all repos, per preregistered rule): evaluable / numeric >50% /
+        # inconclusive / conclusive>50% are reported separately, no silent mix.
+        rows_all = rows.values()
+        evaluable_c = [r for r in rows_all if r["cmt_evaluable"]]
         h1 = []
-        for r in eval_c:
+        numer_over50 = 0
+        conclusive_over50 = 0
+        inconclusive_list = []
+        for r in evaluable_c:
             by, ua = r["commits_bot"], r["commits_unattrib"]
             allc = r["commits_all"]
-            flag_inc = (allc and ua / allc >= 0.20) or (allc and by / allc >= 0.50)
+            numeric = (r["cmt_top1_share"] or 0) > 0.50
+            inconclusive = (allc and ua / allc >= 0.20) or (allc and by / allc >= 0.50)
+            conclusive = numeric and not inconclusive
+            numer_over50 += numeric
+            conclusive_over50 += conclusive
+            if inconclusive:
+                inconclusive_list.append(r["repo"])
             h1.append({"repo": r["repo"],
                        "top1": r["cmt_top1"], "share": r["cmt_top1_share"],
                        "with_merge_share": r["cmt_merge_top1_share"],
                        "with_bots_share": r["cmt_top1_incl_share"],
                        "with_bots_top1": r["cmt_top1_incl_name"],
+                       "with_bots_top1_is_bot": r["cmt_top1_incl_bot"],
                        "den_nonmerge": r["commits_human"] + r["commits_unattrib"],
                        "unattrib_share": r["cmt_unattrib_share"],
                        "bot_share": round(by / allc, 4) if allc else None,
-                       "inconclusive_flag": flag_inc,
-                       "over_50": (r["cmt_top1_share"] or 0) > 0.50 and not flag_inc})
+                       "numeric_over_50": numeric,
+                       "inconclusive": inconclusive,
+                       "conclusive_over_50": conclusive})
         # H2
         h2 = []
         for r in rows.values():
@@ -690,7 +715,10 @@ def main():
             if r["cmt_evaluable"] and r["pr_evaluable"]:
                 rw = raw_windows[p][r["repo"]]
                 integrator = rw["top_integrator"] or {}
-                rev_ok = (r["rev_top1_count"] or 0) >= MIN_REVIEWERS
+                # plan.md (Aclaración 1, corrected): review role observable when
+                # the repo's TOTAL non-bot (reviewer, PR) pairs >= 5, not the
+                # top reviewer's count.
+                rev_ok = int(r["review_pairs_human"]) >= MIN_REVIEWERS
                 h4.append({
                     "repo": r["repo"],
                     "top_committer": r["cmt_top1"],
@@ -700,7 +728,12 @@ def main():
                     "commit_pr_differ": r["cmt_top1"] != integrator.get("login"),
                     "commit_rev_differ": bool(rev_ok) and r["cmt_top1"] != r["rev_top1"],
                 })
-        hyp["windows"][p] = {"H1": h1, "H2": h2, "H4": h4}
+        hyp["windows"][p] = {"H1": h1, "H2": h2, "H4": h4,
+                             "H1_summary": {"evaluable": len(evaluable_c),
+                                            "numeric_over_50": numer_over50,
+                                            "inconclusive": len(inconclusive_list),
+                                            "inconclusive_repos": inconclusive_list,
+                                            "conclusive_over_50": conclusive_over50}}
     (RESULTS / "hypotheses.json").write_text(
         json.dumps(hyp, indent=1, ensure_ascii=False), encoding="utf-8")
 

@@ -171,7 +171,7 @@ window.__chartData = {data_json};
 """
 
 
-FONT_DIR = Path("/tmp/opencode/fonts")
+FONT_DIR = HERE / "assets" / "fonts"  # versioned subsets + OFL licenses
 
 
 def font_and_css(html):
@@ -467,8 +467,10 @@ window.__build = function(d, tname){
     bgcolor:c.surface, bordercolor:c.border, font:{color:c.text, size:11},
     active:0, activebgcolor:c.accent, activecolor:'#ffffff',
     buttons:[
-      { label:'12 meses', method:'restyle', args:[['visible','visible'],[true, false]] },
-      { label:'24 meses', method:'restyle', args:[['visible','visible'],[false, true]] }
+      { label:'12 meses', method:'restyle',
+        args:[{ visible:[true,false] }] },
+      { label:'24 meses', method:'restyle',
+        args:[{ visible:[false,true] }] }
     ]}];
   L.annotations=[{x:0.94, y:0.06, xref:'x', yref:'y', text:'misma cuota', showarrow:false,
     font:{color:c.muted, size:10}}];

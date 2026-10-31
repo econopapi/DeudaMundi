@@ -2,13 +2,13 @@
 /**
  * Plugin Name: Econopapi Plotly Charts
  * Description: Bloque dinámico econopapi/plotly-figure para las figuras interactivas del paso 5 (caso DeudaMundi). El bloque guarda solo la elección de figura; el render y los datos viven en el plugin, y las fuentes/Plotly se encolan una sola vez por página. No modifie el bloque GraphDraw ni el plugin viejo wp-plotly.
- * Version: 0.1.2
+ * Version: 0.1.3
  * Author: Daniel Limón — Econopapi
  * Text Domain: econopapi-plotly
  */
 defined('ABSPATH') || exit;
 
-define('ECONOPAPI_PLOTLY_VERSION', '0.1.2');
+define('ECONOPAPI_PLOTLY_VERSION', '0.1.3');
 define('ECONOPAPI_PLOTLY_PLOTLY_URL', 'https://cdn.plot.ly/plotly-2.35.2.min.js'); /* filterable */
 
 require_once __DIR__ . '/assets/defs-meta.php';
@@ -43,7 +43,7 @@ function econopapi_plotly_render(array $attributes = array()): string {
     wp_enqueue_style('econopapi-plotly-style');
 
     ob_start(); ?>
-<section class="econopapi-plotly" id="<?php echo esc_attr($uid); ?>" data-figure="<?php echo esc_attr($figure); ?>" role="figure" aria-label="<?php echo esc_attr(wp_strip_all_tags($d['alt'])); ?>">
+<figure class="econopapi-plotly" id="<?php echo esc_attr($uid); ?>" data-figure="<?php echo esc_attr($figure); ?>" aria-label="<?php echo esc_attr(wp_strip_all_tags($d['alt'])); ?>">
   <div class="figu">
     <div class="figkicker"><?php echo esc_html($d['kicker']); ?></div>
     <p class="figu-title"><?php echo esc_html($d['title']); ?><span class="accent-dot">.</span></p>
@@ -67,7 +67,7 @@ function econopapi_plotly_render(array $attributes = array()): string {
       <tbody><?php echo wp_kses_post($d['table_body']); ?></tbody>
     </table>
   </details>
-</section>
+</figure>
 <?php
     return (string) ob_get_clean();
 }
