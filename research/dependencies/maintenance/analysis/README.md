@@ -15,6 +15,18 @@
 | `make_figures.py` + `figures/` | Cinco figuras interactivas autocontenidas (Plotly 2.35.2 desde CDN con `no-integrity` documentado), identidad Econopapi con el manual oficial (`/home/econopapi/Projects/econopapi-video-studio/docs/brand/ECONOPAPI_BRAND_KIT_LIGHT_DARK_v04/`), fuente Montserrat/Source Sans Pro embebidas, claro/oscuro por `prefers-color-scheme` y toggle manual, tabla accesible por figura y texto alternativo; los datos exactos de cada gráfico viajan en `figN-data.json`. Subconjuntos de fuentes con pyftsubset 4.68.0 y licencias SIL OFL 1.1 (`FONTS-NOTICE.txt`). |
 | `wp-snippets/` | Fragmentos HTML autocontenidos (descartados como vía principal tras la revisión editorial: no respetan la higiene de bloques). La vía definitiva es el plugin de bloque dinámico: `wp-block-plugin/econopapi-plotly/` con el bloque nativo `econopapi/plotly-figure` (el post guarda solo `{"figure":"figN"}`; el servidor imprime kicker/título/subtítulo/tabla accesible; contenedores con ID única; Plotly/fonts/datos encolados una vez). `README.txt` documenta el método verificado y la evaluación del antiguo plugin wp-plotly. Integración pendiente de la instalación del plugin y aprobación editorial. |
 | `SHA256SUMS` / `verification.txt` | Manifest del directorio y bitácora de verificación. |
+| `final-audits/` | **Auditoría metodológica y científica de cierre (§2–§8)**: matriz de cobertura y procedencia por repositorio (`coverage-provenance.{py,csv,md}`), cronología metodológica con clasificación de cada cambio (`method_timeline.{py,csv,md}`), trazabilidad H1–H4 por repo y ventana (`traceability-h1h4.csv`), correspondencia PyPI↔GitHub (`pypi-github-map.csv`), muestra estratificada de eventos recontada de forma independiente (`manual_sample_audit.py` + `manual-sample-audits.json`), matriz de validez de constructo (`construct-validity.md`) y dictamen final por dimensión (`dictamen.md`). |
+
+## Dictamen de cierre del análisis (resumen)
+
+**El Paso 5 queda cerrado metodológicamente (APROBADO CON LIMITACIONES)**: la
+reproducción es byte-idéntica desde checkout limpio sin red; los contrastes
+reconcilian fila a fila con una tercera implementación; la cronología del
+preregistro es demostrable frente a los resultados versionados (con la
+advertencia honesta de que no prueba ausencia de impresiones previas de
+terminal); los límites están declarados y no afectan denominadores publicados.
+El detalle, la matriz de cobertura y el dictamen completo están en
+`final-audits/dictamen.md`.
 
 ## Reproducción
 

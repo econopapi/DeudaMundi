@@ -1,0 +1,639 @@
+{
+ "sample_selection": {
+  "fastapi/fastapi": "S1 alta actividad + S5 invalid-email-address",
+  "python-hyper/h11": "S2 baja actividad (0 commits humanos)",
+  "sqlalchemy/mako": "S3 concentración 1.000 (42/42)",
+  "certifi/python-certifi": "S4 automatización (dependabot)",
+  "grahamdumpleton/wrapt": "S4 releases bot + default_branch develop",
+  "laurent-laporte-pro/deprecated": "S5 cuenta `claude`",
+  "sqlalchemy/sqlalchemy": "S5 sqla-tester revisora",
+  "pallets/click": "S6 PRs a bases no principales"
+ },
+ "honesty_note": "Tercera implementación sobre el MISMO dataset congelado y las MISMAS reglas operativas: valida el cómputo, no el origen de los datos; los recibos (HTTP 200 + SHA-64 por página) son única evidencia de origen.",
+ "audits": [
+  {
+   "repo": "fastapi/fastapi",
+   "receipts_all_200_and_sha64": true,
+   "receipt_samples": [
+    {
+     "file": "fastapi__fastapi/commits/00001.json",
+     "url": "https://api.github.com/repos/fastapi/fastapi/commits?sha=master&since=2024-10-30T00%3A00%3A00Z&until=2026-10-30T00%3A00%3A00Z&per_page=100&page=1",
+     "consulted_at_utc": "2026-10-30T15:50:44Z",
+     "body_sha256": "61c5b07fc41c00fa…",
+     "records": 100
+    },
+    {
+     "file": "fastapi__fastapi/commits/00002.json",
+     "url": "https://api.github.com/repos/fastapi/fastapi/commits?sha=master&since=2024-10-30T00%3A00%3A00Z&until=2026-10-30T00%3A00%3A00Z&per_page=100&page=2",
+     "consulted_at_utc": "2026-10-30T15:50:44Z",
+     "body_sha256": "66b5e163017bbb68…",
+     "records": 100
+    },
+    {
+     "file": "fastapi__fastapi/releases/00004.json",
+     "url": "https://api.github.com/repos/fastapi/fastapi/releases?per_page=100&page=4",
+     "consulted_at_utc": "2026-10-30T16:15:12Z",
+     "body_sha256": "c7a8119b147c0764…",
+     "records": 42
+    }
+   ],
+   "recompute": {
+    "commits_nonmerge": 1773,
+    "commits_merge": 0,
+    "top_human_committer": [
+     "tiangolo",
+     533
+    ],
+    "merged_total_12m": 887,
+    "merged_main": 884,
+    "merged_other_base": 3,
+    "top_pr_author_main": [
+     "tiangolo",
+     463
+    ],
+    "release_events_12m": 123,
+    "release_bot_events": 67,
+    "review_pairs_total_12m": 676,
+    "review_pairs_nonbot": 632,
+    "top_reviewer_pairs": [
+     "YuriiMotov",
+     199
+    ]
+   },
+   "sample_events": {
+    "commit_sample": {
+     "sha": "79cab5b",
+     "date": "2026-10-26T10:29:12Z",
+     "author": "latest-changes[bot]",
+     "parents": 1
+    },
+    "pr_sample": {
+     "number": 16613,
+     "merged_at": "2026-10-26T10:29:08Z",
+     "author": "dependabot",
+     "merged_by": "YuriiMotov",
+     "base_ref": "master"
+    },
+    "release_sample": {
+     "date": "2026-10-23T18:47:17Z",
+     "author": "github-actions[bot]",
+     "tag": null
+    },
+    "review_pairs_sample": [
+     {
+      "pr": 16621,
+      "reviewer": "Eminek-marz",
+      "is_bot": false
+     }
+    ]
+   },
+   "stratum_reason": "S1 alta actividad + S5 invalid-email-address",
+   "expected_default_branch": "master"
+  },
+  {
+   "repo": "python-hyper/h11",
+   "receipts_all_200_and_sha64": true,
+   "receipt_samples": [
+    {
+     "file": "python-hyper__h11/commits/00001.json",
+     "url": "https://api.github.com/repos/python-hyper/h11/commits?sha=master&since=2024-10-30T00%3A00%3A00Z&until=2026-10-30T00%3A00%3A00Z&per_page=100&page=1",
+     "consulted_at_utc": "2026-10-30T16:01:01Z",
+     "body_sha256": "bf424ae845f67c7e…",
+     "records": 14
+    },
+    {
+     "file": "python-hyper__h11/prs/00001.json",
+     "url": "https://api.github.com/graphql",
+     "consulted_at_utc": "2026-10-30T16:01:05Z",
+     "body_sha256": "f00ecd8d3c11d473…",
+     "records": 100
+    },
+    {
+     "file": "python-hyper__h11/releases/00001.json",
+     "url": "https://api.github.com/repos/python-hyper/h11/releases?per_page=100&page=1",
+     "consulted_at_utc": "2026-10-30T16:01:02Z",
+     "body_sha256": "4f53cda18c2baa0c…",
+     "records": 0
+    }
+   ],
+   "recompute": {
+    "commits_nonmerge": 0,
+    "commits_merge": 0,
+    "top_human_committer": [
+     null,
+     0
+    ],
+    "merged_total_12m": 0,
+    "merged_main": 0,
+    "merged_other_base": 0,
+    "top_pr_author_main": [
+     null,
+     0
+    ],
+    "release_events_12m": 0,
+    "release_bot_events": 0,
+    "review_pairs_total_12m": 12,
+    "review_pairs_nonbot": 11,
+    "top_reviewer_pairs": [
+     "Wkhanex",
+     2
+    ]
+   },
+   "sample_events": {
+    "commit_sample": null,
+    "pr_sample": null,
+    "release_sample": null,
+    "review_pairs_sample": [
+     {
+      "pr": 211,
+      "reviewer": "Muguett-DBY",
+      "is_bot": false
+     }
+    ]
+   },
+   "stratum_reason": "S2 baja actividad (0 commits humanos)",
+   "expected_default_branch": "master"
+  },
+  {
+   "repo": "sqlalchemy/mako",
+   "receipts_all_200_and_sha64": true,
+   "receipt_samples": [
+    {
+     "file": "sqlalchemy__mako/commits/00001.json",
+     "url": "https://api.github.com/repos/sqlalchemy/mako/commits?sha=main&since=2024-10-30T00%3A00%3A00Z&until=2026-10-30T00%3A00%3A00Z&per_page=100&page=1",
+     "consulted_at_utc": "2026-10-30T15:53:44Z",
+     "body_sha256": "d81a76bfe1a44a0b…",
+     "records": 62
+    },
+    {
+     "file": "sqlalchemy__mako/prs/00001.json",
+     "url": "https://api.github.com/graphql",
+     "consulted_at_utc": "2026-10-30T15:53:47Z",
+     "body_sha256": "04b12384bd658d2e…",
+     "records": 55
+    },
+    {
+     "file": "sqlalchemy__mako/releases/00001.json",
+     "url": "https://api.github.com/repos/sqlalchemy/mako/releases?per_page=100&page=1",
+     "consulted_at_utc": "2026-10-30T15:53:45Z",
+     "body_sha256": "9662b10392193893…",
+     "records": 82
+    }
+   ],
+   "recompute": {
+    "commits_nonmerge": 42,
+    "commits_merge": 3,
+    "top_human_committer": [
+     "zzzeek",
+     42
+    ],
+    "merged_total_12m": 0,
+    "merged_main": 0,
+    "merged_other_base": 0,
+    "top_pr_author_main": [
+     null,
+     0
+    ],
+    "release_events_12m": 6,
+    "release_bot_events": 0,
+    "review_pairs_total_12m": 1,
+    "review_pairs_nonbot": 1,
+    "top_reviewer_pairs": [
+     "sqla-tester",
+     1
+    ]
+   },
+   "sample_events": {
+    "commit_sample": {
+     "sha": "14889bc",
+     "date": "2026-09-22T20:54:43Z",
+     "author": "zzzeek",
+     "parents": 1
+    },
+    "pr_sample": null,
+    "release_sample": {
+     "date": "2026-09-22T20:54:36Z",
+     "author": "sqla-tester",
+     "tag": null
+    },
+    "review_pairs_sample": [
+     {
+      "pr": 426,
+      "reviewer": "sqla-tester",
+      "is_bot": false
+     }
+    ]
+   },
+   "stratum_reason": "S3 concentración 1.000 (42/42)",
+   "expected_default_branch": "main"
+  },
+  {
+   "repo": "certifi/python-certifi",
+   "receipts_all_200_and_sha64": true,
+   "receipt_samples": [
+    {
+     "file": "certifi__python-certifi/commits/00001.json",
+     "url": "https://api.github.com/repos/certifi/python-certifi/commits?sha=master&since=2024-10-30T00%3A00%3A00Z&until=2026-10-30T00%3A00%3A00Z&per_page=100&page=1",
+     "consulted_at_utc": "2026-10-30T15:55:13Z",
+     "body_sha256": "dc01e88d8285d03c…",
+     "records": 79
+    },
+    {
+     "file": "certifi__python-certifi/prs/00001.json",
+     "url": "https://api.github.com/graphql",
+     "consulted_at_utc": "2026-10-30T15:55:17Z",
+     "body_sha256": "6117ded41934617e…",
+     "records": 100
+    },
+    {
+     "file": "certifi__python-certifi/releases/00001.json",
+     "url": "https://api.github.com/repos/certifi/python-certifi/releases?per_page=100&page=1",
+     "consulted_at_utc": "2026-10-30T15:55:14Z",
+     "body_sha256": "4f53cda18c2baa0c…",
+     "records": 0
+    }
+   ],
+   "recompute": {
+    "commits_nonmerge": 44,
+    "commits_merge": 0,
+    "top_human_committer": [
+     "alex",
+     2
+    ],
+    "merged_total_12m": 43,
+    "merged_main": 43,
+    "merged_other_base": 0,
+    "top_pr_author_main": [
+     "alex",
+     2
+    ],
+    "release_events_12m": 0,
+    "release_bot_events": 0,
+    "review_pairs_total_12m": 35,
+    "review_pairs_nonbot": 35,
+    "top_reviewer_pairs": [
+     "alex",
+     33
+    ]
+   },
+   "sample_events": {
+    "commit_sample": {
+     "sha": "c463746",
+     "date": "2026-10-24T11:45:54Z",
+     "author": "hugovk",
+     "parents": 1
+    },
+    "pr_sample": {
+     "number": 446,
+     "merged_at": "2026-10-24T11:45:55Z",
+     "author": "hugovk",
+     "merged_by": "alex",
+     "base_ref": "master"
+    },
+    "release_sample": null,
+    "review_pairs_sample": [
+     {
+      "pr": 436,
+      "reviewer": "alex",
+      "is_bot": false
+     }
+    ]
+   },
+   "stratum_reason": "S4 automatización (dependabot)",
+   "expected_default_branch": "master"
+  },
+  {
+   "repo": "grahamdumpleton/wrapt",
+   "receipts_all_200_and_sha64": true,
+   "receipt_samples": [
+    {
+     "file": "grahamdumpleton__wrapt/commits/00001.json",
+     "url": "https://api.github.com/repos/grahamdumpleton/wrapt/commits?sha=develop&since=2024-10-30T00%3A00%3A00Z&until=2026-10-30T00%3A00%3A00Z&per_page=100&page=1",
+     "consulted_at_utc": "2026-10-30T15:55:50Z",
+     "body_sha256": "9596cb7ac5cc966a…",
+     "records": 100
+    },
+    {
+     "file": "grahamdumpleton__wrapt/commits/00002.json",
+     "url": "https://api.github.com/repos/grahamdumpleton/wrapt/commits?sha=develop&since=2024-10-30T00%3A00%3A00Z&until=2026-10-30T00%3A00%3A00Z&per_page=100&page=2",
+     "consulted_at_utc": "2026-10-30T15:55:51Z",
+     "body_sha256": "d002536abd6161ce…",
+     "records": 100
+    },
+    {
+     "file": "grahamdumpleton__wrapt/releases/00001.json",
+     "url": "https://api.github.com/repos/grahamdumpleton/wrapt/releases?per_page=100&page=1",
+     "consulted_at_utc": "2026-10-30T15:56:00Z",
+     "body_sha256": "c613011604085b14…",
+     "records": 44
+    }
+   ],
+   "recompute": {
+    "commits_nonmerge": 337,
+    "commits_merge": 46,
+    "top_human_committer": [
+     "GrahamDumpleton",
+     325
+    ],
+    "merged_total_12m": 13,
+    "merged_main": 13,
+    "merged_other_base": 0,
+    "top_pr_author_main": [
+     "GrahamDumpleton",
+     4
+    ],
+    "release_events_12m": 36,
+    "release_bot_events": 32,
+    "review_pairs_total_12m": 1,
+    "review_pairs_nonbot": 0,
+    "top_reviewer_pairs": [
+     null,
+     0
+    ]
+   },
+   "sample_events": {
+    "commit_sample": {
+     "sha": "e149c94",
+     "date": "2026-10-29T23:29:52Z",
+     "author": "GrahamDumpleton",
+     "parents": 1
+    },
+    "pr_sample": {
+     "number": 359,
+     "merged_at": "2026-10-12T00:33:11Z",
+     "author": "xiehuanyi",
+     "merged_by": "GrahamDumpleton",
+     "base_ref": "develop"
+    },
+    "release_sample": {
+     "date": "2026-10-29T22:50:36Z",
+     "author": "github-actions[bot]",
+     "tag": null
+    },
+    "review_pairs_sample": [
+     {
+      "pr": 359,
+      "reviewer": "copilot-pull-request-reviewer",
+      "is_bot": true
+     }
+    ]
+   },
+   "stratum_reason": "S4 releases bot + default_branch develop",
+   "expected_default_branch": "develop"
+  },
+  {
+   "repo": "laurent-laporte-pro/deprecated",
+   "receipts_all_200_and_sha64": true,
+   "receipt_samples": [
+    {
+     "file": "laurent-laporte-pro__deprecated/commits/00001.json",
+     "url": "https://api.github.com/repos/laurent-laporte-pro/deprecated/commits?sha=master&since=2024-10-30T00%3A00%3A00Z&until=2026-10-30T00%3A00%3A00Z&per_page=100&page=1",
+     "consulted_at_utc": "2026-10-30T15:56:59Z",
+     "body_sha256": "21a3a422dff5cc45…",
+     "records": 100
+    },
+    {
+     "file": "laurent-laporte-pro__deprecated/commits/00002.json",
+     "url": "https://api.github.com/repos/laurent-laporte-pro/deprecated/commits?sha=master&since=2024-10-30T00%3A00%3A00Z&until=2026-10-30T00%3A00%3A00Z&per_page=100&page=2",
+     "consulted_at_utc": "2026-10-30T15:57:00Z",
+     "body_sha256": "859ec25d76383eb4…",
+     "records": 29
+    },
+    {
+     "file": "laurent-laporte-pro__deprecated/releases/00001.json",
+     "url": "https://api.github.com/repos/laurent-laporte-pro/deprecated/releases?per_page=100&page=1",
+     "consulted_at_utc": "2026-10-30T15:57:00Z",
+     "body_sha256": "eb68fe2c108e0eb9…",
+     "records": 26
+    }
+   ],
+   "recompute": {
+    "commits_nonmerge": 51,
+    "commits_merge": 10,
+    "top_human_committer": [
+     "claude",
+     36
+    ],
+    "merged_total_12m": 15,
+    "merged_main": 2,
+    "merged_other_base": 13,
+    "top_pr_author_main": [
+     "laurent-laporte-pro",
+     2
+    ],
+    "release_events_12m": 2,
+    "release_bot_events": 0,
+    "review_pairs_total_12m": 1,
+    "review_pairs_nonbot": 1,
+    "top_reviewer_pairs": [
+     "laurent-laporte-pro",
+     1
+    ]
+   },
+   "sample_events": {
+    "commit_sample": {
+     "sha": "1505880",
+     "date": "2026-10-02T18:53:41Z",
+     "author": "dependabot[bot]",
+     "parents": 1
+    },
+    "pr_sample": {
+     "number": 114,
+     "merged_at": "2026-10-02T18:53:42Z",
+     "author": "dependabot",
+     "merged_by": "laurent-laporte-pro",
+     "base_ref": "develop"
+    },
+    "release_sample": {
+     "date": "2026-09-26T13:54:24Z",
+     "author": "laurent-laporte-pro",
+     "tag": null
+    },
+    "review_pairs_sample": [
+     {
+      "pr": 99,
+      "reviewer": "laurent-laporte-pro",
+      "is_bot": false
+     }
+    ]
+   },
+   "stratum_reason": "S5 cuenta `claude`",
+   "expected_default_branch": "master"
+  },
+  {
+   "repo": "sqlalchemy/sqlalchemy",
+   "receipts_all_200_and_sha64": true,
+   "receipt_samples": [
+    {
+     "file": "sqlalchemy__sqlalchemy/commits/00001.json",
+     "url": "https://api.github.com/repos/sqlalchemy/sqlalchemy/commits?sha=main&since=2024-10-30T00%3A00%3A00Z&until=2026-10-30T00%3A00%3A00Z&per_page=100&page=1",
+     "consulted_at_utc": "2026-10-30T16:02:53Z",
+     "body_sha256": "0c83e634a434da45…",
+     "records": 100
+    },
+    {
+     "file": "sqlalchemy__sqlalchemy/commits/00002.json",
+     "url": "https://api.github.com/repos/sqlalchemy/sqlalchemy/commits?sha=main&since=2024-10-30T00%3A00%3A00Z&until=2026-10-30T00%3A00%3A00Z&per_page=100&page=2",
+     "consulted_at_utc": "2026-10-30T16:02:54Z",
+     "body_sha256": "dd2c419b318a8c35…",
+     "records": 100
+    },
+    {
+     "file": "sqlalchemy__sqlalchemy/releases/00003.json",
+     "url": "https://api.github.com/repos/sqlalchemy/sqlalchemy/releases?per_page=100&page=3",
+     "consulted_at_utc": "2026-10-30T16:15:14Z",
+     "body_sha256": "fb4452f5bf9c4131…",
+     "records": 5
+    }
+   ],
+   "recompute": {
+    "commits_nonmerge": 484,
+    "commits_merge": 189,
+    "top_human_committer": [
+     "zzzeek",
+     300
+    ],
+    "merged_total_12m": 41,
+    "merged_main": 41,
+    "merged_other_base": 0,
+    "top_pr_author_main": [
+     "leogallot",
+     4
+    ],
+    "release_events_12m": 23,
+    "release_bot_events": 0,
+    "review_pairs_total_12m": 256,
+    "review_pairs_nonbot": 252,
+    "top_reviewer_pairs": [
+     "sqla-tester",
+     96
+    ]
+   },
+   "sample_events": {
+    "commit_sample": {
+     "sha": "bbf3c35",
+     "date": "2026-10-26T21:37:22Z",
+     "author": "CaselIT",
+     "parents": 1
+    },
+    "pr_sample": {
+     "number": 13703,
+     "merged_at": "2026-10-20T20:58:26Z",
+     "author": "leogallot",
+     "merged_by": "CaselIT",
+     "base_ref": "main"
+    },
+    "release_sample": {
+     "date": "2026-10-21T16:25:11Z",
+     "author": "sqla-tester",
+     "tag": null
+    },
+    "review_pairs_sample": [
+     {
+      "pr": 13735,
+      "reviewer": "sqla-tester",
+      "is_bot": false
+     }
+    ]
+   },
+   "stratum_reason": "S5 sqla-tester revisora",
+   "expected_default_branch": "main"
+  },
+  {
+   "repo": "pallets/click",
+   "receipts_all_200_and_sha64": true,
+   "receipt_samples": [
+    {
+     "file": "pallets__click/commits/00001.json",
+     "url": "https://api.github.com/repos/pallets/click/commits?sha=main&since=2024-10-30T00%3A00%3A00Z&until=2026-10-30T00%3A00%3A00Z&per_page=100&page=1",
+     "consulted_at_utc": "2026-10-30T15:57:24Z",
+     "body_sha256": "3bd684d59177bc7b…",
+     "records": 100
+    },
+    {
+     "file": "pallets__click/commits/00002.json",
+     "url": "https://api.github.com/repos/pallets/click/commits?sha=main&since=2024-10-30T00%3A00%3A00Z&until=2026-10-30T00%3A00%3A00Z&per_page=100&page=2",
+     "consulted_at_utc": "2026-10-30T15:57:25Z",
+     "body_sha256": "58f7b85de9389bf4…",
+     "records": 100
+    },
+    {
+     "file": "pallets__click/releases/00001.json",
+     "url": "https://api.github.com/repos/pallets/click/releases?per_page=100&page=1",
+     "consulted_at_utc": "2026-10-30T15:57:33Z",
+     "body_sha256": "9ca3b151c0751915…",
+     "records": 30
+    }
+   ],
+   "recompute": {
+    "commits_nonmerge": 241,
+    "commits_merge": 194,
+    "top_human_committer": [
+     "kdeldycke",
+     115
+    ],
+    "merged_total_12m": 184,
+    "merged_main": 78,
+    "merged_other_base": 106,
+    "top_pr_author_main": [
+     "kdeldycke",
+     35
+    ],
+    "release_events_12m": 7,
+    "release_bot_events": 7,
+    "review_pairs_total_12m": 150,
+    "review_pairs_nonbot": 137,
+    "top_reviewer_pairs": [
+     "Rowlando13",
+     39
+    ]
+   },
+   "sample_events": {
+    "commit_sample": {
+     "sha": "9f0bcdf",
+     "date": "2026-09-23T16:52:07Z",
+     "author": "kdeldycke",
+     "parents": 1
+    },
+    "pr_sample": {
+     "number": 3884,
+     "merged_at": "2026-10-06T20:59:00Z",
+     "author": "kdeldycke",
+     "merged_by": "Rowlando13",
+     "base_ref": "stable"
+    },
+    "release_sample": {
+     "date": "2026-08-27T04:00:53Z",
+     "author": "github-actions[bot]",
+     "tag": null
+    },
+    "review_pairs_sample": [
+     {
+      "pr": 3884,
+      "reviewer": "Rowlando13",
+      "is_bot": false
+     }
+    ]
+   },
+   "stratum_reason": "S6 PRs a bases no principales",
+   "expected_default_branch": "main"
+  }
+ ],
+ "issues": [],
+ "spot_checks": {
+  "fastapi_invalid_email_address_commits": {
+   "12m": 0,
+   "24m": 462
+  },
+  "expected_bucket": "cuenta con flag congelado no-bot (type=User); cuenta como actor con login, no como no-atribuido ni bot. Advertencia registrada en audits.md (patrón probablemente automatizado no declarado).",
+  "deprecated_claude_commits_12m": {
+   "total": 38,
+   "nonmerge": 36,
+   "published_top1_count": 36
+  },
+  "sqlalchemy_sqla_tester_pairs_12m": {
+   "pairs": 96,
+   "published_top_reviewer_pairs": 96
+  }
+ }
+}
