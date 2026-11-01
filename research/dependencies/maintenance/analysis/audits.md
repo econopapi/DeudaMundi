@@ -112,3 +112,30 @@ Sensibilidad 24 meses: la comparación se rehace con las mismas reglas (ver `hyp
 - Las revisiones se observan como pares (revisor, PR) dentro de las ventanas y heredan los límites de descubrimiento del paso 4 (PR paginados por `updatedAt`).
 - La actividad de repos compartidos (`pydantic`) puede incluir trabajo ajeno al paquete congelado; el protocolo general lo admite y obliga a señalarlo.
 - Un incendio de auditoría: cero discrepancias entre implementaciones no certifica que GitHub entregara todo el histórico (límite ya declarado en el paso 4); certifica la reproducibilidad del cálculo sobre los datos congelados.
+
+## Verificación fechada (01-11-2026) — coincidencias exactas de cuota top-1 commits/PR (observación §4 del dictamen externo)
+
+**Método.** Sin recolectar datos nuevos: sobre `results/repo-metrics.csv` se buscaron los repositorios evaluables en H2 (ambas métricas) con `cmt_top1_share == pr_top1_share` exacto, y la mecánica de cada caso se contrastó contra las páginas congeladas de commits en `../data/` (solo lectura). Reproducción:
+
+```sh
+python3 -c "
+import csv
+rows = list(csv.DictReader(open('research/dependencies/maintenance/analysis/results/repo-metrics.csv')))
+for r in rows:
+    if r['cmt_evaluable'] == r['pr_evaluable'] == 'True' and r['cmt_top1_share'] == r['pr_top1_share']:
+        print(r['repo'], r['window_end'], r['cmt_top1'], r['cmt_top1_count'], '/', r['commits_human'], '=', r['cmt_top1_share'], '| PR:', r['pr_top1_count'], '/', r['merged_prs_main_human'], '| merges:', r['commits_merge'], '| nonmerge:', r['commits_nonmerge'], '| prs_main:', r['merged_prs_main'])
+"
+```
+
+**Casos (4, únicos en 70 filas):**
+
+| Repo · ventana | Top-1 (ambos flujos) | Cuota commits | Cuota PR | Commits sin merges | PR a rama principal | Merges | Committer `web-flow` |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `kludex/uvicorn` 12m | Kludex | 126/153 = 0.8182 | 126/154 = 0.8182 | 186 | 186 | 0 | 186/186 |
+| `python/typing_extensions` 12m | AlexWaygood | 21/46 = 0.4565 | 21/46 = 0.4565 | 55 | 55 | 0 | 55/55 |
+| `python/typing_extensions` 24m | JelleZijlstra | 34/151 = 0.2252 | 34/151 = 0.2252 | 166 | 166 | 0 | 166/166 |
+| `redis/redis-py` 12m | petyaslavova | 118/362 = 0.3242 | 118/364 = 0.3242 | 386 | 386 | 0 | 386/386 |
+
+**Lectura.** En los cuatro casos el repositorio no registra merge commits en la ventana y el conteo de commits sin merges **iguala exactamente** al de PR fusionados a rama principal; el 100 % de esos commits fue materializado por `web-flow` (id 19864447, la cuenta con la que GitHub materializa fusiones squash/rebase; el plan preregistrado ya la excluía como autoría). El flujo de commits es un espejo 1:1 del flujo de PR: cada PR fusionado aporta exactamente un commit sin merges atribuido a la autoría del PR. Las diferencias finas de denominador (uvicorn 153 vs 154; redis-py 362 vs 364) cuadran con los commits materializados sin cuenta vinculada en el lado de commits (uvicorn 1, redis-py 2; PR sin autoría nula: 0 en ambos), no con eventos independientes.
+
+**Consecuencia registrada.** La coincidencia exacta de cuotas top-1 entre commits y PR en estos repositorios **no son dos medidas independientes** del mismo trabajo: H2 no debe leerse en ellos como «la misma concentración confirmada por dos flujos», sino como un único flujo de trabajo observado dos veces a través de la materialización squash. Las figuras v2 derivadas del dictamen externo (fig3, `results/plotly-embed/`) marcan estos cuatro casos con Δ = 0 y remiten a esta nota. Ningún resultado preregistrado cambia: las categorías H2 de estos repositorios ya se calculaban sobre las reglas fijadas y esta verificación no altera denominadores, reglas ni contrastes.
