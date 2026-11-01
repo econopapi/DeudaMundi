@@ -4,32 +4,32 @@
     {
       "figure": "fig1",
       "file": "fig1.json",
-      "title": "Actividad pública por tipo de evento y ventana",
-      "sha256": "56b5fb94249b0de8621b0b5a8a700a7d3bd78949bdd8764dde797b6cf8f7f254"
+      "title": "¿Cuánta actividad pública observamos?",
+      "sha256": "10f7aac5888bdceb09c051dea27343f784e6fc27c568dbaf5dd95cbd534770be"
     },
     {
       "figure": "fig2",
       "file": "fig2.json",
-      "title": "Actividad por repositorio: commits, bots y actores sin cuenta",
-      "sha256": "644977ff679bb9a1703e23d08b854dd446342dcf41ec4fd0bd990b8875f9a826"
+      "title": "¿Qué repositorios registraron más commits?",
+      "sha256": "118318237b37f8c69bd90e35499a419a3d7671f5a4b703e2417757ad80d9571c"
     },
     {
       "figure": "fig3",
       "file": "fig3.json",
-      "title": "Un actor principal: cuota por commits frente a PR fusionados",
-      "sha256": "0381e4a81a68fe9071063a894ac15cc3a1557f82731d1d12a53f991fbd269dde"
+      "title": "¿Dónde se concentra más la autoría de commits que la de PR?",
+      "sha256": "5a0889de3a430d8b3bd0493a1c74dc04ca22177d77335e879ad578a8958063a4"
     },
     {
       "figure": "fig4",
       "file": "fig4.json",
-      "title": "Sensibilidad: cuota del actor principal entre ventanas",
-      "sha256": "1529661e1c31eea52cb0d1f0d22a6ddcfd8ea94d462b26990fe6b4acff22df44"
+      "title": "¿Cambia la concentración cuando observamos 24 meses?",
+      "sha256": "da2d32526ffab4a690040de4c77c40a629a5e593a58de7f106699ee32aa446ea"
     },
     {
       "figure": "fig5",
       "file": "fig5.json",
-      "title": "Participacion de bots declarados por tipo de evento",
-      "sha256": "648e5d32505f3c60d08a07cddac93fba2482aeeafeadf413ccba0b73a69ebdbf"
+      "title": "¿Cuánto de lo registrado corresponde a bots declarados?",
+      "sha256": "931929044eab616437f91be904ceabef44dbbe2201a8ecbd70aca62ef1289223"
     }
   ]
 }
