@@ -1,328 +1,678 @@
 {
- "figure": "fig3",
- "attributes": {
-  "figure": "fig3"
- },
- "meta": {
-  "kicker": "PASO 5 - CONCENTRACION (H1/H2)",
-  "title": "Un actor principal: cuota por commits frente a PR fusionados",
-  "subtitle": "Solo repositorios con denominadores minimos preregistrados (>=30 commits y >=10 PR fusionados a rama principal, no bots). La diagonal marca cuotas iguales; las bandas verticales son las categorias del protocolo. El color de punto es fiel al tema; pasa el cursor para ver el numerador exacto.",
-  "alt": "Diagrama de dispersion: cada punto es un repositorio evaluable en ambas metricas, con la cuota del actor principal por commits (eje x) frente a la cuota por PR fusionados a rama principal (eje y), para la ventana elegida.",
-  "provenance_extra": "Datos derivados de <code>results/hypotheses.json</code> (12 y 24 meses).",
-  "table_head": "<th>Repositorio · ventana</th><th>Cuota commits</th><th>Categoría</th><th>Cuota PR</th><th>Categoría</th>",
-  "table_body": "<tr><td>agronholm/anyio · 12m</td><td>0.4661</td><td><=50%</td><td>0.2027</td><td><=50%</td></tr>\n<tr><td>agronholm/apscheduler · 12m</td><td>0.6486</td><td>50-75%</td><td>0.0769</td><td><=50%</td></tr>\n<tr><td>fastapi/fastapi · 12m</td><td>0.7222</td><td>50-75%</td><td>0.6942</td><td>50-75%</td></tr>\n<tr><td>grahamdumpleton/wrapt · 12m</td><td>0.9644</td><td>>75%</td><td>0.3077</td><td><=50%</td></tr>\n<tr><td>jpadilla/pyjwt · 12m</td><td>0.6712</td><td>50-75%</td><td>0.2258</td><td><=50%</td></tr>\n<tr><td>kjd/idna · 12m</td><td>0.916</td><td>>75%</td><td>0.8269</td><td>>75%</td></tr>\n<tr><td>kludex/starlette · 12m</td><td>0.6802</td><td>50-75%</td><td>0.6773</td><td>50-75%</td></tr>\n<tr><td>kludex/uvicorn · 12m</td><td>0.8182</td><td>>75%</td><td>0.8182</td><td>>75%</td></tr>\n<tr><td>pallets/click · 12m</td><td>0.4812</td><td><=50%</td><td>0.4487</td><td><=50%</td></tr>\n<tr><td>psycopg/psycopg · 12m</td><td>0.658</td><td>50-75%</td><td>0.4198</td><td><=50%</td></tr>\n<tr><td>pydantic/pydantic · 12m</td><td>0.5482</td><td>50-75%</td><td>0.5558</td><td>50-75%</td></tr>\n<tr><td>pydantic/pydantic-settings · 12m</td><td>0.3512</td><td><=50%</td><td>0.3533</td><td><=50%</td></tr>\n<tr><td>pypa/packaging · 12m</td><td>0.4905</td><td><=50%</td><td>0.4703</td><td><=50%</td></tr>\n<tr><td>python-websockets/websockets · 12m</td><td>0.9474</td><td>>75%</td><td>0.6944</td><td>50-75%</td></tr>\n<tr><td>python/typing_extensions · 12m</td><td>0.4565</td><td><=50%</td><td>0.4565</td><td><=50%</td></tr>\n<tr><td>redis/redis-py · 12m</td><td>0.3242</td><td><=50%</td><td>0.3242</td><td><=50%</td></tr>\n<tr><td>sqlalchemy/sqlalchemy · 12m</td><td>0.6342</td><td>50-75%</td><td>0.1333</td><td><=50%</td></tr>\n<tr><td>theskumar/python-dotenv · 12m</td><td>0.3571</td><td><=50%</td><td>0.2333</td><td><=50%</td></tr>\n<tr><td>agronholm/anyio · 24m</td><td>0.5447</td><td>50-75%</td><td>0.2719</td><td><=50%</td></tr>\n<tr><td>agronholm/apscheduler · 24m</td><td>0.6406</td><td>50-75%</td><td>0.125</td><td><=50%</td></tr>\n<tr><td>alisaifee/limits · 24m</td><td>0.9577</td><td>>75%</td><td>0.35</td><td><=50%</td></tr>\n<tr><td>encode/httpx · 24m</td><td>0.2973</td><td><=50%</td><td>0.3056</td><td><=50%</td></tr>\n<tr><td>fastapi/fastapi · 24m</td><td>0.3949</td><td><=50%</td><td>0.4987</td><td><=50%</td></tr>\n<tr><td>grahamdumpleton/wrapt · 24m</td><td>0.9469</td><td>>75%</td><td>0.1818</td><td><=50%</td></tr>\n<tr><td>jpadilla/pyjwt · 24m</td><td>0.54</td><td>50-75%</td><td>0.2642</td><td><=50%</td></tr>\n<tr><td>kjd/idna · 24m</td><td>0.9034</td><td>>75%</td><td>0.8</td><td>>75%</td></tr>\n<tr><td>kludex/starlette · 24m</td><td>0.6437</td><td>50-75%</td><td>0.6892</td><td>50-75%</td></tr>\n<tr><td>kludex/uvicorn · 24m</td><td>0.8051</td><td>>75%</td><td>0.8287</td><td>>75%</td></tr>\n<tr><td>laurent-laporte-pro/deprecated · 24m</td><td>0.3429</td><td><=50%</td><td>0.7</td><td>50-75%</td></tr>\n<tr><td>magicstack/uvloop · 24m</td><td>0.4286</td><td><=50%</td><td>0.3548</td><td><=50%</td></tr>\n<tr><td>pallets/click · 24m</td><td>0.3417</td><td><=50%</td><td>0.3235</td><td><=50%</td></tr>\n<tr><td>psycopg/psycopg · 24m</td><td>0.7766</td><td>>75%</td><td>0.4412</td><td><=50%</td></tr>\n<tr><td>pydantic/pydantic · 24m</td><td>0.5204</td><td>50-75%</td><td>0.5664</td><td>50-75%</td></tr>\n<tr><td>pydantic/pydantic-settings · 24m</td><td>0.3321</td><td><=50%</td><td>0.3333</td><td><=50%</td></tr>\n<tr><td>pydantic/typing-inspection · 24m</td><td>0.9062</td><td>>75%</td><td>0.9483</td><td>>75%</td></tr>\n<tr><td>pypa/packaging · 24m</td><td>0.4558</td><td><=50%</td><td>0.4433</td><td><=50%</td></tr>\n<tr><td>python-websockets/websockets · 24m</td><td>0.9468</td><td>>75%</td><td>0.7097</td><td>50-75%</td></tr>\n<tr><td>python/typing_extensions · 24m</td><td>0.2252</td><td><=50%</td><td>0.2252</td><td><=50%</td></tr>\n<tr><td>redis/redis-py · 24m</td><td>0.3439</td><td><=50%</td><td>0.3451</td><td><=50%</td></tr>\n<tr><td>regebro/tzlocal · 24m</td><td>0.9394</td><td>>75%</td><td>0.8333</td><td>>75%</td></tr>\n<tr><td>samuelcolvin/watchfiles · 24m</td><td>0.6429</td><td>50-75%</td><td>0.5714</td><td>50-75%</td></tr>\n<tr><td>sqlalchemy/sqlalchemy · 24m</td><td>0.5915</td><td>50-75%</td><td>0.0909</td><td><=50%</td></tr>\n<tr><td>theskumar/python-dotenv · 24m</td><td>0.52</td><td>50-75%</td><td>0.2273</td><td><=50%</td></tr>"
- },
- "chart_hint": "scatter-with-updatemenu-12/24",
- "data": {
-  "rows": [
-   {
-    "window": "12m",
-    "repo_label": "anyio",
-    "c_commit": 0.4661,
-    "c_pr": 0.2027,
-    "tip": "Top commits: agronholm (103 de 221 no-bot) | Top PR: agronholm (30)"
-   },
-   {
-    "window": "12m",
-    "repo_label": "apscheduler",
-    "c_commit": 0.6486,
-    "c_pr": 0.0769,
-    "tip": "Top commits: agronholm (24 de 37 no-bot) | Top PR: afonsojanu (1)"
-   },
-   {
-    "window": "12m",
-    "repo_label": "fastapi",
-    "c_commit": 0.7222,
-    "c_pr": 0.6942,
-    "tip": "Top commits: tiangolo (533 de 738 no-bot) | Top PR: tiangolo (463)"
-   },
-   {
-    "window": "12m",
-    "repo_label": "wrapt",
-    "c_commit": 0.9644,
-    "c_pr": 0.3077,
-    "tip": "Top commits: GrahamDumpleton (325 de 337 no-bot) | Top PR: GrahamDumpleton (4)"
-   },
-   {
-    "window": "12m",
-    "repo_label": "pyjwt",
-    "c_commit": 0.6712,
-    "c_pr": 0.2258,
-    "tip": "Top commits: jpadilla (49 de 73 no-bot) | Top PR: jpadilla (7)"
-   },
-   {
-    "window": "12m",
-    "repo_label": "idna",
-    "c_commit": 0.916,
-    "c_pr": 0.8269,
-    "tip": "Top commits: kjd (109 de 119 no-bot) | Top PR: kjd (43)"
-   },
-   {
-    "window": "12m",
-    "repo_label": "starlette",
-    "c_commit": 0.6802,
-    "c_pr": 0.6773,
-    "tip": "Top commits: Kludex (151 de 222 no-bot) | Top PR: Kludex (149)"
-   },
-   {
-    "window": "12m",
-    "repo_label": "uvicorn",
-    "c_commit": 0.8182,
-    "c_pr": 0.8182,
-    "tip": "Top commits: Kludex (126 de 154 no-bot) | Top PR: Kludex (126)"
-   },
-   {
-    "window": "12m",
-    "repo_label": "click",
-    "c_commit": 0.4812,
-    "c_pr": 0.4487,
-    "tip": "Top commits: kdeldycke (115 de 239 no-bot) | Top PR: kdeldycke (35)"
-   },
-   {
-    "window": "12m",
-    "repo_label": "psycopg",
-    "c_commit": 0.658,
-    "c_pr": 0.4198,
-    "tip": "Top commits: dvarrazzo (152 de 231 no-bot) | Top PR: dvarrazzo (34)"
-   },
-   {
-    "window": "12m",
-    "repo_label": "pydantic",
-    "c_commit": 0.5482,
-    "c_pr": 0.5558,
-    "tip": "Top commits: Viicos (290 de 529 no-bot) | Top PR: Viicos (289)"
-   },
-   {
-    "window": "12m",
-    "repo_label": "pydantic-settings",
-    "c_commit": 0.3512,
-    "c_pr": 0.3533,
-    "tip": "Top commits: hramezani (59 de 168 no-bot) | Top PR: hramezani (59)"
-   },
-   {
-    "window": "12m",
-    "repo_label": "packaging",
-    "c_commit": 0.4905,
-    "c_pr": 0.4703,
-    "tip": "Top commits: henryiii (181 de 369 no-bot) | Top PR: henryiii (166)"
-   },
-   {
-    "window": "12m",
-    "repo_label": "websockets",
-    "c_commit": 0.9474,
-    "c_pr": 0.6944,
-    "tip": "Top commits: aaugustin (198 de 209 no-bot) | Top PR: aaugustin (25)"
-   },
-   {
-    "window": "12m",
-    "repo_label": "typing_extensions",
-    "c_commit": 0.4565,
-    "c_pr": 0.4565,
-    "tip": "Top commits: AlexWaygood (21 de 46 no-bot) | Top PR: AlexWaygood (21)"
-   },
-   {
-    "window": "12m",
-    "repo_label": "redis-py",
-    "c_commit": 0.3242,
-    "c_pr": 0.3242,
-    "tip": "Top commits: petyaslavova (118 de 364 no-bot) | Top PR: petyaslavova (118)"
-   },
-   {
-    "window": "12m",
-    "repo_label": "sqlalchemy",
-    "c_commit": 0.6342,
-    "c_pr": 0.1333,
-    "tip": "Top commits: zzzeek (300 de 473 no-bot) | Top PR: leogallot (4)"
-   },
-   {
-    "window": "12m",
-    "repo_label": "python-dotenv",
-    "c_commit": 0.3571,
-    "c_pr": 0.2333,
-    "tip": "Top commits: theskumar (15 de 42 no-bot) | Top PR: bbc2 (7)"
-   },
-   {
-    "window": "24m",
-    "repo_label": "anyio",
-    "c_commit": 0.5447,
-    "c_pr": 0.2719,
-    "tip": "Top commits: agronholm (189 de 347 no-bot) | Top PR: agronholm (59)"
-   },
-   {
-    "window": "24m",
-    "repo_label": "apscheduler",
-    "c_commit": 0.6406,
-    "c_pr": 0.125,
-    "tip": "Top commits: agronholm (41 de 64 no-bot) | Top PR: mattewid (3)"
-   },
-   {
-    "window": "24m",
-    "repo_label": "limits",
-    "c_commit": 0.9577,
-    "c_pr": 0.35,
-    "tip": "Top commits: alisaifee (272 de 284 no-bot) | Top PR: alisaifee (7)"
-   },
-   {
-    "window": "24m",
-    "repo_label": "httpx",
-    "c_commit": 0.2973,
-    "c_pr": 0.3056,
-    "tip": "Top commits: lovelydinosaur (11 de 37 no-bot) | Top PR: lovelydinosaur (11)"
-   },
-   {
-    "window": "24m",
-    "repo_label": "fastapi",
-    "c_commit": 0.3949,
-    "c_pr": 0.4987,
-    "tip": "Top commits: tiangolo (680 de 1722 no-bot) | Top PR: tiangolo (576)"
-   },
-   {
-    "window": "24m",
-    "repo_label": "wrapt",
-    "c_commit": 0.9469,
-    "c_pr": 0.1818,
-    "tip": "Top commits: GrahamDumpleton (571 de 603 no-bot) | Top PR: GrahamDumpleton (4)"
-   },
-   {
-    "window": "24m",
-    "repo_label": "pyjwt",
-    "c_commit": 0.54,
-    "c_pr": 0.2642,
-    "tip": "Top commits: jpadilla (54 de 100 no-bot) | Top PR: kurtmckee (14)"
-   },
-   {
-    "window": "24m",
-    "repo_label": "idna",
-    "c_commit": 0.9034,
-    "c_pr": 0.8,
-    "tip": "Top commits: kjd (131 de 145 no-bot) | Top PR: kjd (48)"
-   },
-   {
-    "window": "24m",
-    "repo_label": "starlette",
-    "c_commit": 0.6437,
-    "c_pr": 0.6892,
-    "tip": "Top commits: Kludex (224 de 348 no-bot) | Top PR: Kludex (173)"
-   },
-   {
-    "window": "24m",
-    "repo_label": "uvicorn",
-    "c_commit": 0.8051,
-    "c_pr": 0.8287,
-    "tip": "Top commits: Kludex (190 de 236 no-bot) | Top PR: Kludex (150)"
-   },
-   {
-    "window": "24m",
-    "repo_label": "deprecated",
-    "c_commit": 0.3429,
-    "c_pr": 0.7,
-    "tip": "Top commits: claude (36 de 105 no-bot) | Top PR: laurent-laporte-pro (7)"
-   },
-   {
-    "window": "24m",
-    "repo_label": "uvloop",
-    "c_commit": 0.4286,
-    "c_pr": 0.3548,
-    "tip": "Top commits: fantix (15 de 35 no-bot) | Top PR: fantix (11)"
-   },
-   {
-    "window": "24m",
-    "repo_label": "click",
-    "c_commit": 0.3417,
-    "c_pr": 0.3235,
-    "tip": "Top commits: kdeldycke (176 de 515 no-bot) | Top PR: kdeldycke (44)"
-   },
-   {
-    "window": "24m",
-    "repo_label": "psycopg",
-    "c_commit": 0.7766,
-    "c_pr": 0.4412,
-    "tip": "Top commits: dvarrazzo (431 de 555 no-bot) | Top PR: dvarrazzo (60)"
-   },
-   {
-    "window": "24m",
-    "repo_label": "pydantic",
-    "c_commit": 0.5204,
-    "c_pr": 0.5664,
-    "tip": "Top commits: Viicos (624 de 1199 no-bot) | Top PR: Viicos (550)"
-   },
-   {
-    "window": "24m",
-    "repo_label": "pydantic-settings",
-    "c_commit": 0.3321,
-    "c_pr": 0.3333,
-    "tip": "Top commits: hramezani (89 de 268 no-bot) | Top PR: hramezani (89)"
-   },
-   {
-    "window": "24m",
-    "repo_label": "typing-inspection",
-    "c_commit": 0.9062,
-    "c_pr": 0.9483,
-    "tip": "Top commits: Viicos (58 de 64 no-bot) | Top PR: Viicos (55)"
-   },
-   {
-    "window": "24m",
-    "repo_label": "packaging",
-    "c_commit": 0.4558,
-    "c_pr": 0.4433,
-    "tip": "Top commits: henryiii (191 de 419 no-bot) | Top PR: henryiii (176)"
-   },
-   {
-    "window": "24m",
-    "repo_label": "websockets",
-    "c_commit": 0.9468,
-    "c_pr": 0.7097,
-    "tip": "Top commits: aaugustin (338 de 357 no-bot) | Top PR: aaugustin (44)"
-   },
-   {
-    "window": "24m",
-    "repo_label": "typing_extensions",
-    "c_commit": 0.2252,
-    "c_pr": 0.2252,
-    "tip": "Top commits: JelleZijlstra (34 de 151 no-bot) | Top PR: JelleZijlstra (34)"
-   },
-   {
-    "window": "24m",
-    "repo_label": "redis-py",
-    "c_commit": 0.3439,
-    "c_pr": 0.3451,
-    "tip": "Top commits: petyaslavova (195 de 567 no-bot) | Top PR: petyaslavova (195)"
-   },
-   {
-    "window": "24m",
-    "repo_label": "tzlocal",
-    "c_commit": 0.9394,
-    "c_pr": 0.8333,
-    "tip": "Top commits: regebro (31 de 33 no-bot) | Top PR: regebro (10)"
-   },
-   {
-    "window": "24m",
-    "repo_label": "watchfiles",
-    "c_commit": 0.6429,
-    "c_pr": 0.5714,
-    "tip": "Top commits: samuelcolvin (27 de 42 no-bot) | Top PR: samuelcolvin (20)"
-   },
-   {
-    "window": "24m",
-    "repo_label": "sqlalchemy",
-    "c_commit": 0.5915,
-    "c_pr": 0.0909,
-    "tip": "Top commits: zzzeek (517 de 874 no-bot) | Top PR: krave1986 (6)"
-   },
-   {
-    "window": "24m",
-    "repo_label": "python-dotenv",
-    "c_commit": 0.52,
-    "c_pr": 0.2273,
-    "tip": "Top commits: theskumar (39 de 75 no-bot) | Top PR: theskumar (10)"
-   }
-  ]
- },
- "source": {
-  "branch": "research/deudamundi-dependencies",
-  "cut_utc": "2026-10-30T00:00:00Z",
-  "results": "maintenance/analysis/results",
-  "note": "regenerable without network from the 443 frozen JSONs via analyze_activity.py + make_figures.py"
- },
- "sha256_payload": "f0e35e52a8d20749f270256f53c856a9c312b80ca32b58ce57b65bbbc1ace109"
+  "schemaVersion": 1,
+  "meta": {
+    "title": "Un actor principal: cuota por commits frente a PR fusionados",
+    "kicker": "PASO 5 - CONCENTRACION (H1/H2)",
+    "description": "Solo repositorios con denominadores minimos preregistrados (>=30 commits y >=10 PR fusionados a rama principal, no bots). La diagonal marca cuotas iguales; las bandas verticales son las categorias del protocolo. El color de punto es fiel al tema; pasa el cursor para ver el numerador exacto.",
+    "alt": "Diagrama de dispersion: cada punto es un repositorio evaluable en ambas metricas, con la cuota del actor principal por commits (eje x) frente a la cuota por PR fusionados a rama principal (eje y), para la ventana elegida.",
+    "unit": "proporción (0–1)",
+    "sources": [
+      {
+        "label": "Cálculos propios con datos públicos de GitHub; extracción congelada del 30-10-2026 (443 JSON, 35 repositorios)",
+        "url": "https://github.com/econopapi/DeudaMundi/commit/1363af84d5089ca4260645012dcb34ccc93d4c6c"
+      }
+    ],
+    "methodology": {
+      "label": "Plan preregistrado del paso 5",
+      "url": "https://github.com/econopapi/DeudaMundi/blob/b005d67516eab5bea964bc5f2d6b43663638fce8/research/dependencies/maintenance/analysis/plan.md"
+    },
+    "analysis": {
+      "repository": "https://github.com/econopapi/DeudaMundi",
+      "path": "research/dependencies/maintenance/analysis/export_payloads.py",
+      "commit": "b005d67516eab5bea964bc5f2d6b43663638fce8"
+    },
+    "generatedAt": "2026-11-01T04:58:55Z",
+    "note": "Corte UTC exclusivo: 2026-10-30T00:00:00Z. Datos derivados de results/hypotheses.json."
+  },
+  "figure": {
+    "data": [
+      {
+        "type": "scatter",
+        "mode": "markers+text",
+        "name": "12m",
+        "visible": true,
+        "x": [
+          0.4661,
+          0.6486,
+          0.7222,
+          0.9644,
+          0.6712,
+          0.916,
+          0.6802,
+          0.8182,
+          0.4812,
+          0.658,
+          0.5482,
+          0.3512,
+          0.4905,
+          0.9474,
+          0.4565,
+          0.3242,
+          0.6342,
+          0.3571
+        ],
+        "y": [
+          0.2027,
+          0.0769,
+          0.6942,
+          0.3077,
+          0.2258,
+          0.8269,
+          0.6773,
+          0.8182,
+          0.4487,
+          0.4198,
+          0.5558,
+          0.3533,
+          0.4703,
+          0.6944,
+          0.4565,
+          0.3242,
+          0.1333,
+          0.2333
+        ],
+        "text": [
+          "anyio",
+          "apscheduler",
+          "fastapi",
+          "wrapt",
+          "pyjwt",
+          "idna",
+          "starlette",
+          "uvicorn",
+          "click",
+          "psycopg",
+          "pydantic",
+          "pydantic-settings",
+          "packaging",
+          "websockets",
+          "typing_extensions",
+          "redis-py",
+          "sqlalchemy",
+          "python-dotenv"
+        ],
+        "textposition": "top center",
+        "marker": {
+          "size": 9
+        },
+        "customdata": [
+          "Top commits: agronholm (103 de 221 no-bot) | Top PR: agronholm (30)",
+          "Top commits: agronholm (24 de 37 no-bot) | Top PR: afonsojanu (1)",
+          "Top commits: tiangolo (533 de 738 no-bot) | Top PR: tiangolo (463)",
+          "Top commits: GrahamDumpleton (325 de 337 no-bot) | Top PR: GrahamDumpleton (4)",
+          "Top commits: jpadilla (49 de 73 no-bot) | Top PR: jpadilla (7)",
+          "Top commits: kjd (109 de 119 no-bot) | Top PR: kjd (43)",
+          "Top commits: Kludex (151 de 222 no-bot) | Top PR: Kludex (149)",
+          "Top commits: Kludex (126 de 154 no-bot) | Top PR: Kludex (126)",
+          "Top commits: kdeldycke (115 de 239 no-bot) | Top PR: kdeldycke (35)",
+          "Top commits: dvarrazzo (152 de 231 no-bot) | Top PR: dvarrazzo (34)",
+          "Top commits: Viicos (290 de 529 no-bot) | Top PR: Viicos (289)",
+          "Top commits: hramezani (59 de 168 no-bot) | Top PR: hramezani (59)",
+          "Top commits: henryiii (181 de 369 no-bot) | Top PR: henryiii (166)",
+          "Top commits: aaugustin (198 de 209 no-bot) | Top PR: aaugustin (25)",
+          "Top commits: AlexWaygood (21 de 46 no-bot) | Top PR: AlexWaygood (21)",
+          "Top commits: petyaslavova (118 de 364 no-bot) | Top PR: petyaslavova (118)",
+          "Top commits: zzzeek (300 de 473 no-bot) | Top PR: leogallot (4)",
+          "Top commits: theskumar (15 de 42 no-bot) | Top PR: bbc2 (7)"
+        ],
+        "hovertemplate": "<b>%{text}</b> (12m)<br>Cuota commits: %{x:.4f}<br>Cuota PR fusionados: %{y:.4f}<br>%{customdata}<extra></extra>"
+      },
+      {
+        "type": "scatter",
+        "mode": "markers+text",
+        "name": "24m",
+        "visible": false,
+        "x": [
+          0.5447,
+          0.6406,
+          0.9577,
+          0.2973,
+          0.3949,
+          0.9469,
+          0.54,
+          0.9034,
+          0.6437,
+          0.8051,
+          0.3429,
+          0.4286,
+          0.3417,
+          0.7766,
+          0.5204,
+          0.3321,
+          0.9062,
+          0.4558,
+          0.9468,
+          0.2252,
+          0.3439,
+          0.9394,
+          0.6429,
+          0.5915,
+          0.52
+        ],
+        "y": [
+          0.2719,
+          0.125,
+          0.35,
+          0.3056,
+          0.4987,
+          0.1818,
+          0.2642,
+          0.8,
+          0.6892,
+          0.8287,
+          0.7,
+          0.3548,
+          0.3235,
+          0.4412,
+          0.5664,
+          0.3333,
+          0.9483,
+          0.4433,
+          0.7097,
+          0.2252,
+          0.3451,
+          0.8333,
+          0.5714,
+          0.0909,
+          0.2273
+        ],
+        "text": [
+          "anyio",
+          "apscheduler",
+          "limits",
+          "httpx",
+          "fastapi",
+          "wrapt",
+          "pyjwt",
+          "idna",
+          "starlette",
+          "uvicorn",
+          "deprecated",
+          "uvloop",
+          "click",
+          "psycopg",
+          "pydantic",
+          "pydantic-settings",
+          "typing-inspection",
+          "packaging",
+          "websockets",
+          "typing_extensions",
+          "redis-py",
+          "tzlocal",
+          "watchfiles",
+          "sqlalchemy",
+          "python-dotenv"
+        ],
+        "textposition": "top center",
+        "marker": {
+          "size": 9
+        },
+        "customdata": [
+          "Top commits: agronholm (189 de 347 no-bot) | Top PR: agronholm (59)",
+          "Top commits: agronholm (41 de 64 no-bot) | Top PR: mattewid (3)",
+          "Top commits: alisaifee (272 de 284 no-bot) | Top PR: alisaifee (7)",
+          "Top commits: lovelydinosaur (11 de 37 no-bot) | Top PR: lovelydinosaur (11)",
+          "Top commits: tiangolo (680 de 1722 no-bot) | Top PR: tiangolo (576)",
+          "Top commits: GrahamDumpleton (571 de 603 no-bot) | Top PR: GrahamDumpleton (4)",
+          "Top commits: jpadilla (54 de 100 no-bot) | Top PR: kurtmckee (14)",
+          "Top commits: kjd (131 de 145 no-bot) | Top PR: kjd (48)",
+          "Top commits: Kludex (224 de 348 no-bot) | Top PR: Kludex (173)",
+          "Top commits: Kludex (190 de 236 no-bot) | Top PR: Kludex (150)",
+          "Top commits: claude (36 de 105 no-bot) | Top PR: laurent-laporte-pro (7)",
+          "Top commits: fantix (15 de 35 no-bot) | Top PR: fantix (11)",
+          "Top commits: kdeldycke (176 de 515 no-bot) | Top PR: kdeldycke (44)",
+          "Top commits: dvarrazzo (431 de 555 no-bot) | Top PR: dvarrazzo (60)",
+          "Top commits: Viicos (624 de 1199 no-bot) | Top PR: Viicos (550)",
+          "Top commits: hramezani (89 de 268 no-bot) | Top PR: hramezani (89)",
+          "Top commits: Viicos (58 de 64 no-bot) | Top PR: Viicos (55)",
+          "Top commits: henryiii (191 de 419 no-bot) | Top PR: henryiii (176)",
+          "Top commits: aaugustin (338 de 357 no-bot) | Top PR: aaugustin (44)",
+          "Top commits: JelleZijlstra (34 de 151 no-bot) | Top PR: JelleZijlstra (34)",
+          "Top commits: petyaslavova (195 de 567 no-bot) | Top PR: petyaslavova (195)",
+          "Top commits: regebro (31 de 33 no-bot) | Top PR: regebro (10)",
+          "Top commits: samuelcolvin (27 de 42 no-bot) | Top PR: samuelcolvin (20)",
+          "Top commits: zzzeek (517 de 874 no-bot) | Top PR: krave1986 (6)",
+          "Top commits: theskumar (39 de 75 no-bot) | Top PR: theskumar (10)"
+        ],
+        "hovertemplate": "<b>%{text}</b> (24m)<br>Cuota commits: %{x:.4f}<br>Cuota PR fusionados: %{y:.4f}<br>%{customdata}<extra></extra>"
+      }
+    ],
+    "layout": {
+      "showlegend": false,
+      "xaxis": {
+        "range": [
+          0,
+          1.02
+        ],
+        "title": {
+          "text": "cuota top-1 por commits no fusionados (0–1)"
+        }
+      },
+      "yaxis": {
+        "range": [
+          0,
+          1.02
+        ],
+        "title": {
+          "text": "cuota top-1 por PR a rama principal (0–1)"
+        }
+      },
+      "shapes": [
+        {
+          "type": "line",
+          "x0": 0,
+          "x1": 1,
+          "y0": 0,
+          "y1": 1
+        },
+        {
+          "type": "line",
+          "x0": 0.5,
+          "x1": 0.5,
+          "y0": 0,
+          "y1": 1.02,
+          "yref": "paper",
+          "line": {
+            "dash": "dot"
+          }
+        },
+        {
+          "type": "line",
+          "x0": 0.75,
+          "x1": 0.75,
+          "y0": 0,
+          "y1": 1.02,
+          "yref": "paper",
+          "line": {
+            "dash": "dot"
+          }
+        }
+      ],
+      "updatemenus": [
+        {
+          "type": "buttons",
+          "direction": "right",
+          "x": 0,
+          "y": 1.12,
+          "xanchor": "left",
+          "yanchor": "top",
+          "active": 0,
+          "buttons": [
+            {
+              "label": "12 meses",
+              "method": "restyle",
+              "args": [
+                {
+                  "visible": [
+                    true,
+                    false
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "24 meses",
+              "method": "restyle",
+              "args": [
+                {
+                  "visible": [
+                    false,
+                    true
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "annotations": [
+        {
+          "x": 0.94,
+          "y": 0.06,
+          "xref": "x",
+          "yref": "y",
+          "text": "misma cuota",
+          "showarrow": false
+        }
+      ]
+    }
+  },
+  "config": {
+    "displayModeBar": false
+  },
+  "table": {
+    "caption": "Datos representados en la figura",
+    "columns": [
+      {
+        "key": "repository_window",
+        "label": "Repositorio · ventana",
+        "type": "string"
+      },
+      {
+        "key": "commit_share",
+        "label": "Cuota commits",
+        "type": "number",
+        "unit": "proporción (0–1)"
+      },
+      {
+        "key": "commit_category",
+        "label": "Categoría commits",
+        "type": "string"
+      },
+      {
+        "key": "pr_share",
+        "label": "Cuota PR",
+        "type": "number",
+        "unit": "proporción (0–1)"
+      },
+      {
+        "key": "pr_category",
+        "label": "Categoría PR",
+        "type": "string"
+      }
+    ],
+    "rows": [
+      {
+        "repository_window": "agronholm/anyio · 12m",
+        "commit_share": 0.4661,
+        "commit_category": "<=50%",
+        "pr_share": 0.2027,
+        "pr_category": "<=50%"
+      },
+      {
+        "repository_window": "agronholm/apscheduler · 12m",
+        "commit_share": 0.6486,
+        "commit_category": "50-75%",
+        "pr_share": 0.0769,
+        "pr_category": "<=50%"
+      },
+      {
+        "repository_window": "fastapi/fastapi · 12m",
+        "commit_share": 0.7222,
+        "commit_category": "50-75%",
+        "pr_share": 0.6942,
+        "pr_category": "50-75%"
+      },
+      {
+        "repository_window": "grahamdumpleton/wrapt · 12m",
+        "commit_share": 0.9644,
+        "commit_category": ">75%",
+        "pr_share": 0.3077,
+        "pr_category": "<=50%"
+      },
+      {
+        "repository_window": "jpadilla/pyjwt · 12m",
+        "commit_share": 0.6712,
+        "commit_category": "50-75%",
+        "pr_share": 0.2258,
+        "pr_category": "<=50%"
+      },
+      {
+        "repository_window": "kjd/idna · 12m",
+        "commit_share": 0.916,
+        "commit_category": ">75%",
+        "pr_share": 0.8269,
+        "pr_category": ">75%"
+      },
+      {
+        "repository_window": "kludex/starlette · 12m",
+        "commit_share": 0.6802,
+        "commit_category": "50-75%",
+        "pr_share": 0.6773,
+        "pr_category": "50-75%"
+      },
+      {
+        "repository_window": "kludex/uvicorn · 12m",
+        "commit_share": 0.8182,
+        "commit_category": ">75%",
+        "pr_share": 0.8182,
+        "pr_category": ">75%"
+      },
+      {
+        "repository_window": "pallets/click · 12m",
+        "commit_share": 0.4812,
+        "commit_category": "<=50%",
+        "pr_share": 0.4487,
+        "pr_category": "<=50%"
+      },
+      {
+        "repository_window": "psycopg/psycopg · 12m",
+        "commit_share": 0.658,
+        "commit_category": "50-75%",
+        "pr_share": 0.4198,
+        "pr_category": "<=50%"
+      },
+      {
+        "repository_window": "pydantic/pydantic · 12m",
+        "commit_share": 0.5482,
+        "commit_category": "50-75%",
+        "pr_share": 0.5558,
+        "pr_category": "50-75%"
+      },
+      {
+        "repository_window": "pydantic/pydantic-settings · 12m",
+        "commit_share": 0.3512,
+        "commit_category": "<=50%",
+        "pr_share": 0.3533,
+        "pr_category": "<=50%"
+      },
+      {
+        "repository_window": "pypa/packaging · 12m",
+        "commit_share": 0.4905,
+        "commit_category": "<=50%",
+        "pr_share": 0.4703,
+        "pr_category": "<=50%"
+      },
+      {
+        "repository_window": "python-websockets/websockets · 12m",
+        "commit_share": 0.9474,
+        "commit_category": ">75%",
+        "pr_share": 0.6944,
+        "pr_category": "50-75%"
+      },
+      {
+        "repository_window": "python/typing_extensions · 12m",
+        "commit_share": 0.4565,
+        "commit_category": "<=50%",
+        "pr_share": 0.4565,
+        "pr_category": "<=50%"
+      },
+      {
+        "repository_window": "redis/redis-py · 12m",
+        "commit_share": 0.3242,
+        "commit_category": "<=50%",
+        "pr_share": 0.3242,
+        "pr_category": "<=50%"
+      },
+      {
+        "repository_window": "sqlalchemy/sqlalchemy · 12m",
+        "commit_share": 0.6342,
+        "commit_category": "50-75%",
+        "pr_share": 0.1333,
+        "pr_category": "<=50%"
+      },
+      {
+        "repository_window": "theskumar/python-dotenv · 12m",
+        "commit_share": 0.3571,
+        "commit_category": "<=50%",
+        "pr_share": 0.2333,
+        "pr_category": "<=50%"
+      },
+      {
+        "repository_window": "agronholm/anyio · 24m",
+        "commit_share": 0.5447,
+        "commit_category": "50-75%",
+        "pr_share": 0.2719,
+        "pr_category": "<=50%"
+      },
+      {
+        "repository_window": "agronholm/apscheduler · 24m",
+        "commit_share": 0.6406,
+        "commit_category": "50-75%",
+        "pr_share": 0.125,
+        "pr_category": "<=50%"
+      },
+      {
+        "repository_window": "alisaifee/limits · 24m",
+        "commit_share": 0.9577,
+        "commit_category": ">75%",
+        "pr_share": 0.35,
+        "pr_category": "<=50%"
+      },
+      {
+        "repository_window": "encode/httpx · 24m",
+        "commit_share": 0.2973,
+        "commit_category": "<=50%",
+        "pr_share": 0.3056,
+        "pr_category": "<=50%"
+      },
+      {
+        "repository_window": "fastapi/fastapi · 24m",
+        "commit_share": 0.3949,
+        "commit_category": "<=50%",
+        "pr_share": 0.4987,
+        "pr_category": "<=50%"
+      },
+      {
+        "repository_window": "grahamdumpleton/wrapt · 24m",
+        "commit_share": 0.9469,
+        "commit_category": ">75%",
+        "pr_share": 0.1818,
+        "pr_category": "<=50%"
+      },
+      {
+        "repository_window": "jpadilla/pyjwt · 24m",
+        "commit_share": 0.54,
+        "commit_category": "50-75%",
+        "pr_share": 0.2642,
+        "pr_category": "<=50%"
+      },
+      {
+        "repository_window": "kjd/idna · 24m",
+        "commit_share": 0.9034,
+        "commit_category": ">75%",
+        "pr_share": 0.8,
+        "pr_category": ">75%"
+      },
+      {
+        "repository_window": "kludex/starlette · 24m",
+        "commit_share": 0.6437,
+        "commit_category": "50-75%",
+        "pr_share": 0.6892,
+        "pr_category": "50-75%"
+      },
+      {
+        "repository_window": "kludex/uvicorn · 24m",
+        "commit_share": 0.8051,
+        "commit_category": ">75%",
+        "pr_share": 0.8287,
+        "pr_category": ">75%"
+      },
+      {
+        "repository_window": "laurent-laporte-pro/deprecated · 24m",
+        "commit_share": 0.3429,
+        "commit_category": "<=50%",
+        "pr_share": 0.7,
+        "pr_category": "50-75%"
+      },
+      {
+        "repository_window": "magicstack/uvloop · 24m",
+        "commit_share": 0.4286,
+        "commit_category": "<=50%",
+        "pr_share": 0.3548,
+        "pr_category": "<=50%"
+      },
+      {
+        "repository_window": "pallets/click · 24m",
+        "commit_share": 0.3417,
+        "commit_category": "<=50%",
+        "pr_share": 0.3235,
+        "pr_category": "<=50%"
+      },
+      {
+        "repository_window": "psycopg/psycopg · 24m",
+        "commit_share": 0.7766,
+        "commit_category": ">75%",
+        "pr_share": 0.4412,
+        "pr_category": "<=50%"
+      },
+      {
+        "repository_window": "pydantic/pydantic · 24m",
+        "commit_share": 0.5204,
+        "commit_category": "50-75%",
+        "pr_share": 0.5664,
+        "pr_category": "50-75%"
+      },
+      {
+        "repository_window": "pydantic/pydantic-settings · 24m",
+        "commit_share": 0.3321,
+        "commit_category": "<=50%",
+        "pr_share": 0.3333,
+        "pr_category": "<=50%"
+      },
+      {
+        "repository_window": "pydantic/typing-inspection · 24m",
+        "commit_share": 0.9062,
+        "commit_category": ">75%",
+        "pr_share": 0.9483,
+        "pr_category": ">75%"
+      },
+      {
+        "repository_window": "pypa/packaging · 24m",
+        "commit_share": 0.4558,
+        "commit_category": "<=50%",
+        "pr_share": 0.4433,
+        "pr_category": "<=50%"
+      },
+      {
+        "repository_window": "python-websockets/websockets · 24m",
+        "commit_share": 0.9468,
+        "commit_category": ">75%",
+        "pr_share": 0.7097,
+        "pr_category": "50-75%"
+      },
+      {
+        "repository_window": "python/typing_extensions · 24m",
+        "commit_share": 0.2252,
+        "commit_category": "<=50%",
+        "pr_share": 0.2252,
+        "pr_category": "<=50%"
+      },
+      {
+        "repository_window": "redis/redis-py · 24m",
+        "commit_share": 0.3439,
+        "commit_category": "<=50%",
+        "pr_share": 0.3451,
+        "pr_category": "<=50%"
+      },
+      {
+        "repository_window": "regebro/tzlocal · 24m",
+        "commit_share": 0.9394,
+        "commit_category": ">75%",
+        "pr_share": 0.8333,
+        "pr_category": ">75%"
+      },
+      {
+        "repository_window": "samuelcolvin/watchfiles · 24m",
+        "commit_share": 0.6429,
+        "commit_category": "50-75%",
+        "pr_share": 0.5714,
+        "pr_category": "50-75%"
+      },
+      {
+        "repository_window": "sqlalchemy/sqlalchemy · 24m",
+        "commit_share": 0.5915,
+        "commit_category": "50-75%",
+        "pr_share": 0.0909,
+        "pr_category": "<=50%"
+      },
+      {
+        "repository_window": "theskumar/python-dotenv · 24m",
+        "commit_share": 0.52,
+        "commit_category": "50-75%",
+        "pr_share": 0.2273,
+        "pr_category": "<=50%"
+      }
+    ]
+  }
 }

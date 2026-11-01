@@ -15,8 +15,9 @@ subdirectorios, con manifiestos y verificaciones por carpeta.
 
 La salida canónica para visualizar las figuras fuera de este repo es
 [`maintenance/analysis/results/plotly-embed/fig{1..5}.json` +
-`index.json`](maintenance/analysis/results/plotly-embed/) (payloads
-data-only; el bloque plotly del tema de econopapi los consume).
+`index.json`](maintenance/analysis/results/plotly-embed/): manifiestos
+Econopapi Plotly v1 con figura nativa, tabla y procedencia, listos para subir
+individualmente al bloque `econopapi/plotly-figure`.
 
 ## Paso 1 — Congelación del entorno Python del backend de producción — «fotografía del entorno»
 

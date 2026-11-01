@@ -1,0 +1,793 @@
+{
+  "schemaVersion": 1,
+  "meta": {
+    "title": "Sensibilidad: cuota del actor principal entre ventanas",
+    "kicker": "SENSIBILIDAD 12/24",
+    "description": "Cambios de la cuota del actor principal entre ventanas con las mismas reglas preregistradas. Las lineas horizontales punteadas marcan 0.50 y 0.75. La estabilidad de cuota no es estabilidad de riesgo: es un cambio de denominador.",
+    "alt": "Grafico de pendientes: para cada repositorio evaluable en ambas ventanas, una linea con la cuota del actor humano principal por commits en 12 y en 24 meses.",
+    "unit": "proporción (0–1)",
+    "sources": [
+      {
+        "label": "Cálculos propios con datos públicos de GitHub; extracción congelada del 30-10-2026 (443 JSON, 35 repositorios)",
+        "url": "https://github.com/econopapi/DeudaMundi/commit/1363af84d5089ca4260645012dcb34ccc93d4c6c"
+      }
+    ],
+    "methodology": {
+      "label": "Plan preregistrado del paso 5",
+      "url": "https://github.com/econopapi/DeudaMundi/blob/b005d67516eab5bea964bc5f2d6b43663638fce8/research/dependencies/maintenance/analysis/plan.md"
+    },
+    "analysis": {
+      "repository": "https://github.com/econopapi/DeudaMundi",
+      "path": "research/dependencies/maintenance/analysis/export_payloads.py",
+      "commit": "b005d67516eab5bea964bc5f2d6b43663638fce8"
+    },
+    "generatedAt": "2026-11-01T04:58:55Z",
+    "note": "Corte UTC exclusivo: 2026-10-30T00:00:00Z. Datos derivados de results/hypotheses.json."
+  },
+  "figure": {
+    "data": [
+      {
+        "type": "scatter",
+        "mode": "lines+markers",
+        "name": "sqlalchemy/mako",
+        "showlegend": false,
+        "x": [
+          0,
+          1
+        ],
+        "y": [
+          1.0,
+          0.932
+        ],
+        "customdata": [
+          "12 meses",
+          "24 meses"
+        ],
+        "line": {
+          "width": 2
+        },
+        "marker": {
+          "size": 6
+        },
+        "opacity": 0.85,
+        "hovertemplate": "<b>sqlalchemy/mako</b><br>%{customdata}: %{y:.3f}<extra></extra>"
+      },
+      {
+        "type": "scatter",
+        "mode": "lines+markers",
+        "name": "grahamdumpleton/wrapt",
+        "showlegend": false,
+        "x": [
+          0,
+          1
+        ],
+        "y": [
+          0.964,
+          0.947
+        ],
+        "customdata": [
+          "12 meses",
+          "24 meses"
+        ],
+        "line": {
+          "width": 2
+        },
+        "marker": {
+          "size": 6
+        },
+        "opacity": 0.85,
+        "hovertemplate": "<b>grahamdumpleton/wrapt</b><br>%{customdata}: %{y:.3f}<extra></extra>"
+      },
+      {
+        "type": "scatter",
+        "mode": "lines+markers",
+        "name": "python-websockets/websockets",
+        "showlegend": false,
+        "x": [
+          0,
+          1
+        ],
+        "y": [
+          0.947,
+          0.947
+        ],
+        "customdata": [
+          "12 meses",
+          "24 meses"
+        ],
+        "line": {
+          "width": 2
+        },
+        "marker": {
+          "size": 6
+        },
+        "opacity": 0.85,
+        "hovertemplate": "<b>python-websockets/websockets</b><br>%{customdata}: %{y:.3f}<extra></extra>"
+      },
+      {
+        "type": "scatter",
+        "mode": "lines+markers",
+        "name": "alisaifee/limits",
+        "showlegend": false,
+        "x": [
+          0,
+          1
+        ],
+        "y": [
+          0.9,
+          0.958
+        ],
+        "customdata": [
+          "12 meses",
+          "24 meses"
+        ],
+        "line": {
+          "width": 2
+        },
+        "marker": {
+          "size": 6
+        },
+        "opacity": 0.85,
+        "hovertemplate": "<b>alisaifee/limits</b><br>%{customdata}: %{y:.3f}<extra></extra>"
+      },
+      {
+        "type": "scatter",
+        "mode": "lines+markers",
+        "name": "kjd/idna",
+        "showlegend": false,
+        "x": [
+          0,
+          1
+        ],
+        "y": [
+          0.916,
+          0.903
+        ],
+        "customdata": [
+          "12 meses",
+          "24 meses"
+        ],
+        "line": {
+          "width": 2
+        },
+        "marker": {
+          "size": 6
+        },
+        "opacity": 0.85,
+        "hovertemplate": "<b>kjd/idna</b><br>%{customdata}: %{y:.3f}<extra></extra>"
+      },
+      {
+        "type": "scatter",
+        "mode": "lines+markers",
+        "name": "kludex/uvicorn",
+        "showlegend": false,
+        "x": [
+          0,
+          1
+        ],
+        "y": [
+          0.818,
+          0.805
+        ],
+        "customdata": [
+          "12 meses",
+          "24 meses"
+        ],
+        "line": {
+          "width": 2
+        },
+        "marker": {
+          "size": 6
+        },
+        "opacity": 0.85,
+        "hovertemplate": "<b>kludex/uvicorn</b><br>%{customdata}: %{y:.3f}<extra></extra>"
+      },
+      {
+        "type": "scatter",
+        "mode": "lines+markers",
+        "name": "sqlalchemy/alembic",
+        "showlegend": false,
+        "x": [
+          0,
+          1
+        ],
+        "y": [
+          0.752,
+          0.71
+        ],
+        "customdata": [
+          "12 meses",
+          "24 meses"
+        ],
+        "line": {
+          "width": 2
+        },
+        "marker": {
+          "size": 6
+        },
+        "opacity": 0.85,
+        "hovertemplate": "<b>sqlalchemy/alembic</b><br>%{customdata}: %{y:.3f}<extra></extra>"
+      },
+      {
+        "type": "scatter",
+        "mode": "lines+markers",
+        "name": "psycopg/psycopg",
+        "showlegend": false,
+        "x": [
+          0,
+          1
+        ],
+        "y": [
+          0.658,
+          0.777
+        ],
+        "customdata": [
+          "12 meses",
+          "24 meses"
+        ],
+        "line": {
+          "width": 2
+        },
+        "marker": {
+          "size": 6
+        },
+        "opacity": 0.85,
+        "hovertemplate": "<b>psycopg/psycopg</b><br>%{customdata}: %{y:.3f}<extra></extra>"
+      },
+      {
+        "type": "scatter",
+        "mode": "lines+markers",
+        "name": "kludex/starlette",
+        "showlegend": false,
+        "x": [
+          0,
+          1
+        ],
+        "y": [
+          0.68,
+          0.644
+        ],
+        "customdata": [
+          "12 meses",
+          "24 meses"
+        ],
+        "line": {
+          "width": 2
+        },
+        "marker": {
+          "size": 6
+        },
+        "opacity": 0.85,
+        "hovertemplate": "<b>kludex/starlette</b><br>%{customdata}: %{y:.3f}<extra></extra>"
+      },
+      {
+        "type": "scatter",
+        "mode": "lines+markers",
+        "name": "agronholm/apscheduler",
+        "showlegend": false,
+        "x": [
+          0,
+          1
+        ],
+        "y": [
+          0.649,
+          0.641
+        ],
+        "customdata": [
+          "12 meses",
+          "24 meses"
+        ],
+        "line": {
+          "width": 2
+        },
+        "marker": {
+          "size": 6
+        },
+        "opacity": 0.85,
+        "hovertemplate": "<b>agronholm/apscheduler</b><br>%{customdata}: %{y:.3f}<extra></extra>"
+      },
+      {
+        "type": "scatter",
+        "mode": "lines+markers",
+        "name": "sqlalchemy/sqlalchemy",
+        "showlegend": false,
+        "x": [
+          0,
+          1
+        ],
+        "y": [
+          0.634,
+          0.592
+        ],
+        "customdata": [
+          "12 meses",
+          "24 meses"
+        ],
+        "line": {
+          "width": 2
+        },
+        "marker": {
+          "size": 6
+        },
+        "opacity": 0.85,
+        "hovertemplate": "<b>sqlalchemy/sqlalchemy</b><br>%{customdata}: %{y:.3f}<extra></extra>"
+      },
+      {
+        "type": "scatter",
+        "mode": "lines+markers",
+        "name": "jpadilla/pyjwt",
+        "showlegend": false,
+        "x": [
+          0,
+          1
+        ],
+        "y": [
+          0.671,
+          0.54
+        ],
+        "customdata": [
+          "12 meses",
+          "24 meses"
+        ],
+        "line": {
+          "width": 2
+        },
+        "marker": {
+          "size": 6
+        },
+        "opacity": 0.85,
+        "hovertemplate": "<b>jpadilla/pyjwt</b><br>%{customdata}: %{y:.3f}<extra></extra>"
+      },
+      {
+        "type": "scatter",
+        "mode": "lines+markers",
+        "name": "fastapi/fastapi",
+        "showlegend": false,
+        "x": [
+          0,
+          1
+        ],
+        "y": [
+          0.722,
+          0.395
+        ],
+        "customdata": [
+          "12 meses",
+          "24 meses"
+        ],
+        "line": {
+          "width": 1.2
+        },
+        "marker": {
+          "size": 6
+        },
+        "opacity": 0.4,
+        "hovertemplate": "<b>fastapi/fastapi</b><br>%{customdata}: %{y:.3f}<extra></extra>"
+      },
+      {
+        "type": "scatter",
+        "mode": "lines+markers",
+        "name": "pydantic/pydantic",
+        "showlegend": false,
+        "x": [
+          0,
+          1
+        ],
+        "y": [
+          0.548,
+          0.52
+        ],
+        "customdata": [
+          "12 meses",
+          "24 meses"
+        ],
+        "line": {
+          "width": 2
+        },
+        "marker": {
+          "size": 6
+        },
+        "opacity": 0.85,
+        "hovertemplate": "<b>pydantic/pydantic</b><br>%{customdata}: %{y:.3f}<extra></extra>"
+      },
+      {
+        "type": "scatter",
+        "mode": "lines+markers",
+        "name": "laurent-laporte-pro/deprecated",
+        "showlegend": false,
+        "x": [
+          0,
+          1
+        ],
+        "y": [
+          0.72,
+          0.343
+        ],
+        "customdata": [
+          "12 meses",
+          "24 meses"
+        ],
+        "line": {
+          "width": 1.2
+        },
+        "marker": {
+          "size": 6
+        },
+        "opacity": 0.4,
+        "hovertemplate": "<b>laurent-laporte-pro/deprecated</b><br>%{customdata}: %{y:.3f}<extra></extra>"
+      },
+      {
+        "type": "scatter",
+        "mode": "lines+markers",
+        "name": "agronholm/anyio",
+        "showlegend": false,
+        "x": [
+          0,
+          1
+        ],
+        "y": [
+          0.466,
+          0.545
+        ],
+        "customdata": [
+          "12 meses",
+          "24 meses"
+        ],
+        "line": {
+          "width": 1.2
+        },
+        "marker": {
+          "size": 6
+        },
+        "opacity": 0.4,
+        "hovertemplate": "<b>agronholm/anyio</b><br>%{customdata}: %{y:.3f}<extra></extra>"
+      },
+      {
+        "type": "scatter",
+        "mode": "lines+markers",
+        "name": "pypa/packaging",
+        "showlegend": false,
+        "x": [
+          0,
+          1
+        ],
+        "y": [
+          0.49,
+          0.456
+        ],
+        "customdata": [
+          "12 meses",
+          "24 meses"
+        ],
+        "line": {
+          "width": 1.2
+        },
+        "marker": {
+          "size": 6
+        },
+        "opacity": 0.4,
+        "hovertemplate": "<b>pypa/packaging</b><br>%{customdata}: %{y:.3f}<extra></extra>"
+      },
+      {
+        "type": "scatter",
+        "mode": "lines+markers",
+        "name": "theskumar/python-dotenv",
+        "showlegend": false,
+        "x": [
+          0,
+          1
+        ],
+        "y": [
+          0.357,
+          0.52
+        ],
+        "customdata": [
+          "12 meses",
+          "24 meses"
+        ],
+        "line": {
+          "width": 1.2
+        },
+        "marker": {
+          "size": 6
+        },
+        "opacity": 0.4,
+        "hovertemplate": "<b>theskumar/python-dotenv</b><br>%{customdata}: %{y:.3f}<extra></extra>"
+      },
+      {
+        "type": "scatter",
+        "mode": "lines+markers",
+        "name": "pallets/click",
+        "showlegend": false,
+        "x": [
+          0,
+          1
+        ],
+        "y": [
+          0.481,
+          0.342
+        ],
+        "customdata": [
+          "12 meses",
+          "24 meses"
+        ],
+        "line": {
+          "width": 1.2
+        },
+        "marker": {
+          "size": 6
+        },
+        "opacity": 0.4,
+        "hovertemplate": "<b>pallets/click</b><br>%{customdata}: %{y:.3f}<extra></extra>"
+      },
+      {
+        "type": "scatter",
+        "mode": "lines+markers",
+        "name": "pydantic/pydantic-settings",
+        "showlegend": false,
+        "x": [
+          0,
+          1
+        ],
+        "y": [
+          0.351,
+          0.332
+        ],
+        "customdata": [
+          "12 meses",
+          "24 meses"
+        ],
+        "line": {
+          "width": 1.2
+        },
+        "marker": {
+          "size": 6
+        },
+        "opacity": 0.4,
+        "hovertemplate": "<b>pydantic/pydantic-settings</b><br>%{customdata}: %{y:.3f}<extra></extra>"
+      },
+      {
+        "type": "scatter",
+        "mode": "lines+markers",
+        "name": "python/typing_extensions",
+        "showlegend": false,
+        "x": [
+          0,
+          1
+        ],
+        "y": [
+          0.457,
+          0.225
+        ],
+        "customdata": [
+          "12 meses",
+          "24 meses"
+        ],
+        "line": {
+          "width": 1.2
+        },
+        "marker": {
+          "size": 6
+        },
+        "opacity": 0.4,
+        "hovertemplate": "<b>python/typing_extensions</b><br>%{customdata}: %{y:.3f}<extra></extra>"
+      },
+      {
+        "type": "scatter",
+        "mode": "lines+markers",
+        "name": "redis/redis-py",
+        "showlegend": false,
+        "x": [
+          0,
+          1
+        ],
+        "y": [
+          0.324,
+          0.344
+        ],
+        "customdata": [
+          "12 meses",
+          "24 meses"
+        ],
+        "line": {
+          "width": 1.2
+        },
+        "marker": {
+          "size": 6
+        },
+        "opacity": 0.4,
+        "hovertemplate": "<b>redis/redis-py</b><br>%{customdata}: %{y:.3f}<extra></extra>"
+      }
+    ],
+    "layout": {
+      "showlegend": false,
+      "xaxis": {
+        "range": [
+          -0.15,
+          1.15
+        ],
+        "tickvals": [
+          0,
+          1
+        ],
+        "ticktext": [
+          "12 meses",
+          "24 meses"
+        ],
+        "title": {
+          "text": "ventana"
+        }
+      },
+      "yaxis": {
+        "range": [
+          0,
+          1.02
+        ],
+        "title": {
+          "text": "cuota top-1 por commits no fusionados (0–1)"
+        }
+      },
+      "shapes": [
+        {
+          "type": "line",
+          "x0": 0,
+          "x1": 1,
+          "y0": 0.5,
+          "y1": 0.5,
+          "yref": "y",
+          "line": {
+            "dash": "dot"
+          }
+        },
+        {
+          "type": "line",
+          "x0": 0,
+          "x1": 1,
+          "y0": 0.75,
+          "y1": 0.75,
+          "yref": "y",
+          "line": {
+            "dash": "dot"
+          }
+        }
+      ]
+    }
+  },
+  "config": {
+    "displayModeBar": false
+  },
+  "table": {
+    "caption": "Datos representados en la figura",
+    "columns": [
+      {
+        "key": "repository",
+        "label": "Repositorio",
+        "type": "string"
+      },
+      {
+        "key": "share_12m",
+        "label": "Cuota 12 m",
+        "type": "number",
+        "unit": "proporción (0–1)"
+      },
+      {
+        "key": "share_24m",
+        "label": "Cuota 24 m",
+        "type": "number",
+        "unit": "proporción (0–1)"
+      }
+    ],
+    "rows": [
+      {
+        "repository": "sqlalchemy/mako",
+        "share_12m": 1.0,
+        "share_24m": 0.932
+      },
+      {
+        "repository": "grahamdumpleton/wrapt",
+        "share_12m": 0.964,
+        "share_24m": 0.947
+      },
+      {
+        "repository": "python-websockets/websockets",
+        "share_12m": 0.947,
+        "share_24m": 0.947
+      },
+      {
+        "repository": "alisaifee/limits",
+        "share_12m": 0.9,
+        "share_24m": 0.958
+      },
+      {
+        "repository": "kjd/idna",
+        "share_12m": 0.916,
+        "share_24m": 0.903
+      },
+      {
+        "repository": "kludex/uvicorn",
+        "share_12m": 0.818,
+        "share_24m": 0.805
+      },
+      {
+        "repository": "sqlalchemy/alembic",
+        "share_12m": 0.752,
+        "share_24m": 0.71
+      },
+      {
+        "repository": "psycopg/psycopg",
+        "share_12m": 0.658,
+        "share_24m": 0.777
+      },
+      {
+        "repository": "kludex/starlette",
+        "share_12m": 0.68,
+        "share_24m": 0.644
+      },
+      {
+        "repository": "agronholm/apscheduler",
+        "share_12m": 0.649,
+        "share_24m": 0.641
+      },
+      {
+        "repository": "sqlalchemy/sqlalchemy",
+        "share_12m": 0.634,
+        "share_24m": 0.592
+      },
+      {
+        "repository": "jpadilla/pyjwt",
+        "share_12m": 0.671,
+        "share_24m": 0.54
+      },
+      {
+        "repository": "fastapi/fastapi",
+        "share_12m": 0.722,
+        "share_24m": 0.395
+      },
+      {
+        "repository": "pydantic/pydantic",
+        "share_12m": 0.548,
+        "share_24m": 0.52
+      },
+      {
+        "repository": "laurent-laporte-pro/deprecated",
+        "share_12m": 0.72,
+        "share_24m": 0.343
+      },
+      {
+        "repository": "agronholm/anyio",
+        "share_12m": 0.466,
+        "share_24m": 0.545
+      },
+      {
+        "repository": "pypa/packaging",
+        "share_12m": 0.49,
+        "share_24m": 0.456
+      },
+      {
+        "repository": "theskumar/python-dotenv",
+        "share_12m": 0.357,
+        "share_24m": 0.52
+      },
+      {
+        "repository": "pallets/click",
+        "share_12m": 0.481,
+        "share_24m": 0.342
+      },
+      {
+        "repository": "pydantic/pydantic-settings",
+        "share_12m": 0.351,
+        "share_24m": 0.332
+      },
+      {
+        "repository": "python/typing_extensions",
+        "share_12m": 0.457,
+        "share_24m": 0.225
+      },
+      {
+        "repository": "redis/redis-py",
+        "share_12m": 0.324,
+        "share_24m": 0.344
+      }
+    ]
+  }
+}

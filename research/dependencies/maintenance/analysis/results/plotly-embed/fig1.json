@@ -1,243 +1,369 @@
 {
- "figure": "fig1",
- "attributes": {
-  "figure": "fig1"
- },
- "meta": {
-  "kicker": "PASO 5 · ACTIVIDAD OBSERVABLE",
-  "title": "Actividad pública por tipo de evento y ventana",
-  "subtitle": "Eventos públicos por tipo en los 35 repositorios atribuidos; cortes y ventanas fijados antes de recolectar (ventana abierta, exclusiva). Cada barra parte la actividad en <b>actores con cuenta</b>, <b>bots declarados</b> y <b>sin cuenta vinculada</b>. Los cuatro flujos se cuentan por separado y no se suman entre sí.",
-  "alt": "Barras apiladas horizontales de los cuatro tipos de evento publico en dos ventanas, partidas en actores con cuenta, bots declarados y actores sin cuenta vinculada.",
-  "provenance_extra": "Datos derivados de <code>results/overview-totals.json</code>.",
-  "table_head": "<th>Flujo · ventana</th><th>Eventos totales</th><th>Con cuenta (no bots)</th><th>Bots declarados</th><th>Sin cuenta vinculada</th>",
-  "table_body": "<tr><td>Commits rama principal · 12m</td><td>7014</td><td>5498</td><td>1495</td><td>21</td></tr>\n<tr><td>Commits rama principal · 24m</td><td>12593</td><td>10567</td><td>1973</td><td>53</td></tr>\n<tr><td>PR fusionados (toda base) · 12m</td><td>3981</td><td>3311</td><td>670</td><td>0</td></tr>\n<tr><td>PR fusionados (toda base) · 24m</td><td>6545</td><td>5559</td><td>984</td><td>2</td></tr>\n<tr><td>Revisiones de PR · 12m</td><td>10543</td><td>7932</td><td>2610</td><td>1</td></tr>\n<tr><td>Revisiones de PR · 24m</td><td>18025</td><td>15250</td><td>2768</td><td>7</td></tr>\n<tr><td>Releases de GitHub · 12m</td><td>356</td><td>216</td><td>140</td><td>0</td></tr>\n<tr><td>Releases de GitHub · 24m</td><td>594</td><td>407</td><td>187</td><td>0</td></tr>"
- },
- "chart_hint": "hbar-4streams-by-window",
- "data": {
-  "rows": [
-   {
-    "label": "Commits rama principal · 12m",
-    "k": "h",
-    "n": 5498,
-    "total": 7014,
-    "humans": 5498,
-    "bots": 1495,
-    "unatt": 21
-   },
-   {
-    "label": "Commits rama principal · 12m",
-    "k": "b",
-    "n": 1495,
-    "total": 7014,
-    "humans": 5498,
-    "bots": 1495,
-    "unatt": 21
-   },
-   {
-    "label": "Commits rama principal · 12m",
-    "k": "u",
-    "n": 21,
-    "total": 7014,
-    "humans": 5498,
-    "bots": 1495,
-    "unatt": 21
-   },
-   {
-    "label": "PR fusionados (toda base) · 12m",
-    "k": "h",
-    "n": 3311,
-    "total": 3981,
-    "humans": 3311,
-    "bots": 670,
-    "unatt": 0
-   },
-   {
-    "label": "PR fusionados (toda base) · 12m",
-    "k": "b",
-    "n": 670,
-    "total": 3981,
-    "humans": 3311,
-    "bots": 670,
-    "unatt": 0
-   },
-   {
-    "label": "PR fusionados (toda base) · 12m",
-    "k": "u",
-    "n": 0,
-    "total": 3981,
-    "humans": 3311,
-    "bots": 670,
-    "unatt": 0
-   },
-   {
-    "label": "Revisiones de PR · 12m",
-    "k": "h",
-    "n": 7932,
-    "total": 10543,
-    "humans": 7932,
-    "bots": 2610,
-    "unatt": 1
-   },
-   {
-    "label": "Revisiones de PR · 12m",
-    "k": "b",
-    "n": 2610,
-    "total": 10543,
-    "humans": 7932,
-    "bots": 2610,
-    "unatt": 1
-   },
-   {
-    "label": "Revisiones de PR · 12m",
-    "k": "u",
-    "n": 1,
-    "total": 10543,
-    "humans": 7932,
-    "bots": 2610,
-    "unatt": 1
-   },
-   {
-    "label": "Releases de GitHub · 12m",
-    "k": "h",
-    "n": 216,
-    "total": 356,
-    "humans": 216,
-    "bots": 140,
-    "unatt": 0
-   },
-   {
-    "label": "Releases de GitHub · 12m",
-    "k": "b",
-    "n": 140,
-    "total": 356,
-    "humans": 216,
-    "bots": 140,
-    "unatt": 0
-   },
-   {
-    "label": "Releases de GitHub · 12m",
-    "k": "u",
-    "n": 0,
-    "total": 356,
-    "humans": 216,
-    "bots": 140,
-    "unatt": 0
-   },
-   {
-    "label": "Commits rama principal · 24m",
-    "k": "h",
-    "n": 10567,
-    "total": 12593,
-    "humans": 10567,
-    "bots": 1973,
-    "unatt": 53
-   },
-   {
-    "label": "Commits rama principal · 24m",
-    "k": "b",
-    "n": 1973,
-    "total": 12593,
-    "humans": 10567,
-    "bots": 1973,
-    "unatt": 53
-   },
-   {
-    "label": "Commits rama principal · 24m",
-    "k": "u",
-    "n": 53,
-    "total": 12593,
-    "humans": 10567,
-    "bots": 1973,
-    "unatt": 53
-   },
-   {
-    "label": "PR fusionados (toda base) · 24m",
-    "k": "h",
-    "n": 5559,
-    "total": 6545,
-    "humans": 5559,
-    "bots": 984,
-    "unatt": 2
-   },
-   {
-    "label": "PR fusionados (toda base) · 24m",
-    "k": "b",
-    "n": 984,
-    "total": 6545,
-    "humans": 5559,
-    "bots": 984,
-    "unatt": 2
-   },
-   {
-    "label": "PR fusionados (toda base) · 24m",
-    "k": "u",
-    "n": 2,
-    "total": 6545,
-    "humans": 5559,
-    "bots": 984,
-    "unatt": 2
-   },
-   {
-    "label": "Revisiones de PR · 24m",
-    "k": "h",
-    "n": 15250,
-    "total": 18025,
-    "humans": 15250,
-    "bots": 2768,
-    "unatt": 7
-   },
-   {
-    "label": "Revisiones de PR · 24m",
-    "k": "b",
-    "n": 2768,
-    "total": 18025,
-    "humans": 15250,
-    "bots": 2768,
-    "unatt": 7
-   },
-   {
-    "label": "Revisiones de PR · 24m",
-    "k": "u",
-    "n": 7,
-    "total": 18025,
-    "humans": 15250,
-    "bots": 2768,
-    "unatt": 7
-   },
-   {
-    "label": "Releases de GitHub · 24m",
-    "k": "h",
-    "n": 407,
-    "total": 594,
-    "humans": 407,
-    "bots": 187,
-    "unatt": 0
-   },
-   {
-    "label": "Releases de GitHub · 24m",
-    "k": "b",
-    "n": 187,
-    "total": 594,
-    "humans": 407,
-    "bots": 187,
-    "unatt": 0
-   },
-   {
-    "label": "Releases de GitHub · 24m",
-    "k": "u",
-    "n": 0,
-    "total": 594,
-    "humans": 407,
-    "bots": 187,
-    "unatt": 0
-   }
-  ]
- },
- "source": {
-  "branch": "research/deudamundi-dependencies",
-  "cut_utc": "2026-10-30T00:00:00Z",
-  "results": "maintenance/analysis/results",
-  "note": "regenerable without network from the 443 frozen JSONs via analyze_activity.py + make_figures.py"
- },
- "sha256_payload": "076c7b0576595eb3b5af52f8716b5563d0a1a7b5b9829e060aeda9fd5a68f791"
+  "schemaVersion": 1,
+  "meta": {
+    "title": "Actividad pública por tipo de evento y ventana",
+    "kicker": "PASO 5 · ACTIVIDAD OBSERVABLE",
+    "description": "Eventos públicos por tipo en los 35 repositorios atribuidos; cortes y ventanas fijados antes de recolectar (ventana abierta, exclusiva). Cada barra parte la actividad en actores con cuenta, bots declarados y sin cuenta vinculada. Los cuatro flujos se cuentan por separado y no se suman entre sí.",
+    "alt": "Barras apiladas horizontales de los cuatro tipos de evento publico en dos ventanas, partidas en actores con cuenta, bots declarados y actores sin cuenta vinculada.",
+    "unit": "eventos públicos observados",
+    "sources": [
+      {
+        "label": "Cálculos propios con datos públicos de GitHub; extracción congelada del 30-10-2026 (443 JSON, 35 repositorios)",
+        "url": "https://github.com/econopapi/DeudaMundi/commit/1363af84d5089ca4260645012dcb34ccc93d4c6c"
+      }
+    ],
+    "methodology": {
+      "label": "Plan preregistrado del paso 5",
+      "url": "https://github.com/econopapi/DeudaMundi/blob/b005d67516eab5bea964bc5f2d6b43663638fce8/research/dependencies/maintenance/analysis/plan.md"
+    },
+    "analysis": {
+      "repository": "https://github.com/econopapi/DeudaMundi",
+      "path": "research/dependencies/maintenance/analysis/export_payloads.py",
+      "commit": "b005d67516eab5bea964bc5f2d6b43663638fce8"
+    },
+    "generatedAt": "2026-11-01T04:58:55Z",
+    "note": "Corte UTC exclusivo: 2026-10-30T00:00:00Z. Datos derivados de results/overview-totals.json."
+  },
+  "figure": {
+    "data": [
+      {
+        "type": "bar",
+        "orientation": "h",
+        "name": "Con cuenta (no bots)",
+        "x": [
+          5498,
+          3311,
+          7932,
+          216,
+          10567,
+          5559,
+          15250,
+          407
+        ],
+        "y": [
+          "Commits rama principal · 12m",
+          "PR fusionados (toda base) · 12m",
+          "Revisiones de PR · 12m",
+          "Releases de GitHub · 12m",
+          "Commits rama principal · 24m",
+          "PR fusionados (toda base) · 24m",
+          "Revisiones de PR · 24m",
+          "Releases de GitHub · 24m"
+        ],
+        "customdata": [
+          [
+            7014,
+            5498,
+            1495,
+            21
+          ],
+          [
+            3981,
+            3311,
+            670,
+            0
+          ],
+          [
+            10543,
+            7932,
+            2610,
+            1
+          ],
+          [
+            356,
+            216,
+            140,
+            0
+          ],
+          [
+            12593,
+            10567,
+            1973,
+            53
+          ],
+          [
+            6545,
+            5559,
+            984,
+            2
+          ],
+          [
+            18025,
+            15250,
+            2768,
+            7
+          ],
+          [
+            594,
+            407,
+            187,
+            0
+          ]
+        ],
+        "hovertemplate": "%{y}<br>%{x} eventos (Con cuenta (no bots))<br>Total del flujo: %{customdata[0]}<br>Con cuenta: %{customdata[1]} · Bots: %{customdata[2]} · Sin cuenta: %{customdata[3]}<extra></extra>"
+      },
+      {
+        "type": "bar",
+        "orientation": "h",
+        "name": "Bots declarados",
+        "x": [
+          1495,
+          670,
+          2610,
+          140,
+          1973,
+          984,
+          2768,
+          187
+        ],
+        "y": [
+          "Commits rama principal · 12m",
+          "PR fusionados (toda base) · 12m",
+          "Revisiones de PR · 12m",
+          "Releases de GitHub · 12m",
+          "Commits rama principal · 24m",
+          "PR fusionados (toda base) · 24m",
+          "Revisiones de PR · 24m",
+          "Releases de GitHub · 24m"
+        ],
+        "customdata": [
+          [
+            7014,
+            5498,
+            1495,
+            21
+          ],
+          [
+            3981,
+            3311,
+            670,
+            0
+          ],
+          [
+            10543,
+            7932,
+            2610,
+            1
+          ],
+          [
+            356,
+            216,
+            140,
+            0
+          ],
+          [
+            12593,
+            10567,
+            1973,
+            53
+          ],
+          [
+            6545,
+            5559,
+            984,
+            2
+          ],
+          [
+            18025,
+            15250,
+            2768,
+            7
+          ],
+          [
+            594,
+            407,
+            187,
+            0
+          ]
+        ],
+        "hovertemplate": "%{y}<br>%{x} eventos (Bots declarados)<br>Total del flujo: %{customdata[0]}<br>Con cuenta: %{customdata[1]} · Bots: %{customdata[2]} · Sin cuenta: %{customdata[3]}<extra></extra>"
+      },
+      {
+        "type": "bar",
+        "orientation": "h",
+        "name": "Sin cuenta vinculada",
+        "x": [
+          21,
+          0,
+          1,
+          0,
+          53,
+          2,
+          7,
+          0
+        ],
+        "y": [
+          "Commits rama principal · 12m",
+          "PR fusionados (toda base) · 12m",
+          "Revisiones de PR · 12m",
+          "Releases de GitHub · 12m",
+          "Commits rama principal · 24m",
+          "PR fusionados (toda base) · 24m",
+          "Revisiones de PR · 24m",
+          "Releases de GitHub · 24m"
+        ],
+        "customdata": [
+          [
+            7014,
+            5498,
+            1495,
+            21
+          ],
+          [
+            3981,
+            3311,
+            670,
+            0
+          ],
+          [
+            10543,
+            7932,
+            2610,
+            1
+          ],
+          [
+            356,
+            216,
+            140,
+            0
+          ],
+          [
+            12593,
+            10567,
+            1973,
+            53
+          ],
+          [
+            6545,
+            5559,
+            984,
+            2
+          ],
+          [
+            18025,
+            15250,
+            2768,
+            7
+          ],
+          [
+            594,
+            407,
+            187,
+            0
+          ]
+        ],
+        "hovertemplate": "%{y}<br>%{x} eventos (Sin cuenta vinculada)<br>Total del flujo: %{customdata[0]}<br>Con cuenta: %{customdata[1]} · Bots: %{customdata[2]} · Sin cuenta: %{customdata[3]}<extra></extra>"
+      }
+    ],
+    "layout": {
+      "barmode": "stack",
+      "xaxis": {
+        "title": {
+          "text": "eventos públicos"
+        }
+      },
+      "yaxis": {
+        "autorange": "reversed"
+      },
+      "legend": {
+        "orientation": "h",
+        "traceorder": "normal"
+      }
+    }
+  },
+  "config": {
+    "displayModeBar": false
+  },
+  "table": {
+    "caption": "Datos representados en la figura",
+    "columns": [
+      {
+        "key": "flow_window",
+        "label": "Flujo · ventana",
+        "type": "string"
+      },
+      {
+        "key": "events",
+        "label": "Eventos totales",
+        "type": "number",
+        "unit": "eventos"
+      },
+      {
+        "key": "humans",
+        "label": "Con cuenta (no bots)",
+        "type": "number",
+        "unit": "eventos"
+      },
+      {
+        "key": "bots",
+        "label": "Bots declarados",
+        "type": "number",
+        "unit": "eventos"
+      },
+      {
+        "key": "unattributed",
+        "label": "Sin cuenta vinculada",
+        "type": "number",
+        "unit": "eventos"
+      }
+    ],
+    "rows": [
+      {
+        "flow_window": "Commits rama principal · 12m",
+        "events": 7014,
+        "humans": 5498,
+        "bots": 1495,
+        "unattributed": 21
+      },
+      {
+        "flow_window": "PR fusionados (toda base) · 12m",
+        "events": 3981,
+        "humans": 3311,
+        "bots": 670,
+        "unattributed": 0
+      },
+      {
+        "flow_window": "Revisiones de PR · 12m",
+        "events": 10543,
+        "humans": 7932,
+        "bots": 2610,
+        "unattributed": 1
+      },
+      {
+        "flow_window": "Releases de GitHub · 12m",
+        "events": 356,
+        "humans": 216,
+        "bots": 140,
+        "unattributed": 0
+      },
+      {
+        "flow_window": "Commits rama principal · 24m",
+        "events": 12593,
+        "humans": 10567,
+        "bots": 1973,
+        "unattributed": 53
+      },
+      {
+        "flow_window": "PR fusionados (toda base) · 24m",
+        "events": 6545,
+        "humans": 5559,
+        "bots": 984,
+        "unattributed": 2
+      },
+      {
+        "flow_window": "Revisiones de PR · 24m",
+        "events": 18025,
+        "humans": 15250,
+        "bots": 2768,
+        "unattributed": 7
+      },
+      {
+        "flow_window": "Releases de GitHub · 24m",
+        "events": 594,
+        "humans": 407,
+        "bots": 187,
+        "unattributed": 0
+      }
+    ]
+  }
 }

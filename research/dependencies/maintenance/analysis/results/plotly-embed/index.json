@@ -1,36 +1,35 @@
 {
- "figures": [
-  {
-   "figure": "fig1",
-   "file": "fig1.json",
-   "title": "Actividad pública por tipo de evento y ventana",
-   "sha256_payload": "076c7b0576595eb3b5af52f8716b5563d0a1a7b5b9829e060aeda9fd5a68f791"
-  },
-  {
-   "figure": "fig2",
-   "file": "fig2.json",
-   "title": "Actividad por repositorio: commits, bots y actores sin cuenta",
-   "sha256_payload": "3604d7d896e840764ea74441796e6a12ace5d04cd6131b7949dd76fb9edbbe1c"
-  },
-  {
-   "figure": "fig3",
-   "file": "fig3.json",
-   "title": "Un actor principal: cuota por commits frente a PR fusionados",
-   "sha256_payload": "f0e35e52a8d20749f270256f53c856a9c312b80ca32b58ce57b65bbbc1ace109"
-  },
-  {
-   "figure": "fig4",
-   "file": "fig4.json",
-   "title": "Sensibilidad: cuota del actor principal entre ventanas",
-   "sha256_payload": "ef008bb0d9876915c96b6cc64c33923debe0c80a0af3f7027aa099302f368f78"
-  },
-  {
-   "figure": "fig5",
-   "file": "fig5.json",
-   "title": "Participacion de bots declarados por tipo de evento",
-   "sha256_payload": "10c2788aa058b450cc7f819dbfec6ba66378b9aeb5f79cfd9b0dc9b435dbbe35"
-  }
- ],
- "contract_version": 1,
- "brand": "Econopapi (tokens por tema en el bloque)"
+  "schemaVersion": 1,
+  "figures": [
+    {
+      "figure": "fig1",
+      "file": "fig1.json",
+      "title": "Actividad pública por tipo de evento y ventana",
+      "sha256": "56b5fb94249b0de8621b0b5a8a700a7d3bd78949bdd8764dde797b6cf8f7f254"
+    },
+    {
+      "figure": "fig2",
+      "file": "fig2.json",
+      "title": "Actividad por repositorio: commits, bots y actores sin cuenta",
+      "sha256": "644977ff679bb9a1703e23d08b854dd446342dcf41ec4fd0bd990b8875f9a826"
+    },
+    {
+      "figure": "fig3",
+      "file": "fig3.json",
+      "title": "Un actor principal: cuota por commits frente a PR fusionados",
+      "sha256": "0381e4a81a68fe9071063a894ac15cc3a1557f82731d1d12a53f991fbd269dde"
+    },
+    {
+      "figure": "fig4",
+      "file": "fig4.json",
+      "title": "Sensibilidad: cuota del actor principal entre ventanas",
+      "sha256": "1529661e1c31eea52cb0d1f0d22a6ddcfd8ea94d462b26990fe6b4acff22df44"
+    },
+    {
+      "figure": "fig5",
+      "file": "fig5.json",
+      "title": "Participacion de bots declarados por tipo de evento",
+      "sha256": "648e5d32505f3c60d08a07cddac93fba2482aeeafeadf413ccba0b73a69ebdbf"
+    }
+  ]
 }

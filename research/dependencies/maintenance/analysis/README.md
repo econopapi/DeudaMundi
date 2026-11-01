@@ -14,7 +14,7 @@
 | `audits.md` | Bitácora de auditoría manual, con las correcciones de proceso destapadas (todas fechadas y explicadas) y los patrones de automatización no declarada observados (`sqla-tester`, `claude`, `invalid-email-address`). |
 | `make_figures.py` + `figures/` | Cinco figuras interactivas autocontenidas (Plotly 2.35.2 desde CDN con `no-integrity` documentado), identidad Econopapi con el manual oficial (`/home/econopapi/Projects/econopapi-video-studio/docs/brand/ECONOPAPI_BRAND_KIT_LIGHT_DARK_v04/`), fuente Montserrat/Source Sans Pro embebidas, claro/oscuro por `prefers-color-scheme` y toggle manual, tabla accesible por figura y texto alternativo; los datos exactos de cada gráfico viajan en `figN-data.json`. Subconjuntos de fuentes con pyftsubset 4.68.0 y licencias SIL OFL 1.1 (`FONTS-NOTICE.txt`). |
 | `wp-snippets/` | (Eliminado 2026-10-31 por decisión del autor: los fragmentos wp:html y el plugin-puente quedaron fuera de la rama. El historial Git los conserva auditables.) |
-| `export_payloads.py` | Exporta el **contrato definitivo de datos para gráficos**: `results/plotly-embed/fig{1..5}.json` + `index.json` (payload data-only, sin código de render). Un bloque genérico de plotly en el tema de econopapi consume estos JSON; el análisis no depende de ningún plugin. |
+| `export_payloads.py` | Exporta los **manifiestos Econopapi Plotly v1**: `results/plotly-embed/fig{1..5}.json` + `index.json`. Cada figura incluye `figure.data`/`figure.layout` nativos, tabla estructurada, fuentes y trazabilidad; no fija fuentes, fondos ni colores cosméticos. El bloque dinámico `econopapi/plotly-figure` consume estos JSON y el análisis no depende del tema. |
 | `SHA256SUMS` / `verification.txt` | Manifest del directorio y bitácora de verificación. |
 | `final-audits/` | **Auditoría metodológica y científica de cierre (§2–§8)**: matriz de cobertura y procedencia por repositorio (`coverage-provenance.{py,csv,md}`), cronología metodológica con clasificación de cada cambio (`method_timeline.{py,csv,md}`), trazabilidad H1–H4 por repo y ventana (`traceability-h1h4.csv`), correspondencia PyPI↔GitHub (`pypi-github-map.csv`), muestra estratificada de eventos recontada de forma independiente (`manual_sample_audit.py` + `manual-sample-audits.json`), matriz de validez de constructo (`construct-validity.md`) y dictamen final por dimensión (`dictamen.md`). |
 
@@ -45,8 +45,10 @@ Visualización **requiere red** (Plotly 2.35.2 desde cdn.plot.ly; los datos de c
 ```sh
 cd research/dependencies/maintenance && sha256sum -c SHA256SUMS    # manifiesto de ESTE directorio (analysis/)
 python research/dependencies/maintenance/analysis/make_figures.py       # tablas + figuras standalone + datos
-python research/dependencies/maintenance/analysis/export_payloads.py      # payloads JSON (contrato para el bloque del tema)
+python research/dependencies/maintenance/analysis/export_payloads.py      # manifiestos Econopapi Plotly v1
 ```
+
+Para publicar, sube `results/plotly-embed/fig1.json` a `fig5.json` en **Fuente de la figura**, un archivo por cada bloque `econopapi/plotly-figure`. No subas el HTML autocontenido ni `index.json`: este último solo cataloga los cinco manifiestos y sus hashes. El exportador toma `meta.analysis.commit` del `HEAD` del checkout y no necesita red, pandas ni Plotly para escribir los JSON. Los `post-2735-fig{1..5}.json` del mismo directorio son archivo histórico (lo subido al borrador 2735 el 01-11-2026, idéntico a los canónicos salvo el kicker); no se resuben.
 
 El orden importa: `analyze_activity.py` verifica cada total contra `../coverage-descriptive.csv` (que el verificador del paso 4 también reconstruye) antes de emitir `results/`. Las figuras y el plugin se generan DESDE `results/`; el manifiesto `SHA256SUMS` de `analysis/`/YYYY:MM:DD cubre todos los artefactos publicados de este directorio. La banana del visor (plugin y zip) viene del post; no es dependencia del análisis.
 
