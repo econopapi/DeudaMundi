@@ -1,19 +1,18 @@
 {
- "block": "econopapi/plotly-figure",
  "figure": "fig4",
  "attributes": {
   "figure": "fig4"
  },
  "meta": {
-  "title": "Sensibilidad: cuota del actor principal entre ventanas",
   "kicker": "PASO 5 - SENSIBILIDAD 12/24",
+  "title": "Sensibilidad: cuota del actor principal entre ventanas",
   "subtitle": "Cambios de la cuota del actor principal entre ventanas con las mismas reglas preregistradas. Las lineas horizontales punteadas marcan 0.50 y 0.75. La estabilidad de cuota no es estabilidad de riesgo: es un cambio de denominador.",
   "alt": "Grafico de pendientes: para cada repositorio evaluable en ambas ventanas, una linea con la cuota del actor humano principal por commits en 12 y en 24 meses.",
   "provenance_extra": "Datos derivados de <code>results/hypotheses.json</code>.",
   "table_head": "<th>Repositorio</th><th>Cuota 12m</th><th>Cuota 24m</th>",
-  "table_body": "<tr><td>sqlalchemy/mako</td><td>1.0</td><td>0.932</td></tr>\n<tr><td>grahamdumpleton/wrapt</td><td>0.964</td><td>0.947</td></tr>\n<tr><td>python-websockets/websockets</td><td>0.947</td><td>0.947</td></tr>\n<tr><td>alisaifee/limits</td><td>0.9</td><td>0.958</td></tr>\n<tr><td>kjd/idna</td><td>0.916</td><td>0.903</td></tr>\n<tr><td>kludex/uvicorn</td><td>0.818</td><td>0.805</td></tr>\n<tr><td>sqlalchemy/alembic</td><td>0.752</td><td>0.71</td></tr>\n<tr><td>psycopg/psycopg</td><td>0.658</td><td>0.777</td></tr>\n<tr><td>kludex/starlette</td><td>0.68</td><td>0.644</td></tr>\n<tr><td>agronholm/apscheduler</td><td>0.649</td><td>0.641</td></tr>\n<tr><td>sqlalchemy/sqlalchemy</td><td>0.634</td><td>0.592</td></tr>\n<tr><td>jpadilla/pyjwt</td><td>0.671</td><td>0.54</td></tr>\n<tr><td>fastapi/fastapi</td><td>0.722</td><td>0.395</td></tr>\n<tr><td>pydantic/pydantic</td><td>0.548</td><td>0.52</td></tr>\n<tr><td>laurent-laporte-pro/deprecated</td><td>0.72</td><td>0.343</td></tr>\n<tr><td>agronholm/anyio</td><td>0.466</td><td>0.545</td></tr>\n<tr><td>pypa/packaging</td><td>0.49</td><td>0.456</td></tr>\n<tr><td>theskumar/python-dotenv</td><td>0.357</td><td>0.52</td></tr>\n<tr><td>pallets/click</td><td>0.481</td><td>0.342</td></tr>\n<tr><td>pydantic/pydantic-settings</td><td>0.351</td><td>0.332</td></tr>\n<tr><td>python/typing_extensions</td><td>0.457</td><td>0.225</td></tr>\n<tr><td>redis/redis-py</td><td>0.324</td><td>0.344</td></tr>",
-  "builder": "f4"
+  "table_body": "<tr><td>sqlalchemy/mako</td><td>1.0</td><td>0.932</td></tr>\n<tr><td>grahamdumpleton/wrapt</td><td>0.964</td><td>0.947</td></tr>\n<tr><td>python-websockets/websockets</td><td>0.947</td><td>0.947</td></tr>\n<tr><td>alisaifee/limits</td><td>0.9</td><td>0.958</td></tr>\n<tr><td>kjd/idna</td><td>0.916</td><td>0.903</td></tr>\n<tr><td>kludex/uvicorn</td><td>0.818</td><td>0.805</td></tr>\n<tr><td>sqlalchemy/alembic</td><td>0.752</td><td>0.71</td></tr>\n<tr><td>psycopg/psycopg</td><td>0.658</td><td>0.777</td></tr>\n<tr><td>kludex/starlette</td><td>0.68</td><td>0.644</td></tr>\n<tr><td>agronholm/apscheduler</td><td>0.649</td><td>0.641</td></tr>\n<tr><td>sqlalchemy/sqlalchemy</td><td>0.634</td><td>0.592</td></tr>\n<tr><td>jpadilla/pyjwt</td><td>0.671</td><td>0.54</td></tr>\n<tr><td>fastapi/fastapi</td><td>0.722</td><td>0.395</td></tr>\n<tr><td>pydantic/pydantic</td><td>0.548</td><td>0.52</td></tr>\n<tr><td>laurent-laporte-pro/deprecated</td><td>0.72</td><td>0.343</td></tr>\n<tr><td>agronholm/anyio</td><td>0.466</td><td>0.545</td></tr>\n<tr><td>pypa/packaging</td><td>0.49</td><td>0.456</td></tr>\n<tr><td>theskumar/python-dotenv</td><td>0.357</td><td>0.52</td></tr>\n<tr><td>pallets/click</td><td>0.481</td><td>0.342</td></tr>\n<tr><td>pydantic/pydantic-settings</td><td>0.351</td><td>0.332</td></tr>\n<tr><td>python/typing_extensions</td><td>0.457</td><td>0.225</td></tr>\n<tr><td>redis/redis-py</td><td>0.324</td><td>0.344</td></tr>"
  },
+ "chart_hint": "slope-12-24",
  "data": {
   "repos": [
    "sqlalchemy/mako",
@@ -132,7 +131,9 @@
  },
  "source": {
   "branch": "research/deudamundi-dependencies",
-  "commit_source": "1363af84 (paso 4) y commits del análisis en el historial de la rama",
-  "cut_utc": "2026-10-30T00:00:00Z"
- }
+  "cut_utc": "2026-10-30T00:00:00Z",
+  "results": "maintenance/analysis/results",
+  "note": "regenerable without network from the 443 frozen JSONs via analyze_activity.py + make_figures.py"
+ },
+ "sha256_payload": "ef008bb0d9876915c96b6cc64c33923debe0c80a0af3f7027aa099302f368f78"
 }

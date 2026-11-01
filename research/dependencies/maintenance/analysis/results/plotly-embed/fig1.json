@@ -1,19 +1,18 @@
 {
- "block": "econopapi/plotly-figure",
  "figure": "fig1",
  "attributes": {
   "figure": "fig1"
  },
  "meta": {
-  "title": "Actividad pública por tipo de evento y ventana",
   "kicker": "PASO 5 · ACTIVIDAD OBSERVABLE",
+  "title": "Actividad pública por tipo de evento y ventana",
   "subtitle": "Eventos públicos por tipo en los 35 repositorios atribuidos; cortes y ventanas fijados antes de recolectar (ventana abierta, exclusiva). Cada barra parte la actividad en <b>actores con cuenta</b>, <b>bots declarados</b> y <b>sin cuenta vinculada</b>. Los cuatro flujos se cuentan por separado y no se suman entre sí.",
   "alt": "Barras apiladas horizontales de los cuatro tipos de evento publico en dos ventanas, partidas en actores con cuenta, bots declarados y actores sin cuenta vinculada.",
   "provenance_extra": "Datos derivados de <code>results/overview-totals.json</code>.",
   "table_head": "<th>Flujo · ventana</th><th>Eventos totales</th><th>Con cuenta (no bots)</th><th>Bots declarados</th><th>Sin cuenta vinculada</th>",
-  "table_body": "<tr><td>Commits rama principal · 12m</td><td>7014</td><td>5498</td><td>1495</td><td>21</td></tr>\n<tr><td>Commits rama principal · 24m</td><td>12593</td><td>10567</td><td>1973</td><td>53</td></tr>\n<tr><td>PR fusionados (toda base) · 12m</td><td>3981</td><td>3311</td><td>670</td><td>0</td></tr>\n<tr><td>PR fusionados (toda base) · 24m</td><td>6545</td><td>5559</td><td>984</td><td>2</td></tr>\n<tr><td>Revisiones de PR · 12m</td><td>10543</td><td>7932</td><td>2610</td><td>1</td></tr>\n<tr><td>Revisiones de PR · 24m</td><td>18025</td><td>15250</td><td>2768</td><td>7</td></tr>\n<tr><td>Releases de GitHub · 12m</td><td>356</td><td>216</td><td>140</td><td>0</td></tr>\n<tr><td>Releases de GitHub · 24m</td><td>594</td><td>407</td><td>187</td><td>0</td></tr>",
-  "builder": "f1"
+  "table_body": "<tr><td>Commits rama principal · 12m</td><td>7014</td><td>5498</td><td>1495</td><td>21</td></tr>\n<tr><td>Commits rama principal · 24m</td><td>12593</td><td>10567</td><td>1973</td><td>53</td></tr>\n<tr><td>PR fusionados (toda base) · 12m</td><td>3981</td><td>3311</td><td>670</td><td>0</td></tr>\n<tr><td>PR fusionados (toda base) · 24m</td><td>6545</td><td>5559</td><td>984</td><td>2</td></tr>\n<tr><td>Revisiones de PR · 12m</td><td>10543</td><td>7932</td><td>2610</td><td>1</td></tr>\n<tr><td>Revisiones de PR · 24m</td><td>18025</td><td>15250</td><td>2768</td><td>7</td></tr>\n<tr><td>Releases de GitHub · 12m</td><td>356</td><td>216</td><td>140</td><td>0</td></tr>\n<tr><td>Releases de GitHub · 24m</td><td>594</td><td>407</td><td>187</td><td>0</td></tr>"
  },
+ "chart_hint": "hbar-4streams-by-window",
  "data": {
   "rows": [
    {
@@ -236,7 +235,9 @@
  },
  "source": {
   "branch": "research/deudamundi-dependencies",
-  "commit_source": "1363af84 (paso 4) y commits del análisis en el historial de la rama",
-  "cut_utc": "2026-10-30T00:00:00Z"
- }
+  "cut_utc": "2026-10-30T00:00:00Z",
+  "results": "maintenance/analysis/results",
+  "note": "regenerable without network from the 443 frozen JSONs via analyze_activity.py + make_figures.py"
+ },
+ "sha256_payload": "076c7b0576595eb3b5af52f8716b5563d0a1a7b5b9829e060aeda9fd5a68f791"
 }

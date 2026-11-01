@@ -1,19 +1,18 @@
 {
- "block": "econopapi/plotly-figure",
  "figure": "fig5",
  "attributes": {
   "figure": "fig5"
  },
  "meta": {
-  "title": "Participacion de bots declarados por tipo de evento",
   "kicker": "PASO 5 - AUTOMATIZACION",
+  "title": "Participacion de bots declarados por tipo de evento",
   "subtitle": "La misma composicion de la figura 1 expresada en participacion porcentual. La deteccion de bots es la del paso 4 (type=Bot o sufijo [bot]); no capta automatizacion no declarada, que la auditoria registro aparte.",
   "alt": "Porcentaje de eventos automatizados declaradamente, de actores con cuenta y de actores sin cuenta, por tipo de evento y ventana, en barras apiladas al 100 %.",
   "provenance_extra": "Datos derivados de <code>results/overview-totals.json</code>.",
   "table_head": "<th>Flujo - ventana</th><th>Eventos</th><th>Bots declarados</th><th>Con cuenta</th><th>Sin cuenta</th><th>% bots</th>",
-  "table_body": "<tr><td>Commits rama principal - 12m</td><td>7014</td><td>1495</td><td>5498</td><td>21</td><td>21.3%</td></tr>\n<tr><td>Commits rama principal - 24m</td><td>12593</td><td>1973</td><td>10567</td><td>53</td><td>15.7%</td></tr>\n<tr><td>PR fusionados (toda base) - 12m</td><td>3981</td><td>670</td><td>3311</td><td>0</td><td>16.8%</td></tr>\n<tr><td>PR fusionados (toda base) - 24m</td><td>6545</td><td>984</td><td>5559</td><td>2</td><td>15.0%</td></tr>\n<tr><td>Revisiones de PR - 12m</td><td>10543</td><td>2610</td><td>7932</td><td>1</td><td>24.8%</td></tr>\n<tr><td>Revisiones de PR - 24m</td><td>18025</td><td>2768</td><td>15250</td><td>7</td><td>15.4%</td></tr>\n<tr><td>Releases de GitHub - 12m</td><td>356</td><td>140</td><td>216</td><td>0</td><td>39.3%</td></tr>\n<tr><td>Releases de GitHub - 24m</td><td>594</td><td>187</td><td>407</td><td>0</td><td>31.5%</td></tr>",
-  "builder": "f5"
+  "table_body": "<tr><td>Commits rama principal - 12m</td><td>7014</td><td>1495</td><td>5498</td><td>21</td><td>21.3%</td></tr>\n<tr><td>Commits rama principal - 24m</td><td>12593</td><td>1973</td><td>10567</td><td>53</td><td>15.7%</td></tr>\n<tr><td>PR fusionados (toda base) - 12m</td><td>3981</td><td>670</td><td>3311</td><td>0</td><td>16.8%</td></tr>\n<tr><td>PR fusionados (toda base) - 24m</td><td>6545</td><td>984</td><td>5559</td><td>2</td><td>15.0%</td></tr>\n<tr><td>Revisiones de PR - 12m</td><td>10543</td><td>2610</td><td>7932</td><td>1</td><td>24.8%</td></tr>\n<tr><td>Revisiones de PR - 24m</td><td>18025</td><td>2768</td><td>15250</td><td>7</td><td>15.4%</td></tr>\n<tr><td>Releases de GitHub - 12m</td><td>356</td><td>140</td><td>216</td><td>0</td><td>39.3%</td></tr>\n<tr><td>Releases de GitHub - 24m</td><td>594</td><td>187</td><td>407</td><td>0</td><td>31.5%</td></tr>"
  },
+ "chart_hint": "hbar-pct-bots",
  "data": {
   "rows": [
    {
@@ -284,7 +283,9 @@
  },
  "source": {
   "branch": "research/deudamundi-dependencies",
-  "commit_source": "1363af84 (paso 4) y commits del análisis en el historial de la rama",
-  "cut_utc": "2026-10-30T00:00:00Z"
- }
+  "cut_utc": "2026-10-30T00:00:00Z",
+  "results": "maintenance/analysis/results",
+  "note": "regenerable without network from the 443 frozen JSONs via analyze_activity.py + make_figures.py"
+ },
+ "sha256_payload": "10c2788aa058b450cc7f819dbfec6ba66378b9aeb5f79cfd9b0dc9b435dbbe35"
 }

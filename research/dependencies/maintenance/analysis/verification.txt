@@ -94,3 +94,9 @@ Pruebas funcionales finales (armés del render.php)
 - CDN de Plotly caído: 5 mensajes de respaldo «Plotly no cargó» y 5 tablas accesibles conservadas.
 - JavaScript deshabilitado: la entrada del navegador headless de prueba no honró el flag en este build; el equivalente se verificó por la vía del render REST del servidor (el HTML servido contiene las tablas y <noscript>; sin JS el lector ve tablas). Límite anotado, no una prueba de navegador ejecutada.
 - WordPress reproduc gráficos y los assets correctos en la página (script tags plotly/defs/builders/render + css encolados una vez tal ya vistos en el árbol local y confirmado en el sitio real, verificación de vista previa del autor en 2753/2735).
+
+
+Retirada del puente de WordPress (30-10-2026, decisión del autor)
+- Se eliminaron de la rama `analysis/wp-block-plugin/` (plugin + zip) y `analysis/wp-snippets/` (fragmentos wp:html). El historial Git los conserva auditables; el borrador 2735 fue restaurado antes a su contenido original (081b1c07…) y luego recibió los cinco bloques nativos mientras el plugin existía: si el bloque se desactiva en el sitio, WP no imprime nada por esas instancias y el texto queda sin figuras (el autor está corrigiendo esa integración en el lado del tema).
+- El contrato de datos para gráficos queda en `results/plotly-embed/fig{1..5}.json` + `index.json` (exportador `export_payloads.py`): datos congelados del paso 5, sin código de render ni dependencia de plugins; el bloque plotly del tema econopapi puede consumirlos directamente (péguese el JSON en el atributo o fetch). Renovable sin tocar los resultados.
+- El dictamen de cierre no cambia: los artefactos de investigación (results/, figures/, payloads) siguen reproduciéndose byte-idéntico desde checkout limpio sin red.
