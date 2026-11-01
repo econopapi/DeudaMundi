@@ -1,6 +1,29 @@
-# Congelación del entorno Python del backend de producción — «fotografía del entorno»
+# ¿Quién mantiene el software del que depende una aplicación Python? — DeudaMundi
 
-> **Paso 1 del protocolo de investigación.** Rama `research/freeze-python-env` (desde `dev`).
+**Índice de la investigación** — rama única `research/deudamundi-dependencies`
+(desde `dev`); todos los pasos comparten el mismo árbol y sus propios
+subdirectorios, con manifiestos y verificaciones por carpeta.
+
+| Paso | Carpeta | Documento principal | Estado |
+|---|---|---|---|
+| 1 · Congelación del entorno | este directorio | [Paso 1, abajo](#paso-1-congelación-del-entorno-python-del-backend-de-producción--fotografía-del-entorno) | cerrado |
+| 2 · Grafo de dependencias | `graph/` | [`graph/README.md`](graph/README.md) | cerrado |
+| 3 · Atribución a repositorios | `attributions/` | [`attributions/README.md`](attributions/README.md) | cerrado |
+| 4 · Actividad observable (443 JSON congelados) | `maintenance/` | [`maintenance/README.md`](maintenance/README.md) | cerrado |
+| 5 · Análisis descriptivo (H1–H4, figuras, payload JSON) | `maintenance/analysis/` | [`analysis/README.md`](maintenance/analysis/README.md) | **cerrado (APROBADO CON LIMITACIONES)** |
+| — Auditoría de cierre | `maintenance/analysis/final-audits/` | [`dictamen.md`](maintenance/analysis/final-audits/dictamen.md) | dictamen emitido |
+
+La salida canónica para visualizar las figuras fuera de este repo es
+[`maintenance/analysis/results/plotly-embed/fig{1..5}.json` +
+`index.json`](maintenance/analysis/results/plotly-embed/) (payloads
+data-only; el bloque plotly del tema de econopapi los consume).
+
+## Paso 1 — Congelación del entorno Python del backend de producción — «fotografía del entorno»
+
+> **Paso 1 del protocolo de investigación.** Rama única de investigación
+> `research/deudamundi-dependencies` (prerequisitos de los pasos 2–5; el
+> documento original se redactó en la rama provisional
+> `research/freeze-python-env` y la fotografía migró sin cambios heredables).
 >
 > El resultado es una **fotografía del entorno** (environment snapshot) verificable,
 > **no** un archivo de bloqueo reproducible. Véase
