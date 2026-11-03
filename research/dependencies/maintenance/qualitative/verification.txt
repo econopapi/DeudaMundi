@@ -1,0 +1,30 @@
+# Bitácora de verificación — qualitative/ (Paso 6)
+# Fecha: 2026-11-02. Rama: research/deudamundi-dependencies. HEAD base: 761a947.
+
+## Datos congelados intactos (comprobado antes de cada commit)
+- git diff sobre data/, attributions/, graph/, analysis/, pip-inspect.json,
+  SHA256SUMS (raíz de dependencies) y maintenance/SHA256SUMS: VACÍO.
+- verify_activity.py: PASS 35/35 (144/183/45 páginas; 2 ventanas); regenera
+  coverage-descriptive.csv byte-idéntico (árbol limpio tras la ejecución).
+- maintenance/analysis/SHA256SUMS: todos OK.
+- maintenance/SHA256SUMS: 453/454 — desviación conocida en README.md
+  (hallazgo H-01, status-matrix.md; ningún dato afectado).
+- plotly-embed/index.json vs fig{1..5}.json: PASS 5/5.
+
+## Paquete cualitativo
+- claim-ledger.csv: 45 filas × 7 columnas, CSV válido (csv.DictReader).
+- Enlaces internos de los .md: verificados (los «enlaces» de fragmentos
+  citados van en comillas técnicas).
+- Fuentes web: consultadas 2026-11-02 (post-corte), con URL y fecha; SHAs
+  fijados en los anexos de evidence/raw/.
+- Artículo 2735: leído vía API REST con contraseña facilitada por el autor
+  (solo lectura; sin escritura; contenido no versionado).
+
+## Comandos de reproducción
+- cd research/dependencies/maintenance/qualitative && sha256sum -c SHA256SUMS
+- python3 -c "import csv;print(len(list(csv.DictReader(open('claim-ledger.csv')))),'afirmaciones')"
+
+## Registros modificados fuera de este directorio
+- NINGUNO. Los puntos de navegación hacia este paso en los README de los
+  pasos anteriores quedan como decisión editorial (ver status-matrix.md), para
+  no invalidar los manifiestos congelados.
