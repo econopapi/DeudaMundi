@@ -7,8 +7,9 @@
 - verify_activity.py: PASS 35/35 (144/183/45 páginas; 2 ventanas); regenera
   coverage-descriptive.csv byte-idéntico (árbol limpio tras la ejecución).
 - maintenance/analysis/SHA256SUMS: todos OK.
-- maintenance/SHA256SUMS: 453/454 — desviación conocida en README.md
-  (hallazgo H-01, status-matrix.md; ningún dato afectado).
+- maintenance/SHA256SUMS: 453/454 en la verificación inicial — desviación en
+  README.md (hallazgo H-01; ningún dato afectado). **Corregida el 2026-11-03**
+  (excepción autorizada): 454/454.
 - plotly-embed/index.json vs fig{1..5}.json: PASS 5/5.
 
 ## Paquete cualitativo
@@ -20,11 +21,33 @@
 - Artículo 2735: leído vía API REST con contraseña facilitada por el autor
   (solo lectura; sin escritura; contenido no versionado).
 
-## Comandos de reproducción
-- cd research/dependencies/maintenance/qualitative && sha256sum -c SHA256SUMS
-- python3 -c "import csv;print(len(list(csv.DictReader(open('claim-ledger.csv')))),'afirmaciones')"
+## Comandos de reproducción (desde la raíz del repositorio)
+- sh research/dependencies/maintenance/qualitative/verify_readonly.sh
+- python3 -c "import csv;print(len(list(csv.DictReader(open('research/dependencies/maintenance/qualitative/claim-ledger.csv')))),'afirmaciones')"
 
 ## Registros modificados fuera de este directorio
-- NINGUNO. Los puntos de navegación hacia este paso en los README de los
-  pasos anteriores quedan como decisión editorial (ver status-matrix.md), para
-  no invalidar los manifiestos congelados.
+- maintenance/SHA256SUMS: **únicamente** la entrada de `README.md` (hallazgo
+  H-01, excepción autorizada del encargo; 2026-11-03). Ningún otro registro
+  fuera de este directorio. Los puntos de navegación hacia este paso en los
+  README de los pasos anteriores quedan como decisión editorial (ver
+  status-matrix.md), para no invalidar los manifiestos congelados.
+
+## Auditoría correctiva de cierre (2026-11-03)
+- HEAD verificado: 3c096f79… = referencia del encargo; sin commits posteriores
+  en el remoto.
+- H4 recontado de hypotheses.json: 12 m 18/16/10/6; 24 m 25/24/18/6
+  (incluidos / con revisión evaluable / coincidencias / divergencias).
+  Identidades verificadas una a una. C39 y synthesis §4.1/§4.5 corregidos.
+- Artículo 2735: lectura íntegra vía API REST con contraseña del post (solo
+  lectura, 2026-11-03) → matriz de cobertura coverage-matrix.csv (Opción A de
+  C45); 31 filas, todas trazables; C46–C52 añadidas para afirmaciones sin traza.
+- H-01 corregido: entrada README.md (8188c665… → 81e9affe…) en
+  maintenance/SHA256SUMS; sha256sum -c → 454/454; 453 hashes restantes
+  idénticos (diff de una línea).
+- Literatura: Osborne (E1a) re-verificado cita por cita; Hoffmann (abstract) y
+  Census III (PDF del informe localizado) verificados; Eghbal: 3/5 citas
+  verificadas, 2 convertidas en paráfrasis; Benkler y Lerner–Tirole: citas
+  convertidas en paráfrasis.
+- Notion: sin conexión MCP autenticada; propuesta de actualización del
+  protocolo en corrective-audit.md (sin modificarlo).
+- WordPress 2735: solo lectura; sin escrituras. main y dev sin cambios.

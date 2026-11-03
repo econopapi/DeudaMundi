@@ -1,9 +1,12 @@
 # Paso 6 — investigación cualitativa y preparación del cierre científico
 
-**Estado:** completado con reservas editoriales (ver `status-matrix.md`).
-Rama `research/deudamundi-dependencies`. Trabajo realizado el 2 de noviembre
-de 2026 sobre el HEAD `761a947` (commit de referencia del encargo) **sin
-tocar** ningún artefacto congelado de los Pasos 1–5.
+**Estado:** completado y auditado (auditoría correctiva de cierre,
+2026-11-03, ver `corrective-audit.md`) con reservas editoriales (ver
+`status-matrix.md`). Rama `research/deudamundi-dependencies`. Trabajo original
+del 2 de noviembre de 2026 sobre el HEAD `761a947` (commit de referencia del
+encargo) **sin tocar** ningún artefacto congelado de los Pasos 1–5; la única
+excepción autorizada —la entrada de `README.md` en `maintenance/SHA256SUMS`,
+hallazgo H-01— quedó corregida y documentada el 2026-11-03.
 
 Este directorio responde a la pregunta del estudio —**¿qué puede saberse sobre
 quién realiza, coordina y publica el mantenimiento de las dependencias Python
@@ -22,14 +25,16 @@ umbrales, unidades, evaluabilidad ni reglas de bots.
 | [`cases/`](cases/) | Seis expedientes A–G | Fase 2 |
 | [`synthesis.md`](synthesis.md) | Triangulación de H1–H4 (permitido / no permitido / contexto / contraejemplo / redacción) y síntesis por niveles de evidencia | Fases 3 y 5 |
 | [`literature.md`](literature.md) | Marco económico y bibliografía crítica (Census III, Eghbal, Osborne, Benkler, Lerner–Tirole, Hoffmann–Nagle–Zhou) | Fase 4 |
-| [`claim-ledger.csv`](claim-ledger.csv) | Registro trazable de afirmaciones (45 entradas) con nivel de evidencia, fuente y destino editorial | Fase 5 |
+| [`claim-ledger.csv`](claim-ledger.csv) | Registro trazable de afirmaciones (52 entradas) con nivel de evidencia, fuente y destino editorial | Fase 5 |
+| [`coverage-matrix.csv`](coverage-matrix.csv) | Matriz de cobertura artículo 2735 ↔ registro de afirmaciones (Opción A, Fase 6) | Fase 6 |
+| [`corrective-audit.md`](corrective-audit.md) | Auditoría correctiva de cierre: hallazgos, correcciones y verificación | Fase 10 |
 | [`editorial-handoff.md`](editorial-handoff.md) | Propuesta de edición para la entrada 2735, especificación de figuras y ruta de publicación | Fase 6 |
 | [`editorial-production-notes.md`](editorial-production-notes.md) | Notas de producción y escaletas retiradas del artículo (conservadas aquí) | Fase 6 |
 | [`factual-review.md`](factual-review.md) | Afirmaciones sensibles y mensajes propuestos de revisión factual (**sin enviar**) | Fase 7 |
 | [`limitations.md`](limitations.md) | Límites de alcance, evidencia e inferencia | Fase 8 |
 | [`deferred-comparative-cohort.md`](deferred-comparative-cohort.md) | Recomendación de diferir la cohorte de otros backends | Decisión de alcance |
 | [`evidence/`](evidence/index.md) | Índice de fuentes y procedencia (+ anexos crudos en `evidence/raw/`) | Todas |
-| `SHA256SUMS` / `verification.txt` | Integridad de **este** directorio | Fase 8 |
+| `SHA256SUMS` / `verification.txt` / `verify_readonly.sh` | Integridad de **este** directorio y verificación de solo lectura desde la raíz | Fase 8 |
 
 ## Casos (selección mecánica del Paso 5, sin sustituir)
 
@@ -43,18 +48,20 @@ umbrales, unidades, evaluabilidad ni reglas de bots.
 
 ## Reproducción y verificación (checkout limpio)
 
+Todos los comandos se ejecutan **desde la raíz del repositorio** (rutas
+explícitas; no hay encadenamientos de `cd`):
+
 ```sh
-# 1. Integridad de los datos congelados (debe seguir intacta):
-python research/dependencies/maintenance/verify_activity.py      # PASS 35/35
-cd research/dependencies/maintenance/analysis && sha256sum -c SHA256SUMS   # todos OK
-cd ../../.. && cd research/dependencies/maintenance && sha256sum -c SHA256SUMS
-#   (nota: reproduce 453/454 — el desfase de README.md es el hallazgo H-01,
-#    registrado en status-matrix.md; ningún dato afectado)
+# Verificación completa de solo lectura (recomendada): manifiestos de los
+# Pasos 4, 5 y 6, cinco manifiestos Plotly, claim-ledger y coverage-matrix,
+# referencias internas y datos congelados intactos.
+sh research/dependencies/maintenance/qualitative/verify_readonly.sh
 
-# 2. Integridad de este paquete:
-cd research/dependencies/maintenance/qualitative && sha256sum -c SHA256SUMS
-
-# 3. El claim-ledger es un CSV válido:
+# Comprobaciones individuales equivalentes:
+python research/dependencies/maintenance/verify_activity.py                  # PASS 35/35
+( cd research/dependencies/maintenance && sha256sum -c SHA256SUMS )          # 454/454 (H-01 corregido 2026-11-03)
+( cd research/dependencies/maintenance/analysis && sha256sum -c SHA256SUMS ) # todos OK
+( cd research/dependencies/maintenance/qualitative && sha256sum -c SHA256SUMS )
 python3 -c "import csv; r=list(csv.DictReader(open('research/dependencies/maintenance/qualitative/claim-ledger.csv'))); print(len(r),'afirmaciones,',len(r[0]),'columnas')"
 ```
 
