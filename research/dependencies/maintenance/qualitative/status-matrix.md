@@ -49,11 +49,14 @@ ejecución (sin cambios ajenos que preservar).
   `../analysis/final-audits/traceability-h1h4.csv`.
 - Valores de referencia obligatorios (dictamen/README del Paso 5): H1 12m = 22
   evaluables, 15 cuotas numéricas > 50 %, 1 inconcluso (fastapi), 14
-  conclusivos; H2 12m = 6 cambios de categoría de 18 evaluables; H3 = 4 casos
+  conclusivos; H2 12m = 6 cambios de categoría de 18 evaluables (autoría de
+  commits vs autoría de PR fusionados, no integración; 13/18 mayor cuota por
+  commits, 2/18 por PR, 3/18 iguales); H3 = 4 casos
   (psycopg, certifi, httpx, tzlocal); H4 12m = 18 repos incluidos, 16 con
-  revisión evaluable, **6 divergencias y 10 coincidencias** de los tres roles
-  (24m: 25/24/6/18) — recontado de `hypotheses.json` en la auditoría
-  correctiva 2026-11-03.
+  revisión evaluable, **6 divergencias** (5 parciales: dos cuentas coinciden;
+  1 con las tres distintas, sqlalchemy) **y 10 coincidencias** de los tres
+  roles (24m: 25/24/6/18 con la misma estructura) — recontado de
+  `hypotheses.json` en la auditoría correctiva 2026-11-03.
 - Figuras v2: `../analysis/results/plotly-embed/fig{1..5}.json` + `index.json`
   (manifiestos Econopapi Plotly v1). Los `post-2735-fig*.json` son archivo
   histórico y **no** son fuente de la nueva integración.

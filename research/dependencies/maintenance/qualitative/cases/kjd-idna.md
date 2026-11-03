@@ -109,7 +109,7 @@ Métricas congeladas (12 m):
 | Confirma | Matiza | Debilita |
 |---|---|---|
 | H1 0.916: la cuenta `kjd` concentra autoría, integración y revisión — la documentación declara una autoría singular (E1) y la propiedad es una cuenta individual (E2) | La «ausencia de releases humanos» no es ausencia de publicación: la publicación está **automatizada y firmada** (E1/E2) | La lectura unipersonal estricta: `SECURITY.md` declara «a team of volunteers» (E1) y los changelog agradecen contribuciones nombradas en múltiples releases (E1) |
-| H2 no cambia (ambas cuotas > 75 %): autoría e integración coinciden en la misma cuenta | Los pares de revisión humanos son escasos (10 en 12 m) pero incluyen cuentas distintas de `kjd` | — |
+| H2 no cambia (ambas cuotas > 75 %): la autoría de commits y la de PR fusionados coinciden en la misma cuenta | Los pares de revisión humanos son escasos (10 en 12 m) pero incluyen cuentas distintas de `kjd` | — |
 | — | — | La inferencia «poca actividad externa = abandono»: hay PR externos fusionados en octubre de 2026 y una release en desarrollo (3.21) |
 
 **Contraejemplo/limite de validez:** idna es el caso en que más se alinean

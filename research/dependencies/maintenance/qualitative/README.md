@@ -53,8 +53,9 @@ explícitas; no hay encadenamientos de `cd`):
 
 ```sh
 # Verificación completa de solo lectura (recomendada): manifiestos de los
-# Pasos 4, 5 y 6, cinco manifiestos Plotly, claim-ledger y coverage-matrix,
-# referencias internas y datos congelados intactos.
+# Pasos 4, 5 y 6, cinco manifiestos Plotly, claim-ledger y coverage-matrix
+# (integridad referencial: CSV válido, IDs existentes), referencias internas
+# y datos congelados intactos. Los fallos se diagnostican paso a paso.
 sh research/dependencies/maintenance/qualitative/verify_readonly.sh
 
 # Comprobaciones individuales equivalentes:
@@ -68,6 +69,11 @@ python3 -c "import csv; r=list(csv.DictReader(open('research/dependencies/mainte
 - **Sin rutas absolutas ni credenciales:** todo el paquete usa rutas relativas
   al repositorio; la lectura del artículo 2735 requirió la contraseña del post
   **facilitada por el autor** y su contenido **no** se versiona aquí.
+- **Alcance de la validación automática:** `verify_readonly.sh` certifica
+  integridad de hashes, validez de CSV, integridad referencial de los IDs y
+  enlaces internos. **No** demuestra cobertura semántica exhaustiva del
+  artículo: esa cobertura (`coverage-matrix.csv`) es una **revisión manual
+  documentada**, con su alcance declarado en `claim-ledger.csv` C45.
 - **Fuentes web:** consultadas el 2026-11-02 (posteriores al corte
   `2026-10-30T00:00:00Z`); cada una lleva URL, fecha y, cuando aplica, commit
   fijado. No representan necesariamente el estado del corte.

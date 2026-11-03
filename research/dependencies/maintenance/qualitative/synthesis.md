@@ -23,13 +23,17 @@ antes de ver sus métricas (`../analysis/plan.md`, Aclaración 3):
    supera el 50 % de los commits no automatizados sin fusiones (H1 12 m), pero
    el grado de concentración varía enormemente entre casos (0,225–1,000 en las
    distintas ventanas) y **no** es un proxy de riesgo.
-2. **Coordina (integración y revisión):** la integración suele repartirse más
-   que la autoría (H2: 6 de 18 repos cambian de categoría). En H4 (12 m), de 18
-   repositorios incluidos, 16 tienen el rol de revisión evaluable: en **6** las
-   cuentas principales de autoría, integración y revisión son distintas y en
-   **10** coinciden — la divergencia existe, pero no es predominante. En varios
-   repositorios la revisión observable incluye automatización no declarada que
-   contamina la lectura literal.
+2. **Coordina (integración y revisión):** la autoría de PR fusionados suele
+   repartirse más que la de commits (H2: 6 de 18 repos cambian de categoría; en
+   13 de 18 la cuota top-1 por commits es mayor, en 2 mayor por PR y en 3
+   iguales — H2 compara **autoría de commits** con **autoría de PR
+   fusionados**, no con la cuenta que integra; la integración (`merged_by`) es
+   dimensión de H4). En H4 (12 m), de 18 repositorios incluidos, 16 tienen el
+   rol de revisión evaluable: en **10** coinciden las tres cuentas principales,
+   en **5** solo difiere una (divergencia parcial) y solo en **1**
+   (sqlalchemy) las tres son distintas. En varios repositorios la revisión
+   observable incluye automatización no declarada que contamina la lectura
+   literal.
 3. **Publica:** la publicación tiene mecanismos propios por proyecto (releases
    de GitHub materializados por bots de pipeline, publicación directa en PyPI
    sin GitHub Releases, o releases humanos): H3 documentó 4 casos con PyPI sin
@@ -119,21 +123,28 @@ Fuentes: `analysis/results/hypotheses.json` (H1), `final-audits/traceability-h1h
 ### 2.1 Resultado congelado
 
 12 m: **6 cambios de categoría de 18** repos evaluables en ambas métricas
-(24 m: 10 de 25). Contraejemplo registrado: `fastapi/fastapi` **no** cambia
+(24 m: 10 de 25). Además, en 13 de 18 la cuota top-1 por commits es mayor que
+por PR, en 2 (pydantic, pydantic-settings) mayor por PR y en 3 (uvicorn,
+typing_extensions, redis-py) coinciden exactamente —casos squash-mirror, ver
+§2.4—. Contraejemplo registrado: `fastapi/fastapi` **no** cambia
 (0,722 → 0,694).
 
 ### 2.2 Interpretación permitida
 
 La concentración medida por autoría de commits y la medida por autoría de PR
 fusionados a rama principal **no son intercambiables**: en los seis casos que
-cambian, la cuota por commits es mayor, es decir, la integración de PR observa
-una base de contribución más repartida que la autoría de commits.
+cambian, la cuota por commits es mayor, es decir, la autoría de PR fusionados
+observa una base de contribución más repartida que la autoría de commits. H2
+compara **autorías** (commits vs PR fusionados): **no** observa quién integra
+los cambios (`merged_by`), dimensión que se contrasta en H4.
 
 ### 2.3 Interpretación NO permitida
 
 Que «la integración sea más democrática» (juicio de valor), que las dos métricas
-se refuercen mutuamente donde coinciden, o que el cambio de categoría implique
-cambio en el tiempo (es una comparación entre métricas, no entre fechas).
+se refuercen mutuamente donde coinciden, que el cambio de categoría implique
+cambio en el tiempo (es una comparación entre métricas, no entre fechas), o que
+H2 diga **quién integra**: la integración se mide por la cuenta que fusiona
+(`merged_by`) y pertenece a H4.
 
 ### 2.4 Contexto cualitativo
 
@@ -220,7 +231,9 @@ Fuentes: `results/h3-test.csv`, `analysis/pypi-evidence/`, `cases/psycopg-psycop
 12 m: **6 repos con divergencia** entre la cuenta top de commits y la top de
 integración (`merged_by`) o revisión (pares únicos): fastapi, pyjwt, click,
 typing_extensions, sqlalchemy (integrador `CaselIT`; rol de revisión
-contaminado por `sqla-tester`), python-dotenv. Evaluabilidad del rol de revisión
+contaminado por `sqla-tester`), python-dotenv. En 5 de los 6 la divergencia es
+**parcial** —dos de las tres cuentas principales coinciden—; solo sqlalchemy
+tiene las tres distintas. Evaluabilidad del rol de revisión
 por **pares no-bot totales ≥ 5** (Aclaración 1). Sensibilidad 24 m (25
 incluidos, 24 con revisión evaluable): 6 divergencias y 18 coincidencias, pero
 **el conjunto no es idéntico**: `typing_extensions` deja de divergir (los tres
@@ -231,9 +244,12 @@ tops coinciden en `JelleZijlstra`) y entra `laurent-laporte-pro/deprecated`
 
 En parte del universo, **autoría, integración y revisión recaen en cuentas
 distintas**: «quién escribe», «quién fusiona» y «quién revisa» son preguntas
-con respuestas distintas. La documentación cualitativa corrobora la distinción
-de roles (psycopg nombra funciones separadas; sqlalchemy declara dos
-mantenedores con reparto observable entre autoría e integración).
+con respuestas distintas. La divergencia suele ser **parcial**: en cinco de los
+seis repos divergentes de 12 m dos de las tres cuentas principales coinciden y
+solo difiere la tercera (generalmente el rol de revisión); solo en
+`sqlalchemy/sqlalchemy` las tres son distintas. La documentación cualitativa
+corrobora la distinción de roles (psycopg nombra funciones separadas; sqlalchemy
+declara dos mantenedores con reparto observable entre autoría e integración).
 
 **Planos que H4 contrasta (obligatorio distinguir):**
 
@@ -277,14 +293,17 @@ Patrones documentados (sin recategorizar; `../analysis/audits.md`):
 
 ### 4.5 Contraejemplo / límite
 
-La divergencia **no es predominante**: en 12 m, 10 de los 16 repositorios con
-los tres roles evaluables tienen las tres cuentas principales coincidentes
-(anyio, apscheduler, idna, starlette, psycopg…), frente a 6 con divergencia
-(fastapi, pyjwt, click, typing_extensions, sqlalchemy, python-dotenv); en 24 m,
-18 de 24 coinciden y 6 divergen. La coincidencia no prueba concentración de
-autoridad formal ni mantenimiento unipersonal; la divergencia no prueba reparto
-de poder. Y donde hay materialización squash (uvicorn, typing_extensions,
-starlette, redis-py) la correspondencia commits↔PR no es evidencia doble (§2.4).
+La divergencia **no es predominante** y suele ser **parcial**: en 12 m, 10 de
+los 16 repositorios con los tres roles evaluables tienen las tres cuentas
+principales coincidentes (anyio, apscheduler, idna, starlette, psycopg…), 5
+presentan divergencia parcial —dos cuentas coinciden y solo difiere la tercera
+(fastapi, pyjwt, click, typing_extensions, python-dotenv)— y solo 1
+(sqlalchemy) tiene las tres cuentas distintas; en 24 m la estructura se
+repite: 18 coinciden, 5 parciales y 1 con tres distintas. La coincidencia no
+prueba concentración de autoridad formal ni mantenimiento unipersonal; la
+divergencia —total o parcial— no prueba reparto de poder. Y donde hay
+materialización squash (uvicorn, typing_extensions, starlette, redis-py) la
+correspondencia commits↔PR no es evidencia doble (§2.4).
 
 ### 4.6 Redacción editorial recomendada
 
@@ -293,7 +312,9 @@ starlette, redis-py) la correspondencia commits↔PR no es evidencia doble (§2.
 > actividad observada, y esa coincidencia no demuestra por sí sola
 > responsabilidad formal ni mantenimiento unipersonal. Concretamente, en 6 de
 > los 16 repositorios con los tres roles evaluables la cuenta que más escribe
-> no es la que más fusiona o revisa (12 meses). Una advertencia: parte de la
+> no es la que más fusiona o revisa (12 meses) —en cinco de esos seis solo
+> difiere una de las otras dos cuentas; solo en SQLAlchemy las tres son
+> distintas—. Una advertencia: parte de la
 > revisión observable la realizan automatizaciones no declaradas como bots —
 > sqla-tester en los proyectos SQLAlchemy —, y una cuenta como claude puede ser
 > un agente automatizado; las métricas identifican cuentas, y la lectura

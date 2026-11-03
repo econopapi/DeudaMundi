@@ -137,9 +137,11 @@ La triangulación (ver `synthesis.md`) **no recalcula** hipótesis: confronta la
 evidencia cualitativa con los resultados descriptivos congelados, con los
 valores de referencia fijados por el dictamen (H1 12m: 22 evaluables / 15
 cuotas numéricas > 50 % / FastAPI inconcluso / 14 conclusivos; H2 12m: 6
-cambios de categoría de 18 evaluables; H3: psycopg, certifi, httpx, tzlocal;
-H4 12m: 18 repos incluidos, 16 con revisión evaluable, 6 divergencias y 10
-coincidencias entre autoría, integración y revisión). Para cada hipótesis se
+cambios de categoría de 18 evaluables — autoría de commits vs autoría de PR
+fusionados, **no** integración —; H3: psycopg, certifi, httpx, tzlocal;
+H4 12m: 18 repos incluidos, 16 con revisión evaluable, 6 divergencias —5
+parciales, dos cuentas coinciden, y 1 con las tres distintas (sqlalchemy)— y
+10 coincidencias entre autoría, integración y revisión). Para cada hipótesis se
 separa: (1) resultado descriptivo congelado; (2) interpretación permitida; (3)
 interpretación **no** permitida; (4) contexto cualitativo; (5) contraejemplo o
 límite; (6) redacción editorial recomendada con fuentes. La sensibilidad de 24

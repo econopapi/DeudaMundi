@@ -55,10 +55,10 @@ autor** (solo lectura; el contenido no se versiona en este repositorio).
 |---|---|---|
 | H1 12 m | 22 evaluables, 15 cuotas numéricas > 50 %, FastAPI inconcluso (regla de bots), 14 concluyentes | ✓ `hypotheses.json` H1_summary |
 | H1 24 m | 28 / 19 / 0 / 19 | ✓ |
-| H2 12 m | 6 cambios de categoría de 18 evaluables (24 m: 10 de 25) | ✓ recontado |
+| H2 12 m | 6 cambios de categoría de 18 evaluables (24 m: 10 de 25). Constructo: **autoría de commits vs autoría de PR fusionados** (no integración: `merged_by` es de H4). Distribución de cuotas: 13/18 mayor por commits, 2/18 por PR (pydantic, pydantic-settings), 3/18 iguales (uvicorn, typing_extensions, redis-py —squash—) | ✓ recontado |
 | H3 | 4 repos: psycopg, certifi, httpx, tzlocal (PyPI + 0 releases + actividad) | ✓ `h3-test.csv` |
-| H4 12 m | 18 incluidos; 16 con revisión evaluable; 10 coincidencias de los tres líderes; 6 divergencias (fastapi, pyjwt, click, typing_extensions, sqlalchemy, python-dotenv) | ✓ recontado + identidades |
-| H4 24 m | 25 incluidos; 24 evaluables; 18 coincidencias; 6 divergencias (fastapi, pyjwt, deprecated, click, sqlalchemy, python-dotenv) | ✓ recontado + identidades |
+| H4 12 m | 18 incluidos; 16 con revisión evaluable; **estructura: 10 tres iguales / 5 divergencias parciales (dos cuentas coinciden) / 1 tres distintos (sqlalchemy)**; 6 divergencias (fastapi, pyjwt, click, typing_extensions, sqlalchemy, python-dotenv) | ✓ recontado + identidades |
+| H4 24 m | 25 incluidos; 24 evaluables; estructura: 18 / 5 parciales / 1 tres distintos (sqlalchemy); 6 divergencias (fastapi, pyjwt, deprecated, click, sqlalchemy, python-dotenv) | ✓ recontado + identidades |
 | Revisión crudas vs pares | 2,610/10,543 (24.8 %) ≠ 1,638/5,756 (28.5 %): unidades separadas | ✓ sin mezclar |
 | Bots declarados | 21.3 % commits / 16.8 % PR / 24.8 % revisiones / 28.5 % pares / 39.3 % releases | ✓ |
 | Squash-mirror | uvicorn, typing_extensions, starlette, redis-py: commits sin merges = PR fusionados (web-flow); no es validación doble (C16) | ✓ sin cambios (ya correcto) |
@@ -125,6 +125,23 @@ propuesto para cuando el autor aplique el cambio:
 | Discrepancia dictamen: «los roles rara vez coinciden» | Búsqueda literal en artículo y paquete: **ausente** | Se documenta la discrepancia; se corrige el defecto real (O-01) | este documento | Búsqueda reproducible (`grep`) | **Documentado** |
 | Cuatro casos squash (uvicorn, typing_extensions, starlette, redis-py) | `audits.md` §verificación 01-11-2026; C16 | Sin cambios necesarios (ya correctos); se refuerza la advertencia en §4.5/§4.6 y fig3 | `synthesis.md` (refuerzo) | Commits sin merges = PR fusionados (web-flow) | **Verificado, sin discrepancia** |
 | Límites del Paso 5 heredados | `dictamen.md` §Limitaciones | Se conservan íntegros; se clasifican como límites normales, no defectos | `limitations.md` §1 | Sin cambios | **Verificado** |
+
+## Corrección final puntual (segunda ronda, 2026-11-03)
+
+Tres observaciones de una auditoría externa posterior, verificadas contra los
+resultados canónicos **antes** de corregir (H1–H4, datos, ventanas, reglas de
+bots y figuras: intactos):
+
+| Observación | Verificación previa | Corrección | Archivos |
+|---|---|---|---|
+| **H4: divergencia parcial ≠ tres cuentas distintas** | `hypotheses.json` recontado por estructura: 12 m 16 evaluables = 10 tres iguales / 5 dos iguales + uno distinto / **1 tres distintos (sqlalchemy)**; 24 m 24 = 18/5/1 — coincide con el dictamen externo | Se precisa que 5 de las 6 divergencias son parciales (dos cuentas principales coinciden; generalmente difiere el rol de revisión) y que solo sqlalchemy tiene las tres distintas | `synthesis.md` §0.2/§4.2/§4.5/§4.6; `claim-ledger.csv` C39; `editorial-handoff.md` §7; `protocol.md`; `status-matrix.md`; `cases/sqlalchemy-sqlalchemy.md` |
+| **H2: autoría de PR ≠ integración de PR** | `plan.md` §H2 y `traceability-h1h4.csv`: H2 = cuota top-1 de **autoría** de commits vs **autoría** de PR fusionados; `merged_by` es de H4. Distribución 12 m: 13/18 mayor cuota por commits, 2/18 por PR (pydantic, pydantic-settings), 3/18 iguales (uvicorn, typing_extensions, redis-py —squash—) | Se elimina la atribución de integración a H2 («la integración suele repartirse más», «la autoría se concentra más que la integración», «autoría e integración coinciden») y se reserva la dimensión de integración para H4; se añade la distribución 13/2/3 | `synthesis.md` §0.2/§2.1/§2.2/§2.3; `claim-ledger.csv` C09; `editorial-handoff.md` §3.3/§7; `cases/psycopg-psycopg.md`; `cases/kjd-idna.md`; `cases/sqlalchemy-sqlalchemy.md`; `protocol.md`; `status-matrix.md` |
+| **`verify_readonly.sh`: alcance de la validación** | El script solo comprobaba existencia de IDs (integridad referencial), no cobertura semántica; además `set -e` abortaba sin diagnóstico cuando un paso fallaba | Se declara el alcance en script, README, C45 y bitácora: PASS = integridad referencial; la cobertura semántica exhaustiva es **revisión manual documentada** en `coverage-matrix.csv`. Manejo de errores sin `set -e`: cada paso imprime PASS/FAIL con diagnóstico explícito y continúa hasta el resumen | `verify_readonly.sh`; `README.md`; `claim-ledger.csv` C45; `verification.txt` |
+
+**Reservas:** ninguna de las tres observaciones altera resultados congelados ni
+contradicciones previas; las cifras H1–H4 permanecen idénticas. La única
+matización de alcance: la cobertura del registro (C45) queda expresamente
+acotada a revisión manual documentada + integridad referencial automática.
 
 ## Estado editorial derivado
 

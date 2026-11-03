@@ -123,7 +123,10 @@ con selección —no seis fichas enciclopédicas—:
   verificada: en cuatro repositorios (uvicorn, typing_extensions, starlette,
   redis-py) cada PR fusionado materializa exactamente un commit vía squash,
   por lo que ambas cuotas cuentan el mismo trabajo dos veces y su coincidencia
-  no es confirmación independiente.»* (claim C16).
+  no es confirmación independiente.»* (claim C16). Aclarar también el
+  constructo: *«H2 compara la autoría de commits con la autoría de PR
+  fusionados; no dice quién integra los cambios —eso se observa en H4, con la
+  cuenta que fusiona—.»* (C09).
 - **§051 (H4):** añadir: *«En SQLAlchemy el contraste se apoya en el rol de
   integración porque la cuenta que encabeza la revisión es la del pipeline de
   CI del proyecto (sqla-tester), no una persona revisando.»* (C17). Añadir
@@ -278,10 +281,12 @@ cuentas ≠ personas y el alcance de caso único.
   personas, ni riesgo, ni bus factor.»
 - **H2.** «Medir por commits o por PR fusionados cambia la categoría de
   concentración en 6 de los 18 repositorios comparables (12 m): la autoría de
-  commits se concentra más que la de PR. Donde la fusión es squash, ambas
-  métricas cuentan el mismo trabajo dos veces; donde la integración real pasa
-  por herramientas externas a GitHub (Gerrit), la métrica de PR observa un
-  canal secundario.»
+  commits se concentra más que la de PR (en 13 de 18 la cuota por commits es
+  mayor; en 2 mayor por PR; en 3 iguales). Esto compara **autorías**, no quién
+  integra los cambios: la integración se observa en H4. Donde la fusión es
+  squash, ambas métricas cuentan el mismo trabajo dos veces; y donde la entrada
+  de cambios pasa por herramientas externas a GitHub (Gerrit), la métrica de
+  PR observa un canal secundario.»
 - **H3.** «Cuatro repositorios publicaron en PyPI durante el año observado sin
   crear un solo GitHub Release (psycopg, certifi, httpx, tzlocal): “sin
   releases” no significa “sin mantenimiento” —tampoco lo contrario—; significa
@@ -291,7 +296,8 @@ cuentas ≠ personas y el alcance de caso único.
   de la actividad observada, y esa coincidencia no demuestra por sí sola
   responsabilidad formal ni mantenimiento unipersonal. Concretamente, en 6 de
   los 16 repositorios con los tres roles evaluables las cuentas principales
-  difieren y en 10 coinciden (12 m).»
+  difieren —en 5 de los 6 solo difiere una cuenta; solo en SQLAlchemy las tres
+  son distintas— y en 10 coinciden las tres (12 m).»
 - **Límites.** «El estudio reconstruyó una parte documentada y observable del
   mantenimiento: responsables declarados, roles públicos y actividad medida.
   No determina la relación cuenta–persona, el esfuerzo real ni la remuneración

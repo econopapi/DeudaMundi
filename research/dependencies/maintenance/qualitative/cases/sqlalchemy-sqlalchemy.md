@@ -79,7 +79,9 @@ Lecturas (C4), sin convertir rankings en responsabilidad:
   es segundo (53). 189 commits de fusión en la ventana (integración observada
   aparte, según la regla del plan).
 - **Integración:** el top de `merged_by` es `CaselIT` (base del contraste H4):
-  H4 **diverge** (cmt=`zzzeek`; int=`CaselIT`; rev=`sqla-tester`).
+  H4 **diverge** (cmt=`zzzeek`; int=`CaselIT`; rev=`sqla-tester`) — el **único**
+  caso de los seis con las tres cuentas principales distintas (los otros cinco
+  divergentes lo son solo parcialmente).
 - **Revisión:** la cuenta top es `sqla-tester`, registrada en
   `../analysis/audits.md` como «la cuenta automatizada que reporta ejecuciones
   de CI de SQLAlchemy», **no declarada bot** en los datos congelados. La cuota
@@ -93,9 +95,11 @@ Lecturas (C4), sin convertir rankings en responsabilidad:
   fusionados frente a 484 commits sin merges es coherente con el flujo Gerrit
   documentado («never merged directly»): el canal principal de entrada de
   cambios **no es el PR de GitHub**. Esto **matiza H2** para este repo: la
-  caída de 0.6342 (commits) a 0.1333 (PR) no describe «autoría de PR repartida»
-  sino un repositorio cuya integración real ocurre fuera del flujo de PR que
-  la métrica observa (inferencia E3; el hecho E1 es la política documentada).
+  caída de 0.6342 (commits) a 0.1333 (autoría de PR) refleja que la métrica de
+  PR observa un canal de entrada secundario (inferencia E3; el hecho E1 es la
+  política documentada). H2 compara **autorías** y no describe la integración:
+  la dimensión de integración (`merged_by`, top `CaselIT`) se contrasta aparte
+  en H4.
 
 ## D. Incentivos y financiación (C5)
 

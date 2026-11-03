@@ -65,8 +65,9 @@ Métricas congeladas (12 m):
 | Pares únicos revisor–PR | 73 (**0 bots**) | 73 | `dvarrazzo` 36 | 0.4932 |
 | Releases de GitHub | **0** | — | — | (H3) |
 
-- **H2 cambia de categoría** (0.658 → 0.4198): la autoría se concentra más que
-  la integración; el PR más autorizado de la ventana es de `DylanYoung` (31
+- **H2 cambia de categoría** (0.658 → 0.4198): la autoría de commits se
+  concentra más que la de PR fusionados (H2 compara autorías, no integración);
+  el PR más autorizado de la ventana es de `DylanYoung` (31
   commits, 7 PR, 11 pares de revisión) — una segunda cuenta activa en los tres
   flujos humanos (E2).
 - **H4 coincide** (cmt = int = rev = `dvarrazzo`), pero la cuota de revisión
