@@ -13,16 +13,23 @@ de las dependencias Python de DeudaMundi, y hasta dónde alcanza la evidencia?**
 
 En el nivel que las fuentes permiten —cuentas GitHub, roles documentados y
 eventos públicos— se sabe lo siguiente, para **este** universo congelado (37
-distribuciones → 35 repositorios; ventana `[2025-10-30, 2026-10-30)`):
+distribuciones → 35 repositorios; ventana `[2025-10-30, 2026-10-30)`). Dos
+alcances que no deben confundirse: los contrastes H1–H4 cubren los repositorios
+**evaluables del universo cuantitativo** (35) bajo sus reglas, mientras que la
+lectura documental profunda cubre **seis casos** seleccionados por regla mecánica
+antes de ver sus métricas (`../analysis/plan.md`, Aclaración 3):
 
 1. **Realiza (autoría):** en 14 de 22 repositorios evaluables una única cuenta
    supera el 50 % de los commits no automatizados sin fusiones (H1 12 m), pero
    el grado de concentración varía enormemente entre casos (0,225–1,000 en las
    distintas ventanas) y **no** es un proxy de riesgo.
 2. **Coordina (integración y revisión):** la integración suele repartirse más
-   que la autoría (H2: 6 de 18 repos cambian de categoría; H4: 6 repos tienen
-   cuentas top distintas por rol). En varios repositorios la revisión observable
-   incluye automatización no declarada que contamina la lectura literal.
+   que la autoría (H2: 6 de 18 repos cambian de categoría). En H4 (12 m), de 18
+   repositorios incluidos, 16 tienen el rol de revisión evaluable: en **6** las
+   cuentas principales de autoría, integración y revisión son distintas y en
+   **10** coinciden — la divergencia existe, pero no es predominante. En varios
+   repositorios la revisión observable incluye automatización no declarada que
+   contamina la lectura literal.
 3. **Publica:** la publicación tiene mecanismos propios por proyecto (releases
    de GitHub materializados por bots de pipeline, publicación directa en PyPI
    sin GitHub Releases, o releases humanos): H3 documentó 4 casos con PyPI sin
@@ -30,12 +37,20 @@ distribuciones → 35 repositorios; ventana `[2025-10-30, 2026-10-30)`):
 4. **Organiza y financia (documental, E1/E2):** los seis expedientes muestran
    modelos distintos —organización fundacional (`python/typing_extensions`),
    organización de proyecto con roles nombrados (`sqlalchemy/*`, `psycopg`),
-   cuenta individual con procesos automatizados (`kjd/idna`) y proyecto
-   transferido de una organización a una cuenta personal (`kludex/starlette`)—
-   con patrocinio declarado en cuatro de seis y ausencia de declaración en dos.
-5. **Hasta dónde alcanza:** hasta la evidencia pública fechada. El trabajo no
-   observable (C8), la identidad real detrás de las cuentas, la dedicación
-   remunerada y la continuidad futura **no** son conocibles con estos datos.
+   cuenta individual con procesos automatizados (`kjd/idna`) y proyecto cuya
+   administración **se transfirió** de una organización a una cuenta personal
+   (`kludex/starlette`, 2025-09: una transferencia histórica documentada, no un
+   procedimiento de sucesión futura)—, con canales de patrocinio declarados en
+   cuatro de las seis unidades de caso (tres estructuras distintas:
+   SQLAlchemy/Alembic comparten canales) y sin declaración localizada en dos;
+   la remuneración efectiva no está demostrada en ningún caso.
+5. **Hasta dónde alcanza:** este estudio reconstruyó **una parte documentada y
+   observable del mantenimiento** — responsables nombrados y roles públicos (A)
+   y actividad medida por evento según las definiciones del estudio (B) —; no
+   determina la relación exhaustiva cuenta–persona, el reparto real del esfuerzo,
+   la remuneración ni la coordinación privada (C), y no aborda la continuidad ni
+   la sostenibilidad futuras (D). Los cuatro grados se detallan en
+   `limitations.md` §2.5.
 
 ---
 
@@ -206,8 +221,11 @@ Fuentes: `results/h3-test.csv`, `analysis/pypi-evidence/`, `cases/psycopg-psycop
 integración (`merged_by`) o revisión (pares únicos): fastapi, pyjwt, click,
 typing_extensions, sqlalchemy (integrador `CaselIT`; rol de revisión
 contaminado por `sqla-tester`), python-dotenv. Evaluabilidad del rol de revisión
-por **pares no-bot totales ≥ 5** (Aclaración 1). Sensibilidad 24 m: los seis
-divergentes se mantienen; en typing_extensions los tops cambian de identidad.
+por **pares no-bot totales ≥ 5** (Aclaración 1). Sensibilidad 24 m (25
+incluidos, 24 con revisión evaluable): 6 divergencias y 18 coincidencias, pero
+**el conjunto no es idéntico**: `typing_extensions` deja de divergir (los tres
+tops coinciden en `JelleZijlstra`) y entra `laurent-laporte-pro/deprecated`
+(con la cuenta `claude` como top de commits).
 
 ### 4.2 Interpretación permitida
 
@@ -216,6 +234,21 @@ distintas**: «quién escribe», «quién fusiona» y «quién revisa» son preg
 con respuestas distintas. La documentación cualitativa corrobora la distinción
 de roles (psycopg nombra funciones separadas; sqlalchemy declara dos
 mantenedores con reparto observable entre autoría e integración).
+
+**Planos que H4 contrasta (obligatorio distinguir):**
+
+1. **Coincidencia entre las cuentas principales** de autoría (commits),
+   integración (`merged_by`) y revisión (pares únicos revisor–PR): es el único
+   plano que mide H4.
+2. **Distribución completa de eventos entre todas las cuentas** (no solo las
+   principales): es materia de H1/H2 y de `actor-shares.csv`, no de H4.
+3. **Responsabilidad organizacional o autoridad formal:** no la mide ningún
+   contraste; procede de la documentación (E1) y de la revisión factual.
+
+**H4 no incorpora sistemáticamente el cuarto plano, la publicación de
+versiones**, y no debe usarse para afirmar que cuatro roles coinciden o
+divergen. Donde el artículo habla de «quién publica» (psycopg, idna,
+starlette), la fuente es la documentación y `repo-metrics.csv`, no H4.
 
 ### 4.3 Interpretación NO permitida
 
@@ -244,19 +277,27 @@ Patrones documentados (sin recategorizar; `../analysis/audits.md`):
 
 ### 4.5 Contraejemplo / límite
 
-En 6 de 12 (aprox.) repos evaluables los tres roles **coinciden** en la misma
-cuenta (idna, starlette, psycopg…): la divergencia no es la norma universal, y
-la coincidencia tampoco prueba concentración de autoridad formal.
+La divergencia **no es predominante**: en 12 m, 10 de los 16 repositorios con
+los tres roles evaluables tienen las tres cuentas principales coincidentes
+(anyio, apscheduler, idna, starlette, psycopg…), frente a 6 con divergencia
+(fastapi, pyjwt, click, typing_extensions, sqlalchemy, python-dotenv); en 24 m,
+18 de 24 coinciden y 6 divergen. La coincidencia no prueba concentración de
+autoridad formal ni mantenimiento unipersonal; la divergencia no prueba reparto
+de poder. Y donde hay materialización squash (uvicorn, typing_extensions,
+starlette, redis-py) la correspondencia commits↔PR no es evidencia doble (§2.4).
 
 ### 4.6 Redacción editorial recomendada
 
-> En seis repositorios, la cuenta que más escribe no es la que más fusiona o
-> revisa. Es la evidencia más directa de que «mantener» es un conjunto de
-> tareas separadas. Una advertencia: parte de la revisión observable la
-> realizan automatizaciones no declaradas como bots — sqla-tester en los
-> proyectos SQLAlchemy —, y una cuenta como claude puede ser un agente
-> automatizado; las métricas identifican cuentas, y la lectura cualitativa es
-> quien evita convertir un ranking en un retrato.
+> En algunos repositorios, la autoría, integración y revisión tienen cuentas
+> principales distintas; en otros coinciden. La distribución depende de la
+> actividad observada, y esa coincidencia no demuestra por sí sola
+> responsabilidad formal ni mantenimiento unipersonal. Concretamente, en 6 de
+> los 16 repositorios con los tres roles evaluables la cuenta que más escribe
+> no es la que más fusiona o revisa (12 meses). Una advertencia: parte de la
+> revisión observable la realizan automatizaciones no declaradas como bots —
+> sqla-tester en los proyectos SQLAlchemy —, y una cuenta como claude puede ser
+> un agente automatizado; las métricas identifican cuentas, y la lectura
+> cualitativa es quien evita convertir un ranking en un retrato.
 
 Fuentes: `results/hypotheses.json` (H4), `final-audits/traceability-h1h4.csv`,
 `audits.md` §identidades, `cases/*` §C.
@@ -287,10 +328,15 @@ Fuentes: `results/hypotheses.json` (H4), `final-audits/traceability-h1h4.csv`,
 4. La transferencia de starlette de `encode` a la cuenta `Kludex` (2025-09),
    con redirección activa y metadatos que evolucionan entre la versión congelada
    y la actual.
-5. La existencia de patrocinio declarado en cuatro de los seis casos
-   (sqlalchemy/alembic, psycopg, starlette; organización `python` sin proyecto
-   específico en typing_extensions) y su **ausencia de declaración** en idna y
-   typing_extensions (E4/E2 de ausencia).
+5. Los canales de financiación **declarados** (E1/E2), por categoría:
+   patrocinio de organización y patrocinio individual de cuenta para el conjunto
+   SQLAlchemy/Alembic (una sola estructura de financiación que cubre **dos** de
+   las seis unidades de caso), patrocinio de proyecto y de cuenta en psycopg,
+   patrocinio de cuenta en starlette, declaración de afiliación institucional
+   (sin financiación atribuida) en idna, **ausencia de declaración localizada**
+   en typing_extensions. La fórmula «4 de 6» cuenta **unidades de caso** (tres
+   estructuras distintas), no organizaciones independientes, y no mide
+   prevalencia: la remuneración efectiva no está demostrada en ningún caso.
 
 ### 6.2 Cualificados por la lectura documental (E2 + E1 que matiza)
 
@@ -319,9 +365,12 @@ Fuentes: `results/hypotheses.json` (H4), `final-audits/traceability-h1h4.csv`,
 
 ### 6.4 Preguntas aún abiertas
 
-1. La identidad y continuidad reales detrás de las cuentas (¿quiénes son los
-   «maintainers» formales donde no hay documento?) — requiere revisión factual
-   con los proyectos.
+1. La relación exhaustiva cuenta–persona y la continuidad futura: el estudio
+   identificó responsables declarados y roles públicos donde existen (plano A)
+   y midió actividad observable (plano B), pero no resuelve identidades
+   personales ni predice continuidad (planos C/D). La revisión factual con los
+   proyectos puede refinar la redacción; **no** es condición para publicar
+   hechos públicos adecuadamente sustentados.
 2. El trabajo no observable (soporte, seguridad privada, coordinación): existe
    documentado como categoría (psycopg lo nombra en su rol de operaciones), no
    medido.
@@ -346,4 +395,4 @@ cuentas ≠ personas; solo financiación declarada; trabajo no observable).
 | `python/typing_extensions` | La dependencia más transversal y la menos concentrada; ~6 cuentas con roles de paquete; proceso de release formal con PSF de fondo; sin financiación del proyecto declarada |
 | `kjd/idna` | Máxima convergencia de roles en la cuenta `kjd` (H4 coincide, H1 0,916) con autodescripción como «team of volunteers»; publicación automatizada y firmada; sin financiación declarada |
 | `psycopg/psycopg` | Caso H3 por excelencia (PyPI sin GitHub Releases, proceso documentado); dos cargos nombrados (técnico y operaciones); patrocinio corporativo declarado; propiedad de paquete ≠ cuenta top de eventos |
-| `kludex/starlette` | Concentración alta en todos los roles + transferencia documentada de organización a cuenta personal (2025-09) y debate público sobre el modelo de propiedad: el caso más sensible para revisión factual |
+| `kludex/starlette` | Concentración alta en los tres roles de H4 + transferencia **histórica** de administración de organización a cuenta personal (2025-09; no es un procedimiento de sucesión futura) y debate público sobre el modelo de propiedad: el caso más sensible para revisión factual |

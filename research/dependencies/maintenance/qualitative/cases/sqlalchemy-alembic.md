@@ -42,8 +42,12 @@ repositorios atribuidos distintos (`sqlalchemy/mako`, `pallets/markupsafe`).
   metadatos PyPI congelados registran Owners `CaselIT` y `zzzeek` para la
   organización `sqlalchemy` (E2 congelado), es decir, la propiedad del paquete
   es organizativa aunque la autoría declarada sea singular.
-- **Sucesión:** sin `GOVERNANCE.md` ni procedimiento localizable (E2 de
-  ausencia; E4).
+- **Sucesión y continuidad (clasificación de la auditoría 2026-11-03):**
+  **roles y responsabilidades formales documentados** (misma política
+  organizacional que `sqlalchemy/sqlalchemy`; revisión Gerrit; autoría
+  declarada) — categoría 2 —; **procedimiento de relevo o sucesión futura no
+  localizado** (categorías 4/5). Sin `GOVERNANCE.md` (E2 de ausencia; E4),
+  sin que ello implique ausencia de gobernanza.
 
 ## C. Roles observables (C1/C4)
 
@@ -88,7 +92,10 @@ Métricas congeladas (12 m; `repo-metrics.csv`, `actor-shares.csv`):
 - PR: la ventana registra solo 5 meses con algún PR (`pr_months_all=5`,
   `pr_months_nobot=3`) frente a 12 meses con commits: la actividad se observa
   casi exclusivamente por commits directos — consistente con el flujo Gerrit.
-- Sin transferencias de responsabilidad documentadas ni sucesión escrita (E4).
+- Sin transferencias de responsabilidad documentadas ni procedimiento de
+  relevo o sucesión futura localizado (E4, búsqueda registrada); sí procesos
+  formales documentados de revisión y publicación (categoría 2), que la
+  ausencia de `GOVERNANCE.md` no contradice.
 
 ## F. Contraste con el análisis cuantitativo
 

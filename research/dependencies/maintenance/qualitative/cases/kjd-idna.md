@@ -44,7 +44,13 @@ por separado): `anyio` e `httpx` lo requieren explícitamente.
   «this project is maintained by a **team of volunteers** who work on a best
   effort basis» (E1). **Tensión documental registrada sin resolver:** autors
   singular vs. «team of volunteers»; ambos hechos son E1.
-- **Sucesión:** no documentada (E4).
+- **Sucesión y continuidad (clasificación de la auditoría 2026-11-03):**
+  cuenta individual propietaria; **mecanismo formal documentado** en el
+  workflow de publicación (validación tag↔versión, Trusted Publishing, firma
+  Sigstore, exigencia de entrada en `HISTORY.md`) — categoría 2 parcial —;
+  **relevo o sucesión futura no localizada** (categorías 4/5). La ausencia de
+  `GOVERNANCE.md`/`CONTRIBUTING.md` **no** equivale a ausencia de procesos: el
+  workflow de release es un procedimiento escrito ejecutable.
 
 ## C. Roles observables (C1/C4)
 
@@ -95,7 +101,8 @@ Métricas congeladas (12 m):
   merges de PR externos (#278 del fork `Pitchfork-and-Torch` el 2026-10-31;
   #283/#284 de `zydo` el 2026-10-22). Se registra como contexto actual y
   **no** se mezcla con los eventos congelados.
-- Sin sucesión documentada (E4).
+- Sin relevo o sucesión futura documentada (E4, búsqueda registrada); sí
+  proceso de publicación formalizado (categoría 2 parcial).
 
 ## F. Contraste con el análisis cuantitativo
 

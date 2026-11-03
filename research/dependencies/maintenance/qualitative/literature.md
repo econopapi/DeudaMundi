@@ -10,16 +10,30 @@ como inferencia (E3).
 **Convención de recuperación:** E1a = texto completo recuperado; E1b =
 resumen/página oficial recuperada, texto completo no recuperado; E1c = extractos
 localizados por búsqueda (usar con cautela antes de citar literalmente);
-E4 = no recuperable.
+E4 = no recuperable. **Auditoría de citas (2026-11-03):** cada obra incluye su
+nivel de recuperación **real** y el estado de sus citas; solo se mantienen entre
+comillas las verificadas contra el material efectivamente recuperado.
+
+| Obra | Recuperación real | Citas (estado 2026-11-03) |
+|---|---|---|
+| Census III | E1b (página oficial + nota de prensa; PDF del informe localizado en la auditoría) | Literal verificada |
+| Eghbal, *Working in Public* | E1b (página oficial de la editorial; texto completo de pago, no recuperado) | 3 verificadas / 2 convertidas en paráfrasis |
+| Osborne, scikit-learn | **E1a** (arXiv:2404.06484v5, texto completo) | Todas verificadas literalmente |
+| Benkler | E1b parcial (página del YLJ sin abstract legible en la relectura) | Convertidas en paráfrasis |
+| Lerner & Tirole | E1b (abstracts) + E1c | Convertidas en paráfrasis |
+| Hoffmann, Nagle & Zhou | E1b (abstract HBS recuperado) | Literales verificadas contra el abstract |
 
 ## 1. Census III of Free and Open Source Software (Nagle, Powell, Zitomer & Wheeler, LF/OpenSSF/LISH, 2024)
 
 - **Referencia:** *Census III of Free and Open Source Software – Application
-  Libraries*, The Linux Foundation & OpenSSF con LISH (Harvard), diciembre 2024,
-  DOI `10.70828/JRPB8299`. Página oficial:
-  <https://www.linuxfoundation.org/research/census-iii> (E1b; PDF completo no
-  recuperado, ≈183 págs.; hallazgos contrastados contra la nota de prensa
-  oficial de OpenSSF, 04-12-2024).
+  Libraries*, The Linux Foundation & OpenSSF con LISH (Harvard), diciembre 2024
+  (Nagle, Powell, Zitomer & Wheeler), DOI `10.70828/JRPB8299`. Página oficial:
+  <https://www.linuxfoundation.org/research/census-iii>. Nota de prensa oficial
+  (04-12-2024), URL verificada el 2026-11-03:
+  <https://openssf.org/press-release/2024/12/04/open-source-usage-trends-and-security-challenges-revealed-in-new-study/>.
+  **PDF del informe localizado el 2026-11-03** (`linuxfoundation.org/hubfs/LF
+  Research/lfr_censusiii_120424a.pdf`): recuperación **E1b → verificación
+  literal** de la cita contra el PDF y la nota de prensa.
 - **Pregunta / marco:** qué paquetes FOSS son más usados como bibliotecas de
   aplicación y qué patrones de uso y seguridad presentan; el FOSS como
   infraestructura cuya «salud» exige identificar los componentes de los que
@@ -30,7 +44,8 @@ E4 = no recuperable.
   Sonatype). Unidad: paquete FOSS en producción empresarial (datos de 2023).
 - **Hallazgos pertinentes:** (a) «Much of the most widely used FOSS is
   developed by only a handful of contributors» (hallazgo clave de la nota de
-  prensa); (b) creciente prevalencia de paquetes Python; (c) persistencia de
+  prensa y del propio informe; **cita verificada literalmente el 2026-11-03**);
+  (b) creciente prevalencia de paquetes Python; (c) persistencia de
   software legado; (d) la dependencia de cuentas individuales conecta el
   mantenimiento con decisiones de seguridad de terceros.
 - **Limitaciones para DeudaMundi:** es un censo de **uso** (demanda), no de
@@ -47,22 +62,26 @@ E4 = no recuperable.
 
 - **Referencia:** Eghbal, Nadia (2020). *Working in Public: The Making and
   Maintenance of Open Source Software*. Stripe Press, 256 págs.
-  <https://press.stripe.com/working-in-public> (E1b; texto completo no
-  recuperado, monografía de pago; la autora figura también como Nadia
-  Asparouhova).
+  <https://press.stripe.com/working-in-public> (E1b: **descripción oficial de
+  la editorial recuperada**; texto completo de pago **no recuperado**; la autora
+  figura también como Nadia Asparouhova).
 - **Pregunta / marco:** cómo evolucionó el desarrollo OSS hacia «operadores
-  individuales» cuyo código consumen millones; el libro sitúa explícitamente
-  «the maintenance costs of production that software incurs for its developers»
-  y «the costs of production that endure through an application's lifetime».
+  individuales» cuyo código consumen millones; la descripción de la editorial
+  sitúa «the maintenance costs of production that software incurs for its
+  developers» (cita **verificada** contra la página oficial, 2026-11-03).
 - **Método y unidad:** cualitativo-divulgativo basado en «hundreds of developer
-  interviews» y análisis de plataformas; unidad: proyectos de GitHub y sus
-  roles (mantenedores, contribuidores, usuarios).
+  interviews» (cita verificada) y análisis de plataformas; unidad: proyectos de
+  GitHub y sus roles (mantenedores, contribuidores, usuarios).
 - **Hallazgos pertinentes:** (a) separación entre **costo marginal de
   reproducción** (copiar el código) y **costos persistentes de mantenimiento**
-  que duran la vida de la aplicación; (b) «Open source communities are
-  increasingly centered around the work of individual developers rather than
-  teams», con «often unseen solo operators who write and publish the code that
-  millions of users rely on every day».
+  — paráfrasis del marco del libro (el texto que la formula con precisión no se
+  recuperó: sin cita literal) —; (b) el desarrollo OSS contemporáneo se centra
+  cada vez más en el trabajo de desarrolladores individuales, con «the often
+  unseen solo operators who write and publish the code that millions of users
+  rely on every day» (cita **verificada** contra la página oficial). La
+  formulación «las comunidades OSS se organizan cada vez más en torno a
+  individuos que a equipos» se presenta como **paráfrasis**, no como cita: no
+  se verificó contra material recuperado.
 - **Limitaciones:** ensayo divulgativo sin muestreo ni datos replicables;
   universo GitHub/anglofono anterior a 2020; sus tipologías de proyectos son
   heurísticas, no categorías validadas. **No** permite concluir nada sobre los
@@ -77,7 +96,9 @@ E4 = no recuperable.
 - **Referencia principal (texto completo recuperado, E1a):** Osborne, Cailean
   (2024). *Public-private funding models in open source software development: A
   case study on scikit-learn*. arXiv:2404.06484v5.
-  <https://arxiv.org/html/2404.06484v5>.
+  <https://arxiv.org/html/2404.06484v5>. **Re-verificado el 2026-11-03 contra el
+  texto completo: todas las citas literales de esta ficha coinciden con el
+  original** (incluida la grafía «benevolance»).
 - **Pregunta / marco:** cómo evalúan los desarrolladores OSS el financiamiento
   gubernamental frente a otras fuentes; sostenibilidad, free-riding y
   gobernanza que protege la autonomía de la comunidad.
@@ -114,19 +135,21 @@ financiación —; *Why Companies "Democratise" Artificial Intelligence*
 
 - **Referencia:** *The Yale Law Journal*, vol. 112 (2002), p. 369 ss.
   <https://yalelawjournal.org/article/coases-penguin-or-linux-and-the-nature-of-the-firm>
-  (E1b: abstract íntegro recuperado; PDF completo no recuperado).
+  (E1b: página recuperada; el abstract **no se leyó íntegro**: la relectura del
+  2026-11-03 no devolvió el texto del abstract ni del PDF. Los fragmentos que
+  esta ficha citaba se presentan ahora como **paráfrasis**, sin cita literal).
 - **Pregunta / marco:** extiende la teoría de la firma de Coase para describir
   un tercer modo de producción —*commons-based peer production*— distinto de la
-  firma y del mercado: miles de personas colaboran «where no one "owns" the
-  software in the traditional sense».
+  firma y del mercado, en el que miles de personas colaboran sobre un recurso
+  cuyo control no responde a la propiedad tradicional (paráfrasis).
 - **Método y unidad:** teórico-conceptual con casos ilustrativos; unidad: modos
   de organización de la producción de información.
-- **Argumentos pertinentes:** (a) la coordinación sin propiedad ni precios
-  reduce los costos de transacción de selección de tareas y colaboradores;
-  (b) ventaja en «information opportunity cost» al asignar mejor el capital
-  humano; (c) estos modelos usan «a variety of technological and social
-  strategies to overcome the collective action problems usually solved … by
-  property and contract».
+- **Argumentos pertinentes (paráfrasis del analista sobre el marco conocido de
+  la obra, no cita):** (a) la coordinación sin propiedad ni precios reduce los
+  costos de transacción de selección de tareas y colaboradores; (b) ventaja en
+  la asignación del capital humano disponible («oportunidad de información»);
+  (c) estos modelos sostienen la acción colectiva con estrategias tecnológicas
+  y sociales allí donde la propiedad y el contrato no están disponibles.
 - **Limitaciones:** escrito antes de GitHub y de los gestores de paquetes
   modernos; es teoría, no evidencia; «bien compartido / acción colectiva»
   aplicado al mantenimiento de dependencias es **inferencia E3**, no hallazgo
@@ -150,13 +173,15 @@ financiación —; *Why Companies "Democratise" Artificial Intelligence*
   profesional, reputación) y de organización industrial (licencias, estrategia).
 - **Método y unidad:** revisión teórica con modelos formales y análisis
   empírico de licencias; unidad: contribuidores, proyectos y empresas.
-- **Argumentos pertinentes:** (a) el contribuidor afronta «an opportunity cost
-  of time» frente a beneficios no pecuniarios (señalización, reconocimiento);
-  (b) para empresas, OSS reduce riesgos de *hold-up* («no future price increase
-  after adopting a technology») y *patent thickets*; (c) los marcos explican
+- **Argumentos pertinentes (paráfrasis; sin cita literal: los fragmentos E1c no
+  se re-verificaron el 2026-11-03 y quedan descartados como citas):** (a) el
+  contribuidor afronta un costo de oportunidad de su tiempo frente a beneficios
+  no pecuniarios (señalización profesional, reconocimiento); (b) para empresas,
+  OSS reduce riesgos de *hold-up* (no hay subidas de precio futuras tras
+  adoptar la tecnología) y de *patent thickets*; (c) los marcos explican
   estructura y roles del proyecto, no el trabajo continuo de mantenimiento;
-  (d) los propios autores advierten que el futuro del proceso «remain[s]
-  somewhat difficult to predict with 'off-the-shelf' economic models».
+  (d) los propios autores advierten que el futuro del proceso resulta difícil
+  de predecir con modelos económicos estándar.
 - **Limitaciones:** principios de los 2000 (kernel, Apache, licencias); no
   aborda gestores de paquetes ni carga post-publicación; los incentivos
   tipificados **no** pueden atribuirse a los mantenedores concretos sin
@@ -178,7 +203,8 @@ financiación —; *Why Companies "Democratise" Artificial Intelligence*
 - **Método y unidad:** estimación de valoración con dos fuentes globales
   (Census II y BuiltWith); unidad: paquetes OSS ampliamente usados y firmas
   usuarias.
-- **Hallazgos pertinentes (reproducidos literalmente del abstract):** (a) «96%
+- **Hallazgos pertinentes (reproducidos literalmente del abstract, verificados
+  el 2026-11-03 contra la página del HBS WP 24-038):** (a) «96%
   of the demand-side value is created by only 5% of OSS developers»; (b) «The
   top six programming languages in our sample comprise 84% of the demand-side
   value of OSS»; (c) el documento reporta valores agregados de oferta (4,15 mil

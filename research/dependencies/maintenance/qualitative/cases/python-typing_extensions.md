@@ -51,11 +51,17 @@ instalada, un solo repositorio.
 - **Seguridad (E1):** `SECURITY.md` en voz institucional («we take security
   seriously»; «Only the latest release is supported»; «We commit to respond to
   any issue within 14 days»).
-- **Sucesión:** sin `GOVERNANCE.md` ni `CODEOWNERS` (E2 de ausencia; E4 como
-  procedimiento). Sí hay **transferencia documentada de repositorio**: el
-  README de `python/typing` declara que el paquete «now lives in the
-  typing_extensions repo. It used to be in the `typing_extensions` directory»
-  (E1) — continuidad institucional observable dentro de la organización.
+- **Sucesión y continuidad (clasificación de la auditoría 2026-11-03):**
+  **roles y responsabilidades formales documentados** —seis cuentas con roles
+  Owner/Maintainer en los metadatos PyPI congelados, proceso de release con
+  aprobación manual, acuerdo de contribución PSF (categoría 2)—;
+  **procedimiento de relevo o sucesión futura no localizado** (categorías 4/5:
+  sin `GOVERNANCE.md` ni `CODEOWNERS`, E2 de ausencia; E4 como procedimiento).
+  La **migración documentada de repositorio** —el README de `python/typing`
+  declara que el paquete «now lives in the typing_extensions repo. It used to
+  be in the `typing_extensions` directory» (E1)— es un cambio de repositorio
+  **dentro de la misma organización**, no una transferencia de administración
+  ni un procedimiento de sucesión; registra continuidad institucional.
 
 ## C. Roles observables (C1/C4)
 
@@ -107,7 +113,9 @@ Métricas congeladas (12 m):
   manual del último paso: procedimiento de continuidad **documentado** (E1).
 - Múltiples cuentas publican releases (`AlexWaygood` y `JelleZijlstra`, E1/E2):
   la función de publicación no depende de una única cuenta en lo observable.
-- Sin mecanismo de sucesión formal escrito (E4).
+- Sin mecanismo de relevo o sucesión futura escrito localizado (E4, búsqueda
+  registrada); sí proceso de publicación documentado y roles de paquete
+  repartidos entre seis cuentas (categoría 2).
 
 ## F. Contraste con el análisis cuantitativo
 

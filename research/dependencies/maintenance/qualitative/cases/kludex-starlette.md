@@ -60,7 +60,8 @@ en ambos instantes, sin mezclarse.
   `maintainer: Marcelo Trylesinski`; `CITATION.cff` nombra como autores a
   Marcelo Trylesinski y Tom Christie; la documentación usa el plural
   «Starlette maintainers» sin lista de nombres. Sin `GOVERNANCE.md` ni
-  `SECURITY.md` localizados (E2 de ausencia; E4 para sucesión formal).
+  `SECURITY.md` localizados (E2 de ausencia; E4 para sucesión formal), lo que
+  no impide identificar los roles formales nombrados (autor y mantenedor).
 
 ## C. Roles observables (C1/C4)
 
@@ -74,8 +75,10 @@ Métricas congeladas (12 m):
 | Releases de GitHub | 23 | 23 | `Kludex` 23 | 1.0 |
 
 - **H2 no cambia** (0.6802 → 0.6773) y **H4 coincide** (`Kludex` en los tres
-  roles): la cuenta principal concentra autoría, integración, revisión y
-  publicación en la ventana.
+  planos que contrasta H4: autoría, integración y revisión). Separadamente, y
+  **fuera de H4**, la publicación de la ventana también está a su nombre: la
+  cuenta principal encabeza los cuatro planos observables, pero H4 solo atestigua
+  los tres primeros.
 - **Materialización squash (dictamen §4):** este repo es uno de los cuatro
   casos en los que commits sin merges **igualan exactamente** a PR fusionados a
   rama principal (262/260 con 2 diferencias explicadas) y el 100 % se
@@ -110,10 +113,13 @@ Métricas congeladas (12 m):
 
 ## E. Continuidad y límites (C6)
 
-- **Transferencia de responsabilidad documentada (C6):** del proyecto bajo la
-  organización `encode` a la cuenta personal `Kludex` (2025-09), con acuerdo
-  público entre las partes (Discussion #2997). Es el caso de los seis con un
-  **evento de sucesión/transferencia explícito y fechado**.
+- **Transferencia de administración documentada (C6), categoría 1:** del
+  proyecto bajo la organización `encode` a la cuenta personal `Kludex`
+  (2025-09), con acuerdo público entre las partes (Discussion #2997). Es el
+  caso de los seis con un **evento de transferencia histórica explícito y
+  fechado**; **no** constituye un procedimiento de sucesión o relevo futuro
+  (la transferencia ocurrió; nada documenta cómo se relevará la
+  administración en el futuro).
 - Continuidad observable en la ventana: releases cada 5,97 días de media
   (descriptivo), 12/12 meses con actividad en todos los flujos, último evento
   in-window 2026-10-29.
@@ -127,7 +133,11 @@ Métricas congeladas (12 m):
   way to see a list of members». **La ausencia de respuesta no se interpreta
   como confirmación**; estas afirmaciones pasan a revisión factual
   (`../factual-review.md`).
-- Sin `GOVERNANCE.md` ni mecanismo de sucesión formal (E4).
+- Sin `GOVERNANCE.md` ni procedimiento de relevo o sucesión futura localizado
+  (E4, búsqueda registrada; categorías 4/5). Hay **roles formales nombrados**
+  (autor y mantenedor en PyPI/CITATION.cff) y una **transferencia histórica**
+  documentada (punto anterior): la ausencia de `GOVERNANCE.md` no equivale a
+  ausencia de gobernanza ni de autoridad identificable.
 
 ## F. Contraste con el análisis cuantitativo
 

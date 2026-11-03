@@ -138,12 +138,16 @@ evidencia cualitativa con los resultados descriptivos congelados, con los
 valores de referencia fijados por el dictamen (H1 12m: 22 evaluables / 15
 cuotas numéricas > 50 % / FastAPI inconcluso / 14 conclusivos; H2 12m: 6
 cambios de categoría de 18 evaluables; H3: psycopg, certifi, httpx, tzlocal;
-H4 12m: 6 repos con divergencia por rol). Para cada hipótesis se separa: (1)
-resultado descriptivo congelado; (2) interpretación permitida; (3)
+H4 12m: 18 repos incluidos, 16 con revisión evaluable, 6 divergencias y 10
+coincidencias entre autoría, integración y revisión). Para cada hipótesis se
+separa: (1) resultado descriptivo congelado; (2) interpretación permitida; (3)
 interpretación **no** permitida; (4) contexto cualitativo; (5) contraejemplo o
 límite; (6) redacción editorial recomendada con fuentes. La sensibilidad de 24
 meses y la distinción revisiones crudas / pares únicos revisor–PR se
-conservan.
+conservan. **Planos:** H4 contrasta autoría, integración y revisión; la
+publicación de versiones es un cuarto plano que H4 **no** incorpora y la
+responsabilidad organizacional no la mide ningún contraste (ver `synthesis.md`
+§4.2 y `limitations.md` §2.5 para los grados de conocimiento A–D).
 
 ## Destino de cada interpretación
 
@@ -151,7 +155,9 @@ Toda afirmación destinada al artículo pasa antes por `claim-ledger.csv`
 (identificador, texto propuesto, nivel de evidencia, fuente exacta, artefacto
 cuantitativo relacionado, estado de verificación y destino editorial). Ninguna
 cifra, afirmación sobre organización o conclusión destacada se publica sin
-entrada verificable en el registro.
+entrada verificable en el registro. La cobertura se comprueba por sección del
+artículo con `coverage-matrix.csv` (matriz artículo ↔ registro), no por la
+mera existencia del registro.
 
 ## Relación con los demás artefactos del paso
 

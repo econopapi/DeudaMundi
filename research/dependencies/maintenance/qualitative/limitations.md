@@ -64,9 +64,56 @@ límites del Paso 5 siguen vigentes **íntegros**.
    medibles con estas fuentes. Toda conclusión de «quién mantiene» queda
    acotada al trabajo visible en las fuentes públicas consultadas.
 7. **Sensibilidad de afirmaciones sobre actores**: las lecturas sobre
-   gobernanza o incentivos de proyectos concretos están sometidas a revisión
-   factual (`factual-review.md`) antes de publicarse; la ausencia de respuesta
-   de un mantenedor no se interpretará como confirmación.
+   gobernanza o incentivos de proyectos concretos se **ofrecen** a revisión
+   factual (`factual-review.md`) como oportunidad de corrección. La revisión
+   externa es recomendada, **no condición universal de publicación** de hechos
+   públicos adecuadamente sustentados; la ausencia de respuesta de un
+   mantenedor no se interpretará como confirmación.
+
+## 2.5 Grados de conocimiento (A–D) y distinciones de evidencia
+
+La investigación **sí identifica** responsables declarados y mecanismos
+organizacionales en varios proyectos; lo que no hace es generalizar esa
+identificación ni resolver lo que sus fuentes no pueden observar. Cuatro
+grados que no deben mezclarse («Permanece desconocido» era una fórmula que los
+aplastaba en uno solo):
+
+**A. Identificación documental conseguida.** Responsables nombrados,
+mantenedores declarados, cuentas con permisos de publicación, estructuras de
+organización, políticas de revisión, integración y lanzamiento (E1/E2; casos
+§B). Existe en los seis expedientes en distinto grado: es incorrecto sugerir
+que se desconoce absolutamente quién mantiene el software.
+
+**B. Actividad observable medida.** Autoría de commits, integración de PR,
+revisión y publicación según las definiciones y ventanas del estudio (E2;
+H1–H4, `repo-metrics.csv`). Es actividad por cuenta en una ventana: no son
+personas ni dedicación.
+
+**C. Información no determinada.** Relación exhaustiva cuenta–persona,
+distribución real del esfuerzo, remuneración, dedicación, coordinación
+privada, horas trabajadas y otras tareas invisibles (C8). Existe como
+categoría; estas fuentes no la determinan.
+
+**D. Preguntas externas al alcance.** Sostenibilidad futura, probabilidad de
+abandono, capacidad de sucesión, riesgo operativo y valoración económica del
+mantenimiento. Ninguna se estima ni se infiere.
+
+Además, tres distinciones que el texto debe conservar siempre:
+
+- **Ausencia de evidencia:** la información no se localizó en las fuentes
+  consultadas (E4, con la búsqueda registrada). No dice nada sobre la realidad.
+- **Evidencia de ausencia:** las fuentes demuestran que algo no existe en el
+  ámbito observado (p. ej. cero objetos GitHub Release en psycopg, verificado
+  por API y explicado por su proceso documentado).
+- **Fenómenos que la metodología no puede observar** (C8/D): no son
+  «desconocidos» remediables con más documentación, sino planos fuera del
+  diseño del estudio (horas, motivaciones, coordinación privada, continuidad
+  futura).
+
+En consecuencia, el estudio reconstruyó **una parte documentada y observable
+del mantenimiento** de estas dependencias: no fracasó en la identificación de
+quienes participan, y sus límites son los de un diseño descriptivo, no
+defectos de ejecución.
 
 ## 3. Límites de inferencia (qué no hace este paso)
 
@@ -90,8 +137,11 @@ límites del Paso 5 siguen vigentes **íntegros**.
   auditada); este paso no re-ejecuta el análisis para no tocar derivados
   congelados y solo verifica hashes y consistencia en solo lectura.
 - Hallazgo registrado H-01 (`status-matrix.md`): el manifiesto
-  `maintenance/SHA256SUMS` tiene una entrada desactualizada para `README.md`
-  (documentación, no datos); reproduce 453/454, no 454/454.
+  `maintenance/SHA256SUMS` tenía una entrada desactualizada para `README.md`
+  (documentación, no datos); reproducía 453/454, no 454/454. **Corregido el
+  2026-11-03** bajo la excepción autorizada del encargo (solo esa entrada), con
+  hashes anterior/nuevo y motivo documentados en `corrective-audit.md`; la
+  anomalía queda registrada, no oculta.
 - Las fuentes web de este paso se recuperaron con las herramientas disponibles
   (fetch público); los endpoints que exigen autenticación o que no existen
   quedan como E4 con la URL intentada.

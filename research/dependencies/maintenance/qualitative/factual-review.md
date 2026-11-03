@@ -12,7 +12,17 @@ se interpretará como confirmación** — sin respuesta, la afirmación se publi
 en su forma atenuada ya propuesta, o no se publicará; (c) se distingue entre
 afirmaciones publicables con evidencia suficiente, afirmaciones que merecen una
 oportunidad de corrección factual y afirmaciones que deben atenuarse o
-retirarse.
+retirarse; (d) la revisión externa es **recomendada** —cortesía y oportunidad
+de corrección—, **no condición universal de publicación**: las afirmaciones
+clase A (hechos públicos con fuente citable) se publican con su evidencia sin
+depender de respuestas de terceros.
+
+**Matiz de sucesión (auditoría 2026-11-03):** donde los mensajes preguntan por
+«governance or succession», la distinción operativa es entre **transferencia
+histórica documentada** (starlette, 2025-09), **roles/procesos formales
+documentados** (los seis, en distinto grado) y **procedimiento de relevo
+futuro** (no localizado en ninguno; `claim-ledger.csv` C49). La ausencia de
+`GOVERNANCE.md` no se presenta como ausencia de gobernanza.
 
 ## Clasificación general
 

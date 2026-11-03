@@ -39,7 +39,7 @@ están en `../literature.md` §referencias.
 | E1 (documental directa) | ~70 fragmentos | CONTRIBUTING/SECURITY/FUNDING/docs de release de los seis proyectos; anuncio de transferencia de starlette; roles nombrados de psycopg; declaración «team of volunteers» de idna |
 | E2 (observación técnica) | ~50 registros | APIs de GitHub (releases, miembros, contenidos, redirects); metadatos PyPI congelados; métricas congeladas |
 | E3 (inferencia contextual) | ~15, siempre rotuladas | lectura del canal Gerrit como explicación de H2 en sqlalchemy; vinculación de fondos PSF↔typing_extensions (rechazada como hecho); métricas de terceros (no adoptadas) |
-| E4 (desconocido) | ~10, con búsqueda registrada | GOVERNANCE/sucesión en 5 de 6 proyectos; financiación de idna; página Tidelift (no recuperada); protocolo Notion (requiere autenticación) |
+| E4 (desconocido) | ~10, con búsqueda registrada | Procedimiento de relevo/sucesión **futura** no localizado en 6 de 6 casos (una transferencia administrativa **histórica** documentada en starlette; ver C49); `GOVERNANCE.md` no localizado en 6 de 6 (sin que ello implique ausencia de gobernanza); financiación específica no declarada de idna; página Tidelift (no recuperada); protocolo Notion (requiere autenticación) |
 
 ## 4. Fuentes externas de terceros (no adoptadas como evidencia del caso)
 
@@ -62,12 +62,18 @@ auditadas por este estudio.
 - **Procedencia:** copia de trabajo extraída a esquema numerado (§ bloques) en
   `../editorial-handoff.md`; el contenido crudo **no** se versiona en este
   repositorio para no duplicar el post protegido.
+- **Segunda lectura (2026-11-03, auditoría correctiva):** el texto íntegro se
+  recuperó de nuevo vía la misma API, con la contraseña del post facilitada por
+  el autor, **solo lectura**, para ejecutar la matriz de cobertura
+  (`../coverage-matrix.csv`, Fase 6/Opción A). El carácter renderizado (43.458
+  caracteres) coincide con el registro del 02-11-2026: mismo estado del post.
+  El contenido sigue sin versionarse aquí.
 
 ## 6. Búsquedas fallidas registradas (E4 reproducible)
 
 | Búsqueda | Resultado |
 |---|---|
-| `GOVERNANCE.md` / sucesión en sqlalchemy, alembic, typing_extensions, idna, starlette, psycopg | No localizados (listados de API de contenidos) |
+| `GOVERNANCE.md` / procedimiento de relevo o sucesión futura en sqlalchemy, alembic, typing_extensions, idna, starlette, psycopg | No localizados (listados de API de contenidos). **No** equivale a ausencia de gobernanza: roles, procesos y una transferencia histórica sí están documentados (C49) |
 | `CONTRIBUTING.md` en idna y psycopg | No existen en la raíz |
 | `.github/FUNDING.yml` en typing_extensions e idna | HTTP 404 (ausencia corroborada) |
 | Programa GitHub Sponsors activo de `kjd` | Sin tiers recuperables |

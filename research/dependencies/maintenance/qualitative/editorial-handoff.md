@@ -32,7 +32,7 @@ con sus bloqueos.
 
 | Sección (bloques) | Contenido | Claims | Figura |
 |---|---|---|---|
-| Introducción §002–§006 | Pregunta y escalas | C01–C04 | — |
+| Introducción §002–§006 | Pregunta y escalas | C01–C04, C50 | — |
 | Pasos 1–4 §009–§027 | Método verificable | C01–C05 | figuras fijas existentes (grafo) |
 | «Qué podemos afirmar ya» §029–§033 | Universo y totales | C06, C02 | **fig1, fig2** |
 | Roles §036–§039 | Flujos y bots | C14, C15 | **fig5** |
@@ -40,7 +40,7 @@ con sus bloqueos.
 | Sensibilidad §046–§047 | 24 meses | C08 | **fig4** |
 | H3 §049 | PyPI sin releases | C11, C12, C30 | — |
 | H4 §051 | Divergencia de roles | C13, C17, C18, C39 | — |
-| Gobernanza §053 | **Cualitativa (ver §3.2)** | C19–C38 | — |
+| Gobernanza §053 | **Cualitativa (ver §3.2)** | C19–C38, C48, C49 | — |
 | Cohorte §055–§056 | Pregunta diferida | C43 | — |
 | Límites §058–§059 | Qué no mide | C40 + C8 | — |
 | Economía §060–§061 | Puente conceptual | C41, C42 | — |
@@ -89,17 +89,25 @@ con selección —no seis fichas enciclopédicas—:
 > cuyas funciones incluyen triage y coordinación: trabajo que ningún commit
 > registra), una cuenta individual con procesos automatizados (idna) y un
 > proyecto cuya administración se transfirió de una organización a una cuenta
-> personal en 2025 (starlette, antes `encode/starlette`), con la licencia
-> conservando al titular histórico. La atribución de un paquete a un
+> personal en 2025 (starlette, antes `encode/starlette`; una transferencia
+> histórica documentada, no un procedimiento de sucesión futura), con la
+> licencia conservando al titular histórico. La atribución de un paquete a un
 > repositorio, por tanto, **no es estable en el tiempo**: hay que fecharla.
 >
-> Sobre **financiación**, solo cabe decir lo que los proyectos declaran:
-> patrocinio personal o corporativo en cuatro de los seis casos (SQLAlchemy vía
-> Tidelift y Patreon; psycopg con un programa de patrocinadores que incluye
-> empresas del sector; starlette con patrocinio de cuenta y aportación visible
-> de FastAPI) y **ninguna declaración localizada** en los otros dos. Que no
-> haya declaración pública no significa que no haya recursos; y donde la hay,
-> no sabemos cuánto ni a qué dedicación corresponden.
+> Sobre **financiación**, solo cabe decir lo que los proyectos declaran. Los
+> canales documentados: para el conjunto SQLAlchemy/Alembic, patrocinio de
+> organización (GitHub Sponsors), Patreon y una suscripción de Tidelift —una
+> sola estructura que cubre dos de los seis casos estudiados—; para psycopg, un
+> programa de patrocinio del proyecto con tiers corporativos y patrocinio de la
+> cuenta del responsable técnico; para starlette, patrocinio de la cuenta
+> titular. Cuatro de las seis unidades de caso declaran algún canal, pero son
+> solo tres estructuras distintas: ese «cuatro de seis» no es una tasa de
+> financiación entre organizaciones independientes. En idna solo consta una
+> afiliación declarada de la cuenta (no una financiación) y en typing_extensions
+> no se localizó declaración alguna. Que no haya declaración pública no
+> significa que no haya recursos; y donde la hay, no sabemos cuánto ni a qué
+> dedicación corresponden —la remuneración efectiva no está demostrada en
+> ningún caso.
 >
 > Una advertencia que el Paso 5 ya dejó escrita: parte de la revisión y de la
 > publicación observable pertenece a **automatización no declarada** como bot
@@ -118,7 +126,20 @@ con selección —no seis fichas enciclopédicas—:
   no es confirmación independiente.»* (claim C16).
 - **§051 (H4):** añadir: *«En SQLAlchemy el contraste se apoya en el rol de
   integración porque la cuenta que encabeza la revisión es la del pipeline de
-  CI del proyecto (sqla-tester), no una persona revisando.»* (C17).
+  CI del proyecto (sqla-tester), no una persona revisando.»* (C17). Añadir
+  además, para equilibrar el matiz: *«En otros repositorios la autoría, la
+  integración y la revisión sí tienen la misma cuenta principal: en 10 de los
+  16 repositorios con los tres roles evaluables (12 meses). La distribución
+  depende de la actividad observada, y esa coincidencia no demuestra por sí
+  sola responsabilidad formal ni mantenimiento unipersonal.»* (C39). H4
+  contrasta tres planos (autoría, integración, revisión): **no** incorpora la
+  publicación de versiones; cualquier frase sobre «quién publica» se apoya en
+  la documentación y en `repo-metrics.csv`, no en H4.
+- **§002–§006 (introducción):** añadir una frase de alcance: *«Este artículo
+  describe una instalación concreta: 35 repositorios medidos en sus eventos
+  públicos y seis de ellos leídos en profundidad, elegidos por una regla fija
+  antes de ver sus métricas.»* (C50). La separación 35 (cuantitativo) / 6
+  (cualitativo) debe resultar inequívoca desde la introducción.
 - **§055–§056 (cohorte):** añadir la frase de cierre: *«Esta comparación queda
   formalmente diferida a un estudio posterior con su propio protocolo y
   denominador; no forma parte de estos resultados.»* (C43).
@@ -236,5 +257,63 @@ Propuesta (metadato editorial; **no** modifica resultados):
 | 2 | Envío y gestión de la revisión factual | Autor (mensajes ya redactados) |
 | 3 | Integración física de figuras y pruebas de tema | Agente del tema / autor |
 | 4 | Instalación del plugin de bloque en producción | Autor (requiere acceso al sitio) |
-| 5 | Decisión sobre H-01 (hash de `README.md` en el manifiesto del Paso 4) | Autor |
+| 5 | ~~Decisión sobre H-01 (hash de `README.md` en el manifiesto del Paso 4)~~ | **Resuelto en la auditoría correctiva 2026-11-03**: entrada refrescada tras verificar y documentar H-01 (`corrective-audit.md`) |
 | 6 | Notas de lectura del protocolo de Notion (no recuperables sin autenticación) | Autor, si quiere incorporarlas |
+
+## 7. Redacción definitiva recomendada (post-auditoría 2026-11-03)
+
+Texto listo para integrar; sustituye cualquier borrador anterior y respeta
+cuentas ≠ personas y el alcance de caso único.
+
+- **Respuesta central.** «¿Quién mantiene el software del que depende
+  DeudaMundi? Puede saberse, con precisión fechada y auditable, quién aparece
+  como autor, quién integra, quién revisa y quién publica en los repositorios
+  de origen, y qué declaran esos proyectos sobre sus roles, procesos y
+  recursos. Hasta ahí llega la evidencia pública: lo que no puede verse —el
+  trabajo que no deja registro, la identidad detrás de las cuentas, las horas,
+  los sueldos ni el futuro— queda explícitamente fuera.»
+- **H1.** «En 14 de los 22 repositorios con actividad suficiente, una sola
+  cuenta firmó más de la mitad de los commits no automatizados del año al
+  corte (12 m); en 24 m, 19 de 28. La cifra describe eventos por cuenta, no
+  personas, ni riesgo, ni bus factor.»
+- **H2.** «Medir por commits o por PR fusionados cambia la categoría de
+  concentración en 6 de los 18 repositorios comparables (12 m): la autoría de
+  commits se concentra más que la de PR. Donde la fusión es squash, ambas
+  métricas cuentan el mismo trabajo dos veces; donde la integración real pasa
+  por herramientas externas a GitHub (Gerrit), la métrica de PR observa un
+  canal secundario.»
+- **H3.** «Cuatro repositorios publicaron en PyPI durante el año observado sin
+  crear un solo GitHub Release (psycopg, certifi, httpx, tzlocal): “sin
+  releases” no significa “sin mantenimiento” —tampoco lo contrario—; significa
+  que hay que mirar en otro lugar.»
+- **H4.** «En algunos repositorios, la autoría, integración y revisión tienen
+  cuentas principales distintas; en otros coinciden. La distribución depende
+  de la actividad observada, y esa coincidencia no demuestra por sí sola
+  responsabilidad formal ni mantenimiento unipersonal. Concretamente, en 6 de
+  los 16 repositorios con los tres roles evaluables las cuentas principales
+  difieren y en 10 coinciden (12 m).»
+- **Límites.** «El estudio reconstruyó una parte documentada y observable del
+  mantenimiento: responsables declarados, roles públicos y actividad medida.
+  No determina la relación cuenta–persona, el esfuerzo real ni la remuneración
+  (información no determinada), y no estima sostenibilidad, abandono ni riesgo
+  futuros (preguntas fuera del alcance).»
+- **Gobernanza y financiación.** «Los seis proyectos documentan procesos —
+  revisión en Gerrit, pipelines de release firmados, roles nombrados— y uno
+  documenta además una transferencia histórica de administración (starlette,
+  2025); ninguno documenta un procedimiento de relevo futuro. Sobre dinero,
+  solo lo declarado: tres estructuras distintas de patrocinio en cuatro de las
+  seis unidades de caso, sin que la declaración demuestre remuneración ni
+  dedicación.»
+- **Puente económico.** «Reproducir una biblioteca cuesta casi nada; mantenerla
+  cuesta trabajo persistente que ninguna de estas magnitudes captura. Este
+  estudio describe sus huellas públicas, sin valorarlas económicamente.»
+- **Preguntas abiertas.** «La identidad detrás de las cuentas, el trabajo que
+  no deja registro, la sostenibilidad económica de cada proyecto y la cohorte
+  comparativa de otros backends (diferida) quedan como agenda, no como
+  resultados.»
+- **Conclusión.** «Una investigación concluida no es la que responde todas las
+  preguntas, sino la que responde rigurosamente las delimitadas por su método,
+  declara sus límites y deja una agenda coherente. Aquí: sabemos quién escribe,
+  integra, revisa y publica —y qué se declara sobre quién coordina y financia—
+  en las dependencias Python de esta aplicación; no sabemos —y no lo
+  fingimos— cuánto vale ese trabajo ni cuánto durará.»

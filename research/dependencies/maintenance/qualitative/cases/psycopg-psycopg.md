@@ -46,6 +46,13 @@ distribuciones instaladas — límite ya declarado para repos compartidos.
   Daniele Varrazzo. **No se identifican cuentas entre sí**: se registra que la
   propiedad registrada del paquete y las autorías declaradas son campos
   distintos con valores distintos.
+- **Sucesión y continuidad (clasificación de la auditoría 2026-11-03):**
+  **roles y responsabilidades formales documentados** (Technical Lead y
+  Operations Lead con funciones escritas; proceso de release documentado) —
+  categoría 2 —; **relevo o sucesión futura no localizado** (categorías 4/5).
+  Sin `GOVERNANCE`/`SECURITY`/`CONTRIBUTING` en raíz ni `.github/` (E2 de
+  ausencia; E4 para procedimiento de sucesión), lo que **no** contradice la
+  gobernanza observable en la web oficial y en `docs/release.rst`.
 
 ## C. Roles observables (C1/C4)
 
@@ -104,7 +111,9 @@ Métricas congeladas (12 m):
 - Estructura con dos cargos nombrados (Technical/Operations Lead) y un
   «Psycopg Team» autodeclarado: señal documental de distribución de tareas
   operativas (triage, coordinación, docs) **que los commits no capturan** (C8).
-- Sin procedimiento de sucesión escrito localizable (E4).
+- Sin procedimiento de relevo o sucesión futura escrito localizable (E4,
+  búsqueda registrada); sí roles nombrados y proceso de release documentados
+  (categoría 2).
 
 ## F. Contraste con el análisis cuantitativo
 
@@ -114,11 +123,13 @@ Métricas congeladas (12 m):
 | H1 0.658 coincide con la autodescripción «creator and primary maintainer» (E1) del Technical Lead | La propiedad registrada del paquete (`piro`, E2 congelado) **no** coincide con la cuenta top de eventos (`dvarrazzo`): «quién puede publicar» y «quién escribe» son campos distintos | La lectura de que 0 releases = poco mantenimiento: queda refutada en su caso más claro |
 | — | — | El «riesgo por dependencia de una persona»: **no evaluable**; la financiación declarada (patrocinio personal + corporativo) existe, pero nada de ello permite estimar dedicación ni continuidad futura |
 
-**Contraejemplo/limite de validez:** psycopg muestra que los cuatro flujos
-pueden tener **cuatro respuestas distintas** a «quién mantiene» (autoría:
-`dvarrazzo`; integración: repartida; revisión: plural y sin bots; publicación:
-PyPI/tags, sin GitHub Releases), y que la documentación añade un quinto plano
-(operaciones/coordinación) que ningún flujo observa.
+**Contraejemplo/limite de validez:** psycopg muestra que los distintos planos
+pueden tener **respuestas distintas** a «quién mantiene»: los tres planos que
+contrasta H4 (autoría: `dvarrazzo`; integración: más repartida; revisión:
+plural y sin bots — aquí H4 coincide) y, **separado de H4**, el plano de
+publicación (PyPI/tags, sin GitHub Releases; H4 no incorpora la publicación).
+La documentación añade aún otro plano (operaciones/coordinación) que ningún
+flujo observa.
 
 ## G. Fuentes (selección)
 

@@ -50,10 +50,16 @@ ello implique nada sobre su mantenimiento.
   organization». Los metadatos PyPI **congelados** del Paso 3 registran
   `ownership.organization = sqlalchemy` con roles Owner: `CaselIT` y `zzzeek`
   (E2 congelado, 2026-10-30).
-- **Sucesión:** no se localizó `GOVERNANCE.md` ni procedimiento de sucesión
-  (E2 de ausencia sobre el árbol del repo; E4 para cualquier sucesión no
-  documentada). El CODE_OF_CONDUCT menciona «other members of the project's
-  leadership» sin nombrar composición (E1).
+- **Sucesión y continuidad (clasificación de la auditoría 2026-11-03):**
+  **roles y responsabilidades formales documentados** —dos mantenedores
+  declarados, revisión y aceptación por Gerrit con reglas escritas
+  (categoría 2)—; **procedimiento de relevo o sucesión futura no localizado**
+  (categorías 4/5: búsqueda registrada en el árbol del repo). No se localizó
+  `GOVERNANCE.md` (E2 de ausencia sobre el árbol; E4 para cualquier sucesión
+  no documentada), pero su ausencia **no** equivale a ausencia de gobernanza:
+  la gobernanza observable vive en `CONTRIBUTING.md`, la guía de desarrollo y
+  la Community Guide. El CODE_OF_CONDUCT menciona «other members of the
+  project's leadership» sin nombrar composición (E1).
 
 ## C. Roles observables (C1/C4) — contraste con métricas congeladas
 
@@ -115,7 +121,10 @@ Lecturas (C4), sin convertir rankings en responsabilidad:
 - Debate público 2026 (#13324) sobre modernizar el flujo de publicación
   (Trusted Publishing/attestations): señal de revisión de procesos (E1/E2),
   sin concluir sobre su resultado.
-- **Sin mecanismos de sucesión documentados (E4).** La concentración documental
+- **Sin procedimiento de relevo o sucesión futura documentado (E4, búsqueda
+  registrada).** Lo que sí está documentado (categoría 2) son roles,
+  responsabilidades y procesos: revisión/aceptación Gerrit, mantenedores
+  declarados y pipeline de releases. La concentración documental
   de la autoridad (una llave PGP nombrada; «sqlalchemy org itself / infra I do
   most of that personally», Discussion #11553) es un hecho E1/E2 de la cuenta;
   **no** se traduce a predicción de continuidad ni a riesgo.
